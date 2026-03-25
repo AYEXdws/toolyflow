@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 
 import { siteConfig } from "@/lib/site-config";
@@ -72,16 +71,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale = (await headers()).get("x-toolyflow-locale") ?? "en";
-
   return (
     <html
-      lang={locale}
+      lang="en"
       className={`${plusJakartaSans.variable} ${fraunces.variable} h-full`}
     >
       <body className="min-h-full bg-[color:var(--color-background)] text-[color:var(--color-foreground)] antialiased">

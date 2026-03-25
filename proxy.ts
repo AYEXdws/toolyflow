@@ -19,14 +19,7 @@ export function proxy(request: NextRequest) {
     );
   }
 
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("x-toolyflow-locale", firstSegment);
-
-  return NextResponse.next({
-    request: {
-      headers: requestHeaders,
-    },
-  });
+  return NextResponse.next();
 }
 
 export const config = {
