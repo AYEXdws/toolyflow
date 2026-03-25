@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Toolyflow
 
-## Getting Started
+Toolyflow is a multilingual online tools website built with Next.js, TypeScript, and Tailwind CSS. The current MVP includes:
 
-First, run the development server:
+- Bio Generator
+- Nickname Generator
+- QR Code Generator
+- Case Converter
+- Decision Wheel
+
+The site is responsive, SEO-focused, and designed to run mostly client-side for low complexity and fast delivery.
+
+## Stack
+
+- Next.js App Router
+- TypeScript
+- Tailwind CSS v4
+- React 19
+
+## Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run the full release check before deploying:
 
-## Learn More
+```bash
+npm run check
+```
 
-To learn more about Next.js, take a look at the following resources:
+This runs:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- ESLint
+- TypeScript type-checking
+- production build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Environment Variables
 
-## Deploy on Vercel
+Create an `.env.local` file if you want to override the production site URL locally.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+SITE_URL=https://your-domain.com
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Use your real production domain before launch so canonical URLs, sitemap entries, Open Graph metadata, and robots output all match the deployed site.
+
+## Deployment
+
+The project is deployment-ready for Vercel and other Node-compatible platforms.
+
+### Recommended: Vercel
+
+1. Import the repository into Vercel.
+2. Set the production domain.
+3. Add `NEXT_PUBLIC_SITE_URL` and `SITE_URL` with the final domain.
+4. Deploy.
+
+Build settings:
+
+- Install command: `npm install`
+- Build command: `npm run build`
+- Output: default Next.js output
+
+### Manual Node Deployment
+
+```bash
+npm install
+npm run build
+npm start
+```
+
+## Launch Checklist
+
+- Set the final production domain in environment variables.
+- Verify `robots.txt` and `sitemap.xml` on the deployed domain.
+- Test `/en`, `/tr`, `/es`, `/de`, `/fr`, `/pt`.
+- Check mobile and desktop layouts.
+- Validate metadata previews with an Open Graph debugger.
+- Connect analytics and Search Console after launch.
+
+## Notes
+
+- Multilingual SEO is enabled with locale routes and alternate language metadata.
+- Open Graph and Twitter preview images are generated in-app.
+- Most tools are client-side to keep hosting simple and fast.
