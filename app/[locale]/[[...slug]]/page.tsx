@@ -174,7 +174,6 @@ function renderHome(locale: Locale) {
               key={tool.slug}
               tool={tool}
               href={localizePath(locale, tool.slug)}
-              openToolLabel={dictionary.shared.openTool}
               goLabel={dictionary.shared.go}
             />
           ))}
