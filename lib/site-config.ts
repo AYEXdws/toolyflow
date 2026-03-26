@@ -28,5 +28,5 @@ export const siteConfig = {
   description: "Fast, simple, free online tools.",
   url: resolveSiteUrl(),
   email: "hello@toolyflow.com",
-  ogImagePath: "/opengraph-image",
+  ogImagePath: "/images/toolyflow-og.png",
 };

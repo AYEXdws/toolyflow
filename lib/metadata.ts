@@ -27,6 +27,7 @@ export function createLocalizedMetadata({
   const socialImage = new URL(siteConfig.ogImagePath, siteConfig.url);
 
   return {
+    metadataBase: new URL(siteConfig.url),
     title,
     description,
     keywords,

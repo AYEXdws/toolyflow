@@ -75,6 +75,20 @@ export type Dictionary = {
     toolsTitle: string;
     toolsDescription: string;
     features: Array<{ title: string; description: string }>;
+    searchLabel: string;
+    searchPlaceholder: string;
+    searchEmpty: string;
+    whyEyebrow: string;
+    whyTitle: string;
+    whyDescription: string;
+    brandPoints: Array<{ title: string; description: string }>;
+    useCasesEyebrow: string;
+    useCasesTitle: string;
+    useCasesDescription: string;
+    useCases: Array<{ title: string; description: string }>;
+    faqEyebrow: string;
+    faqTitle: string;
+    faqs: Array<{ question: string; answer: string }>;
   };
   staticPages: Record<StaticPageContent["slug"], StaticPageContent>;
   tools: Record<ToolSlug, LocalizedTool>;
@@ -83,10 +97,19 @@ export type Dictionary = {
     placeholder: string;
     characters: string;
     words: string;
+    lines: string;
+    readingTime: string;
     clearText: string;
     uppercase: string;
     lowercase: string;
-    capitalize: string;
+    sentenceCase: string;
+    titleCase: string;
+    camelCase: string;
+    pascalCase: string;
+    snakeCase: string;
+    kebabCase: string;
+    trimmedText: string;
+    singleLine: string;
     copy: string;
     copied: string;
   };
@@ -94,20 +117,48 @@ export type Dictionary = {
     inputLabel: string;
     placeholder: string;
     download: string;
+    downloadSvg: string;
     clear: string;
     livePreview: string;
     emptyState: string;
     generating: string;
     helper: string;
+    typeLabel: string;
+    sizeLabel: string;
+    foregroundLabel: string;
+    backgroundLabel: string;
+    urlMode: string;
+    textMode: string;
+    emailMode: string;
+    phoneMode: string;
+    wifiMode: string;
+    emailLabel: string;
+    subjectLabel: string;
+    bodyLabel: string;
+    phoneLabel: string;
+    ssidLabel: string;
+    passwordLabel: string;
+    securityLabel: string;
+    securityWpa: string;
+    securityWep: string;
+    securityOpen: string;
   };
   nicknameGenerator: {
     keywordLabel: string;
     keywordPlaceholder: string;
     styleLabel: string;
+    lengthLabel: string;
+    symbolsLabel: string;
+    pronounceableLabel: string;
     generateMore: string;
+    copyButton: string;
     tapToCopy: string;
     copied: string;
+    toggleOn: string;
+    toggleOff: string;
     styles: Record<"cool" | "dark" | "gaming" | "aesthetic", string>;
+    lengthModes: Record<"short" | "balanced" | "long", string>;
+    symbolModes: Record<"none" | "light" | "bold", string>;
     seeds: Record<
       "cool" | "dark" | "gaming" | "aesthetic",
       { left: string[]; right: string[] }
@@ -118,18 +169,39 @@ export type Dictionary = {
     namePlaceholder: string;
     platformLabel: string;
     toneLabel: string;
+    lengthLabel: string;
+    emojiLabel: string;
+    ctaLabel: string;
     generate: string;
     copy: string;
     copied: string;
-    platforms: Record<"instagram" | "gaming" | "personal", string>;
+    toggleOn: string;
+    toggleOff: string;
+    platforms: Record<"instagram" | "tiktok" | "x" | "youtube" | "twitch", string>;
     tones: Record<
-      "cool" | "mysterious" | "personal" | "professional" | "minimal" | "bold",
+      | "cool"
+      | "mysterious"
+      | "personal"
+      | "professional"
+      | "minimal"
+      | "bold"
+      | "playful"
+      | "sharp",
       string
     >;
+    lengths: Record<"short" | "balanced" | "long", string>;
     defaultName: string;
-    platformLines: Record<"instagram" | "gaming" | "personal", string[]>;
+    platformLines: Record<"instagram" | "tiktok" | "x" | "youtube" | "twitch", string[]>;
+    ctaLines: Record<"instagram" | "tiktok" | "x" | "youtube" | "twitch", string[]>;
     templates: Record<
-      "cool" | "mysterious" | "personal" | "professional" | "minimal" | "bold",
+      | "cool"
+      | "mysterious"
+      | "personal"
+      | "professional"
+      | "minimal"
+      | "bold"
+      | "playful"
+      | "sharp",
       { starters: string[]; closings: string[] }
     >;
   };
@@ -145,10 +217,10 @@ export type Dictionary = {
 };
 
 const baseToolSlugs: ToolSlug[] = [
+  "case-converter",
   "bio-generator",
   "nickname-generator",
   "qr-generator",
-  "case-converter",
   "decision-wheel",
 ];
 
@@ -183,46 +255,111 @@ function createEnglishDictionary(): Dictionary {
     home: {
       metaTitle: "Fast, simple, free online tools",
       metaDescription:
-        "Toolyflow is a fast mini tools website with free online tools, separate tool pages, responsive layouts, and SEO-friendly structure.",
+        "Toolyflow is a focused utility hub for text tools, creator tools, and quick online tasks with clean pages and multilingual SEO structure.",
       keywords: [
         "online tools",
         "free online tools",
-        "mini tools website",
+        "text tools online",
+        "creator tools",
         "qr code generator",
         "case converter",
         "bio generator",
       ],
-      eyebrow: "Online tools website",
+      eyebrow: "Focused utility hub",
       title: "Toolyflow",
-      tagline: "Fast, simple, free online tools.",
+      tagline: "Fast text tools and creator tools that feel useful.",
       description:
-        "Toolyflow is built as a clean mini tools website with focused utility pages, strong SEO structure, and a responsive layout that feels like a real product instead of a demo.",
+        "Toolyflow brings together text tools, creator tools, and quick utilities in clean pages people can return to and use on any device.",
       primaryCta: "Browse tools",
       secondaryCta: "Learn more",
       stats: [
-        { label: "First release", value: "6 languages" },
-        { label: "Tool stack", value: "5 tools" },
-        { label: "Experience", value: "All screens" },
+        { label: "Focus", value: "2 clusters" },
+        { label: "Core tools", value: "4 primary" },
+        { label: "Coverage", value: "6 languages" },
       ],
-      toolsEyebrow: "Tool library",
-      toolsTitle: "Useful tools, one clear page each",
+      toolsEyebrow: "Core tools",
+      toolsTitle: "Built around text tools and creator tools",
       toolsDescription:
-        "Each tool has its own route, metadata, and focused interface so the site stays easy to browse, index, and scale across multiple languages.",
+        "The main library now prioritizes tools for writing, formatting, bios, usernames, and fast creator workflows. Lighter utilities stay available without defining the whole product.",
       features: [
         {
-          title: "Clean structure",
+          title: "Text tools",
           description:
-            "Reusable components, separate tool pages, and a production-minded file structure keep the codebase ready for growth.",
+            "Formatting, cleanup, and writing helpers should become the strongest layer of the product because they solve repeat problems with clear search intent.",
         },
         {
-          title: "Client-side first",
+          title: "Creator tools",
           description:
-            "The MVP avoids unnecessary backend complexity. Tools run mostly in the browser for speed, simplicity, and lower maintenance.",
+            "Bio, username, nickname, and profile-oriented pages should feel tailored for creators instead of sounding like generic generators.",
         },
         {
-          title: "Trust-ready pages",
+          title: "Quick utilities",
           description:
-            "About, Contact, Privacy Policy, and Terms of Service are included to make the site feel complete and more ad-ready.",
+            "Small utility pages still matter, but they support the brand instead of leading it. Toolyflow should feel focused before it feels broad.",
+        },
+      ],
+      searchLabel: "Find a page fast",
+      searchPlaceholder: "Search tools and categories",
+      searchEmpty: "No matching tools or categories yet.",
+      whyEyebrow: "Why Toolyflow",
+      whyTitle: "Built for fast, low-friction daily tasks",
+      whyDescription:
+        "Toolyflow should feel like a product with a point of view: fast entry, useful output, low friction, and pages that are easy to trust on both mobile and desktop.",
+      brandPoints: [
+        {
+          title: "Fast first action",
+          description:
+            "The first useful interaction should happen immediately. Inputs stay visible, outputs stay easy to copy, and the page does not make the user work to get value.",
+        },
+        {
+          title: "Focused scope",
+          description:
+            "The product now centers on text workflows and creator workflows so users understand what Toolyflow is good at within seconds.",
+        },
+        {
+          title: "Clean enough to return to",
+          description:
+            "The brand should feel practical and calm, not loud. The goal is to be the page users keep open while they work.",
+        },
+      ],
+      useCasesEyebrow: "Use cases",
+      useCasesTitle: "Where the product should earn repeat visits",
+      useCasesDescription:
+        "The best tools are the ones people reuse in real workflows. These are the moments Toolyflow is being shaped for.",
+      useCases: [
+        {
+          title: "Quick text cleanup",
+          description:
+            "Clean titles, descriptions, notes, and copied text fast without jumping between multiple pages.",
+        },
+        {
+          title: "Profile publishing",
+          description:
+            "Write bios, shape handles, and generate profile assets when publishing for Instagram, TikTok, X, YouTube, or Twitch.",
+        },
+        {
+          title: "Small creator tasks",
+          description:
+            "Handle QR links, lightweight utilities, and repeat setup tasks without leaving the main workflow.",
+        },
+      ],
+      faqEyebrow: "FAQ",
+      faqTitle: "Questions a real product should answer",
+      faqs: [
+        {
+          question: "What is Toolyflow focused on now?",
+          answer:
+            "Toolyflow is now focused on text tools, creator tools, and a smaller layer of quick utilities. The goal is to stay useful, clear, and easy to return to.",
+        },
+        {
+          question: "Are the tools free to use?",
+          answer:
+            "Yes. The current product is designed around fast, browser-based tools that are free to open and use without account setup.",
+        },
+        {
+          question: "Does Toolyflow work well on mobile?",
+          answer:
+            "Yes. The interface is being shaped so the same tools stay clean and readable on phones, tablets, and desktop screens.",
         },
       ],
     },
@@ -234,7 +371,7 @@ function createEnglishDictionary(): Dictionary {
           "Learn what Toolyflow is, why it exists, and how the project is designed around fast and simple online tools.",
         keywords: ["about toolyflow", "online tools website", "free online tools"],
         eyebrow: "About Toolyflow",
-        title: "A focused mini tools website",
+        title: "A focused utility website",
         description:
           "Toolyflow is built to offer quick, clean, free online tools without unnecessary friction.",
         sections: [
@@ -244,9 +381,9 @@ function createEnglishDictionary(): Dictionary {
               "Toolyflow is an online tools website focused on everyday utility pages that open fast, work well on any screen size, and stay simple enough to use in seconds.",
           },
           {
-            title: "How the first version is designed",
+            title: "What the product is becoming",
             body:
-              "The first release is an MVP with five working tools: Bio Generator, Nickname Generator, QR Code Generator, Case Converter, and Decision Wheel. Each one lives on its own page instead of being packed into a single long screen.",
+              "Toolyflow is moving toward a sharper product direction built around text tools and creator tools. Quick utilities still exist, but the main product now leads with clearer, more useful workflows.",
           },
           {
             title: "Why the product stays simple",
@@ -345,14 +482,14 @@ function createEnglishDictionary(): Dictionary {
         slug: "bio-generator",
         name: "Bio Generator",
         shortDescription:
-          "Generate short bios for social profiles, gaming pages, and personal branding.",
+          "Generate sharper bios for Instagram, TikTok, X, YouTube, and Twitch.",
         description:
-          "Write clean social bios with tone controls for Instagram, gaming, personal, cool, and mysterious styles.",
+          "Generate cleaner bios by platform, tone, length, emoji use, and CTA style, then copy the version that fits your profile.",
         eyebrow: "Social profile tool",
         accentLabel: "BIO",
         metaTitle: "Bio Generator",
         metaDescription:
-          "Generate short bios for Instagram, gaming, and personal profiles with different tones using a free online bio generator.",
+          "Generate cleaner bios for Instagram, TikTok, X, YouTube, and Twitch with tone, length, emoji, and CTA controls in a free online bio generator.",
         keywords: [
           "bio generator",
           "instagram bio generator",
@@ -360,12 +497,12 @@ function createEnglishDictionary(): Dictionary {
           "profile bio ideas",
         ],
         highlights: [
-          "Tone controls help shape bios for different personal brands.",
-          "Works well for social profiles, creator pages, and gaming handles.",
-          "Generates multiple options at once so the page never feels empty.",
+          "Tone, length, emoji, and CTA controls shape the output more precisely.",
+          "Works well for social profiles, creator pages, and channel bios.",
+          "Each generate action returns a fresh batch of bio options to compare quickly.",
         ],
         structuredDescription:
-          "Free online bio generator for Instagram, gaming, and personal profiles.",
+          "Free online bio generator for creator profiles with platform, tone, length, emoji, and CTA controls.",
       },
       "nickname-generator": {
         slug: "nickname-generator",
@@ -386,12 +523,12 @@ function createEnglishDictionary(): Dictionary {
           "cool nicknames",
         ],
         highlights: [
-          "Useful for usernames, social handles, and gaming tags.",
-          "Style filters keep the results aligned with the vibe you want.",
-          "Each suggestion is ready to copy in one tap.",
+          "Useful for usernames, social handles, creator aliases, and gaming tags.",
+          "Style, length, symbol, and readability filters keep the results aligned with the vibe you want.",
+          "Each suggestion is ready to copy in one tap and refresh into a new batch.",
         ],
         structuredDescription:
-          "Free online nickname generator for cool, dark, gaming, and aesthetic styles.",
+          "Free online nickname generator for cool, dark, gaming, and aesthetic handles with style and readability controls.",
       },
       "qr-generator": {
         slug: "qr-generator",
@@ -399,12 +536,12 @@ function createEnglishDictionary(): Dictionary {
         shortDescription:
           "Turn any link or text into a QR code and download it instantly.",
         description:
-          "Create a QR code in the browser with live previews and one-click download for sharing links fast.",
+          "Create QR codes in the browser with live previews, multiple QR types, and quick PNG or SVG downloads.",
         eyebrow: "Utility tool",
         accentLabel: "QR",
         metaTitle: "QR Code Generator",
         metaDescription:
-          "Generate a QR code from any text or link and download it instantly with a free online QR code generator.",
+          "Generate QR codes for links, text, email, phone, or WiFi and download them instantly as PNG or SVG.",
         keywords: ["qr code generator", "free qr code generator", "url to qr", "text to qr"],
         highlights: [
           "Instant QR previews update as you type.",
@@ -412,20 +549,20 @@ function createEnglishDictionary(): Dictionary {
           "Useful for links, menus, event pages, and quick sharing.",
         ],
         structuredDescription:
-          "Free online QR code generator with instant preview and PNG download.",
+          "Free online QR code generator with instant preview, multiple QR types, and PNG or SVG download.",
       },
       "case-converter": {
         slug: "case-converter",
         name: "Case Converter",
         shortDescription:
-          "Convert text to uppercase, lowercase, or capitalized format in one place.",
+          "Convert text across uppercase, lowercase, sentence, title, camel, snake, and kebab formats.",
         description:
-          "Switch text case instantly, compare outputs side by side, and copy the version you need.",
+          "Switch text case instantly, compare richer outputs side by side, and copy the version you need.",
         eyebrow: "Text formatting tool",
         accentLabel: "CASE",
         metaTitle: "Case Converter",
         metaDescription:
-          "Convert text to uppercase, lowercase, or capitalized format with a fast and simple free online case converter.",
+          "Convert text to uppercase, lowercase, sentence case, title case, camelCase, snake_case, and more with a fast free online case converter.",
         keywords: ["case converter", "uppercase converter", "lowercase converter", "capitalize text"],
         highlights: [
           "Fast for titles, captions, notes, and quick formatting checks.",
@@ -433,16 +570,16 @@ function createEnglishDictionary(): Dictionary {
           "Works cleanly on mobile, tablet, and desktop layouts.",
         ],
         structuredDescription:
-          "Free online case converter for uppercase, lowercase, and capitalized text.",
+          "Free online case converter for uppercase, lowercase, sentence case, title case, camelCase, snake_case, and kebab-case text.",
       },
       "decision-wheel": {
         slug: "decision-wheel",
         name: "Decision Wheel",
         shortDescription:
-          "Enter options, spin the wheel, and let the result pick for you.",
+          "Spin through options when you need a lightweight extra utility for quick picks.",
         description:
-          "Use a lightweight random picker with animated spinning and clear results for quick decisions.",
-        eyebrow: "Picker tool",
+          "Use a lightweight random picker with animated spinning and clear results when you need a bonus utility outside the core text and creator flows.",
+        eyebrow: "Quick utility",
         accentLabel: "WHEEL",
         metaTitle: "Decision Wheel",
         metaDescription:
@@ -462,10 +599,19 @@ function createEnglishDictionary(): Dictionary {
       placeholder: "Enter or paste text to convert.",
       characters: "Characters",
       words: "Words",
+      lines: "Lines",
+      readingTime: "Read time",
       clearText: "Clear text",
       uppercase: "Uppercase",
       lowercase: "Lowercase",
-      capitalize: "Capitalize",
+      sentenceCase: "Sentence case",
+      titleCase: "Title Case",
+      camelCase: "camelCase",
+      pascalCase: "PascalCase",
+      snakeCase: "snake_case",
+      kebabCase: "kebab-case",
+      trimmedText: "Trimmed text",
+      singleLine: "Single line",
       copy: "Copy",
       copied: "Copied",
     },
@@ -473,24 +619,60 @@ function createEnglishDictionary(): Dictionary {
       inputLabel: "Text or URL",
       placeholder: "Paste a link, coupon text, or plain message.",
       download: "Download PNG",
+      downloadSvg: "Download SVG",
       clear: "Clear",
       livePreview: "Live preview",
       emptyState: "Add text or a link to generate a QR code instantly.",
       generating: "Generating your QR code...",
-      helper: "Everything runs client-side for fast previews and simple downloads.",
+      helper: "Everything runs client-side with live previews, format selection, and direct downloads.",
+      typeLabel: "QR type",
+      sizeLabel: "Size",
+      foregroundLabel: "Foreground",
+      backgroundLabel: "Background",
+      urlMode: "URL",
+      textMode: "Text",
+      emailMode: "Email",
+      phoneMode: "Phone",
+      wifiMode: "WiFi",
+      emailLabel: "Email address",
+      subjectLabel: "Subject",
+      bodyLabel: "Message",
+      phoneLabel: "Phone number",
+      ssidLabel: "WiFi name",
+      passwordLabel: "Password",
+      securityLabel: "Security",
+      securityWpa: "WPA",
+      securityWep: "WEP",
+      securityOpen: "Open",
     },
     nicknameGenerator: {
       keywordLabel: "Keyword or vibe",
       keywordPlaceholder: "e.g. orbit, raven, pixel",
       styleLabel: "Pick a style",
+      lengthLabel: "Length",
+      symbolsLabel: "Symbols",
+      pronounceableLabel: "Pronounceable",
       generateMore: "Generate more",
+      copyButton: "Copy",
       tapToCopy: "Tap to copy",
       copied: "Copied to clipboard",
+      toggleOn: "On",
+      toggleOff: "Off",
       styles: {
         cool: "Cool",
         dark: "Dark",
         gaming: "Gaming",
         aesthetic: "Aesthetic",
+      },
+      lengthModes: {
+        short: "Short",
+        balanced: "Balanced",
+        long: "Long",
+      },
+      symbolModes: {
+        none: "Clean",
+        light: "Light",
+        bold: "Styled",
       },
       seeds: {
         cool: {
@@ -516,13 +698,20 @@ function createEnglishDictionary(): Dictionary {
       namePlaceholder: "@yourhandle",
       platformLabel: "Platform",
       toneLabel: "Tone",
-      generate: "Generate bio",
-      copy: "Click to copy",
+      lengthLabel: "Length",
+      emojiLabel: "Emoji",
+      ctaLabel: "CTA line",
+      generate: "Generate bios",
+      copy: "Copy",
       copied: "Copied",
+      toggleOn: "On",
+      toggleOff: "Off",
       platforms: {
         instagram: "Instagram",
-        gaming: "Gaming",
-        personal: "Personal",
+        tiktok: "TikTok",
+        x: "X",
+        youtube: "YouTube",
+        twitch: "Twitch",
       },
       tones: {
         cool: "Cool",
@@ -531,6 +720,13 @@ function createEnglishDictionary(): Dictionary {
         professional: "Professional",
         minimal: "Minimal",
         bold: "Bold",
+        playful: "Playful",
+        sharp: "Sharp",
+      },
+      lengths: {
+        short: "Short",
+        balanced: "Balanced",
+        long: "Long",
       },
       defaultName: "",
       platformLines: {
@@ -540,34 +736,68 @@ function createEnglishDictionary(): Dictionary {
           "simple content, strong identity",
           "clear style, calm energy",
         ],
-        gaming: [
-          "calm aim, smart reads",
-          "queue ready, focus locked",
-          "clean plays, strong finishes",
-          "steady wins over loud moments",
+        tiktok: [
+          "short edits, clear taste",
+          "fast ideas, strong identity",
+          "sharp clips, calm confidence",
+          "posting with rhythm, not noise",
         ],
-        personal: [
-          "building useful work consistently",
-          "learning in public, staying clear",
-          "progress, clarity, momentum",
-          "simple process, honest output",
+        x: [
+          "clear thoughts, zero filler",
+          "signal first, noise last",
+          "posting with intent and timing",
+          "short form, strong point of view",
+        ],
+        youtube: [
+          "long form ideas, clean editing",
+          "building useful videos consistently",
+          "clear voice, steady uploads",
+          "publishing with structure and taste",
+        ],
+        twitch: [
+          "live focus, calm energy",
+          "community first, chaos controlled",
+          "smart plays, readable vibes",
+          "steady streams, clean presence",
+        ],
+      },
+      ctaLines: {
+        instagram: [
+          "open to collabs",
+          "building quietly every week",
+        ],
+        tiktok: [
+          "new drops on the feed",
+          "follow for the next edit",
+        ],
+        x: [
+          "sharing useful notes in public",
+          "writing the next version in real time",
+        ],
+        youtube: [
+          "new videos on the channel",
+          "watch the next build unfold",
+        ],
+        twitch: [
+          "catch the next live session",
+          "live when the signal feels right",
         ],
       },
       templates: {
-        cool: {
-          starters: [
-            "low noise, clear direction",
-            "sharp taste, steady momentum",
-            "quiet moves, strong presence",
-            "simple energy, real focus",
-          ],
-          closings: [
-            "quality over volume",
-            "clean, useful, memorable",
-            "always refining the next version",
-            "made to feel effortless",
-          ],
-        },
+      cool: {
+        starters: [
+          "low noise, clear direction",
+          "sharp taste, steady momentum",
+          "quiet moves, strong presence",
+          "simple energy, real focus",
+        ],
+        closings: [
+          "built to stay clear and memorable",
+          "steady work, clean signal",
+          "quiet consistency, visible taste",
+          "keeps the standard high",
+        ],
+      },
         mysterious: {
           starters: [
             "a little hidden, fully intentional",
@@ -638,6 +868,34 @@ function createEnglishDictionary(): Dictionary {
             "bold, readable, intentional",
           ],
         },
+        playful: {
+          starters: [
+            "light mood, clean identity",
+            "fun energy without trying too hard",
+            "playful tone, clear style",
+            "easy to read, easy to remember",
+          ],
+          closings: [
+            "still clean, never messy",
+            "bright without losing focus",
+            "good taste with a little motion",
+            "soft edges, strong recall",
+          ],
+        },
+        sharp: {
+          starters: [
+            "clear point, quick impact",
+            "concise voice, strong edge",
+            "fast signal, tight delivery",
+            "clean lines, no wasted words",
+          ],
+          closings: [
+            "made to land quickly",
+            "short, exact, memorable",
+            "strong shape, low friction",
+            "built for instant clarity",
+          ],
+        },
       },
     },
     decisionWheel: {
@@ -696,6 +954,14 @@ function translateDictionary(
         ...base.nicknameGenerator.styles,
         ...overrides.nicknameGenerator?.styles,
       },
+      lengthModes: {
+        ...base.nicknameGenerator.lengthModes,
+        ...overrides.nicknameGenerator?.lengthModes,
+      },
+      symbolModes: {
+        ...base.nicknameGenerator.symbolModes,
+        ...overrides.nicknameGenerator?.symbolModes,
+      },
       seeds: {
         ...base.nicknameGenerator.seeds,
         ...overrides.nicknameGenerator?.seeds,
@@ -711,6 +977,14 @@ function translateDictionary(
       tones: {
         ...base.bioGenerator.tones,
         ...overrides.bioGenerator?.tones,
+      },
+      lengths: {
+        ...base.bioGenerator.lengths,
+        ...overrides.bioGenerator?.lengths,
+      },
+      ctaLines: {
+        ...base.bioGenerator.ctaLines,
+        ...overrides.bioGenerator?.ctaLines,
       },
       templates: {
         ...base.bioGenerator.templates,
@@ -755,45 +1029,110 @@ const tr = translateDictionary(en, "tr", {
   home: {
     metaTitle: "Hızlı, sade ve ücretsiz online araçlar",
     metaDescription:
-      "Toolyflow; ücretsiz online araçlar, ayrı tool sayfaları, responsive tasarım ve SEO odaklı yapı sunan hızlı bir mini tools sitesidir.",
+      "Toolyflow; metin araçları, creator araçları ve hızlı online yardımcılar için odaklı sayfalar sunan çok dilli bir utility hub'dır.",
     keywords: [
       "online araçlar",
       "ücretsiz online araçlar",
-      "mini tools sitesi",
+      "metin araçları",
+      "creator araçları",
       "qr code generator",
       "case converter",
       "bio generator",
     ],
-    eyebrow: "Online araç sitesi",
-    tagline: "Hızlı, sade ve ücretsiz online araçlar.",
+    eyebrow: "Odaklı utility hub",
+    tagline: "Gerçekten işe yarayan metin ve creator araçları.",
     description:
-      "Toolyflow; odaklı araç sayfaları, güçlü SEO yapısı ve gerçek ürün hissi veren responsive düzeniyle kurulan temiz bir mini tools sitesidir.",
+      "Toolyflow; metin araçları, creator araçları ve hızlı yardımcı utility sayfalarını telefonda ve masaüstünde rahat kullanılan temiz bir ürün içinde bir araya getirir.",
     primaryCta: "Araçlara göz at",
     secondaryCta: "Daha fazla bilgi",
     stats: [
-      { label: "İlk sürüm", value: "6 dil" },
-      { label: "Araç sayısı", value: "5 araç" },
-      { label: "Deneyim", value: "Her ekran" },
+      { label: "Odak", value: "2 cluster" },
+      { label: "Ana araçlar", value: "4 öncelik" },
+      { label: "Kapsam", value: "6 dil" },
     ],
-    toolsEyebrow: "Araç kütüphanesi",
-    toolsTitle: "Her araç için ayrı, net bir sayfa",
+    toolsEyebrow: "Ana araçlar",
+    toolsTitle: "Metin araçları ve creator araçları etrafında kuruldu",
     toolsDescription:
-      "Her araç kendi route, metadata ve odaklı arayüzüyle geliyor. Böylece site hem çok dilli büyüyor hem de indekslenmesi kolay kalıyor.",
+      "Ana araç kütüphanesi; yazma, düzenleme, bio, nickname ve hızlı creator iş akışlarını öne çıkarır. Daha hafif utility araçları ise ürünü destekleyen ikinci katmanda kalır.",
     features: [
       {
-        title: "Temiz yapı",
+        title: "Metin araçları",
         description:
-          "Tekrar kullanılabilir component yapısı ve ayrı tool sayfaları kod tabanını büyümeye hazır tutuyor.",
+          "Yazı biçimlendirme, temizlik ve hızlı düzenleme araçları ürünün en güçlü katmanına dönüşmelidir çünkü tekrar eden ihtiyaç çözerler.",
       },
       {
-        title: "Client-side öncelikli",
+        title: "Creator araçları",
         description:
-          "MVP gereksiz backend kurmuyor. Araçlar çoğunlukla tarayıcıda çalışarak hızı ve bakım kolaylığını koruyor.",
+          "Bio, username ve nickname sayfaları jenerik his vermek yerine creator odaklı, kısa ve sahiplenilebilir çıktılar sunmalıdır.",
       },
       {
-        title: "Güven veren sayfalar",
+        title: "Hızlı yardımcı araçlar",
         description:
-          "About, Contact, Privacy Policy ve Terms of Service sayfaları siteyi daha tamamlanmış ve reklam hazırlıklı gösteriyor.",
+          "Küçük yardımcı araçlar hâlâ önemli; ancak artık markayı taşıyan ana omurga değiller. Önce odak, sonra genişlik gelmelidir.",
+      },
+    ],
+    searchLabel: "Hızlı arama",
+    searchPlaceholder: "Araç veya kategori ara",
+    searchEmpty: "Eşleşen araç veya kategori bulunamadı.",
+    whyEyebrow: "Neden Toolyflow",
+    whyTitle: "Hızlı ve düşük sürtünmeli günlük işler için kuruldu",
+    whyDescription:
+      "Toolyflow’un amacı yalnızca sayfa açmak değil; hızlı giriş, net çıktı, düşük sürtünme ve mobilde de güven veren bir araç deneyimi kurmaktır.",
+    brandPoints: [
+      {
+        title: "İlk aksiyon hızlı olmalı",
+        description:
+          "Kullanıcı sayfaya girdiğinde hemen değer almalı. Input alanı görünür, çıktı kopyalanabilir ve arayüz gereksiz uğraş çıkarmamalı.",
+      },
+      {
+        title: "Odaklı kapsam",
+        description:
+          "Ürün artık metin iş akışları ve creator iş akışları etrafında kurulduğu için Toolyflow’un neye iyi geldiği birkaç saniyede anlaşılmalı.",
+      },
+      {
+        title: "Geri dönülebilir sadelik",
+        description:
+          "Marka yüksek sesli değil, pratik ve sakin hissettirmeli. Hedef; çalışırken açık bırakılan araç sayfası olmak.",
+      },
+    ],
+    useCasesEyebrow: "Kullanım senaryoları",
+    useCasesTitle: "Tekrar ziyaret getirecek kullanım alanları",
+    useCasesDescription:
+      "En iyi araçlar gerçek iş akışlarına tekrar giren araçlardır. Toolyflow da bu anlar için şekilleniyor.",
+    useCases: [
+      {
+        title: "Hızlı metin temizliği",
+        description:
+          "Başlık, açıklama, not veya kopyalanmış metinleri birden fazla sayfa açmadan hızlıca düzenle.",
+      },
+      {
+        title: "Profil yayınlama akışı",
+        description:
+          "Instagram, TikTok, X, YouTube veya Twitch için bio yaz, nickname şekillendir ve profil tarafını daha hızlı hazırla.",
+      },
+      {
+        title: "Küçük creator işleri",
+        description:
+          "QR linkleri, hafif utility araçları ve tekrar eden küçük görevleri ana akıştan kopmadan çöz.",
+      },
+    ],
+    faqEyebrow: "Sık sorulanlar",
+    faqTitle: "Gerçek bir ürünün cevap vermesi gereken sorular",
+    faqs: [
+      {
+        question: "Toolyflow şu anda neye odaklanıyor?",
+        answer:
+          "Toolyflow artık metin araçları, creator araçları ve daha küçük bir hızlı utility katmanına odaklanıyor. Amaç geniş görünmek değil, net ve kullanışlı kalmak.",
+      },
+      {
+        question: "Araçlar ücretsiz mi?",
+        answer:
+          "Evet. Mevcut yapı, hesap açtırmadan tarayıcıda çalışan hızlı ve ücretsiz araçlar etrafında kuruludur.",
+      },
+      {
+        question: "Mobilde düzgün çalışıyor mu?",
+        answer:
+          "Evet. Arayüz, aynı araçların telefonda, tablette ve masaüstünde temiz ve okunabilir kalması için tasarlanıyor.",
       },
     ],
   },
@@ -805,7 +1144,7 @@ const tr = translateDictionary(en, "tr", {
         "Toolyflow’un ne olduğunu, neden kurulduğunu ve hızlı online araçlar etrafında nasıl tasarlandığını öğrenin.",
       keywords: ["toolyflow hakkında", "online araç sitesi", "ücretsiz online araçlar"],
       eyebrow: "Toolyflow Hakkında",
-      title: "Odaklı bir mini tools sitesi",
+      title: "Odaklı bir utility sitesi",
       description:
         "Toolyflow, gereksiz karmaşa olmadan hızlı, temiz ve ücretsiz online araçlar sunmak için kuruldu.",
       sections: [
@@ -815,9 +1154,9 @@ const tr = translateDictionary(en, "tr", {
             "Toolyflow; hızlı açılan, her ekranda düzgün çalışan ve saniyeler içinde kullanılabilen günlük yardımcı araçlara odaklanan bir online tools sitesidir.",
         },
         {
-          title: "İlk sürüm nasıl tasarlandı",
+          title: "Ürün hangi yöne gidiyor",
           body:
-            "İlk yayınlanan sürüm; Bio Generator, Nickname Generator, QR Code Generator, Case Converter ve Decision Wheel araçlarından oluşan çalışan bir MVP’dir. Hepsi tek sayfaya yığılmak yerine ayrı sayfalarda sunulur.",
+            "Toolyflow artık metin araçları ve creator araçları etrafında daha net konumlanan bir ürüne dönüşüyor. Hızlı utility sayfaları kalır, ancak ürün kimliğini onlar belirlemez.",
         },
         {
           title: "Neden sade tutuldu",
@@ -916,19 +1255,19 @@ const tr = translateDictionary(en, "tr", {
       ...en.tools["bio-generator"],
       name: "Bio Generator",
       shortDescription:
-        "Sosyal profiller, oyuncu hesapları ve kişisel markalar için kısa biyografiler üretin.",
+        "Instagram, TikTok, X, YouTube ve Twitch için daha güçlü bio alternatifleri üretin.",
       description:
-        "Instagram, gaming, personal, cool ve mysterious tonlarıyla temiz biyografiler oluşturun.",
+        "Platform, ton, uzunluk, emoji ve CTA seçerek daha temiz bio alternatifleri üretin ve profilinize uyanı kopyalayın.",
       eyebrow: "Sosyal profil aracı",
       metaDescription:
-        "Instagram, oyun ve kişisel profiller için farklı tonlarda kısa biyografiler üretin.",
+        "Instagram, TikTok, X, YouTube ve Twitch için ton, uzunluk, emoji ve CTA kontrolleriyle ücretsiz bio üretin.",
       highlights: [
-        "Farklı kişisel marka stilleri için ton seçimi sunar.",
-        "Sosyal profil, içerik üretici sayfası ve oyuncu hesapları için uygundur.",
-        "Sayfayı boş bırakmadan birden fazla bio önerisi üretir.",
+        "Ton, uzunluk, emoji ve CTA kontrolleri çıktıyı daha net şekillendirir.",
+        "Sosyal profil, creator sayfası ve kanal bio'ları için uygundur.",
+        "Her üretimde hızlıca karşılaştırabileceğiniz yeni bir bio batch'i gelir.",
       ],
       structuredDescription:
-        "Instagram, oyun ve kişisel profiller için ücretsiz online bio generator.",
+        "Platform, ton, uzunluk, emoji ve CTA kontrolleri sunan ücretsiz online bio generator.",
     },
     "nickname-generator": {
       ...en.tools["nickname-generator"],
@@ -941,12 +1280,12 @@ const tr = translateDictionary(en, "tr", {
       metaDescription:
         "Cool, dark, gaming ve aesthetic stillerde ücretsiz takma ad önerileri üretin.",
       highlights: [
-        "Kullanıcı adı, sosyal medya handle ve oyun nicki için uygundur.",
-        "Stil filtreleri sonucu istediğiniz havaya yaklaştırır.",
-        "Her öneri tek dokunuşla kopyalanabilir.",
+        "Kullanıcı adı, sosyal medya handle, creator alias ve oyun nicki için uygundur.",
+        "Stil, uzunluk, sembol ve okunabilirlik filtreleri sonucu istediğiniz havaya yaklaştırır.",
+        "Her öneri tek dokunuşla kopyalanabilir ve yeni batch ile tazelenebilir.",
       ],
       structuredDescription:
-        "Cool, dark, gaming ve aesthetic stiller için ücretsiz nickname generator.",
+        "Stil ve okunabilirlik kontrolleri sunan ücretsiz nickname generator.",
     },
     "qr-generator": {
       ...en.tools["qr-generator"],
@@ -954,35 +1293,35 @@ const tr = translateDictionary(en, "tr", {
       shortDescription:
         "Herhangi bir linki veya metni QR koda dönüştürün ve anında indirin.",
       description:
-        "Tarayıcı içinde canlı önizleme ve tek tık indirme ile hızlı QR kod üretin.",
+        "Tarayıcı içinde canlı önizleme, farklı QR tipleri ve PNG veya SVG indirme ile hızlı QR kod üretin.",
       eyebrow: "Yardımcı araç",
       metaDescription:
-        "Metin veya linkten ücretsiz şekilde QR kod oluşturun ve anında indirin.",
+        "Link, metin, e-posta, telefon veya WiFi için ücretsiz QR kod oluşturun ve PNG ya da SVG olarak indirin.",
       highlights: [
         "Yazdıkça anında QR önizlemesi güncellenir.",
         "PNG indirme süreci tek tıkla basit kalır.",
         "Link, menü, etkinlik sayfası ve hızlı paylaşım için idealdir.",
       ],
       structuredDescription:
-        "Canlı önizleme ve PNG indirme sunan ücretsiz QR code generator.",
+        "Canlı önizleme, farklı QR tipleri ve PNG veya SVG indirme sunan ücretsiz QR code generator.",
     },
     "case-converter": {
       ...en.tools["case-converter"],
       name: "Case Converter",
       shortDescription:
-        "Metni uppercase, lowercase veya capitalize formatına tek yerde dönüştürün.",
+        "Metni uppercase, lowercase, sentence, title, camel, snake ve kebab formatlarına dönüştürün.",
       description:
-        "Metin biçimini anında değiştirin, yan yana karşılaştırın ve ihtiyacınız olanı kopyalayın.",
+        "Metin biçimini anında değiştirin, zengin çıktıları yan yana karşılaştırın ve ihtiyacınız olanı kopyalayın.",
       eyebrow: "Metin biçimlendirme aracı",
       metaDescription:
-        "Metni uppercase, lowercase veya capitalize formatına hızlıca dönüştürün.",
+        "Metni uppercase, lowercase, sentence case, title case, camelCase, snake_case ve daha fazlasına hızlıca dönüştürün.",
       highlights: [
         "Başlıklar, açıklamalar ve notlar için hızlıdır.",
         "Çıktıları tek ekranda tuttuğu için ekstra tıklama istemez.",
         "Mobil, tablet ve masaüstünde temiz çalışır.",
       ],
       structuredDescription:
-        "Uppercase, lowercase ve capitalize dönüşümleri için ücretsiz case converter.",
+        "Uppercase, lowercase, sentence case, title case, camelCase, snake_case ve kebab-case için ücretsiz case converter.",
     },
     "decision-wheel": {
       ...en.tools["decision-wheel"],
@@ -1008,10 +1347,19 @@ const tr = translateDictionary(en, "tr", {
     placeholder: "Dönüştürmek için metin girin veya yapıştırın.",
     characters: "Karakter",
     words: "Kelime",
+    lines: "Satır",
+    readingTime: "Okuma süresi",
     clearText: "Metni temizle",
     uppercase: "Büyük harf",
     lowercase: "Küçük harf",
-    capitalize: "Baş harfleri büyüt",
+    sentenceCase: "Cümle düzeni",
+    titleCase: "Başlık düzeni",
+    camelCase: "camelCase",
+    pascalCase: "PascalCase",
+    snakeCase: "snake_case",
+    kebabCase: "kebab-case",
+    trimmedText: "Temizlenmiş metin",
+    singleLine: "Tek satır",
     copy: "Kopyala",
     copied: "Kopyalandı",
   },
@@ -1019,42 +1367,78 @@ const tr = translateDictionary(en, "tr", {
     inputLabel: "Metin veya URL",
     placeholder: "Bir link, not veya düz metin yapıştırın.",
     download: "PNG indir",
+    downloadSvg: "SVG indir",
     clear: "Temizle",
     livePreview: "Canlı önizleme",
     emptyState: "QR kodu anında oluşturmak için metin veya link ekleyin.",
     generating: "QR kodunuz oluşturuluyor...",
-    helper: "Her şey hızlı önizleme ve kolay indirme için client-side çalışır.",
+    helper: "Her şey canlı önizleme, format seçimi ve kolay indirme için client-side çalışır.",
+    typeLabel: "QR tipi",
+    sizeLabel: "Boyut",
+    foregroundLabel: "Ön plan",
+    backgroundLabel: "Arka plan",
+    urlMode: "URL",
+    textMode: "Metin",
+    emailMode: "E-posta",
+    phoneMode: "Telefon",
+    wifiMode: "WiFi",
+    emailLabel: "E-posta adresi",
+    subjectLabel: "Konu",
+    bodyLabel: "Mesaj",
+    phoneLabel: "Telefon numarası",
+    ssidLabel: "WiFi adı",
+    passwordLabel: "Şifre",
+    securityLabel: "Güvenlik",
+    securityWpa: "WPA",
+    securityWep: "WEP",
+    securityOpen: "Açık",
   },
   nicknameGenerator: {
     ...en.nicknameGenerator,
     keywordLabel: "Anahtar kelime veya hava",
     keywordPlaceholder: "ör. orbit, raven, pixel",
     styleLabel: "Bir stil seçin",
+    lengthLabel: "Uzunluk",
+    symbolsLabel: "Sembol stili",
+    pronounceableLabel: "Okunabilirlik",
     generateMore: "Daha fazla üret",
+    copyButton: "Kopyala",
     tapToCopy: "Kopyalamak için dokun",
     copied: "Panoya kopyalandı",
+    toggleOn: "Açık",
+    toggleOff: "Kapalı",
     styles: {
       cool: "Cool",
       dark: "Dark",
       gaming: "Gaming",
       aesthetic: "Aesthetic",
     },
+    lengthModes: {
+      short: "Kısa",
+      balanced: "Dengeli",
+      long: "Uzun",
+    },
+    symbolModes: {
+      none: "Temiz",
+      light: "Hafif",
+      bold: "Stilize",
+    },
     seeds: {
       cool: {
-        left: ["Nova", "Canlı", "Net", "Prime", "Ritim", "Aero", "Parlak", "Akım"],
-        right: ["Akış", "Dalga", "İz", "Ton", "Işık", "Çizgi", "Form", "Yön"],
+        left: ["Nova", "Aero", "Lyra", "Prime", "Vexa", "Nori", "Sora", "Kairo"],
+        right: ["Wave", "Glow", "Lane", "Shift", "Mode", "Flow", "Edge", "Tone"],
       },
       dark: {
-        left: ["Gölge", "Gece", "Kül", "Sessiz", "Kara", "Kuzgun", "Sis", "Obsidyen"],
-        right: ["İz", "Perde", "Duruş", "Pençe", "Yankı", "Form", "Hiza", "Katman"],
+        left: ["Noir", "Nox", "Raven", "Vanta", "Onyx", "Sable", "Morrow", "Nyra"],
+        right: ["Veil", "Drift", "Shade", "Mark", "Mist", "Reign", "Warden", "Fang"],
       },
       gaming: {
-        left: ["Kilit", "Piksel", "Turbo", "Rütbe", "Klan", "Nexus", "Hamle", "Arena"],
-        right: ["Vuruş", "Akın", "Seviye", "Baskın", "Çizgi", "Kombo", "Görev", "Alan"],
+        left: ["Clutch", "Raze", "Pixel", "Blitz", "Ryko", "Quest", "Turbo", "Strix"],
+        right: ["Zone", "Raid", "Boost", "Strike", "Drop", "Forge", "Lock", "Rush"],
       },
       aesthetic: {
-        left: ["Luna", "Aura", "Bulut", "Kadife", "Cove", "Mellow", "Flora", "Yumuşak"],
-        right: ["Not", "Işık", "Düş", "Stüdyo", "Çizgi", "Bahçe", "Form", "Esinti"],
+        left: ["Luna", "Velvet", "Aura", "Melo", "Ciel", "Auri", "Bloom", "Mira"],
+        right: ["Muse", "Glow", "Dream", "Line", "Note", "Diary", "Cove", "Studio"],
       },
     },
   },
@@ -1064,13 +1448,20 @@ const tr = translateDictionary(en, "tr", {
     namePlaceholder: "@kullaniciadi",
     platformLabel: "Platform",
     toneLabel: "Ton",
+    lengthLabel: "Uzunluk",
+    emojiLabel: "Emoji",
+    ctaLabel: "CTA satırı",
     generate: "Bio üret",
-    copy: "Kopyalamak için tıkla",
+    copy: "Kopyala",
     copied: "Kopyalandı",
+    toggleOn: "Açık",
+    toggleOff: "Kapalı",
     platforms: {
       instagram: "Instagram",
-      gaming: "Gaming",
-      personal: "Kişisel",
+      tiktok: "TikTok",
+      x: "X",
+      youtube: "YouTube",
+      twitch: "Twitch",
     },
     tones: {
       cool: "Cool",
@@ -1079,6 +1470,13 @@ const tr = translateDictionary(en, "tr", {
       professional: "Profesyonel",
       minimal: "Minimal",
       bold: "Güçlü",
+      playful: "Eğlenceli",
+      sharp: "Keskin",
+    },
+    lengths: {
+      short: "Kısa",
+      balanced: "Dengeli",
+      long: "Uzun",
     },
     defaultName: "",
     platformLines: {
@@ -1088,18 +1486,37 @@ const tr = translateDictionary(en, "tr", {
         "belirgin çizgi, sade kimlik",
         "gürültü değil, niyetli paylaşım",
       ],
-      gaming: [
-        "sakin refleks, akıllı oyun",
-        "odak açık, tempo kontrollü",
-        "temiz oyun, güçlü kapanış",
-        "soğukkanlı karar, net sonuç",
+      tiktok: [
+        "kısa format, net kimlik",
+        "hızlı fikir, temiz akış",
+        "ritimli paylaşım, güçlü stil",
+        "kısa içerik, belirgin tat",
       ],
-      personal: [
-        "düzenli üretim, faydalı işler",
-        "dürüst süreç, net paylaşım",
-        "görünür ilerleme, sade dil",
-        "tutarlılık ve açıklık odağı",
+      x: [
+        "kısa cümle, net bakış",
+        "gürültüden çok sinyal",
+        "niyetli paylaşım, temiz dil",
+        "az laf, güçlü görüş",
       ],
+      youtube: [
+        "uzun format, net anlatım",
+        "düzenli video, temiz kurgu",
+        "istikrarlı yayın, güçlü ses",
+        "içerikte yapı, üretimde süreklilik",
+      ],
+      twitch: [
+        "canlı odak, sakin enerji",
+        "topluluk güçlü, tempo kontrollü",
+        "okunur yayın, net karakter",
+        "düzenli stream, temiz görünüm",
+      ],
+    },
+    ctaLines: {
+      instagram: ["iş birliklerine açık", "her hafta daha temiz üretim"],
+      tiktok: ["sıradaki edit akışta", "devamı için takipte kal"],
+      x: ["notları açık şekilde paylaşır", "bir sonraki versiyonu canlı kurar"],
+      youtube: ["yeni videolar kanalda", "bir sonraki yapımı takip et"],
+      twitch: ["sonraki canlı yayında görüşürüz", "sinyal gelince canlıda"],
     },
     templates: {
       cool: {
@@ -1110,10 +1527,10 @@ const tr = translateDictionary(en, "tr", {
           "sade enerji, gerçek odak",
         ],
         closings: [
-          "hacim değil kalite",
-          "temiz, faydalı, akılda kalan",
-          "bir sonrakini daha iyi kurmaya odaklı",
-          "kolay görünen ama düşünülmüş",
+          "çizgisi net, etkisi kalıcı",
+          "sessiz ama güçlü bir iz bırakır",
+          "istikrarını gösterişe tercih eder",
+          "karışmadan dikkat çeker",
         ],
       },
       mysterious: {
@@ -1148,14 +1565,14 @@ const tr = translateDictionary(en, "tr", {
         starters: [
           "faydalı iş, net sonuç",
           "fikirleri düzenli çıktıya çevirir",
-          "açıklık, güven, uygulama",
+          "işi düzenli ve güven veren şekilde kurar",
           "düzenli standartlarla üretir",
         ],
         closings: [
           "iyi süreç, temiz sonuç",
           "sistemli çalışma, güçlü çıktı",
           "profesyonel ama soğuk değil",
-          "tutarlılığı marka parçası sayar",
+          "düzenli çizgi, güven veren sonuç",
         ],
       },
       minimal: {
@@ -1184,6 +1601,34 @@ const tr = translateDictionary(en, "tr", {
           "güçlü görünür, anlaşılır kalır",
           "temiz etki bırakmaya odaklı",
           "belirgin, okunabilir, bilinçli",
+        ],
+      },
+      playful: {
+        starters: [
+          "hafif enerji, temiz kimlik",
+          "zorlamadan eğlenceli görünür",
+          "oyunlu ton, net stil",
+          "akılda kalır, karmaşık durmaz",
+        ],
+        closings: [
+          "dağılmadan canlı kalır",
+          "hafif ama net görünür",
+          "hareketli ama temiz durur",
+          "kolay okunur, çabuk hatırlanır",
+        ],
+      },
+      sharp: {
+        starters: [
+          "kısa cümle, hızlı etki",
+          "net ton, sert kenar",
+          "fazlalıksız güçlü ifade",
+          "temiz çizgi, direkt mesaj",
+        ],
+        closings: [
+          "hızlı oturur, net kalır",
+          "kısa, kesin, akılda kalır",
+          "sürtünmesi düşük, etkisi yüksek",
+          "hızlı anlaşılır, kolay dağılmaz",
         ],
       },
     },
@@ -1232,37 +1677,37 @@ const es = translateDictionary(en, "es", {
   home: {
     metaTitle: "Herramientas online rápidas, simples y gratis",
     metaDescription:
-      "Toolyflow es un sitio de mini herramientas con páginas separadas, diseño responsive y estructura SEO para atraer tráfico internacional.",
-    eyebrow: "Sitio de herramientas online",
-    tagline: "Herramientas online rápidas, simples y gratis.",
+      "Toolyflow es un hub utilitario centrado en herramientas de texto, herramientas para creadores y tareas online rápidas con estructura multilingüe.",
+    eyebrow: "Hub utilitario enfocado",
+    tagline: "Herramientas de texto y para creadores que sí se sienten útiles.",
     description:
-      "Toolyflow está diseñado como un sitio limpio de mini herramientas con páginas enfocadas, estructura SEO sólida y una experiencia responsive que parece producto real.",
+      "Toolyflow reúne herramientas de texto, herramientas para creadores y utilidades rápidas en páginas limpias a las que puedes volver y usar en cualquier dispositivo.",
     primaryCta: "Ver herramientas",
     secondaryCta: "Saber más",
     stats: [
-      { label: "Primera versión", value: "6 idiomas" },
-      { label: "Colección", value: "5 herramientas" },
-      { label: "Enfoque", value: "Tráfico SEO" },
+      { label: "Enfoque", value: "2 grupos" },
+      { label: "Herramientas clave", value: "4 principales" },
+      { label: "Cobertura", value: "6 idiomas" },
     ],
-    toolsEyebrow: "Biblioteca",
-    toolsTitle: "Herramientas útiles, una página clara para cada una",
+    toolsEyebrow: "Herramientas clave",
+    toolsTitle: "Construido alrededor de herramientas de texto y para creadores",
     toolsDescription:
-      "Cada herramienta tiene su propia ruta, metadata e interfaz enfocada para que el sitio sea fácil de indexar y escalar en varios idiomas.",
+      "La biblioteca principal prioriza herramientas para escribir, limpiar texto, crear bios y generar nombres. Las utilidades más ligeras siguen presentes, pero ya no definen todo el producto.",
     features: [
       {
-        title: "Estructura limpia",
+        title: "Herramientas de texto",
         description:
-          "Los componentes reutilizables y las páginas separadas mantienen el proyecto listo para crecer.",
+          "Las herramientas de formato, limpieza y escritura deben convertirse en la capa más fuerte del producto porque resuelven necesidades repetidas con intención clara.",
       },
       {
-        title: "Cliente primero",
+        title: "Herramientas para creadores",
         description:
-          "El MVP evita un backend innecesario. La mayoría de las herramientas funcionan en el navegador para ganar velocidad y simplicidad.",
+          "Las páginas de bio, nickname y perfil deben sentirse hechas para creadores, no como generadores genéricos.",
       },
       {
-        title: "Páginas de confianza",
+        title: "Utilidades rápidas",
         description:
-          "About, Contact, Privacy Policy y Terms of Service ayudan a que el sitio se vea más completo y preparado para monetización.",
+          "Las utilidades pequeñas siguen siendo útiles, pero ahora apoyan la marca en lugar de liderarla.",
       },
     ],
   },
@@ -1272,6 +1717,7 @@ const es = translateDictionary(en, "es", {
     keywordPlaceholder: "p. ej. luna, pixel, sombra",
     styleLabel: "Elige un estilo",
     generateMore: "Generar más",
+    copyButton: "Copiar",
     tapToCopy: "Toca para copiar",
     copied: "Copiado al portapapeles",
     styles: {
@@ -1306,12 +1752,14 @@ const es = translateDictionary(en, "es", {
     platformLabel: "Plataforma",
     toneLabel: "Tono",
     generate: "Generar bio",
-    copy: "Haz clic para copiar",
+    copy: "Copiar",
     copied: "Copiado",
     platforms: {
       instagram: "Instagram",
-      gaming: "Gaming",
-      personal: "Personal",
+      tiktok: "TikTok",
+      x: "X",
+      youtube: "YouTube",
+      twitch: "Twitch",
     },
     tones: {
       cool: "Cool",
@@ -1329,17 +1777,29 @@ const es = translateDictionary(en, "es", {
         "Mantiene una identidad visual simple y sólida",
         "Sube contenido con intención, no con ruido",
       ],
-      gaming: [
-        "Juega con calma, lectura rápida y buen cierre",
-        "Entra a la partida con foco total",
-        "Confía en decisiones firmes y ritmo estable",
-        "Mantiene control incluso bajo presión",
+      tiktok: [
+        "Cortes rápidos, identidad clara",
+        "Publica con ritmo y estilo visible",
+        "Ideas breves, señal fuerte",
+        "Movimiento limpio, sin exceso",
       ],
-      personal: [
-        "Construye trabajo útil con constancia",
-        "Comparte su proceso con claridad",
-        "Avanza con enfoque real y ritmo estable",
-        "Prefiere progreso claro antes que ruido",
+      x: [
+        "Escribe con claridad y sin relleno",
+        "Comparte ideas con punto de vista",
+        "Busca señal antes que ruido",
+        "Publica corto, claro y con intención",
+      ],
+      youtube: [
+        "Construye videos útiles con constancia",
+        "Mantiene voz clara y edición limpia",
+        "Publica con estructura y criterio",
+        "Convierte ideas largas en piezas sólidas",
+      ],
+      twitch: [
+        "Juega en vivo con energía estable",
+        "Mantiene control incluso bajo presión",
+        "Lectura rápida y presencia clara",
+        "Comunidad, foco y buen ritmo",
       ],
     },
     templates: {
@@ -1456,22 +1916,22 @@ const de = translateDictionary(en, "de", {
   home: {
     metaTitle: "Schnelle, einfache und kostenlose Online-Tools",
     metaDescription:
-      "Toolyflow ist eine schlanke Mini-Tools-Website mit separaten Tool-Seiten, responsivem Layout und SEO-freundlicher Struktur.",
-    eyebrow: "Online-Tools-Website",
-    tagline: "Schnelle, einfache und kostenlose Online-Tools.",
+      "Toolyflow ist ein fokussierter Utility-Hub für Text-Tools, Creator-Tools und schnelle Online-Aufgaben mit mehrsprachiger Struktur.",
+    eyebrow: "Fokussierter Utility-Hub",
+    tagline: "Text-Tools und Creator-Tools, die wirklich nützlich wirken.",
     description:
-      "Toolyflow ist als saubere Mini-Tools-Website mit fokussierten Hilfsseiten, starker SEO-Struktur und responsivem Produktgefühl aufgebaut.",
+      "Toolyflow richtet sich auf Text-Tools, Creator-Tools und eine kleine Ebene schneller Utilities aus. Das Produkt soll nicht zufällig breit wirken, sondern klar und wiederverwendbar.",
     primaryCta: "Tools ansehen",
     secondaryCta: "Mehr erfahren",
     stats: [
-      { label: "Erste Version", value: "6 Sprachen" },
-      { label: "Tool-Set", value: "5 Tools" },
-      { label: "Ziel", value: "SEO-Traffic" },
+      { label: "Fokus", value: "2 Cluster" },
+      { label: "Kern-Tools", value: "4 Prioritäten" },
+      { label: "Abdeckung", value: "6 Sprachen" },
     ],
-    toolsEyebrow: "Tool-Bibliothek",
-    toolsTitle: "Nützliche Tools, jeweils auf einer klaren Seite",
+    toolsEyebrow: "Kern-Tools",
+    toolsTitle: "Rund um Text-Tools und Creator-Tools aufgebaut",
     toolsDescription:
-      "Jedes Tool hat seine eigene Route, Metadata und fokussierte Oberfläche, damit die Website in mehreren Sprachen leicht indexierbar bleibt.",
+      "Die Hauptbibliothek priorisiert Schreiben, Textbereinigung, Bios, Nicknames und schnelle Creator-Workflows. Leichtere Utilities bleiben verfügbar, stehen aber nicht mehr im Zentrum.",
   },
   nicknameGenerator: {
     ...en.nicknameGenerator,
@@ -1479,6 +1939,7 @@ const de = translateDictionary(en, "de", {
     keywordPlaceholder: "z. B. licht, pixel, rabe",
     styleLabel: "Stil wählen",
     generateMore: "Mehr erzeugen",
+    copyButton: "Kopieren",
     tapToCopy: "Zum Kopieren tippen",
     copied: "In die Zwischenablage kopiert",
     styles: {
@@ -1513,12 +1974,14 @@ const de = translateDictionary(en, "de", {
     platformLabel: "Plattform",
     toneLabel: "Ton",
     generate: "Bio erzeugen",
-    copy: "Zum Kopieren klicken",
+    copy: "Kopieren",
     copied: "Kopiert",
     platforms: {
       instagram: "Instagram",
-      gaming: "Gaming",
-      personal: "Persönlich",
+      tiktok: "TikTok",
+      x: "X",
+      youtube: "YouTube",
+      twitch: "Twitch",
     },
     tones: {
       cool: "Cool",
@@ -1536,17 +1999,29 @@ const de = translateDictionary(en, "de", {
         "Hält die visuelle Linie sauber und stark",
         "Postet bewusst statt beliebig",
       ],
-      gaming: [
-        "Spielt ruhig, liest schnell und schließt sauber ab",
-        "Bleibt auch unter Druck kontrolliert",
-        "Vertraut auf Fokus und saubere Entscheidungen",
-        "Kommt vorbereitet in jede Runde",
+      tiktok: [
+        "Kurze Clips, klare Identität",
+        "Postet mit Rhythmus und deutlichem Stil",
+        "Schnelle Ideen, sauber gesetzt",
+        "Bewegt sich klar statt laut",
       ],
-      personal: [
-        "Arbeitet konstant an nützlichen Ergebnissen",
-        "Teilt Fortschritt mit klarer Haltung",
-        "Lernt sichtbar und bleibt fokussiert",
-        "Setzt auf Klarheit statt auf Lärm",
+      x: [
+        "Schreibt klar und ohne Füllstoff",
+        "Teilt Gedanken mit Haltung",
+        "Signal vor Lärm",
+        "Kurz, deutlich und bewusst",
+      ],
+      youtube: [
+        "Baut nützliche Videos mit Konstanz",
+        "Hält Stimme und Schnitt sauber",
+        "Veröffentlicht mit Struktur",
+        "Macht aus langen Ideen klare Formate",
+      ],
+      twitch: [
+        "Spielt live mit ruhiger Energie",
+        "Bleibt auch unter Druck kontrolliert",
+        "Lesbare Stimmung, klares Timing",
+        "Community, Fokus und saubere Präsenz",
       ],
     },
     templates: {
@@ -1663,22 +2138,22 @@ const fr = translateDictionary(en, "fr", {
   home: {
     metaTitle: "Outils en ligne rapides, simples et gratuits",
     metaDescription:
-      "Toolyflow est un site de mini outils avec pages séparées, structure SEO solide et interface responsive pensée pour le trafic international.",
-    eyebrow: "Site d'outils en ligne",
-    tagline: "Outils en ligne rapides, simples et gratuits.",
+      "Toolyflow est un hub utilitaire centré sur les outils de texte, les outils pour créateurs et les tâches rapides en ligne avec une structure multilingue.",
+    eyebrow: "Hub utilitaire ciblé",
+    tagline: "Des outils de texte et pour créateurs qui paraissent vraiment utiles.",
     description:
-      "Toolyflow est conçu comme un site de mini outils propre avec des pages utiles, une structure SEO forte et une mise en page responsive qui ressemble à un vrai produit.",
+      "Toolyflow réunit des outils de texte, des outils pour créateurs et des utilitaires rapides dans des pages propres que l'on peut réutiliser sur mobile comme sur desktop.",
     primaryCta: "Voir les outils",
     secondaryCta: "En savoir plus",
     stats: [
-      { label: "Première version", value: "6 langues" },
-      { label: "Collection", value: "5 outils" },
-      { label: "Objectif", value: "Trafic SEO" },
+      { label: "Focus", value: "2 groupes" },
+      { label: "Outils clés", value: "4 priorités" },
+      { label: "Couverture", value: "6 langues" },
     ],
-    toolsEyebrow: "Bibliothèque d'outils",
-    toolsTitle: "Des outils utiles, une page claire pour chacun",
+    toolsEyebrow: "Outils clés",
+    toolsTitle: "Construit autour des outils de texte et pour créateurs",
     toolsDescription:
-      "Chaque outil a sa propre route, ses metadata et une interface ciblée pour rester facile à indexer et à faire évoluer en plusieurs langues.",
+      "La bibliothèque principale met en avant l'écriture, le nettoyage de texte, les bios, les pseudos et les flux rapides pour créateurs. Les utilitaires légers restent disponibles, sans définir tout le produit.",
   },
   nicknameGenerator: {
     ...en.nicknameGenerator,
@@ -1686,6 +2161,7 @@ const fr = translateDictionary(en, "fr", {
     keywordPlaceholder: "ex. lune, pixel, ombre",
     styleLabel: "Choisir un style",
     generateMore: "Générer plus",
+    copyButton: "Copier",
     tapToCopy: "Touchez pour copier",
     copied: "Copié dans le presse-papiers",
     styles: {
@@ -1720,12 +2196,14 @@ const fr = translateDictionary(en, "fr", {
     platformLabel: "Plateforme",
     toneLabel: "Ton",
     generate: "Générer une bio",
-    copy: "Cliquer pour copier",
+    copy: "Copier",
     copied: "Copié",
     platforms: {
       instagram: "Instagram",
-      gaming: "Gaming",
-      personal: "Personnel",
+      tiktok: "TikTok",
+      x: "X",
+      youtube: "YouTube",
+      twitch: "Twitch",
     },
     tones: {
       cool: "Cool",
@@ -1743,17 +2221,29 @@ const fr = translateDictionary(en, "fr", {
         "Garde une ligne visuelle simple et forte",
         "Préfère le signal au bruit",
       ],
-      gaming: [
-        "Joue avec calme, lecture rapide et bon timing",
-        "Reste lucide même sous pression",
-        "Mise sur des décisions propres et stables",
-        "Entre en partie avec un vrai focus",
+      tiktok: [
+        "Formats courts, identité claire",
+        "Publie avec rythme et style visible",
+        "Idées rapides, signal propre",
+        "Du mouvement sans confusion",
       ],
-      personal: [
-        "Construit un travail utile avec régularité",
-        "Partage sa progression avec clarté",
-        "Avance avec une énergie simple et constante",
-        "Préfère la cohérence au bruit",
+      x: [
+        "Écrit avec clarté et sans remplissage",
+        "Partage des idées avec angle net",
+        "Cherche le signal avant le bruit",
+        "Court, clair et intentionnel",
+      ],
+      youtube: [
+        "Construit des vidéos utiles avec régularité",
+        "Garde une voix claire et un montage propre",
+        "Publie avec structure",
+        "Transforme les longues idées en formats lisibles",
+      ],
+      twitch: [
+        "Passe en live avec une énergie stable",
+        "Reste lucide même sous pression",
+        "Présence lisible et rythme propre",
+        "Communauté, focus et style clair",
       ],
     },
     templates: {
@@ -1870,22 +2360,22 @@ const pt = translateDictionary(en, "pt", {
   home: {
     metaTitle: "Ferramentas online rápidas, simples e grátis",
     metaDescription:
-      "Toolyflow é um site de mini ferramentas com páginas separadas, estrutura SEO forte e layout responsivo para atrair tráfego internacional.",
-    eyebrow: "Site de ferramentas online",
-    tagline: "Ferramentas online rápidas, simples e grátis.",
+      "Toolyflow é um hub utilitário focado em ferramentas de texto, ferramentas para criadores e tarefas rápidas online com estrutura multilíngue.",
+    eyebrow: "Hub utilitário focado",
+    tagline: "Ferramentas de texto e para criadores que parecem realmente úteis.",
     description:
-      "Toolyflow foi criado como um site limpo de mini ferramentas com páginas focadas, boa estrutura de SEO e layout responsivo com cara de produto real.",
+      "Toolyflow reúne ferramentas de texto, ferramentas para criadores e utilidades rápidas em páginas limpas que funcionam bem no celular e no desktop.",
     primaryCta: "Ver ferramentas",
     secondaryCta: "Saiba mais",
     stats: [
-      { label: "Primeira versão", value: "6 idiomas" },
-      { label: "Coleção", value: "5 ferramentas" },
-      { label: "Objetivo", value: "Tráfego SEO" },
+      { label: "Foco", value: "2 clusters" },
+      { label: "Ferramentas-chave", value: "4 prioridades" },
+      { label: "Cobertura", value: "6 idiomas" },
     ],
-    toolsEyebrow: "Biblioteca",
-    toolsTitle: "Ferramentas úteis, uma página clara para cada uma",
+    toolsEyebrow: "Ferramentas-chave",
+    toolsTitle: "Construído em torno de ferramentas de texto e para criadores",
     toolsDescription:
-      "Cada ferramenta tem sua própria rota, metadata e interface focada, mantendo o site fácil de indexar e escalar em vários idiomas.",
+      "A biblioteca principal prioriza escrita, limpeza de texto, bios, nicknames e fluxos rápidos para criadores. Utilidades mais leves continuam disponíveis, mas já não definem todo o produto.",
   },
   nicknameGenerator: {
     ...en.nicknameGenerator,
@@ -1893,6 +2383,7 @@ const pt = translateDictionary(en, "pt", {
     keywordPlaceholder: "ex. lua, pixel, sombra",
     styleLabel: "Escolha um estilo",
     generateMore: "Gerar mais",
+    copyButton: "Copiar",
     tapToCopy: "Toque para copiar",
     copied: "Copiado para a área de transferência",
     styles: {
@@ -1927,12 +2418,14 @@ const pt = translateDictionary(en, "pt", {
     platformLabel: "Plataforma",
     toneLabel: "Tom",
     generate: "Gerar bio",
-    copy: "Clique para copiar",
+    copy: "Copiar",
     copied: "Copiado",
     platforms: {
       instagram: "Instagram",
-      gaming: "Gaming",
-      personal: "Pessoal",
+      tiktok: "TikTok",
+      x: "X",
+      youtube: "YouTube",
+      twitch: "Twitch",
     },
     tones: {
       cool: "Cool",
@@ -1950,17 +2443,29 @@ const pt = translateDictionary(en, "pt", {
         "Mantém uma linha visual simples e sólida",
         "Prefere intenção no lugar de barulho",
       ],
-      gaming: [
-        "Joga com calma, leitura rápida e decisão firme",
-        "Entra na partida com foco total",
-        "Confia em ritmo estável e escolhas limpas",
-        "Mantém controle mesmo sob pressão",
+      tiktok: [
+        "Formato curto, identidade clara",
+        "Publica com ritmo e estilo visível",
+        "Ideias rápidas, sinal limpo",
+        "Movimento sem excesso",
       ],
-      personal: [
-        "Constrói trabalho útil com consistência",
-        "Compartilha progresso com clareza real",
-        "Avança com foco, ritmo e intenção",
-        "Prefere clareza antes de excesso",
+      x: [
+        "Escreve com clareza e sem excesso",
+        "Compartilha ideias com ponto de vista",
+        "Busca sinal antes de ruído",
+        "Curto, claro e intencional",
+      ],
+      youtube: [
+        "Constrói vídeos úteis com consistência",
+        "Mantém voz clara e edição limpa",
+        "Publica com estrutura",
+        "Transforma ideias longas em formatos fortes",
+      ],
+      twitch: [
+        "Entra ao vivo com energia estável",
+        "Mantém controle mesmo sob pressão",
+        "Clima legível e ritmo limpo",
+        "Comunidade, foco e presença clara",
       ],
     },
     templates: {

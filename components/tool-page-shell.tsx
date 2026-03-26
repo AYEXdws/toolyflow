@@ -31,8 +31,8 @@ export function ToolPageShell({
   return (
     <main className="pb-16">
       <div className="mx-auto max-w-6xl px-4 pt-14 sm:px-6 lg:px-8">
-        <div className="grid gap-8 xl:grid-cols-[minmax(0,1.3fr)_320px]">
-          <section className="space-y-8">
+        <div className="grid gap-8 2xl:grid-cols-[minmax(0,1.3fr)_320px]">
+          <section className="min-w-0 space-y-8">
             <div className="space-y-5 rounded-[32px] border border-black/8 bg-[color:var(--color-surface)] px-6 py-8 shadow-[0_20px_60px_rgba(23,28,24,0.05)] sm:px-8">
               <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[color:var(--color-accent-strong)]">
                 {eyebrow}
@@ -48,7 +48,7 @@ export function ToolPageShell({
             {children}
           </section>
 
-          <aside className="space-y-6">
+          <aside className="min-w-0 space-y-6">
             <div className="rounded-[28px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)]">
               <h2 className="font-display text-2xl tracking-tight text-[color:var(--color-foreground)]">
                 {labels.whyUseIt}

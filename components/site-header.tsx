@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -6,7 +7,8 @@ import { localizePath, type Locale } from "@/lib/i18n";
 type SiteHeaderProps = {
   locale: Locale;
   labels: {
-    tools: string;
+    textTools: string;
+    creatorTools: string;
     about: string;
     contact: string;
     language: string;
@@ -15,7 +17,8 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ locale, labels }: SiteHeaderProps) {
   const navigation = [
-    { href: `${localizePath(locale)}#tools`, label: labels.tools },
+    { href: localizePath(locale, "text-tools"), label: labels.textTools },
+    { href: localizePath(locale, "creator-tools"), label: labels.creatorTools },
     { href: localizePath(locale, "about"), label: labels.about },
     { href: localizePath(locale, "contact"), label: labels.contact },
   ];
@@ -24,8 +27,15 @@ export function SiteHeader({ locale, labels }: SiteHeaderProps) {
     <header className="sticky top-0 z-30 border-b border-black/10 bg-[color:var(--color-surface)] backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-5 px-4 py-4 sm:px-6 lg:px-8">
         <Link href={localizePath(locale)} className="flex items-center gap-3">
-          <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-[color:var(--color-accent)] text-sm font-semibold tracking-[0.24em] text-white">
-            TF
+          <span className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-2xl border border-black/8 bg-white shadow-[0_10px_24px_rgba(23,28,24,0.08)]">
+            <Image
+              src="/images/logo.svg"
+              alt="Toolyflow logo"
+              width={40}
+              height={40}
+              className="h-10 w-10 object-contain"
+              priority
+            />
           </span>
           <span className="font-display text-xl tracking-tight text-[color:var(--color-foreground)]">
             Toolyflow
