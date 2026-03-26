@@ -1,0 +1,21 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" rx="40" fill="#F4EFE6"/>
+  <rect x="60" y="60" width="1080" height="510" rx="36" fill="white"/>
+  <rect x="108" y="183" width="168" height="168" rx="44" fill="#2E7D72"/>
+  <path d="M150 238.125H214.75V251.25H190.375V302H174.625V251.25H150V238.125Z" fill="white"/>
+  <path d="M228.75 238.125H245.375L218.25 302H201.625L228.75 238.125Z" fill="#DFF2EE"/>
+  <text x="324" y="245" fill="#1D2A25" font-family="Georgia, serif" font-size="80" font-weight="700" letter-spacing="-2">
+    Toolyflow
+  </text>
+  <text x="324" y="328" fill="#59645D" font-family="Arial, sans-serif" font-size="28">
+    Fast, simple, free online tools for text and creator workflows.
+  </text>
+  <rect x="324" y="380" width="184" height="52" rx="26" fill="#E4F2EE"/>
+  <text x="356" y="413" fill="#1F6C61" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="1.5">
+    TEXT TOOLS
+  </text>
+  <rect x="526" y="380" width="214" height="52" rx="26" fill="#EDE8DE"/>
+  <text x="560" y="413" fill="#44504A" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="1.5">
+    CREATOR TOOLS
+  </text>
+</svg>
