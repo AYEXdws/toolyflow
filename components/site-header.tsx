@@ -10,17 +10,22 @@ import { localizePath, type Locale } from "@/lib/i18n";
 type SiteHeaderProps = {
   locale: Locale;
   labels: {
+    tools: string;
     textTools: string;
     creatorTools: string;
     about: string;
     contact: string;
     language: string;
+    menu: string;
+    go: string;
   };
 };
 
 export function SiteHeader({ locale, labels }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const homeHref = localizePath(locale);
   const navigation = [
+    { href: `${homeHref}#tools`, label: labels.tools },
     { href: localizePath(locale, "text-tools"), label: labels.textTools },
     { href: localizePath(locale, "creator-tools"), label: labels.creatorTools },
     { href: localizePath(locale, "about"), label: labels.about },
@@ -54,7 +59,7 @@ export function SiteHeader({ locale, labels }: SiteHeaderProps) {
           <button
             type="button"
             aria-expanded={isMenuOpen}
-            aria-label="Open menu"
+            aria-label={labels.menu}
             onClick={() => setIsMenuOpen((value) => !value)}
             className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-black/10 bg-white text-[color:var(--color-foreground)] shadow-[0_10px_24px_rgba(23,28,24,0.08)] transition hover:border-[color:var(--color-accent)] lg:hidden"
           >
@@ -109,7 +114,7 @@ export function SiteHeader({ locale, labels }: SiteHeaderProps) {
                     >
                       <span>{item.label}</span>
                       <span className="text-xs uppercase tracking-[0.18em] text-[color:var(--color-muted)]">
-                        Go
+                        {labels.go}
                       </span>
                     </Link>
                   </li>

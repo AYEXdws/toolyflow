@@ -123,11 +123,14 @@ export default async function LocaleRootLayout({
           <SiteHeader
             locale={typedLocale}
             labels={{
+              tools: dictionary.header.tools,
               textTools: categories[0].name,
               creatorTools: categories[1].name,
               about: dictionary.header.about,
               contact: dictionary.header.contact,
               language: dictionary.shared.language,
+              menu: dictionary.header.menu,
+              go: dictionary.shared.go,
             }}
           />
           <div className="flex-1">{children}</div>

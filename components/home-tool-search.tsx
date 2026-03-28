@@ -8,6 +8,7 @@ type SearchItem = {
   description: string;
   href: string;
   kind: string;
+  terms?: string[];
 };
 
 type HomeToolSearchProps = {
@@ -27,12 +28,14 @@ export function HomeToolSearch({
     const normalizedQuery = query.trim().toLowerCase();
 
     if (!normalizedQuery) {
-      return items.slice(0, 4);
+      return items.slice(0, 7);
     }
 
     return items
       .filter((item) => {
-        const haystack = `${item.label} ${item.description} ${item.kind}`.toLowerCase();
+        const haystack = `${item.label} ${item.description} ${item.kind} ${
+          item.terms?.join(" ") ?? ""
+        }`.toLowerCase();
         return haystack.includes(normalizedQuery);
       })
       .slice(0, 6);

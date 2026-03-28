@@ -119,22 +119,20 @@ function renderHome(locale: Locale) {
   const categoryLabels = getCategoryLabels(locale);
   const categories = getCategories(locale);
   const tools = getToolEntries(locale);
-  const coreTools = tools.filter((tool) => tool.slug !== "decision-wheel");
-  const supportTools = tools.filter((tool) => tool.slug === "decision-wheel");
-  const supportFeature = dictionary.home.features[2];
-  const heroTools = coreTools.slice(0, 3);
   const searchItems = [
-    ...categories.map((category) => ({
-      label: category.navLabel,
-      description: category.description,
-      href: localizePath(locale, category.slug),
-      kind: categoryLabels.categoriesHeading,
-    })),
     ...tools.map((tool) => ({
       label: tool.name,
       description: tool.shortDescription,
       href: localizePath(locale, tool.slug),
       kind: dictionary.header.tools,
+      terms: tool.keywords,
+    })),
+    ...categories.map((category) => ({
+      label: category.navLabel,
+      description: category.description,
+      href: localizePath(locale, category.slug),
+      kind: categoryLabels.categoriesHeading,
+      terms: category.keywords,
     })),
   ];
 
@@ -253,7 +251,7 @@ function renderHome(locale: Locale) {
                     {dictionary.home.toolsEyebrow}
                   </p>
                   <div className="mt-4 space-y-3">
-                    {heroTools.map((tool) => (
+                    {tools.map((tool) => (
                       <Link
                         key={tool.slug}
                         href={localizePath(locale, tool.slug)}
@@ -476,7 +474,7 @@ function renderHome(locale: Locale) {
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-2">
-          {coreTools.map((tool) => (
+          {tools.map((tool) => (
             <ToolCard
               key={tool.slug}
               tool={tool}
@@ -546,34 +544,6 @@ function renderHome(locale: Locale) {
         </div>
       </section>
 
-      {supportTools.length > 0 ? (
-        <section className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8">
-          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-accent-strong)]">
-                {dictionary.shared.exploreMore}
-              </p>
-              <h2 className="mt-3 font-display text-4xl tracking-tight text-[color:var(--color-foreground)]">
-                {supportFeature.title}
-              </h2>
-            </div>
-            <p className="max-w-xl text-sm leading-7 text-[color:var(--color-muted)]">
-              {supportFeature.description}
-            </p>
-          </div>
-
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {supportTools.map((tool) => (
-              <ToolCard
-                key={tool.slug}
-                tool={tool}
-                href={localizePath(locale, tool.slug)}
-                goLabel={dictionary.shared.go}
-              />
-            ))}
-          </div>
-        </section>
-      ) : null}
     </main>
   );
 }
