@@ -73,12 +73,12 @@ export type TextCleanerLabels = {
 const wordCounterContentEn: ToolContentBlock = {
   howToUseTitle: "How to use the word counter",
   howToUseDescription:
-    "Paste the draft, read the core counts, then use the top terms list when you want a quick sense of repetition.",
+    "Paste the draft, scan the core counts, then use the top terms list to catch repetition before you publish.",
   howToUseSteps: [
     {
       title: "Paste the text",
       body:
-        "Drop in a caption, script, article section, or note so the tool can calculate the live word, sentence, and paragraph counts.",
+        "Drop in a caption, script, article section, or note so the tool can calculate live word, sentence, and paragraph counts.",
     },
     {
       title: "Check the main stats",
@@ -116,19 +116,19 @@ const wordCounterContentEn: ToolContentBlock = {
     "A useful word counter should help you judge both size and repetition quickly.",
   examples: [
     {
-      title: "Creator caption check",
+      title: "Post caption check",
       inputLabel: "Input",
-      input: "Short launch note for a new creator tool with a clear CTA and one repeated phrase.",
+      input: "Short launch note for a new tool with a clear follow line and one repeated phrase.",
       outputLabel: "What you read",
       output: "Words: 15\nSentences: 1\nReading time: <1m",
-      note: "Good when you want to know whether a short caption still says enough.",
+      note: "Useful when you want to know whether a short caption still says enough.",
     },
     {
       title: "Draft audit",
       inputLabel: "Input",
-      input: "A longer draft with two paragraphs and several repeated terms around growth, content, and workflow.",
+      input: "A longer draft with two paragraphs and repeated terms around growth, content, and posting.",
       outputLabel: "What you read",
-      output: "Paragraphs: 2\nTop words: content (4), workflow (3), growth (3)",
+      output: "Paragraphs: 2\nTop words: content (4), posting (3), growth (3)",
       note: "Useful when a rewrite should remove repetition rather than only shorten the text.",
     },
   ],
@@ -234,13 +234,769 @@ const textCleanerContentEn: ToolContentBlock = {
   ],
 };
 
+const localizedWordCounterContent: Record<Locale, ToolContentBlock> = {
+  en: wordCounterContentEn,
+  tr: {
+    howToUseTitle: "Kelime sayacı nasıl kullanılır",
+    howToUseDescription:
+      "Metni yapıştırın, ana sayıları okuyun ve tekrar eden kelimeler bölümünü kullanarak gereksiz tekrarları görün.",
+    howToUseSteps: [
+      {
+        title: "Metni yapıştırın",
+        body: "Caption, açıklama, script veya not gibi kontrol etmek istediğiniz metni tek alana bırakın.",
+      },
+      {
+        title: "Ana sayıları okuyun",
+        body: "Kelime, karakter, boşluksuz karakter, cümle, paragraf ve okuma süresi kartlarını birlikte kontrol edin.",
+      },
+      {
+        title: "Tekrar eden kelimeleri tarayın",
+        body: "Metnin fazla kendini tekrar edip etmediğini anlamak için öne çıkan kelimeler bloğunu kullanın.",
+      },
+    ],
+    useCasesTitle: "En iyi kullanım senaryoları",
+    useCasesDescription:
+      "Bu araç; bir metni yayınlamadan, göndermeden veya kısaltmadan önce hızlı kontrol gerektiğinde daha değerlidir.",
+    useCases: [
+      {
+        title: "Paylaşım metni ve kısa açıklama kontrolü",
+        description:
+          "Instagram, TikTok veya X için yazdığınız metnin fazla kısa, gereksiz uzun ya da tekrar dolu olup olmadığını anlayın.",
+      },
+      {
+        title: "YouTube açıklaması ve script",
+        description:
+          "Daha uzun taslaklarda paragraf ve okuma süresi sayılarıyla hızlı bir genel bakış alın.",
+      },
+      {
+        title: "Revizyon sonrası karşılaştırma",
+        description:
+          "Temizlik veya kısaltma sonrası metnin gerçekten daha sıkı hale gelip gelmediğini görün.",
+      },
+    ],
+    examplesTitle: "Örnekler",
+    examplesDescription: "İyi bir kelime sayacı hem metnin boyutunu hem de tekrar seviyesini hızlı göstermelidir.",
+    examples: [
+      {
+          title: "Paylaşım metni kontrolü",
+        inputLabel: "Girdi",
+          input: "Yeni araç duyurusu için kısa bir paylaşım metni ve net bir takip çağrısı.",
+        outputLabel: "Okunan değer",
+        output: "Kelime: 11\nCümle: 1\nOkuma süresi: <1m",
+          note: "Kısa bir paylaşım metninin gerçekten yeterli olup olmadığını hızlıca görürsünüz.",
+      },
+      {
+        title: "Taslak taraması",
+        inputLabel: "Girdi",
+          input: "İki paragraflı, büyüme, içerik ve paylaşım kelimelerini tekrar eden daha uzun bir taslak.",
+        outputLabel: "Okunan değer",
+          output: "Paragraf: 2\nÖne çıkan kelimeler: içerik (4), paylaşım (3), büyüme (3)",
+        note: "Metni kısaltmak yerine tekrarları azaltmak istediğinizde faydalıdır.",
+      },
+    ],
+    faqTitle: "Kelime sayacı sık sorulan sorular",
+    faqs: [
+      {
+        question: "Kelime sayacı neleri ölçer?",
+        answer:
+          "Kelime, karakter, boşluksuz karakter, cümle, paragraf, okuma süresi ve tekrar eden kelimeleri birlikte gösterir.",
+      },
+      {
+          question: "Kısa paylaşım metinlerinde de işe yarar mı?",
+        answer:
+            "Evet. Kısa paylaşım metinlerinde de metnin yeterli olup olmadığını ve kendini tekrar edip etmediğini hızlıca gösterir.",
+      },
+      {
+        question: "Öne çıkan kelimeler ne işe yarar?",
+        answer:
+          "Yavan, tekrar eden veya gereksiz yere uzayan taslakları daha hızlı fark etmeye yardımcı olur.",
+      },
+    ],
+  },
+  es: {
+    howToUseTitle: "Cómo usar el contador de palabras",
+    howToUseDescription:
+      "Pega el texto, revisa los datos principales y usa el bloque de palabras repetidas para detectar redundancias rápido.",
+    howToUseSteps: [
+      {
+        title: "Pega el texto",
+        body: "Añade una leyenda, guion, nota o descripción para calcular palabras, frases y párrafos en vivo.",
+      },
+      {
+        title: "Lee las métricas clave",
+        body: "Usa las tarjetas para ver palabras, caracteres, caracteres sin espacios, frases, párrafos y tiempo de lectura.",
+      },
+      {
+        title: "Revisa las palabras repetidas",
+        body: "El bloque de términos frecuentes te ayuda a encontrar repeticiones antes de publicar o compartir el texto.",
+      },
+    ],
+    useCasesTitle: "Mejores casos de uso",
+    useCasesDescription:
+      "Funciona mejor cuando necesitas una revisión rápida del tamaño del texto antes de publicar, entregar o recortar.",
+    useCases: [
+      {
+        title: "Textos para Instagram, TikTok y X",
+        description:
+          "Comprueba si un texto para publicar es demasiado corto, repetitivo o más largo de lo necesario.",
+      },
+      {
+        title: "Descripciones y guiones de YouTube",
+        description: "Revisa párrafos y tiempo de lectura cuando el borrador ya es más largo.",
+      },
+      {
+        title: "Edición y reescritura",
+        description: "Compara cifras después de limpiar el texto para ver si realmente quedó más claro.",
+      },
+    ],
+    examplesTitle: "Ejemplos",
+    examplesDescription: "Un buen contador de palabras debe ayudarte a medir tamaño y repetición de un vistazo.",
+    examples: [
+      {
+        title: "Control del texto de publicación",
+        inputLabel: "Entrada",
+        input: "Nota corta de lanzamiento para una nueva herramienta con llamada clara y una frase repetida.",
+        outputLabel: "Lo que ves",
+        output: "Palabras: 16\nFrases: 1\nTiempo de lectura: <1m",
+        note: "Útil cuando quieres saber si un texto breve de publicación sigue diciendo lo suficiente.",
+      },
+      {
+        title: "Auditoría de borrador",
+        inputLabel: "Entrada",
+        input: "Un borrador más largo con dos párrafos y varios términos repetidos sobre crecimiento, contenido y publicación.",
+        outputLabel: "Lo que ves",
+        output: "Párrafos: 2\nPalabras destacadas: contenido (4), publicación (3), crecimiento (3)",
+        note: "Sirve cuando la reescritura debe reducir repetición, no solo acortar texto.",
+      },
+    ],
+    faqTitle: "Preguntas frecuentes del contador de palabras",
+    faqs: [
+      {
+        question: "¿Qué mide el contador de palabras?",
+        answer:
+          "Mide palabras, caracteres, caracteres sin espacios, frases, párrafos, tiempo de lectura y términos repetidos.",
+      },
+      {
+        question: "¿Sirve para textos cortos de publicación y borradores largos?",
+        answer:
+          "Sí. Es útil tanto para textos rápidos de publicación como para descripciones, notas y guiones más largos.",
+      },
+      {
+        question: "¿Por qué son útiles las palabras frecuentes?",
+        answer:
+          "Ayudan a ver repeticiones rápidas cuando un texto suena plano o cargado pero no sabes por qué.",
+      },
+    ],
+  },
+  de: {
+    howToUseTitle: "So nutzt du den Wortzähler",
+    howToUseDescription:
+      "Füge den Text ein, lies die Kernzahlen ab und nutze die häufigen Wörter, um Wiederholungen schnell zu erkennen.",
+    howToUseSteps: [
+      {
+        title: "Text einfügen",
+        body: "Füge Caption, Skript, Notiz oder Beschreibung ein, damit Wörter, Sätze und Absätze live berechnet werden.",
+      },
+      {
+        title: "Hauptwerte prüfen",
+        body: "Die Karten zeigen Wörter, Zeichen, Zeichen ohne Leerzeichen, Sätze, Absätze und Lesezeit auf einen Blick.",
+      },
+      {
+        title: "Wiederholungen prüfen",
+        body: "Mit den häufigen Wörtern erkennst du übernutzte Begriffe vor dem Veröffentlichen schneller.",
+      },
+    ],
+    useCasesTitle: "Beste Einsatzfälle",
+    useCasesDescription:
+      "Das Tool ist am stärksten, wenn du vor Veröffentlichung, Abgabe oder Kürzung schnell die Textgröße prüfen willst.",
+    useCases: [
+      {
+        title: "Captions für Instagram, TikTok und X",
+        description: "Prüfe, ob ein kurzer Text zu knapp, zu repetitiv oder unnötig lang geworden ist.",
+      },
+      {
+        title: "YouTube-Beschreibungen und Skripte",
+        description: "Absatz- und Lesezeitwerte helfen bei längeren Entwürfen für einen schnellen Überblick.",
+      },
+      {
+        title: "Editing und Überarbeitung",
+        description: "Vergleiche die Zahlen nach einer Bereinigung, um zu sehen, ob der Text wirklich straffer wurde.",
+      },
+    ],
+    examplesTitle: "Beispiele",
+    examplesDescription: "Ein guter Wortzähler sollte Textgröße und Wiederholung schnell sichtbar machen.",
+    examples: [
+      {
+        title: "Caption-Check",
+        inputLabel: "Eingabe",
+        input: "Kurze Launch-Notiz für ein neues Tool mit klarem Hinweis und einem wiederholten Ausdruck.",
+        outputLabel: "Was du liest",
+        output: "Wörter: 15\nSätze: 1\nLesezeit: <1m",
+        note: "Hilfreich, wenn du wissen willst, ob eine kurze Caption trotzdem genug sagt.",
+      },
+      {
+        title: "Entwurfsprüfung",
+        inputLabel: "Eingabe",
+        input: "Ein längerer Entwurf mit zwei Absätzen und wiederholten Begriffen rund um Wachstum, Content und Workflow.",
+        outputLabel: "Was du liest",
+        output: "Absätze: 2\nTop-Wörter: Content (4), Workflow (3), Wachstum (3)",
+        note: "Praktisch, wenn die Überarbeitung Wiederholungen entfernen soll statt nur zu kürzen.",
+      },
+    ],
+    faqTitle: "Wortzähler FAQ",
+    faqs: [
+      {
+        question: "Was misst der Wortzähler?",
+        answer:
+          "Er misst Wörter, Zeichen, Zeichen ohne Leerzeichen, Sätze, Absätze, Lesezeit und wiederholte Begriffe.",
+      },
+      {
+        question: "Kann ich ihn für kurze Captions und lange Texte nutzen?",
+        answer:
+          "Ja. Er funktioniert für schnelle Caption-Checks genauso wie für längere Beschreibungen, Notizen und Skripte.",
+      },
+      {
+        question: "Warum sind häufige Wörter hilfreich?",
+        answer:
+          "Sie helfen, Wiederholungen schnell zu sehen, besonders wenn ein Text flacher klingt als erwartet.",
+      },
+    ],
+  },
+  fr: {
+    howToUseTitle: "Comment utiliser le compteur de mots",
+    howToUseDescription:
+      "Colle le texte, lis les chiffres principaux puis regarde les mots fréquents pour repérer les répétitions vite.",
+    howToUseSteps: [
+      {
+        title: "Colle le texte",
+        body: "Ajoute une légende, un script, une note ou une description pour calculer mots, phrases et paragraphes en direct.",
+      },
+      {
+        title: "Lis les métriques clés",
+        body: "Les cartes affichent mots, caractères, caractères sans espaces, phrases, paragraphes et temps de lecture.",
+      },
+      {
+        title: "Repère les répétitions",
+        body: "Le bloc des mots fréquents aide à voir les termes trop répétés avant publication.",
+      },
+    ],
+    useCasesTitle: "Meilleurs cas d’usage",
+    useCasesDescription:
+      "Cet outil est le plus utile quand tu veux vérifier rapidement la taille d’un texte avant publication, envoi ou coupe.",
+    useCases: [
+      {
+        title: "Légendes Instagram, TikTok et X",
+        description: "Vérifie si un texte de publication est trop court, trop répétitif ou plus long que nécessaire.",
+      },
+      {
+        title: "Descriptions et scripts YouTube",
+        description: "Les paragraphes et le temps de lecture donnent une vue rapide sur un brouillon plus long.",
+      },
+      {
+        title: "Réécriture et édition",
+        description: "Compare les chiffres après nettoyage pour voir si le texte est vraiment devenu plus serré.",
+      },
+    ],
+    examplesTitle: "Exemples",
+    examplesDescription: "Un bon compteur de mots doit montrer rapidement la taille et la répétition du texte.",
+    examples: [
+      {
+        title: "Vérification du texte de publication",
+        inputLabel: "Entrée",
+        input: "Courte note de lancement pour un nouvel outil avec appel clair et une phrase répétée.",
+        outputLabel: "Ce que tu lis",
+        output: "Mots : 15\nPhrases : 1\nTemps de lecture : <1m",
+        note: "Utile quand tu veux savoir si un texte court de publication reste assez clair.",
+      },
+      {
+        title: "Audit de brouillon",
+        inputLabel: "Entrée",
+        input: "Brouillon plus long avec deux paragraphes et plusieurs termes répétés autour de croissance, contenu et publication.",
+        outputLabel: "Ce que tu lis",
+        output: "Paragraphes : 2\nMots fréquents : contenu (4), publication (3), croissance (3)",
+        note: "Pratique quand la réécriture doit réduire les répétitions plutôt que juste raccourcir.",
+      },
+    ],
+    faqTitle: "FAQ du compteur de mots",
+    faqs: [
+      {
+        question: "Que mesure le compteur de mots ?",
+        answer:
+          "Il mesure les mots, caractères, caractères sans espaces, phrases, paragraphes, temps de lecture et termes répétés.",
+      },
+      {
+        question: "Puis-je l’utiliser pour des textes courts de publication et des brouillons plus longs ?",
+        answer:
+          "Oui. Il est utile pour des textes rapides de publication comme pour des descriptions, notes et scripts plus longs.",
+      },
+      {
+        question: "Pourquoi les mots fréquents sont-ils utiles ?",
+        answer:
+          "Ils aident à repérer les répétitions rapidement quand un texte paraît plus plat que prévu.",
+      },
+    ],
+  },
+  pt: {
+    howToUseTitle: "Como usar o contador de palavras",
+    howToUseDescription:
+      "Cole o texto, leia os números principais e use as palavras frequentes para encontrar repetições mais rápido.",
+    howToUseSteps: [
+      {
+        title: "Cole o texto",
+        body: "Adicione legenda, roteiro, nota ou descrição para calcular palavras, frases e parágrafos ao vivo.",
+      },
+      {
+        title: "Leia as métricas principais",
+        body: "Os cartões mostram palavras, caracteres, caracteres sem espaços, frases, parágrafos e tempo de leitura.",
+      },
+      {
+        title: "Revise as palavras repetidas",
+        body: "O bloco de palavras frequentes ajuda a enxergar repetições antes de publicar ou enviar o texto.",
+      },
+    ],
+    useCasesTitle: "Melhores casos de uso",
+    useCasesDescription:
+      "Esse contador faz mais sentido quando você precisa conferir o tamanho do texto antes de publicar, enviar ou enxugar o rascunho.",
+    useCases: [
+      {
+        title: "Legendas para Instagram, TikTok e X",
+        description: "Veja se um texto de publicação está curto demais, repetitivo ou maior do que precisa.",
+      },
+      {
+        title: "Descrições e roteiros de YouTube",
+        description: "Os dados de parágrafo e tempo de leitura ajudam quando o rascunho já está mais longo.",
+      },
+      {
+        title: "Edição e reescrita",
+        description: "Compare os números depois da limpeza para saber se o texto realmente ficou mais enxuto.",
+      },
+    ],
+    examplesTitle: "Exemplos",
+    examplesDescription: "Um bom contador de palavras deve mostrar tamanho e repetição com rapidez.",
+    examples: [
+      {
+        title: "Checagem de legenda",
+        inputLabel: "Entrada",
+        input: "Nota curta de lançamento para uma nova ferramenta com chamada clara e uma frase repetida.",
+        outputLabel: "O que você vê",
+        output: "Palavras: 15\nFrases: 1\nTempo de leitura: <1m",
+        note: "Útil quando você quer saber se um texto curto de publicação ainda comunica o suficiente.",
+      },
+      {
+        title: "Auditoria de rascunho",
+        inputLabel: "Entrada",
+        input: "Rascunho mais longo com dois parágrafos e termos repetidos sobre crescimento, conteúdo e publicação.",
+        outputLabel: "O que você vê",
+        output: "Parágrafos: 2\nPalavras frequentes: conteúdo (4), publicação (3), crescimento (3)",
+        note: "Bom quando a revisão precisa cortar repetição e não só reduzir o texto.",
+      },
+    ],
+    faqTitle: "Perguntas frequentes do contador de palavras",
+    faqs: [
+      {
+        question: "O que o contador de palavras mede?",
+        answer:
+          "Ele mede palavras, caracteres, caracteres sem espaços, frases, parágrafos, tempo de leitura e termos repetidos.",
+      },
+      {
+        question: "Posso usar para textos curtos de publicação e rascunhos longos?",
+        answer:
+          "Sim. Funciona bem tanto para checks rápidos de publicação quanto para descrições, notas e roteiros mais longos.",
+      },
+      {
+        question: "Por que as palavras frequentes ajudam?",
+        answer:
+          "Elas ajudam a encontrar repetição rapidamente, especialmente quando o texto soa mais fraco do que deveria.",
+      },
+    ],
+  },
+};
+
+const localizedTextCleanerContent: Record<Locale, ToolContentBlock> = {
+  en: textCleanerContentEn,
+  tr: {
+    howToUseTitle: "Metin temizleyici nasıl kullanılır",
+    howToUseDescription:
+      "Dağınık metni bir kez yapıştırın, sonra ihtiyacınız olan temiz formatı seçip doğrudan kopyalayın.",
+    howToUseSteps: [
+      {
+        title: "Ham metni yapıştırın",
+        body: "Bozuk boşluklar, boş satırlar veya tekrar eden satırlar içeren metni araca bırakın.",
+      },
+      {
+        title: "Temiz çıktıları karşılaştırın",
+        body: "Temizlenmiş metin, boş satırsız sürüm, tekil satırlar, tek satır ve virgüllü liste çıktısını birlikte görün.",
+      },
+      {
+        title: "Doğru sürümü kopyalayın",
+        body: "İş akışınıza uygun olan sürümü tek tıkla kopyalayın ve tekrar elle düzenleme yapmayın.",
+      },
+    ],
+    useCasesTitle: "En iyi kullanım senaryoları",
+    useCasesDescription:
+      "Bu araç, içerik aslında işe yarar durumdayken yapısal dağınıklığın metni kullanılamaz hale getirdiği anlarda daha değerlidir.",
+    useCases: [
+      {
+        title: "Chat veya dokümandan kopyalanan metni düzeltmek",
+        description: "Bozuk boşlukları ve anlamsız boş satırları temizleyip metni yeniden kullanılabilir hale getirin.",
+      },
+      {
+        title: "Liste temizliği yapmak",
+        description: "Tekrarlı satırları kaldırın veya alt alta gelen bir listeyi virgüllü düzene çevirin.",
+      },
+      {
+        title: "Tek satır gereken alanlar",
+        description: "Form, prompt kutusu veya metadata alanı için çok satırlı metni tek satıra indirin.",
+      },
+    ],
+    examplesTitle: "Örnekler",
+    examplesDescription: "İyi bir metin temizleyici, dağınık girdiyi tek hamlede kullanılabilir formata getirmelidir.",
+    examples: [
+      {
+        title: "Bozuk boşluk temizliği",
+        inputLabel: "Girdi",
+        input: "Toolyflow    içerik üreticilere yardım eder.\n\nKopyalanan metni   daha hızlı temizler.",
+        outputLabel: "Temiz metin",
+        output: "Toolyflow içerik üreticilere yardım eder.\nKopyalanan metni daha hızlı temizler.",
+        note: "İçerik doğru ama boşluk yapısı bozuk olduğunda işe yarar.",
+      },
+      {
+        title: "Tekrarlı liste temizliği",
+        inputLabel: "Girdi",
+        input: "bio fikirleri\nkullanıcı adı fikirleri\nbio fikirleri\nhashtag fikirleri",
+        outputLabel: "Tekil satırlar",
+        output: "bio fikirleri\nkullanıcı adı fikirleri\nhashtag fikirleri",
+        note: "Notlar, fikir listeleri ve export sonuçlarında sık kullanılır.",
+      },
+    ],
+    faqTitle: "Metin temizleyici sık sorulan sorular",
+    faqs: [
+      {
+        question: "Metin temizleyici neyi temizler?",
+        answer:
+          "Bozuk boşlukları düzeltmeye, boş satırları kaldırmaya, tekil satır listesi çıkarmaya ve metni tek satıra indirmeye yardımcı olur.",
+      },
+      {
+        question: "Her çıktıyı ayrı kopyalayabilir miyim?",
+        answer:
+          "Evet. Her sonuç kartının ayrı kopyalama butonu vardır; sadece ihtiyacınız olan sürümü alabilirsiniz.",
+      },
+      {
+        question: "Bu araç case converter’dan farklı mı?",
+        answer:
+          "Evet. Case converter yazım formatını değiştirir, metin temizleyici ise yapıyı ve boşluk düzenini temizler.",
+      },
+    ],
+  },
+  es: {
+    howToUseTitle: "Cómo usar el limpiador de texto",
+    howToUseDescription:
+      "Pega el texto desordenado una vez y copia exactamente la versión limpia que necesitas.",
+    howToUseSteps: [
+      {
+        title: "Pega el texto en bruto",
+        body: "Añade notas copiadas, captions desordenadas o listas exportadas con espacios rotos y líneas vacías.",
+      },
+      {
+        title: "Compara las salidas limpias",
+        body: "Revisa texto limpio, sin líneas vacías, líneas únicas, una sola línea y lista con comas en la misma página.",
+      },
+      {
+        title: "Copia la versión útil",
+        body: "Toma solo la versión que encaja con el siguiente paso, sin corregir línea por línea a mano.",
+      },
+    ],
+    useCasesTitle: "Mejores casos de uso",
+    useCasesDescription:
+      "Este tool es más útil cuando el texto copiado sigue siendo valioso, pero llega con una estructura desordenada.",
+    useCases: [
+      {
+        title: "Limpieza tras copiar de chat o documentos",
+        description: "Corrige espacios rotos y líneas vacías antes de llevar el texto a un post, nota o CMS.",
+      },
+      {
+        title: "Limpieza de listas",
+        description: "Elimina líneas duplicadas o convierte una lista vertical en una lista limpia separada por comas.",
+      },
+      {
+        title: "Salidas en una sola línea",
+        description: "Compacta texto de varias líneas cuando un formulario o campo de metadata necesita una entrada breve.",
+      },
+    ],
+    examplesTitle: "Ejemplos",
+    examplesDescription:
+      "Un buen limpiador de texto debe llevarte de una entrada desordenada a un formato útil en un solo paso.",
+    examples: [
+      {
+        title: "Limpieza de espacios rotos",
+        inputLabel: "Entrada",
+        input: "Toolyflow    ayuda a creadores\n\nlimpiando texto copiado   más rápido.",
+        outputLabel: "Texto limpio",
+        output: "Toolyflow ayuda a creadores\nlimpiando texto copiado más rápido.",
+        note: "Útil cuando el contenido sirve, pero el espaciado lo hace ver descuidado.",
+      },
+      {
+        title: "Limpieza de lista repetida",
+        inputLabel: "Entrada",
+        input: "ideas de bio\nideas de nickname\nideas de bio\nideas de hashtags",
+        outputLabel: "Líneas únicas",
+        output: "ideas de bio\nideas de nickname\nideas de hashtags",
+        note: "Va bien para notas, tableros de ideas y listas exportadas con repeticiones.",
+      },
+    ],
+    faqTitle: "Preguntas frecuentes del limpiador de texto",
+    faqs: [
+      {
+        question: "¿Qué limpia el limpiador de texto?",
+        answer:
+          "Ayuda a normalizar espacios, eliminar líneas vacías, dejar texto en una sola línea y crear una lista de líneas únicas.",
+      },
+      {
+        question: "¿Puedo copiar cada salida por separado?",
+        answer:
+          "Sí. Cada tarjeta de resultado tiene su propia acción de copia para que tomes solo la versión necesaria.",
+      },
+      {
+        question: "¿Es diferente del convertidor de texto?",
+        answer:
+          "Sí. El convertidor de texto cambia el formato de escritura; el limpiador de texto se centra en espacios, estructura y líneas repetidas.",
+      },
+    ],
+  },
+  de: {
+    howToUseTitle: "So nutzt du den Textbereiniger",
+    howToUseDescription:
+      "Füge unordentlichen Text einmal ein und kopiere dann genau das bereinigte Format, das du brauchst.",
+    howToUseSteps: [
+      {
+        title: "Rohtext einfügen",
+        body: "Füge kopierte Notizen, unordentliche Captions oder exportierte Listen mit kaputten Leerzeichen und Leerzeilen ein.",
+      },
+      {
+        title: "Bereinigte Ausgaben vergleichen",
+        body: "Prüfe bereinigten Text, Version ohne Leerzeilen, eindeutige Zeilen, Einzeiler und Kommaliste direkt auf derselben Seite.",
+      },
+      {
+        title: "Passende Version kopieren",
+        body: "Kopiere nur die Ausgabe, die zu deinem nächsten Schritt passt, statt alles manuell nachzuarbeiten.",
+      },
+    ],
+    useCasesTitle: "Beste Einsatzfälle",
+    useCasesDescription:
+      "Das Tool ist besonders nützlich, wenn kopierter Text inhaltlich brauchbar ist, aber strukturell chaotisch ankommt.",
+    useCases: [
+      {
+        title: "Bereinigung nach Copy aus Chat oder Docs",
+        description: "Repariere Leerzeichen und Leerzeilen, bevor der Text in Post, Notiz oder CMS-Feld landet.",
+      },
+      {
+        title: "Listen bereinigen",
+        description: "Entferne doppelte Zeilen oder wandle eine Zeilenliste in eine saubere Kommaliste um.",
+      },
+      {
+        title: "Einzeilige Ausgaben",
+        description: "Reduziere mehrzeiligen Text auf eine Zeile, wenn ein Formular oder Metadatenfeld eine kompakte Eingabe braucht.",
+      },
+    ],
+    examplesTitle: "Beispiele",
+    examplesDescription:
+      "Ein guter Textbereiniger sollte unordentliche Rohdaten in einem Schritt in ein brauchbares Format bringen.",
+    examples: [
+      {
+        title: "Kaputte Leerzeichen bereinigen",
+        inputLabel: "Eingabe",
+        input: "Toolyflow   hilft Creatorn\n\nkopierten Text   schneller zu bereinigen.",
+        outputLabel: "Bereinigter Text",
+        output: "Toolyflow hilft Creatorn\nkopierten Text schneller zu bereinigen.",
+        note: "Hilfreich, wenn der Inhalt stimmt, aber die Formatierung unruhig aussieht.",
+      },
+      {
+        title: "Doppelte Liste bereinigen",
+        inputLabel: "Eingabe",
+        input: "bio ideen\nnickname ideen\nbio ideen\nhashtag ideen",
+        outputLabel: "Eindeutige Zeilen",
+        output: "bio ideen\nnickname ideen\nhashtag ideen",
+        note: "Gut für Notizen, Ideensammlungen und wiederholte Exportlisten.",
+      },
+    ],
+    faqTitle: "Textbereiniger FAQ",
+    faqs: [
+      {
+        question: "Was bereinigt der Textbereiniger?",
+        answer:
+          "Er hilft beim Normalisieren von Leerzeichen, Entfernen von Leerzeilen, Erstellen eindeutiger Zeilenlisten und Umwandeln in eine Einzeile.",
+      },
+      {
+        question: "Kann ich jede Ausgabe einzeln kopieren?",
+        answer:
+          "Ja. Jede Ergebnis-Karte hat ihre eigene Kopieraktion, damit du nur die benötigte Version übernimmst.",
+      },
+      {
+        question: "Ist das anders als der Text-Konverter?",
+        answer:
+          "Ja. Der Text-Konverter ändert das Schreibformat, der Textbereiniger kümmert sich um Leerzeichen, Struktur und doppelte Zeilen.",
+      },
+    ],
+  },
+  fr: {
+    howToUseTitle: "Comment utiliser le nettoyeur de texte",
+    howToUseDescription:
+      "Colle le texte brouillon une fois, puis copie exactement le format nettoyé dont tu as besoin.",
+    howToUseSteps: [
+      {
+        title: "Colle le texte brut",
+        body: "Ajoute des notes copiées, des captions brouillonnes ou des listes exportées avec espaces cassés et lignes vides.",
+      },
+      {
+        title: "Compare les sorties nettoyées",
+        body: "Vérifie le texte propre, la version sans lignes vides, les lignes uniques, la version sur une ligne et la liste avec virgules.",
+      },
+      {
+        title: "Copie la bonne version",
+        body: "Prends seulement la sortie utile pour la suite au lieu de tout corriger à la main.",
+      },
+    ],
+    useCasesTitle: "Meilleurs cas d’usage",
+    useCasesDescription:
+      "Cet outil est surtout utile quand un texte copié reste exploitable mais arrive avec une structure désordonnée.",
+    useCases: [
+      {
+        title: "Nettoyage après copie depuis chat ou docs",
+        description: "Répare espaces et lignes vides avant d’envoyer le texte vers un post, une note ou un champ CMS.",
+      },
+      {
+        title: "Nettoyage de liste",
+        description: "Supprime les lignes dupliquées ou transforme une liste verticale en liste propre séparée par des virgules.",
+      },
+      {
+        title: "Sorties sur une ligne",
+        description: "Compresse un texte multiligne en une seule ligne quand un formulaire ou champ metadata l’exige.",
+      },
+    ],
+    examplesTitle: "Exemples",
+    examplesDescription:
+      "Un bon nettoyeur de texte doit transformer une entrée brouillonne en format utile en un seul passage.",
+    examples: [
+      {
+        title: "Nettoyage d’espaces cassés",
+        inputLabel: "Entrée",
+        input: "Toolyflow   aide les créateurs\n\nà nettoyer le texte copié   plus vite.",
+        outputLabel: "Texte nettoyé",
+        output: "Toolyflow aide les créateurs\nà nettoyer le texte copié plus vite.",
+        note: "Utile quand le contenu est bon mais que l’espacement le rend brouillon.",
+      },
+      {
+        title: "Nettoyage de liste dupliquée",
+        inputLabel: "Entrée",
+        input: "idées bio\nidées pseudo\nidées bio\nidées hashtags",
+        outputLabel: "Lignes uniques",
+        output: "idées bio\nidées pseudo\nidées hashtags",
+        note: "Pratique pour notes, tableaux d’idées et listes exportées avec répétitions.",
+      },
+    ],
+    faqTitle: "FAQ du nettoyeur de texte",
+    faqs: [
+      {
+        question: "Que nettoie le nettoyeur de texte ?",
+        answer:
+          "Il aide à normaliser les espaces, supprimer les lignes vides, créer une liste de lignes uniques et produire une sortie sur une ligne.",
+      },
+      {
+        question: "Puis-je copier chaque sortie séparément ?",
+        answer:
+          "Oui. Chaque carte de résultat a sa propre action de copie pour que tu récupères seulement la bonne version.",
+      },
+      {
+        question: "Est-ce différent du convertisseur de texte ?",
+        answer:
+          "Oui. Le convertisseur de texte change le format d’écriture, tandis que le nettoyeur de texte s’occupe des espaces, de la structure et des lignes répétées.",
+      },
+    ],
+  },
+  pt: {
+    howToUseTitle: "Como usar o limpador de texto",
+    howToUseDescription:
+      "Cole o texto bagunçado uma vez e copie exatamente a versão limpa que você precisa.",
+    howToUseSteps: [
+      {
+        title: "Cole o texto bruto",
+        body: "Adicione notas copiadas, captions bagunçadas ou listas exportadas com espaços quebrados e linhas vazias.",
+      },
+      {
+        title: "Compare as saídas limpas",
+        body: "Veja texto limpo, sem linhas vazias, linhas únicas, versão em uma linha e lista com vírgulas na mesma página.",
+      },
+      {
+        title: "Copie a versão certa",
+        body: "Leve só a saída que combina com o próximo passo, sem arrumar tudo manualmente.",
+      },
+    ],
+    useCasesTitle: "Melhores casos de uso",
+    useCasesDescription:
+      "Esse tool é mais útil quando o texto copiado ainda vale a pena, mas chega com estrutura bagunçada.",
+    useCases: [
+      {
+        title: "Limpeza depois de copiar de chat ou docs",
+        description: "Corrija espaços quebrados e linhas vazias antes de levar o texto para post, nota ou CMS.",
+      },
+      {
+        title: "Limpeza de listas",
+        description: "Remova linhas duplicadas ou transforme uma lista vertical em uma lista limpa com vírgulas.",
+      },
+      {
+        title: "Saídas em uma linha",
+        description: "Compacte texto com várias linhas quando um formulário ou campo de metadata pede algo enxuto.",
+      },
+    ],
+    examplesTitle: "Exemplos",
+    examplesDescription:
+      "Um bom limpador de texto deve levar uma entrada bagunçada para um formato útil em um único passo.",
+    examples: [
+      {
+        title: "Limpeza de espaços quebrados",
+        inputLabel: "Entrada",
+        input: "A Toolyflow   ajuda creators\n\na limpar texto copiado   mais rápido.",
+        outputLabel: "Texto limpo",
+        output: "A Toolyflow ajuda creators\na limpar texto copiado mais rápido.",
+        note: "Útil quando o conteúdo está bom, mas o espaçamento deixa tudo confuso.",
+      },
+      {
+        title: "Limpeza de lista repetida",
+        inputLabel: "Entrada",
+        input: "ideias de bio\nideias de nickname\nideias de bio\nideias de hashtag",
+        outputLabel: "Linhas únicas",
+        output: "ideias de bio\nideias de nickname\nideias de hashtag",
+        note: "Bom para notas, quadros de ideia e listas exportadas com repetição.",
+      },
+    ],
+    faqTitle: "Perguntas frequentes do limpador de texto",
+    faqs: [
+      {
+        question: "O que o limpador de texto remove?",
+        answer:
+          "Ele ajuda a normalizar espaços, remover linhas vazias, criar uma lista de linhas únicas e reduzir o texto para uma linha só.",
+      },
+      {
+        question: "Posso copiar cada saída separadamente?",
+        answer:
+          "Sim. Cada cartão de resultado tem sua própria ação de cópia para você pegar apenas a versão necessária.",
+      },
+      {
+        question: "Isso é diferente do conversor de texto?",
+        answer:
+          "Sim. O conversor de texto muda o formato de escrita, enquanto o limpador de texto cuida de espaços, estrutura e linhas repetidas.",
+      },
+    ],
+  },
+};
+
 export const localizedWordCounterLabels: Record<Locale, WordCounterLabels> = {
   en: {
     inputLabel: "Paste your text",
-    placeholder: "Paste a caption, article, note, or script.",
+    placeholder: "Paste a post draft, article, note, or script.",
     helper: "Use the live counts to size a draft quickly, then scan the top terms to spot repetition.",
     defaultText:
-      "Toolyflow helps creators check draft length, repeated words, and reading time before they publish.",
+      "Toolyflow helps you check draft length, repeated words, and reading time before you publish.",
     clearText: "Clear text",
     copyText: "Copy text",
     copied: "Copied",
@@ -255,7 +1011,7 @@ export const localizedWordCounterLabels: Record<Locale, WordCounterLabels> = {
   },
   tr: {
     inputLabel: "Metnini yapıştır",
-    placeholder: "Caption, not, açıklama ya da script yapıştır.",
+    placeholder: "Paylaşım metni, not, açıklama ya da video metni yapıştır.",
     helper: "Taslağın uzunluğunu hızlıca görmek için canlı sayıları kullan, ardından tekrar eden kelimeleri kontrol et.",
     defaultText:
       "Toolyflow, içerik üreticilerin yayınlamadan önce taslak uzunluğunu, tekrar eden kelimeleri ve okuma süresini kontrol etmesine yardımcı olur.",
@@ -273,7 +1029,7 @@ export const localizedWordCounterLabels: Record<Locale, WordCounterLabels> = {
   },
   es: {
     inputLabel: "Pega tu texto",
-    placeholder: "Pega un caption, nota, artículo o guion.",
+    placeholder: "Pega un texto de publicación, nota, artículo o guion.",
     helper: "Usa los conteos en vivo para medir el borrador y luego revisa los términos repetidos.",
     defaultText:
       "Toolyflow ayuda a los creadores a revisar longitud, repetición y tiempo de lectura antes de publicar.",
@@ -294,7 +1050,7 @@ export const localizedWordCounterLabels: Record<Locale, WordCounterLabels> = {
     placeholder: "Füge Caption, Notiz, Artikel oder Skript ein.",
     helper: "Nutze die Live-Zahlen für Länge und Wiederholung, bevor du den Text veröffentlichst.",
     defaultText:
-      "Toolyflow hilft Creatorn dabei, Länge, Wiederholung und Lesezeit eines Textes vor der Veröffentlichung zu prüfen.",
+      "Toolyflow hilft dir dabei, Länge, Wiederholung und Lesezeit eines Textes vor der Veröffentlichung zu prüfen.",
     clearText: "Text leeren",
     copyText: "Text kopieren",
     copied: "Kopiert",
@@ -312,7 +1068,7 @@ export const localizedWordCounterLabels: Record<Locale, WordCounterLabels> = {
     placeholder: "Colle une légende, une note, un article ou un script.",
     helper: "Utilise les compteurs en direct pour mesurer le texte puis repérer les répétitions.",
     defaultText:
-      "Toolyflow aide les créateurs à vérifier longueur, répétition et temps de lecture avant publication.",
+      "Toolyflow t’aide à vérifier longueur, répétition et temps de lecture avant publication.",
     clearText: "Effacer le texte",
     copyText: "Copier le texte",
     copied: "Copié",
@@ -330,7 +1086,7 @@ export const localizedWordCounterLabels: Record<Locale, WordCounterLabels> = {
     placeholder: "Cole uma legenda, nota, artigo ou roteiro.",
     helper: "Use as métricas ao vivo para medir o texto e depois revisar repetições.",
     defaultText:
-      "A Toolyflow ajuda creators a revisar tamanho, repetição e tempo de leitura antes de publicar.",
+      "A Toolyflow ajuda você a revisar tamanho, repetição e tempo de leitura antes de publicar.",
     clearText: "Limpar texto",
     copyText: "Copiar texto",
     copied: "Copiado",
@@ -350,7 +1106,7 @@ export const localizedTextCleanerLabels: Record<Locale, TextCleanerLabels> = {
     inputLabel: "Paste messy text",
     placeholder: "Paste copied text with messy spaces, empty lines, or repeated rows.",
     helper: "Compare multiple cleaned outputs and copy only the one that fits the next step.",
-    defaultText: "Toolyflow   helps creators\n\nclean copied text faster.\nToolyflow   helps creators",
+    defaultText: "Toolyflow   helps teams\n\nclean copied text faster.\nToolyflow   helps teams",
     clearText: "Clear text",
     copy: "Copy",
     copied: "Copied",
@@ -365,7 +1121,7 @@ export const localizedTextCleanerLabels: Record<Locale, TextCleanerLabels> = {
     inputLabel: "Dağınık metni yapıştır",
     placeholder: "Bozuk boşluklar, boş satırlar veya tekrar eden satırlar içeren metni yapıştır.",
     helper: "Birden fazla temiz çıktıyı karşılaştır ve yalnızca işine yarayanı kopyala.",
-    defaultText: "Toolyflow   içerik üreticilere yardım eder.\n\nKopyalanan metni   daha hızlı temizler.\nToolyflow   içerik üreticilere yardım eder.",
+    defaultText: "Toolyflow   kopyalanan metni daha hızlı temizler.\n\nBozuk boşlukları toparlar   ve metni okunur hale getirir.\nToolyflow   kopyalanan metni daha hızlı temizler.",
     clearText: "Metni temizle",
     copy: "Kopyala",
     copied: "Kopyalandı",
@@ -380,7 +1136,7 @@ export const localizedTextCleanerLabels: Record<Locale, TextCleanerLabels> = {
     inputLabel: "Pega texto desordenado",
     placeholder: "Pega texto con espacios rotos, líneas vacías o filas repetidas.",
     helper: "Compara varias salidas limpias y copia solo la que te sirve.",
-    defaultText: "Toolyflow   ayuda a creadores.\n\nLimpia texto copiado   más rápido.\nToolyflow   ayuda a creadores.",
+    defaultText: "Toolyflow   limpia texto copiado más rápido.\n\nOrdena espacios rotos   y deja el texto listo para usar.\nToolyflow   limpia texto copiado más rápido.",
     clearText: "Limpiar texto",
     copy: "Copiar",
     copied: "Copiado",
@@ -395,7 +1151,7 @@ export const localizedTextCleanerLabels: Record<Locale, TextCleanerLabels> = {
     inputLabel: "Unordentlichen Text einfügen",
     placeholder: "Füge Text mit kaputten Leerzeichen, Leerzeilen oder doppelten Zeilen ein.",
     helper: "Vergleiche mehrere bereinigte Versionen und kopiere nur die passende.",
-    defaultText: "Toolyflow   hilft Creatorn.\n\nKopierter Text   wird schneller bereinigt.\nToolyflow   hilft Creatorn.",
+    defaultText: "Toolyflow   bereinigt kopierten Text schneller.\n\nOrdnet kaputte Abstände   und macht den Text wieder nutzbar.\nToolyflow   bereinigt kopierten Text schneller.",
     clearText: "Text leeren",
     copy: "Kopieren",
     copied: "Kopiert",
@@ -410,7 +1166,7 @@ export const localizedTextCleanerLabels: Record<Locale, TextCleanerLabels> = {
     inputLabel: "Colle un texte brouillon",
     placeholder: "Colle un texte avec espaces cassés, lignes vides ou doublons.",
     helper: "Compare plusieurs sorties propres et copie seulement celle qui te sert.",
-    defaultText: "Toolyflow   aide les créateurs.\n\nNettoie le texte copié   plus vite.\nToolyflow   aide les créateurs.",
+    defaultText: "Toolyflow   nettoie le texte copié plus vite.\n\nRemet de l’ordre dans les espaces cassés   et rend le texte prêt à l’emploi.\nToolyflow   nettoie le texte copié plus vite.",
     clearText: "Effacer le texte",
     copy: "Copier",
     copied: "Copié",
@@ -425,7 +1181,7 @@ export const localizedTextCleanerLabels: Record<Locale, TextCleanerLabels> = {
     inputLabel: "Cole texto bagunçado",
     placeholder: "Cole texto com espaços quebrados, linhas vazias ou linhas repetidas.",
     helper: "Compare várias saídas limpas e copie só a que faz sentido para o próximo passo.",
-    defaultText: "A Toolyflow   ajuda creators.\n\nLimpa texto copiado   mais rápido.\nA Toolyflow   ajuda creators.",
+    defaultText: "A Toolyflow   ajuda equipes.\n\nLimpa texto copiado   mais rápido.\nA Toolyflow   ajuda equipes.",
     clearText: "Limpar texto",
     copy: "Copiar",
     copied: "Copiado",
@@ -445,7 +1201,7 @@ export const localizedWordCounterTools: Record<Locale, ExtraLocalizedTool> = {
     shortDescription: "Count words, characters, reading time, and repeated terms in one clean view.",
     description:
       "Measure draft length fast with live word, sentence, paragraph, and reading-time stats, then scan repeated terms before publishing.",
-    eyebrow: "Text workflow tool",
+    eyebrow: "Text utility tool",
     accentLabel: "COUNT",
     metaTitle: "Word Counter — Free Online | Toolyflow",
     metaDescription:
@@ -458,7 +1214,7 @@ export const localizedWordCounterTools: Record<Locale, ExtraLocalizedTool> = {
     ],
     structuredDescription:
       "Free online word counter with characters, sentences, paragraphs, reading time, and repeated term tracking.",
-    content: wordCounterContentEn,
+    content: localizedWordCounterContent.en,
   },
   tr: {
     slug: "word-counter",
@@ -525,19 +1281,19 @@ export const localizedWordCounterTools: Record<Locale, ExtraLocalizedTool> = {
         "İyi bir kelime sayacı hem metnin boyutunu hem de tekrar seviyesini hızlı göstermelidir.",
       examples: [
         {
-          title: "Creator caption kontrolü",
+          title: "Paylaşım metni kontrolü",
           inputLabel: "Girdi",
-          input: "Yeni creator aracı için kısa bir duyuru metni ve net bir CTA satırı.",
+          input: "Yeni araç duyurusu için kısa bir paylaşım metni ve net bir takip çağrısı.",
           outputLabel: "Okunan değer",
           output: "Kelime: 11\nCümle: 1\nOkuma süresi: <1m",
-          note: "Kısa bir caption’ın gerçekten yeterli olup olmadığını hızlıca görürsünüz.",
+          note: "Kısa bir paylaşım metninin gerçekten yeterli olup olmadığını hızlıca görürsünüz.",
         },
         {
           title: "Taslak taraması",
           inputLabel: "Girdi",
-          input: "İki paragraflı, growth, içerik ve workflow kelimelerini tekrar eden daha uzun bir taslak.",
+          input: "İki paragraflı, büyüme, içerik ve paylaşım kelimelerini tekrar eden daha uzun bir taslak.",
           outputLabel: "Okunan değer",
-          output: "Paragraf: 2\nÖne çıkan kelimeler: içerik (4), workflow (3), growth (3)",
+          output: "Paragraf: 2\nÖne çıkan kelimeler: içerik (4), paylaşım (3), büyüme (3)",
           note: "Metin kısaltmak yerine tekrarları azaltmak istediğinizde faydalıdır.",
         },
       ],
@@ -549,9 +1305,9 @@ export const localizedWordCounterTools: Record<Locale, ExtraLocalizedTool> = {
             "Kelime, karakter, boşluksuz karakter, cümle, paragraf, okuma süresi ve tekrar eden kelimeleri birlikte gösterir.",
         },
         {
-          question: "Kısa caption’larda da işe yarar mı?",
+        question: "Kısa paylaşım metinlerinde de işe yarar mı?",
           answer:
-            "Evet. Kısa caption’larda da hızlıca metnin yeterli olup olmadığını ve kendini tekrar edip etmediğini gösterir.",
+          "Evet. Kısa paylaşım metinlerinde de metnin yeterli olup olmadığını ve kendini tekrar edip etmediğini hızlıca gösterir.",
         },
         {
           question: "Öne çıkan kelimeler ne işe yarar?",
@@ -581,11 +1337,7 @@ export const localizedWordCounterTools: Record<Locale, ExtraLocalizedTool> = {
       ],
       structuredDescription:
         "Contador de palabras gratis con métricas de caracteres, frases, párrafos y tiempo de lectura.",
-      content: {
-        ...wordCounterContentEn,
-        howToUseDescription:
-          "Pega el texto, revisa los conteos principales y usa el bloque de palabras repetidas para encontrar redundancias.",
-      },
+      content: localizedWordCounterContent.es,
     },
   },
   de: {
@@ -608,11 +1360,7 @@ export const localizedWordCounterTools: Record<Locale, ExtraLocalizedTool> = {
       ],
       structuredDescription:
         "Kostenloser Wortzähler mit Zeichen-, Satz-, Absatz- und Lesezeitmetriken.",
-      content: {
-        ...wordCounterContentEn,
-        howToUseDescription:
-          "Füge den Text ein, lies die Kernzahlen und prüfe wiederholte Wörter für schnellere Überarbeitungen.",
-      },
+      content: localizedWordCounterContent.de,
     },
   },
   fr: {
@@ -635,11 +1383,7 @@ export const localizedWordCounterTools: Record<Locale, ExtraLocalizedTool> = {
       ],
       structuredDescription:
         "Compteur de mots gratuit avec caractères, phrases, paragraphes et temps de lecture.",
-      content: {
-        ...wordCounterContentEn,
-        howToUseDescription:
-          "Colle le texte, lis les chiffres principaux puis regarde les mots répétés pour repérer les lourdeurs.",
-      },
+      content: localizedWordCounterContent.fr,
     },
   },
   pt: {
@@ -662,11 +1406,7 @@ export const localizedWordCounterTools: Record<Locale, ExtraLocalizedTool> = {
       ],
       structuredDescription:
         "Contador de palavras grátis com métricas de caracteres, frases, parágrafos e tempo de leitura.",
-      content: {
-        ...wordCounterContentEn,
-        howToUseDescription:
-          "Cole o texto, leia os números principais e use as palavras repetidas para revisar melhor.",
-      },
+      content: localizedWordCounterContent.pt,
     },
   },
 };
@@ -687,11 +1427,11 @@ export const localizedTextCleanerTools: Record<Locale, ExtraLocalizedTool> = {
     highlights: [
       "Built for copied text that looks usable but arrives with broken structure.",
       "Shows multiple cleaned outputs side by side so you can pick the right format fast.",
-      "Useful for notes, captions, export lists, prompts, and metadata fields.",
+      "Useful for notes, post drafts, export lists, prompts, and form fields.",
     ],
     structuredDescription:
       "Free online text cleaner for spacing cleanup, blank line removal, duplicate line cleanup, and single-line output.",
-    content: textCleanerContentEn,
+    content: localizedTextCleanerContent.en,
   },
   tr: {
     slug: "text-cleaner",
@@ -708,7 +1448,7 @@ export const localizedTextCleanerTools: Record<Locale, ExtraLocalizedTool> = {
     highlights: [
       "Kopyalanmış ama yapısı bozulmuş metinler için hızlı çalışır.",
       "Birden fazla temiz çıktı verdiği için doğru formatı sayfadan çıkmadan seçebilirsiniz.",
-      "Not, caption, prompt ve export listeleri için uygundur.",
+      "Not, paylaşım metni, prompt ve dışa aktarılan listeler için uygundur.",
     ],
     structuredDescription:
       "Boşluk temizleme, boş satır kaldırma, tekrar eden satır ayıklama ve tek satır çıktısı sunan ücretsiz online metin temizleyici.",
@@ -814,11 +1554,7 @@ export const localizedTextCleanerTools: Record<Locale, ExtraLocalizedTool> = {
       ],
       structuredDescription:
         "Herramienta gratis para limpiar espacios, quitar líneas vacías y generar texto en una sola línea.",
-      content: {
-        ...textCleanerContentEn,
-        howToUseDescription:
-          "Pega el texto desordenado, compara las salidas y copia solo la versión que encaja con el siguiente paso.",
-      },
+      content: localizedTextCleanerContent.es,
     },
   },
   de: {
@@ -841,11 +1577,7 @@ export const localizedTextCleanerTools: Record<Locale, ExtraLocalizedTool> = {
       ],
       structuredDescription:
         "Kostenloses Tool zum Bereinigen von Leerzeichen, Leerzeilen und doppelten Zeilen.",
-      content: {
-        ...textCleanerContentEn,
-        howToUseDescription:
-          "Füge den unordentlichen Text ein, vergleiche die Ergebnisse und kopiere nur die passende Version.",
-      },
+      content: localizedTextCleanerContent.de,
     },
   },
   fr: {
@@ -868,11 +1600,7 @@ export const localizedTextCleanerTools: Record<Locale, ExtraLocalizedTool> = {
       ],
       structuredDescription:
         "Outil gratuit pour nettoyer les espaces, retirer les lignes vides et produire une sortie compacte.",
-      content: {
-        ...textCleanerContentEn,
-        howToUseDescription:
-          "Colle le texte brouillon, compare les sorties puis copie seulement celle qui te convient.",
-      },
+      content: localizedTextCleanerContent.fr,
     },
   },
   pt: {
@@ -895,11 +1623,7 @@ export const localizedTextCleanerTools: Record<Locale, ExtraLocalizedTool> = {
       ],
       structuredDescription:
         "Ferramenta grátis para limpar espaços, linhas vazias e linhas duplicadas.",
-      content: {
-        ...textCleanerContentEn,
-        howToUseDescription:
-          "Cole o texto bagunçado, compare as saídas e copie só a versão que se encaixa melhor.",
-      },
+      content: localizedTextCleanerContent.pt,
     },
   },
 };

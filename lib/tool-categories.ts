@@ -1,7 +1,7 @@
 import type { Locale } from "@/lib/i18n";
 import type { ToolSlug } from "@/lib/routes";
 
-export const categorySlugs = ["text-tools", "creator-tools"] as const;
+export const categorySlugs = ["creator-tools", "text-tools", "quick-tools"] as const;
 
 export type CategorySlug = (typeof categorySlugs)[number];
 
@@ -33,7 +33,14 @@ type LocalizedCategory = CategoryCopy & {
 
 const categoryToolMap: Record<CategorySlug, ToolSlug[]> = {
   "text-tools": ["case-converter", "word-counter", "text-cleaner"],
-  "creator-tools": ["bio-generator", "nickname-generator", "hashtag-generator", "qr-generator"],
+  "creator-tools": ["bio-generator", "nickname-generator", "hashtag-generator"],
+  "quick-tools": [
+    "color-code-converter",
+    "percentage-calculator",
+    "discount-calculator",
+    "qr-generator",
+    "decision-wheel",
+  ],
 };
 
 const categoryLabels: Record<Locale, CategoryLabels> = {
@@ -137,6 +144,21 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
         "Keeps name and identity tools in one place instead of scattering them across the site.",
       ],
     },
+    "quick-tools": {
+      navLabel: "Quick tools",
+      eyebrow: "Quick utility category",
+      title: "Quick tools for colors, pricing, and fast utility work",
+      description:
+        "This category groups fast utility pages for color conversion, percentage math, discount checks, QR codes, and lightweight decision flows.",
+      metaTitle: "Quick Tools",
+      metaDescription:
+        "Browse Toolyflow quick tools for color conversion, percentage math, discount checks, QR codes, and more.",
+      keywords: ["quick tools", "color converter", "discount calculator", "percentage calculator"],
+      highlights: [
+        "Built for fast answers and small tasks that should not need a heavy app.",
+        "Useful for creator workflows, pricing checks, and lightweight utility actions.",
+      ],
+    },
   },
   tr: {
     "text-tools": {
@@ -159,7 +181,7 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
       eyebrow: "İçerik üretici iş akışı kategorisi",
       title: "Bio, isim ve profil iş akışları için creator araçları",
       description:
-        "Bu kategori; içerik üreticilerin bio, nickname, QR ve profil odaklı işlerinde kullanacağı araçları aynı çatı altında toplar ve yayınlama akışlarını destekler.",
+        "Bu kategori; içerik üreticilerin bio, kullanıcı adı, hashtag ve profil odaklı işlerinde kullanacağı araçları aynı çatı altında toplar ve yayınlama akışlarını destekler.",
       metaTitle: "İçerik Üretici Araçları",
       metaDescription:
         "Bio, nickname, profil fikirleri ve creator odaklı hızlı iş akışları için Toolyflow içerik üretici araçlarını keşfedin.",
@@ -167,6 +189,21 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
       highlights: [
         "İçerik üreticiler, handle’lar, bio’lar ve profil odaklı yayın akışları için tasarlandı.",
         "Kimlik ve isim araçlarını sitede dağınık tutmak yerine tek yerde toplar.",
+      ],
+    },
+    "quick-tools": {
+      navLabel: "Hızlı Araçlar",
+      eyebrow: "Hızlı utility kategorisi",
+      title: "Renk, fiyat ve pratik işler için hızlı araçlar",
+      description:
+        "Bu kategori; renk dönüştürme, yüzde hesabı, indirim kontrolü, QR üretimi ve hafif karar akışları gibi hızlı utility araçlarını bir arada toplar.",
+      metaTitle: "Hızlı Araçlar",
+      metaDescription:
+        "Renk dönüştürme, yüzde hesabı, indirim kontrolü, QR üretimi ve daha fazlası için Toolyflow hızlı araçlarını keşfedin.",
+      keywords: ["hızlı araçlar", "renk dönüştürücü", "indirim hesaplayıcı", "yüzde hesaplayıcı"],
+      highlights: [
+        "Küçük ama sık tekrar eden işler için hızlı sonuç verir.",
+        "Creator iş akışları, fiyat kontrolü ve pratik utility ihtiyaçları için uygundur.",
       ],
     },
   },
@@ -201,6 +238,21 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
         "Mantiene juntas las herramientas de identidad y nombre.",
       ],
     },
+    "quick-tools": {
+      navLabel: "Herramientas rápidas",
+      eyebrow: "Categoría rápida",
+      title: "Herramientas rápidas para color, precio y utilidades",
+      description:
+        "Esta categoría reúne conversiones de color, cálculos porcentuales, descuentos, QR y otras utilidades ligeras.",
+      metaTitle: "Quick Tools",
+      metaDescription:
+        "Explora herramientas rápidas para color, porcentajes, descuentos, QR y utilidades ligeras.",
+      keywords: ["herramientas rápidas", "conversor de color", "calculadora de descuentos", "calculadora de porcentajes"],
+      highlights: [
+        "Pensada para respuestas rápidas y tareas pequeñas.",
+        "Útil para creadores, precios y utilidades cotidianas.",
+      ],
+    },
   },
   de: {
     "text-tools": {
@@ -231,6 +283,21 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
       highlights: [
         "Gedacht für Creator, Handles und profilorientierte Publishing-Workflows.",
         "Hält Identitäts- und Namenstools an einem Ort zusammen.",
+      ],
+    },
+    "quick-tools": {
+      navLabel: "Schnelle Tools",
+      eyebrow: "Schnelle Utility-Kategorie",
+      title: "Schnelle Tools für Farbe, Preise und kleine Aufgaben",
+      description:
+        "Diese Kategorie bündelt Farbkonvertierung, Prozentrechnung, Rabattprüfung, QR-Codes und leichte Utility-Workflows.",
+      metaTitle: "Quick Tools",
+      metaDescription:
+        "Entdecke schnelle Tools für Farbe, Prozentrechnung, Rabatte, QR-Codes und weitere Utilities.",
+      keywords: ["schnelle tools", "farbkonverter", "rabattrechner", "prozentrechner"],
+      highlights: [
+        "Für schnelle Antworten und kleine wiederkehrende Aufgaben gebaut.",
+        "Nützlich für Creator-Workflows, Preisprüfungen und leichte Utilities.",
       ],
     },
   },
@@ -265,6 +332,21 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
         "Regroupe les outils d'identité et de nom au même endroit.",
       ],
     },
+    "quick-tools": {
+      navLabel: "Outils rapides",
+      eyebrow: "Catégorie utilitaire rapide",
+      title: "Outils rapides pour couleur, prix et tâches légères",
+      description:
+        "Cette catégorie réunit conversion de couleurs, calculs de pourcentage, remises, QR et autres utilitaires rapides.",
+      metaTitle: "Quick Tools",
+      metaDescription:
+        "Parcourez des outils rapides pour couleur, pourcentages, remises, QR et autres utilitaires légers.",
+      keywords: ["outils rapides", "convertisseur couleur", "calculateur remise", "calculateur pourcentage"],
+      highlights: [
+        "Conçue pour des réponses rapides et des petites tâches récurrentes.",
+        "Pratique pour créateurs, prix et utilitaires du quotidien.",
+      ],
+    },
   },
   pt: {
     "text-tools": {
@@ -295,6 +377,21 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
       highlights: [
         "Pensadas para creators, handles e fluxos centrados em perfil.",
         "Mantém juntas as ferramentas de identidade e nome.",
+      ],
+    },
+    "quick-tools": {
+      navLabel: "Ferramentas rápidas",
+      eyebrow: "Categoria de utilidades rápidas",
+      title: "Ferramentas rápidas para cor, preço e tarefas leves",
+      description:
+        "Esta categoria reúne conversão de cor, cálculos de porcentagem, descontos, QR e outras utilidades leves.",
+      metaTitle: "Quick Tools",
+      metaDescription:
+        "Explore ferramentas rápidas para cor, porcentagem, descontos, QR e outras utilidades.",
+      keywords: ["ferramentas rápidas", "conversor de cores", "calculadora de desconto", "calculadora de porcentagem"],
+      highlights: [
+        "Feita para respostas rápidas e tarefas pequenas recorrentes.",
+        "Útil para creators, preços e utilidades leves.",
       ],
     },
   },

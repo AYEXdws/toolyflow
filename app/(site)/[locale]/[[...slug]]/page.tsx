@@ -8,9 +8,12 @@ import { StructuredData } from "@/components/structured-data";
 import { ToolPageShell } from "@/components/tool-page-shell";
 import { BioGenerator } from "@/components/tools/bio-generator";
 import { CaseConverter } from "@/components/tools/case-converter";
+import { ColorCodeConverter } from "@/components/tools/color-code-converter";
 import { DecisionWheel } from "@/components/tools/decision-wheel";
+import { DiscountCalculator } from "@/components/tools/discount-calculator";
 import { HashtagGenerator } from "@/components/tools/hashtag-generator";
 import { NicknameGenerator } from "@/components/tools/nickname-generator";
+import { PercentageCalculator } from "@/components/tools/percentage-calculator";
 import { QrGenerator } from "@/components/tools/qr-generator";
 import { TextCleaner } from "@/components/tools/text-cleaner";
 import { WordCounter } from "@/components/tools/word-counter";
@@ -123,42 +126,22 @@ function renderUnifiedHome(locale: Locale) {
   const dictionary = getDictionary(locale);
   const categories = getCategories(locale);
   const categoryLabels = getCategoryLabels(locale);
-  const quickLabelByLocale: Record<Locale, string> = {
-    tr: "Hızlı Araçlar",
-    en: "Quick Tools",
-    es: "Herramientas rápidas",
-    de: "Schnelle Tools",
-    fr: "Outils rapides",
-    pt: "Ferramentas rápidas",
-  };
-  const quickBadgeByLocale: Record<Locale, string> = {
-    tr: "Hızlı",
-    en: "Quick",
-    es: "Rápida",
-    de: "Schnell",
-    fr: "Rapide",
-    pt: "Rápida",
-  };
-  const categoryPills = [
-    {
-      label: categories.find((category) => category.slug === "creator-tools")?.navLabel ?? "",
-      emoji: "🎨",
-      href: localizePath(locale, "creator-tools"),
-    },
-    {
-      label: categories.find((category) => category.slug === "text-tools")?.navLabel ?? "",
-      emoji: "✍️",
-      href: localizePath(locale, "text-tools"),
-    },
-    {
-      label: quickLabelByLocale[locale],
-      emoji: "⚡",
-      href: "#tools",
-    },
-  ];
+  const emojiByCategory = {
+    "creator-tools": "🎨",
+    "text-tools": "✍️",
+    "quick-tools": "⚡",
+  } as const;
+  const categoryPills = categories.map((category) => ({
+    label: category.navLabel,
+    emoji: emojiByCategory[category.slug],
+    href: localizePath(locale, category.slug),
+  }));
   const iconMap: Record<string, string> = {
     "word-counter": "📏",
     "text-cleaner": "🧹",
+    "color-code-converter": "🎨",
+    "percentage-calculator": "％",
+    "discount-calculator": "💸",
     "bio-generator": "✨",
     "nickname-generator": "🎯",
     "hashtag-generator": "#",
@@ -170,13 +153,8 @@ function renderUnifiedHome(locale: Locale) {
     ...tool,
     icon: iconMap[tool.slug] ?? "✦",
     badge:
-      tool.slug === "case-converter" ||
-      tool.slug === "word-counter" ||
-      tool.slug === "text-cleaner"
-        ? categories.find((category) => category.slug === "text-tools")?.navLabel ?? tool.accentLabel
-        : tool.slug === "decision-wheel" || tool.slug === "qr-generator"
-          ? quickBadgeByLocale[locale]
-          : categories.find((category) => category.slug === "creator-tools")?.navLabel ?? tool.accentLabel,
+      categories.find((category) => category.slug === getCategoryForTool(tool.slug))?.navLabel ??
+      tool.accentLabel,
   }));
 
   return (
@@ -457,6 +435,12 @@ function renderToolPage(locale: Locale, slug: string) {
         <WordCounter labels={dictionary.wordCounter} />
       ) : slug === "text-cleaner" ? (
         <TextCleaner labels={dictionary.textCleaner} />
+      ) : slug === "color-code-converter" ? (
+        <ColorCodeConverter labels={dictionary.colorCodeConverter} />
+      ) : slug === "percentage-calculator" ? (
+        <PercentageCalculator labels={dictionary.percentageCalculator} />
+      ) : slug === "discount-calculator" ? (
+        <DiscountCalculator labels={dictionary.discountCalculator} />
       ) : slug === "nickname-generator" ? (
         <NicknameGenerator labels={dictionary.nicknameGenerator} />
       ) : slug === "hashtag-generator" ? (

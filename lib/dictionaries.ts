@@ -8,6 +8,15 @@ import {
   type TextCleanerLabels,
   type WordCounterLabels,
 } from "@/lib/text-tool-localizations";
+import {
+  localizedColorCodeConverterLabels,
+  localizedDiscountCalculatorLabels,
+  localizedPercentageCalculatorLabels,
+  localizedUtilityTools,
+  type ColorCodeConverterLabels,
+  type DiscountCalculatorLabels,
+  type PercentageCalculatorLabels,
+} from "@/lib/utility-tool-localizations";
 
 type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends Array<infer U>
@@ -150,6 +159,9 @@ export type Dictionary = {
   tools: Record<ToolSlug, LocalizedTool>;
   wordCounter: WordCounterLabels;
   textCleaner: TextCleanerLabels;
+  colorCodeConverter: ColorCodeConverterLabels;
+  percentageCalculator: PercentageCalculatorLabels;
+  discountCalculator: DiscountCalculatorLabels;
   caseConverter: {
     inputLabel: string;
     placeholder: string;
@@ -301,6 +313,9 @@ export type Dictionary = {
 const baseToolSlugs: ToolSlug[] = [
   "word-counter",
   "text-cleaner",
+  "color-code-converter",
+  "percentage-calculator",
+  "discount-calculator",
   "case-converter",
   "bio-generator",
   "nickname-generator",
@@ -568,9 +583,9 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
   en: {
     slug: "hashtag-generator",
     name: "Hashtag Generator",
-    shortDescription: "Generate ready-to-copy hashtag batches for Instagram, TikTok, X, and YouTube.",
+    shortDescription: "Generate ready-to-copy hashtag sets for Instagram, TikTok, X, and YouTube.",
     description:
-      "Turn one niche into 20 to 30 platform-ready hashtags, then copy the full batch or the tags you want to keep.",
+      "Turn one niche into 20 to 30 platform-ready hashtags, then copy the full set or only the tags you want to keep.",
     eyebrow: "Creator growth tool",
     accentLabel: "TAGS",
     metaTitle: "Hashtag Generator — Free Online | Toolyflow",
@@ -584,7 +599,7 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
       "twitter hashtag generator",
     ],
     highlights: [
-      "Generates 20 to 30 hashtags in one batch instead of single tag ideas.",
+        "Generates 20 to 30 hashtags in one set instead of isolated tag ideas.",
       "Platform and popularity filters shift the mix between broad and niche tags.",
       "Copy the whole set in one click or grab individual tags fast.",
     ],
@@ -593,7 +608,7 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
     content: {
       howToUseTitle: "How to use the hashtag generator",
       howToUseDescription:
-        "Start with the niche, set the platform, then decide whether you want a broader or more targeted batch before copying the final list.",
+        "Start with the niche, set the platform, then decide whether you want a broader or more targeted set before copying the final list.",
       howToUseSteps: [
         {
           title: "Enter the niche",
@@ -603,17 +618,17 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
         {
           title: "Pick platform and popularity",
           body:
-            "Choose the platform first, then decide whether the batch should lean viral, balanced, or more niche.",
+            "Choose the platform first, then decide whether the set should lean viral, balanced, or more niche.",
         },
         {
           title: "Generate and copy",
           body:
-            "Generate the batch, review the 20 to 30 hashtag suggestions, then copy all of them or only the ones that fit the post.",
+            "Generate the set, review the 20 to 30 hashtag suggestions, then copy all of them or only the ones that fit the post.",
         },
       ],
       useCasesTitle: "Best use cases",
       useCasesDescription:
-        "This tool is strongest when you want a useful first batch fast without building hashtag sets from scratch every time.",
+        "This tool is strongest when you want a useful first hashtag set fast without rebuilding everything from scratch every time.",
       useCases: [
         {
           title: "Caption prep before posting",
@@ -636,7 +651,7 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
         "The page should help you get quick, usable hashtag groups like these.",
       examples: [
         {
-          title: "Food creator batch",
+          title: "Food creator set",
           inputLabel: "Setup",
           input: "Niche: food\nPlatform: Instagram\nPopularity: Balanced",
           outputLabel: "Example output",
@@ -644,7 +659,7 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
           note: "Good when you want a mix of topic tags, platform tags, and medium-competition tags.",
         },
         {
-          title: "Gaming short-form batch",
+          title: "Gaming short-form set",
           inputLabel: "Setup",
           input: "Niche: gaming\nPlatform: TikTok\nPopularity: Viral",
           outputLabel: "Example output",
@@ -657,7 +672,7 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
         {
           question: "How many hashtags does the tool generate?",
           answer:
-            "Each batch returns between 20 and 30 hashtags so you have enough options to copy, trim, and test.",
+            "Each set returns between 20 and 30 hashtags so you have enough options to copy, trim, and test.",
         },
         {
           question: "Can I copy all hashtags at once?",
@@ -675,10 +690,10 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
   tr: {
     slug: "hashtag-generator",
     name: "Hashtag Üreticisi",
-    shortDescription: "Instagram, TikTok, X ve YouTube için kopyalanabilir hashtag setleri üretin.",
+    shortDescription: "Instagram, TikTok, X ve YouTube için kopyalanabilir hashtag listeleri üretin.",
     description:
-      "Tek bir niş alanından 20 ila 30 adet platform uyumlu hashtag üretin, sonra tümünü ya da seçtiklerinizi kopyalayın.",
-    eyebrow: "Creator büyüme aracı",
+      "Tek bir niş alanından 20 ila 30 adet platform uyumlu hashtag üretin, sonra tüm listeyi ya da seçtiklerinizi kopyalayın.",
+    eyebrow: "Sosyal medya aracı",
     accentLabel: "TAGS",
     metaTitle: "Hashtag Üreticisi — Ücretsiz Online | Toolyflow",
     metaDescription:
@@ -691,7 +706,7 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
       "x hashtag üreticisi",
     ],
     highlights: [
-      "Tek tek fikir yerine 20 ila 30 adet hazır hashtag batch'i üretir.",
+        "Tek tek fikirler yerine 20 ila 30 adet hazır hashtag listesi üretir.",
       "Platform ve popülerlik filtresi geniş ve niş tag dengesini değiştirir.",
       "Tüm listeyi tek tıkla ya da tag'leri tek tek hızlıca kopyalayabilirsiniz.",
     ],
@@ -700,27 +715,27 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
     content: {
       howToUseTitle: "Hashtag üreticisi nasıl kullanılır",
       howToUseDescription:
-        "Önce niş alanı yazın, sonra platformu seçin ve daha geniş mi yoksa daha niş mi bir batch istediğinize karar verin.",
+      "Önce niş alanı yazın, sonra platformu seçin ve daha geniş mi yoksa daha niş mi bir liste istediğinize karar verin.",
       howToUseSteps: [
         {
           title: "Niş alanı girin",
           body:
-            "Yemek, moda, oyun, fitness veya seyahat gibi içerik alanınızı yazın ki üretim o konu etrafında şekillensin.",
+            "Yemek, moda, oyun, fitness veya seyahat gibi içerik alanınızı yazın; üretim bu konu etrafında şekillensin.",
         },
         {
           title: "Platformu ve popülerliği seçin",
           body:
-            "Önce platformu belirleyin, sonra batch’in viral, dengeli veya daha niş ağırlıklı olmasını seçin.",
+            "Önce platformu belirleyin, sonra listenin viral, dengeli veya daha niş ağırlıklı olmasını seçin.",
         },
         {
           title: "Üretin ve kopyalayın",
           body:
-            "20 ila 30 hashtag içeren listeyi üretin, sonra tümünü tek seferde ya da uygun olanları tek tek kopyalayın.",
+            "20 ila 30 hashtag içeren listeyi üretin, sonra tümünü tek seferde ya da en uygun olanları tek tek kopyalayın.",
         },
       ],
       useCasesTitle: "En iyi kullanım senaryoları",
       useCasesDescription:
-        "Bu araç, her paylaşım öncesi sıfırdan hashtag listesi kurmak yerine hızlıca kullanılabilir bir set görmek istediğinizde daha değerlidir.",
+        "Bu araç, her paylaşım öncesi sıfırdan hashtag aramak yerine hızlıca kullanılabilir bir liste görmek istediğinizde daha değerlidir.",
       useCases: [
         {
           title: "Paylaşım öncesi caption hazırlığı",
@@ -730,7 +745,7 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
         {
           title: "Niş bazlı içerik planlama",
           description:
-            "Farklı konu açılarında yeni batch'ler üretip future post, reels, shorts veya thread'ler için saklayın.",
+            "Farklı konu açılarında yeni listeler üretip sonraki post, reels, shorts veya thread'ler için saklayın.",
         },
         {
           title: "Geniş ve dar erişimi dengelemek",
@@ -743,7 +758,7 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
         "Araç size buna benzer hızlı ve kullanılabilir hashtag grupları vermelidir.",
       examples: [
         {
-          title: "Yemek creator batch'i",
+          title: "Yemek içerik üreticisi listesi",
           inputLabel: "Kurulum",
           input: "Niş: yemek\nPlatform: Instagram\nPopülerlik: Orta",
           outputLabel: "Örnek çıktı",
@@ -751,7 +766,7 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
           note: "Konu tag'leri, platform tag'leri ve orta rekabetli tag'leri dengeli biçimde birleştirir.",
         },
         {
-          title: "Oyun kısa format batch'i",
+          title: "Oyun kısa video listesi",
           inputLabel: "Kurulum",
           input: "Niş: oyun\nPlatform: TikTok\nPopülerlik: Viral",
           outputLabel: "Örnek çıktı",
@@ -764,17 +779,17 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
         {
           question: "Araç kaç hashtag üretir?",
           answer:
-            "Her batch 20 ila 30 hashtag döner. Böylece direkt kopyalayabilir ya da birkaç tanesini çıkarıp düzenleyebilirsiniz.",
+            "Her üretimde 20 ila 30 hashtag gelir. Böylece doğrudan kopyalayabilir ya da birkaç tanesini çıkarıp düzenleyebilirsiniz.",
         },
         {
           question: "Tüm hashtag'leri tek seferde kopyalayabilir miyim?",
           answer:
-            "Evet. Tüm batch'i tek tıkla kopyalayabilir ya da hashtag'leri tek tek kopyalayabilirsiniz.",
+            "Evet. Tüm listeyi tek tıkla kopyalayabilir ya da hashtag'leri tek tek kopyalayabilirsiniz.",
         },
         {
           question: "Platform seçimi gerçekten çıktıyı değiştiriyor mu?",
           answer:
-            "Evet. Instagram, TikTok, X ve YouTube için platform ve popülerlik karışımı ayrı şekilde ayarlanır; bu yüzden tüm batch'ler aynı görünmez.",
+            "Evet. Instagram, TikTok, X ve YouTube için platform ve popülerlik karışımı ayrı şekilde ayarlanır; bu yüzden tüm listeler aynı görünmez.",
         },
       ],
     },
@@ -783,17 +798,17 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
     ...{
       slug: "hashtag-generator",
       name: "Generador de hashtags",
-      shortDescription: "Genera lotes de hashtags listos para copiar para Instagram, TikTok, X y YouTube.",
+      shortDescription: "Genera grupos de hashtags listos para copiar para Instagram, TikTok, X y YouTube.",
       description:
-        "Convierte un nicho en 20 a 30 hashtags listos para cada plataforma y copia todo el lote o solo los que te interesen.",
-      eyebrow: "Herramienta de crecimiento creator",
+        "Convierte un nicho en 20 a 30 hashtags listos para cada plataforma y copia todo el grupo o solo los que te interesen.",
+      eyebrow: "Herramienta de crecimiento social",
       accentLabel: "TAGS",
       metaTitle: "Generador de hashtags — Gratis online | Toolyflow",
       metaDescription:
         "Genera hashtags para Instagram, TikTok, X y YouTube en segundos con un generador gratis online.",
       keywords: ["generador de hashtags", "hashtags instagram", "hashtags tiktok", "hashtags youtube", "hashtags x"],
       highlights: [
-        "Devuelve lotes de 20 a 30 hashtags en vez de ideas aisladas.",
+        "Devuelve grupos de 20 a 30 hashtags en vez de ideas aisladas.",
         "Los filtros de plataforma y popularidad cambian la mezcla entre hashtags amplios y de nicho.",
         "Puedes copiar todo el grupo o llevarte etiquetas individuales.",
       ],
@@ -802,30 +817,30 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
       content: {
         howToUseTitle: "Cómo usar el generador de hashtags",
         howToUseDescription:
-          "Empieza con el nicho, luego elige la plataforma y decide si quieres una tanda más viral, equilibrada o más específica.",
+          "Empieza con el nicho, luego elige la plataforma y decide si quieres un grupo más viral, equilibrado o más específico.",
         howToUseSteps: [
           { title: "Escribe el nicho", body: "Introduce el tema principal, por ejemplo comida, moda, gaming, fitness o viajes." },
-          { title: "Define plataforma y nivel", body: "Selecciona la plataforma y después elige si la tanda debe ir a viral, media o nicho." },
-          { title: "Genera y copia", body: "Revisa la tanda de 20 a 30 hashtags y copia todo el bloque o solo los hashtags que mejor encajen." },
+          { title: "Define plataforma y nivel", body: "Selecciona la plataforma y después elige si el grupo debe ir a viral, medio o nicho." },
+          { title: "Genera y copia", body: "Revisa el grupo de 20 a 30 hashtags y copia todo el bloque o solo los hashtags que mejor encajen." },
         ],
         useCasesTitle: "Mejores casos de uso",
         useCasesDescription:
-          "Va mejor cuando necesitas una primera tanda útil rápido sin montar listas desde cero en cada publicación.",
+          "Va mejor cuando necesitas un primer grupo útil rápido sin montar listas desde cero en cada publicación.",
         useCases: [
-          { title: "Preparar captions antes de publicar", description: "Genera una tanda lista para pegar cuando el post ya está terminado." },
-          { title: "Planificar contenido por nicho", description: "Prueba varios ángulos de nicho y guarda tandas para reels, shorts o posts futuros." },
+          { title: "Preparar textos antes de publicar", description: "Genera un grupo listo para pegar cuando el post ya está terminado." },
+          { title: "Planificar contenido por nicho", description: "Prueba varios ángulos de nicho y guarda grupos para reels, shorts o posts futuros." },
           { title: "Equilibrar alcance amplio y segmentado", description: "Evita quedarte solo con hashtags masivos o solo con etiquetas demasiado cerradas." },
         ],
         examplesTitle: "Ejemplos",
         examplesDescription: "La herramienta debería darte grupos rápidos y útiles como estos.",
         examples: [
-          { title: "Lote para food creator", inputLabel: "Configuración", input: "Nicho: comida\nPlataforma: Instagram\nPopularidad: Media", outputLabel: "Salida", output: "#comida #comidatips #ideascomida #instagram #reels #instacreador", note: "Mezcla etiquetas del tema, de la plataforma y de dificultad media." },
-          { title: "Lote gaming short-form", inputLabel: "Configuración", input: "Nicho: gaming\nPlataforma: TikTok\nPopularidad: Viral", outputLabel: "Salida", output: "#gaming #gamingtips #tiktok #fyp #viral #videoviral", note: "Útil para probar alcance rápido en vídeos cortos." },
+          { title: "Grupo para cuenta de cocina", inputLabel: "Configuración", input: "Nicho: comida\nPlataforma: Instagram\nPopularidad: Media", outputLabel: "Salida", output: "#comida #comidatips #ideascomida #instagram #reels #instacreador", note: "Mezcla etiquetas del tema, de la plataforma y de dificultad media." },
+          { title: "Grupo gaming para vídeo corto", inputLabel: "Configuración", input: "Nicho: gaming\nPlataforma: TikTok\nPopularidad: Viral", outputLabel: "Salida", output: "#gaming #gamingtips #tiktok #fyp #viral #videoviral", note: "Útil para probar alcance rápido en vídeos cortos." },
         ],
         faqTitle: "FAQ del generador de hashtags",
         faqs: [
-          { question: "¿Cuántos hashtags genera?", answer: "Cada tanda devuelve entre 20 y 30 hashtags para que puedas copiar o recortar lo que necesites." },
-          { question: "¿Puedo copiar todos de una vez?", answer: "Sí. Puedes copiar el lote completo o copiar hashtags individuales." },
+          { question: "¿Cuántos hashtags genera?", answer: "Cada grupo devuelve entre 20 y 30 hashtags para que puedas copiar o recortar lo que necesites." },
+          { question: "¿Puedo copiar todos de una vez?", answer: "Sí. Puedes copiar el grupo completo o copiar hashtags individuales." },
           { question: "¿La plataforma cambia el resultado?", answer: "Sí. Instagram, TikTok, X y YouTube usan mezclas distintas de plataforma y popularidad." },
         ],
       },
@@ -835,10 +850,10 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
     ...{
       slug: "hashtag-generator",
       name: "Hashtag-Generator",
-      shortDescription: "Erzeuge kopierfertige Hashtag-Batches für Instagram, TikTok, X und YouTube.",
+      shortDescription: "Erzeuge kopierfertige Hashtag-Sets für Instagram, TikTok, X und YouTube.",
       description:
-        "Verwandle eine Nische in 20 bis 30 plattformtaugliche Hashtags und kopiere den ganzen Batch oder nur einzelne Tags.",
-      eyebrow: "Creator-Wachstumstool",
+        "Verwandle eine Nische in 20 bis 30 plattformtaugliche Hashtags und kopiere das ganze Set oder nur einzelne Tags.",
+      eyebrow: "Social-Media-Tool",
       accentLabel: "TAGS",
       metaTitle: "Hashtag-Generator — Kostenlos online | Toolyflow",
       metaDescription:
@@ -887,49 +902,49 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
     ...{
       slug: "hashtag-generator",
       name: "Générateur de hashtags",
-      shortDescription: "Génère des lots de hashtags prêts à copier pour Instagram, TikTok, X et YouTube.",
+      shortDescription: "Génère des groupes de hashtags prêts à copier pour Instagram, TikTok, X et YouTube.",
       description:
-        "Transforme une niche en 20 à 30 hashtags adaptés à la plateforme, puis copie tout le lot ou seulement les tags utiles.",
-      eyebrow: "Outil de croissance créateur",
+        "Transforme une niche en 20 à 30 hashtags adaptés à la plateforme, puis copie tout le groupe ou seulement les tags utiles.",
+      eyebrow: "Outil de croissance sociale",
       accentLabel: "TAGS",
       metaTitle: "Générateur de hashtags — Gratuit en ligne | Toolyflow",
       metaDescription:
         "Générez des hashtags pour Instagram, TikTok, X et YouTube en quelques secondes avec un outil gratuit.",
       keywords: ["générateur de hashtags", "hashtags instagram", "hashtags tiktok", "hashtags youtube", "hashtags x"],
       highlights: [
-        "Crée des lots de 20 à 30 hashtags au lieu de quelques idées isolées.",
+        "Crée des groupes de 20 à 30 hashtags au lieu de quelques idées isolées.",
         "Les filtres de plateforme et de popularité modifient l'équilibre entre tags larges et ciblés.",
-        "Copie le lot complet ou récupère les hashtags un par un.",
+        "Copie le groupe complet ou récupère les hashtags un par un.",
       ],
       structuredDescription:
         "Générateur gratuit de hashtags pour Instagram, TikTok, X et YouTube avec filtres de niche, plateforme et popularité.",
       content: {
         howToUseTitle: "Comment utiliser le générateur de hashtags",
         howToUseDescription:
-          "Commence par la niche, choisis la plateforme, puis décide si tu veux un lot plus viral, plus équilibré ou plus ciblé.",
+          "Commence par la niche, choisis la plateforme, puis décide si tu veux un groupe plus viral, plus équilibré ou plus ciblé.",
         howToUseSteps: [
           { title: "Saisis la niche", body: "Entre ton sujet principal, comme food, mode, gaming, fitness ou voyage." },
           { title: "Choisis la plateforme et le niveau", body: "Sélectionne la plateforme puis le niveau viral, moyen ou niche." },
-          { title: "Génère et copie", body: "Parcours les 20 à 30 hashtags générés puis copie tout le lot ou seulement ceux qui collent au post." },
+          { title: "Génère et copie", body: "Parcours les 20 à 30 hashtags générés puis copie tout le groupe ou seulement ceux qui collent au post." },
         ],
         useCasesTitle: "Meilleurs cas d'usage",
         useCasesDescription:
           "Le plus utile quand tu veux une première base solide sans reconstruire une liste à chaque publication.",
         useCases: [
-          { title: "Préparer la légende avant publication", description: "Quand le contenu est prêt, il manque souvent juste un lot de hashtags cohérent." },
-          { title: "Planifier le contenu par niche", description: "Teste plusieurs angles de niche et garde des lots pour des reels, shorts ou posts à venir." },
-          { title: "Mélanger portée large et ciblée", description: "Utilise le filtre pour éviter un lot composé uniquement de tags trop génériques ou trop étroits." },
+          { title: "Préparer la légende avant publication", description: "Quand le contenu est prêt, il manque souvent juste un groupe de hashtags cohérent." },
+          { title: "Planifier le contenu par niche", description: "Teste plusieurs angles de niche et garde des groupes pour des reels, shorts ou posts à venir." },
+          { title: "Mélanger portée large et ciblée", description: "Utilise le filtre pour éviter un groupe composé uniquement de tags trop génériques ou trop étroits." },
         ],
         examplesTitle: "Exemples",
         examplesDescription: "L'outil doit t'aider à obtenir rapidement des groupes utiles comme ceux-ci.",
         examples: [
-          { title: "Lot food creator", inputLabel: "Configuration", input: "Niche: food\nPlateforme: Instagram\nPopularité: Moyen", outputLabel: "Exemple", output: "#food #foodastuces #ideesfood #instagram #reels #contenu", note: "Mélange tags de sujet, de plateforme et de concurrence moyenne." },
+          { title: "Groupe cuisine", inputLabel: "Configuration", input: "Niche: food\nPlateforme: Instagram\nPopularité: Moyen", outputLabel: "Exemple", output: "#food #foodastuces #ideesfood #instagram #reels #contenu", note: "Mélange tags de sujet, de plateforme et de concurrence moyenne." },
           { title: "Lot gaming short-form", inputLabel: "Configuration", input: "Niche: gaming\nPlateforme: TikTok\nPopularité: Viral", outputLabel: "Exemple", output: "#gaming #gamingastuces #tiktok #fyp #viral #formatcourt", note: "Pratique pour tester des posts courts à portée rapide." },
         ],
         faqTitle: "FAQ du générateur de hashtags",
         faqs: [
-          { question: "Combien de hashtags sont générés ?", answer: "Chaque lot contient entre 20 et 30 hashtags à copier ou à réduire ensuite." },
-          { question: "Peut-on tout copier d'un clic ?", answer: "Oui. Tu peux copier le lot complet ou prendre les hashtags un par un." },
+          { question: "Combien de hashtags sont générés ?", answer: "Chaque groupe contient entre 20 et 30 hashtags à copier ou à réduire ensuite." },
+          { question: "Peut-on tout copier d'un clic ?", answer: "Oui. Tu peux copier le groupe complet ou prendre les hashtags un par un." },
           { question: "Le choix de la plateforme change-t-il vraiment le résultat ?", answer: "Oui. Instagram, TikTok, X et YouTube ne reçoivent pas exactement le même mélange." },
         ],
       },
@@ -939,17 +954,17 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
     ...{
       slug: "hashtag-generator",
       name: "Gerador de hashtags",
-      shortDescription: "Gere lotes de hashtags prontos para copiar para Instagram, TikTok, X e YouTube.",
+      shortDescription: "Gere grupos de hashtags prontos para copiar para Instagram, TikTok, X e YouTube.",
       description:
         "Transforme um nicho em 20 a 30 hashtags prontos para a plataforma e copie tudo ou só as tags que fizerem sentido.",
-      eyebrow: "Ferramenta de crescimento creator",
+      eyebrow: "Ferramenta de crescimento social",
       accentLabel: "TAGS",
       metaTitle: "Gerador de hashtags — Grátis online | Toolyflow",
       metaDescription:
         "Gere hashtags para Instagram, TikTok, X e YouTube em segundos com um gerador online grátis.",
       keywords: ["gerador de hashtags", "hashtags instagram", "hashtags tiktok", "hashtags youtube", "hashtags x"],
       highlights: [
-        "Entrega lotes com 20 a 30 hashtags, não só ideias soltas.",
+        "Entrega grupos com 20 a 30 hashtags, não só ideias soltas.",
         "Os filtros de plataforma e popularidade mudam o equilíbrio entre alcance amplo e nichado.",
         "Copie tudo de uma vez ou pegue hashtags individuais.",
       ],
@@ -958,30 +973,30 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
       content: {
         howToUseTitle: "Como usar o gerador de hashtags",
         howToUseDescription:
-          "Comece pelo nicho, escolha a plataforma e depois defina se o lote deve ser mais viral, equilibrado ou mais específico.",
+          "Comece pelo nicho, escolha a plataforma e depois defina se o grupo deve ser mais viral, equilibrado ou mais específico.",
         howToUseSteps: [
           { title: "Digite o nicho", body: "Escreva o tema principal, como comida, moda, gaming, fitness ou viagem." },
           { title: "Escolha plataforma e popularidade", body: "Selecione a plataforma e depois o nível viral, médio ou nichado." },
-          { title: "Gere e copie", body: "Revise o lote com 20 a 30 hashtags e copie tudo ou só as que combinam com o post." },
+          { title: "Gere e copie", body: "Revise o grupo com 20 a 30 hashtags e copie tudo ou só as que combinam com o post." },
         ],
         useCasesTitle: "Melhores casos de uso",
         useCasesDescription:
-          "Faz mais sentido quando você precisa de um primeiro lote útil sem montar uma lista do zero em toda publicação.",
+          "Faz mais sentido quando você precisa de um primeiro grupo útil sem montar uma lista do zero em toda publicação.",
         useCases: [
           { title: "Preparar a legenda antes de postar", description: "Quando o conteúdo já está pronto, falta apenas um bloco coerente de hashtags." },
-          { title: "Planejar conteúdo por nicho", description: "Teste ângulos diferentes e salve lotes para reels, shorts ou posts futuros." },
+          { title: "Planejar conteúdo por nicho", description: "Teste ângulos diferentes e salve grupos para reels, shorts ou posts futuros." },
           { title: "Equilibrar alcance amplo e específico", description: "Use o filtro para não cair só em tags super concorridas ou super fechadas." },
         ],
         examplesTitle: "Exemplos",
         examplesDescription: "A ferramenta deve entregar grupos rápidos e úteis como estes.",
         examples: [
-          { title: "Lote para food creator", inputLabel: "Configuração", input: "Nicho: comida\nPlataforma: Instagram\nPopularidade: Médio", outputLabel: "Exemplo", output: "#comida #comidadicas #ideiascomida #instagram #reels #conteudo", note: "Mistura tags do tema, da plataforma e de competição média." },
+          { title: "Grupo para perfil de culinária", inputLabel: "Configuração", input: "Nicho: comida\nPlataforma: Instagram\nPopularidade: Médio", outputLabel: "Exemplo", output: "#comida #comidadicas #ideiascomida #instagram #reels #conteudo", note: "Mistura tags do tema, da plataforma e de competição média." },
           { title: "Lote gaming short-form", inputLabel: "Configuração", input: "Nicho: gaming\nPlataforma: TikTok\nPopularidade: Viral", outputLabel: "Exemplo", output: "#gaming #gamingdicas #tiktok #fyp #viral #formatocurto", note: "Útil para testar alcance rápido em vídeos curtos." },
         ],
         faqTitle: "Perguntas frequentes do gerador de hashtags",
         faqs: [
-          { question: "Quantas hashtags o gerador cria?", answer: "Cada lote traz entre 20 e 30 hashtags para você copiar ou aparar depois." },
-          { question: "Posso copiar todas de uma vez?", answer: "Sim. Dá para copiar o lote completo ou pegar hashtags individuais." },
+          { question: "Quantas hashtags o gerador cria?", answer: "Cada grupo traz entre 20 e 30 hashtags para você copiar ou aparar depois." },
+          { question: "Posso copiar todas de uma vez?", answer: "Sim. Dá para copiar o grupo completo ou pegar hashtags individuais." },
           { question: "A plataforma realmente muda a saída?", answer: "Sim. Instagram, TikTok, X e YouTube usam combinações diferentes de plataforma e popularidade." },
         ],
       },
@@ -1140,6 +1155,8 @@ function createEnglishDictionary(): Dictionary {
             "Start with formatting or cleanup tasks, then move into other text workflows as the library grows.",
           links: [
             { label: "Case Converter", slug: "case-converter" },
+            { label: "Word Counter", slug: "word-counter" },
+            { label: "Text Cleaner", slug: "text-cleaner" },
           ],
         },
         {
@@ -1157,8 +1174,10 @@ function createEnglishDictionary(): Dictionary {
           description:
             "Use a lighter utility when you need a simple output fast without leaving the main workflow.",
           links: [
+            { label: "Color Code Converter", slug: "color-code-converter" },
+            { label: "Percentage Calculator", slug: "percentage-calculator" },
+            { label: "Discount Calculator", slug: "discount-calculator" },
             { label: "QR Code Generator", slug: "qr-generator" },
-            { label: "Decision Wheel", slug: "decision-wheel" },
           ],
         },
       ],
@@ -1407,6 +1426,9 @@ function createEnglishDictionary(): Dictionary {
     tools: {
       "word-counter": localizedWordCounterTools.en,
       "text-cleaner": localizedTextCleanerTools.en,
+      "color-code-converter": localizedUtilityTools.en["color-code-converter"],
+      "percentage-calculator": localizedUtilityTools.en["percentage-calculator"],
+      "discount-calculator": localizedUtilityTools.en["discount-calculator"],
       "bio-generator": {
         slug: "bio-generator",
         name: "Bio Generator",
@@ -1951,6 +1973,9 @@ function createEnglishDictionary(): Dictionary {
     },
     wordCounter: localizedWordCounterLabels.en,
     textCleaner: localizedTextCleanerLabels.en,
+    colorCodeConverter: localizedColorCodeConverterLabels.en,
+    percentageCalculator: localizedPercentageCalculatorLabels.en,
+    discountCalculator: localizedDiscountCalculatorLabels.en,
     caseConverter: {
       inputLabel: "Paste your text",
       placeholder: "Enter or paste text to convert.",
@@ -2352,6 +2377,30 @@ function translateDictionary(
       ...base.textCleaner,
       ...overrides.textCleaner,
     } as Dictionary["textCleaner"],
+    colorCodeConverter: {
+      ...base.colorCodeConverter,
+      ...overrides.colorCodeConverter,
+      formats: {
+        ...base.colorCodeConverter.formats,
+        ...overrides.colorCodeConverter?.formats,
+      },
+    } as Dictionary["colorCodeConverter"],
+    percentageCalculator: {
+      ...base.percentageCalculator,
+      ...overrides.percentageCalculator,
+      modes: {
+        ...base.percentageCalculator.modes,
+        ...overrides.percentageCalculator?.modes,
+      },
+    } as Dictionary["percentageCalculator"],
+    discountCalculator: {
+      ...base.discountCalculator,
+      ...overrides.discountCalculator,
+      results: {
+        ...base.discountCalculator.results,
+        ...overrides.discountCalculator?.results,
+      },
+    } as Dictionary["discountCalculator"],
     caseConverter: {
       ...base.caseConverter,
       ...overrides.caseConverter,
@@ -2588,24 +2637,29 @@ const tr = translateDictionary(en, "tr", {
         description:
           "Bio, nickname ve QR gibi profil ve paylaşım akışına yakın araçlara buradan girin.",
         links: [
-          { label: "Bio Generator", slug: "bio-generator" },
-          { label: "Nickname Generator", slug: "nickname-generator" },
-          { label: "QR Code Generator", slug: "qr-generator" },
+          { label: "Biyografi Üreticisi", slug: "bio-generator" },
+          { label: "Kullanıcı Adı Üreticisi", slug: "nickname-generator" },
+          { label: "Hashtag Üreticisi", slug: "hashtag-generator" },
         ],
       },
       {
         title: "Metin araçları",
         description:
           "Biçimlendirme, temizlik ve hızlı düzenleme işi için metin tarafına geçin.",
-        links: [{ label: "Case Converter", slug: "case-converter" }],
+        links: [
+          { label: "Metin Dönüştürücü", slug: "case-converter" },
+          { label: "Kelime Sayacı", slug: "word-counter" },
+          { label: "Metin Temizleyici", slug: "text-cleaner" },
+        ],
       },
       {
         title: "Hızlı araçlar",
         description:
           "Ana akıştan kopmadan küçük bir kararı veya paylaşım işini hızlıca çözmek için destek araçlarına gidin.",
         links: [
-          { label: "QR Code Generator", slug: "qr-generator" },
-          { label: "Decision Wheel", slug: "decision-wheel" },
+          { label: "Renk Kodu Dönüştürücü", slug: "color-code-converter" },
+          { label: "Yüzde Hesaplayıcı", slug: "percentage-calculator" },
+          { label: "İndirim Hesaplayıcı", slug: "discount-calculator" },
         ],
       },
     ],
@@ -2872,11 +2926,11 @@ const tr = translateDictionary(en, "tr", {
       ],
       highlights: [
         "Ton, uzunluk, emoji ve CTA kontrolleri çıktıyı daha net şekillendirir.",
-        "Sosyal profil, creator sayfası ve kanal bio'ları için uygundur.",
-        "Her üretimde hızlıca karşılaştırabileceğiniz yeni bir bio batch'i gelir.",
+        "Sosyal profil, kanal sayfası ve kişisel hesap açıklamaları için uygundur.",
+        "Her üretimde hızlıca karşılaştırabileceğiniz yeni bio seçenekleri gelir.",
       ],
       structuredDescription:
-        "Platform, ton, uzunluk, emoji ve CTA kontrolleri sunan ücretsiz online bio generator.",
+        "Platform, ton, uzunluk, emoji ve çağrı satırı kontrolleri sunan ücretsiz online biyografi üreticisi.",
       content: {
         howToUseTitle: "Bio generator nasıl kullanılır",
         howToUseDescription:
@@ -2890,12 +2944,12 @@ const tr = translateDictionary(en, "tr", {
           {
             title: "Format filtrelerini ayarlayın",
             body:
-              "Uzunluk, emoji ve CTA satırı seçeneklerini düzenleyerek çıkan batch’in gerçekten kullanabileceğiniz bio formatına yaklaşmasını sağlayın.",
+              "Uzunluk, emoji ve çağrı satırı seçeneklerini düzenleyerek çıkan önerilerin gerçekten kullanabileceğiniz bio formatına yaklaşmasını sağlayın.",
           },
           {
             title: "Üretin, karşılaştırın ve kopyalayın",
             body:
-              "Yeni bir batch üretin, güçlü alternatifleri yan yana okuyun ve profilinize en uygun olanı doğrudan kopyalayın.",
+              "Yeni öneriler üretin, güçlü alternatifleri yan yana okuyun ve profilinize en uygun olanı doğrudan kopyalayın.",
           },
         ],
         useCasesTitle: "En iyi kullanım senaryoları",
@@ -2978,12 +3032,12 @@ const tr = translateDictionary(en, "tr", {
         "özgün kullanıcı adı",
       ],
       highlights: [
-        "Kullanıcı adı, sosyal medya handle, creator alias ve oyun nicki için uygundur.",
+        "Kullanıcı adı, sosyal medya hesabı adı, takma ad ve oyun nicki için uygundur.",
         "Stil, uzunluk, sembol ve okunabilirlik filtreleri sonucu istediğiniz havaya yaklaştırır.",
-        "Her öneri tek dokunuşla kopyalanabilir ve yeni batch ile tazelenebilir.",
+        "Her öneri tek dokunuşla kopyalanabilir ve yeni önerilerle yenilenebilir.",
       ],
       structuredDescription:
-        "Stil ve okunabilirlik kontrolleri sunan ücretsiz nickname generator.",
+        "Stil ve okunabilirlik kontrolleri sunan ücretsiz kullanıcı adı üreticisi.",
       content: {
         howToUseTitle: "Nickname generator nasıl kullanılır",
         howToUseDescription:
@@ -2992,7 +3046,7 @@ const tr = translateDictionary(en, "tr", {
           {
             title: "Bir hava veya anahtar kelime ile başlayın",
             body:
-              "İsterseniz kısa bir kelime girin, isterseniz boş bırakıp stil seçiminin batch’i yönlendirmesine izin verin.",
+              "İsterseniz kısa bir kelime girin, isterseniz boş bırakıp stil seçiminin önerileri yönlendirmesine izin verin.",
           },
           {
             title: "Stil, uzunluk ve sembol tipini seçin",
@@ -3002,7 +3056,7 @@ const tr = translateDictionary(en, "tr", {
           {
             title: "Sahiplenilebilir bir sonuç gelene kadar yenileyin",
             body:
-              "Yeni batch’ler üretin ve kulağa iyi gelen, okunabilen ve gerçekten kullanılabilir duran nickname’i seçin.",
+              "Yeni öneriler üretin ve kulağa iyi gelen, okunabilen ve gerçekten kullanılabilir duran kullanıcı adını seçin.",
           },
         ],
         useCasesTitle: "En iyi kullanım senaryoları",
@@ -3119,7 +3173,7 @@ const tr = translateDictionary(en, "tr", {
           {
             title: "Link, menü veya profil paylaşımı",
             description:
-              "Bir landing page, menü, rezervasyon sayfası veya creator profilini saniyeler içinde taranabilir hale getirin.",
+        "Bir açılış sayfasını, menüyü, rezervasyon sayfasını veya profil linkini saniyeler içinde taranabilir hale getirin.",
           },
           {
             title: "WiFi ve iletişim paylaşımı",
@@ -3134,7 +3188,7 @@ const tr = translateDictionary(en, "tr", {
         ],
         examplesTitle: "Örnekler",
         examplesDescription:
-          "Bunlar utility tipi bir QR aracında en sık görülen ve değer üreten kullanım örnekleridir.",
+          "Bunlar QR aracında en sık görülen ve gerçekten iş gören kullanım örnekleridir.",
         examples: [
           {
             title: "Web sitesi link QR",
@@ -3197,7 +3251,7 @@ const tr = translateDictionary(en, "tr", {
         "Mobil, tablet ve masaüstünde temiz çalışır.",
       ],
       structuredDescription:
-        "Uppercase, lowercase, sentence case, title case, camelCase, snake_case ve kebab-case için ücretsiz case converter.",
+        "Büyük harf, küçük harf, cümle düzeni, başlık düzeni, camelCase, snake_case ve kebab-case için ücretsiz metin dönüştürücü.",
       content: {
         howToUseTitle: "Case converter nasıl kullanılır",
         howToUseDescription:
@@ -3241,7 +3295,7 @@ const tr = translateDictionary(en, "tr", {
         ],
         examplesTitle: "Örnekler",
         examplesDescription:
-          "İyi bir case converter, giriş ve çıkış farkını tek bakışta net göstermelidir.",
+          "İyi bir metin dönüştürücü, giriş ve çıkış farkını tek bakışta net göstermelidir.",
         examples: [
           {
             title: "Başlık biçimlendirme",
@@ -3301,10 +3355,91 @@ const tr = translateDictionary(en, "tr", {
       highlights: [
         "Hızlı ekip kararları, içerik fikirleri ve küçük seçimler için uygundur.",
         "Animasyon sonucu daha net ve etkileşimli hissettirir.",
-        "Her şey sade, responsive ve client-side kalır.",
+        "Her şey sade, uyumlu ve tarayıcı içinde hızlı kalır.",
       ],
       structuredDescription:
-        "Seçenekler arasında dönen ve rastgele seçim yapan ücretsiz decision wheel.",
+        "Seçenekler arasında dönen ve rastgele seçim yapan ücretsiz karar çarkı.",
+      content: {
+        howToUseTitle: "Karar Çarkı nasıl kullanılır",
+        howToUseDescription:
+          "Bu araç hafif ve hızlı kalacak şekilde tasarlandı. Net seçenekler ekleyin, bir kez çevirin ve fazla düşünmeden sonucu kullanın.",
+        howToUseSteps: [
+          {
+            title: "Karşılaştırmak istediğiniz seçenekleri ekleyin",
+            body:
+              "Her seçeneği ayrı satıra yazın ki çark dönüşten önce hepsini net biçimde dağıtabilsin.",
+          },
+          {
+            title: "Çarkı çevirin",
+            body:
+              "Dönüşü başlatın ve benzer seçenekler arasında uzayan kararsızlığı tek sonuçla kapatın.",
+          },
+          {
+            title: "Sonucu kullanın ya da listeyi düzenleyin",
+            body:
+              "Hızlı bir seçim için sonucu kabul edin; sorun seçeneklerdeyse listeyi güncelleyip tekrar çevirin.",
+          },
+        ],
+        useCasesTitle: "En iyi kullanım senaryoları",
+        useCasesDescription:
+          "Çark, derin analiz yerine hızın daha önemli olduğu küçük kararlar için daha uygundur.",
+        useCases: [
+          {
+            title: "İçerik ve isim seçimi",
+            description:
+              "Post fikri, başlık veya kısa liste arasında hızlı bir son karar vermek için kullanın.",
+          },
+          {
+            title: "Ekip içi küçük kararlar",
+            description:
+              "Sıra, görev rotasyonu veya hızlı etkinlik seçimi gibi hafif kararları netleştirir.",
+          },
+          {
+            title: "Günlük kişisel seçimler",
+            description:
+              "Sayfadan çıkmadan küçük günlük kararsızlıkları kırmanıza yardımcı olur.",
+          },
+        ],
+        examplesTitle: "Örnekler",
+        examplesDescription:
+          "En iyi sonuçlar, kısa ama gerçekten seçim gerektiren listelerde çıkar.",
+        examples: [
+          {
+            title: "İçerik fikri kısa listesi",
+            inputLabel: "Girdi",
+            input: "Kamera arkası\nYeni araç demosu\nWorkflow ipuçları\nLansman güncellemesi",
+            outputLabel: "Sonuç",
+            output: "Çark tek bir seçeneğe iner ve final tercihi gösterir.",
+            note: "Kısa liste zaten yeterince iyiyse son kararı hızlandırır.",
+          },
+          {
+            title: "Öğle yemeği seçimi",
+            inputLabel: "Girdi",
+            input: "Pizza\nSushi\nSalata\nBurger",
+            outputLabel: "Sonuç",
+            output: "Dönüşten sonra seçeneklerden biri seçilir.",
+            note: "Utility katmanı için basit ve gündelik bir kullanım örneğidir.",
+          },
+        ],
+        faqTitle: "Karar Çarkı sık sorulan sorular",
+        faqs: [
+          {
+            question: "Karar Çarkı en çok ne için uygundur?",
+            answer:
+              "Uzun uzun tartışmaya değmeyen, düşük riskli ve hızlı seçim gerektiren durumlarda en iyi sonucu verir.",
+          },
+          {
+            question: "Seçenek sayısında sınır var mı?",
+            answer:
+              "Kısa ve okunur listeler en iyi deneyimi verir. Çok uzun listeler çark üzerindeki yazıları sıkıştırabilir.",
+          },
+          {
+            question: "Sonuç tamamen rastgele mi?",
+            answer:
+              "Evet. Çark, eklediğiniz seçenekler arasından client-side çalışan rastgele bir seçim üretir.",
+          },
+        ],
+      },
     },
   },
   caseConverter: {
@@ -3755,16 +3890,20 @@ const es = translateDictionary(en, "es", {
         title: "Ruta de limpieza de texto",
         description:
           "Entra en la capa de herramientas de formato y limpieza que seguirá creciendo con el producto.",
-        links: [{ label: "Case Converter", slug: "case-converter" }],
+        links: [
+          { label: "Convertidor de texto", slug: "case-converter" },
+          { label: "Contador de palabras", slug: "word-counter" },
+          { label: "Limpiador de texto", slug: "text-cleaner" },
+        ],
       },
       {
         title: "Ruta de perfil de creador",
         description:
           "Usa bios, nicknames y herramientas de apoyo al perfil dentro del mismo cluster.",
         links: [
-          { label: "Bio Generator", slug: "bio-generator" },
-          { label: "Nickname Generator", slug: "nickname-generator" },
-          { label: "QR Code Generator", slug: "qr-generator" },
+          { label: "Generador de biografías", slug: "bio-generator" },
+          { label: "Generador de nombres de usuario", slug: "nickname-generator" },
+          { label: "Generador de hashtags", slug: "hashtag-generator" },
         ],
       },
       {
@@ -3772,8 +3911,9 @@ const es = translateDictionary(en, "es", {
         description:
           "Accede a herramientas más ligeras cuando necesitas una salida simple sin salir del flujo principal.",
         links: [
-          { label: "QR Code Generator", slug: "qr-generator" },
-          { label: "Decision Wheel", slug: "decision-wheel" },
+          { label: "Conversor de colores", slug: "color-code-converter" },
+          { label: "Calculadora de porcentajes", slug: "percentage-calculator" },
+          { label: "Calculadora de descuentos", slug: "discount-calculator" },
         ],
       },
     ],
@@ -4031,7 +4171,7 @@ const es = translateDictionary(en, "es", {
       ],
       highlights: [
         "Los controles de tono, longitud, emoji y CTA ajustan mejor el resultado.",
-        "Va bien para perfiles sociales, páginas de creador y bios de canal.",
+        "Va bien para perfiles sociales, bios de canal y páginas personales.",
         "Cada generación devuelve un lote nuevo para comparar rápido.",
       ],
       structuredDescription:
@@ -4224,7 +4364,7 @@ const es = translateDictionary(en, "es", {
         "Convierte cualquier enlace o texto en un QR y descárgalo al instante.",
       description:
         "Crea códigos QR en el navegador con vista previa en vivo, varios tipos de QR y descarga rápida en PNG o SVG.",
-      eyebrow: "Herramienta utility",
+      eyebrow: "Herramienta rápida",
       metaTitle: "Generador de códigos QR — Gratis online | Toolyflow",
       metaDescription:
         "Crea códigos QR al instante para URL, texto, email, teléfono o WiFi con un generador gratis.",
@@ -4282,7 +4422,7 @@ const es = translateDictionary(en, "es", {
           },
         ],
         examplesDescription:
-          "Estas configuraciones muestran el tipo de QR que la gente suele crear en una utility page como esta.",
+          "Estas configuraciones muestran el tipo de QR que la gente suele crear en una página como esta.",
         examples: [
           {
             title: "QR para un enlace web",
@@ -4427,7 +4567,7 @@ const es = translateDictionary(en, "es", {
     "decision-wheel": {
       name: "Ruleta de decisiones",
       shortDescription:
-        "Haz girar opciones cuando necesites una utility ligera para una elección rápida.",
+        "Haz girar opciones cuando necesites una herramienta ligera para una elección rápida.",
       description:
         "Usa un selector aleatorio con animación y resultado claro cuando necesites una herramienta extra fuera del flujo central.",
       eyebrow: "Utility rápida",
@@ -4444,11 +4584,12 @@ const es = translateDictionary(en, "es", {
       highlights: [
         "Útil para decisiones rápidas, ideas de contenido y pequeñas elecciones de equipo.",
         "La animación hace que el resultado se sienta claro e interactivo.",
-        "Todo sigue siendo simple, responsive y client-side.",
+        "Todo sigue siendo simple, adaptable y rápido en el navegador.",
       ],
       structuredDescription:
         "Decision wheel online gratis para girar opciones y elegir un resultado aleatorio.",
       content: {
+        howToUseTitle: "Cómo usar la ruleta de decisiones",
         howToUseDescription:
           "Esta herramienta es deliberadamente ligera. Añade opciones claras, gira una vez y usa el resultado cuando quieras decidir rápido sin pensarlo de más.",
         howToUseSteps: [
@@ -4468,6 +4609,7 @@ const es = translateDictionary(en, "es", {
               "Usa el resultado para decidir rápido o ajusta las opciones y vuelve a girar si el problema está en la lista misma.",
           },
         ],
+        useCasesTitle: "Mejores casos de uso",
         useCasesDescription:
           "La rueda es más útil para decisiones pequeñas en las que la velocidad importa más que un análisis profundo.",
         useCases: [
@@ -4487,13 +4629,14 @@ const es = translateDictionary(en, "es", {
               "Rompe la indecisión en elecciones diarias pequeñas sin salir de la página.",
           },
         ],
+        examplesTitle: "Ejemplos",
         examplesDescription:
           "Los mejores casos de uso son listas cortas con necesidad real de una elección final simple.",
         examples: [
           {
             title: "Shortlist de ideas de contenido",
             inputLabel: "Entrada",
-            input: "Behind the scenes\nNew tool demo\nWorkflow tips\nLaunch update",
+            input: "Detrás de cámaras\nDemo de nueva herramienta\nConsejos de workflow\nActualización de lanzamiento",
             outputLabel: "Resultado",
             output: "La rueda cae sobre una opción y muestra una única elección final.",
             note: "Útil cuando la shortlist ya es suficientemente buena y solo falta una decisión final.",
@@ -4501,15 +4644,16 @@ const es = translateDictionary(en, "es", {
           {
             title: "Elegir comida",
             inputLabel: "Entrada",
-            input: "Pizza\nSushi\nSalad\nBurgers",
+            input: "Pizza\nSushi\nEnsalada\nHamburguesa",
             outputLabel: "Resultado",
             output: "Se selecciona una opción al terminar el giro.",
             note: "Un ejemplo simple y cotidiano para esta capa utility.",
           },
         ],
+        faqTitle: "Preguntas frecuentes de la ruleta de decisiones",
         faqs: [
           {
-            question: "¿Para qué sirve mejor la decision wheel?",
+            question: "¿Para qué sirve mejor la ruleta de decisiones?",
             answer:
               "Funciona mejor para elecciones rápidas y de bajo riesgo, donde un resultado aleatorio es más útil que seguir discutiendo demasiado.",
           },
@@ -4919,16 +5063,20 @@ const de = translateDictionary(en, "de", {
         title: "Pfad für Textbereinigung",
         description:
           "Steig in die Schicht für Formatierung und Bereinigung ein, die als Text-Cluster weiter ausgebaut wird.",
-        links: [{ label: "Case Converter", slug: "case-converter" }],
+        links: [
+          { label: "Text-Konverter", slug: "case-converter" },
+          { label: "Wortzähler", slug: "word-counter" },
+          { label: "Textbereiniger", slug: "text-cleaner" },
+        ],
       },
       {
         title: "Pfad für Creator-Profile",
         description:
           "Nutze Bios, Nicknames und unterstützende Creator-Tools im selben Cluster.",
         links: [
-          { label: "Bio Generator", slug: "bio-generator" },
-          { label: "Nickname Generator", slug: "nickname-generator" },
-          { label: "QR Code Generator", slug: "qr-generator" },
+          { label: "Biografie-Generator", slug: "bio-generator" },
+          { label: "Benutzernamen-Generator", slug: "nickname-generator" },
+          { label: "Hashtag-Generator", slug: "hashtag-generator" },
         ],
       },
       {
@@ -4936,8 +5084,9 @@ const de = translateDictionary(en, "de", {
         description:
           "Greif auf leichtere Tools zu, wenn du eine schnelle Ausgabe brauchst, ohne den Hauptfluss zu verlassen.",
         links: [
-          { label: "QR Code Generator", slug: "qr-generator" },
-          { label: "Decision Wheel", slug: "decision-wheel" },
+          { label: "Farbcode-Konverter", slug: "color-code-converter" },
+          { label: "Prozentrechner", slug: "percentage-calculator" },
+          { label: "Rabattrechner", slug: "discount-calculator" },
         ],
       },
     ],
@@ -5181,7 +5330,7 @@ const de = translateDictionary(en, "de", {
       shortDescription:
         "Erzeuge klarere Bios für Instagram, TikTok, X, YouTube und Twitch.",
       description:
-        "Generiere Bios nach Plattform, Ton, Länge, Emoji-Nutzung und CTA und kopiere die Version, die zu deinem Profil passt.",
+        "Generiere Bios nach Plattform, Ton, Länge, Emoji-Nutzung und Handlungszeile und kopiere die Version, die zu deinem Profil passt.",
       eyebrow: "Profil-Tool",
       metaTitle: "Biografie-Generator — Kostenlos online | Toolyflow",
       metaDescription:
@@ -5195,8 +5344,8 @@ const de = translateDictionary(en, "de", {
       ],
       highlights: [
         "Ton, Länge, Emoji und CTA formen die Ausgabe präziser.",
-        "Gut geeignet für Social-Profile, Creator-Seiten und Channel-Bios.",
-        "Jede Generierung liefert einen frischen Stapel zum schnellen Vergleichen.",
+        "Gut geeignet für Social-Profile, Kanäle und persönliche Profilseiten.",
+        "Jede Generierung liefert neue Vorschläge zum schnellen Vergleichen.",
       ],
       structuredDescription:
         "Kostenloser Online-Bio-Generator für Creator-Profile mit Plattform-, Ton-, Längen-, Emoji- und CTA-Steuerung.",
@@ -5387,7 +5536,7 @@ const de = translateDictionary(en, "de", {
         "Wandle jeden Link oder Text in einen QR-Code um und lade ihn sofort herunter.",
       description:
         "Erstelle QR-Codes im Browser mit Live-Vorschau, mehreren QR-Typen und schnellem PNG- oder SVG-Download.",
-      eyebrow: "Utility-Tool",
+      eyebrow: "Schnelles Tool",
       metaTitle: "QR-Code-Generator — Kostenlos online | Toolyflow",
       metaDescription:
         "Erstelle QR-Codes sofort für URLs, Text, E-Mail, Telefon oder WLAN mit einem kostenlosen Online-Tool.",
@@ -5445,7 +5594,7 @@ const de = translateDictionary(en, "de", {
           },
         ],
         examplesDescription:
-          "Diese Setups zeigen, welche QR-Ausgaben auf einer Utility-Seite wie dieser typischerweise gebraucht werden.",
+          "Diese Setups zeigen, welche QR-Ausgaben auf einer Seite wie dieser typischerweise gebraucht werden.",
         examples: [
           {
             title: "QR für Website-Link",
@@ -5590,10 +5739,10 @@ const de = translateDictionary(en, "de", {
     "decision-wheel": {
       name: "Entscheidungsrad",
       shortDescription:
-        "Dreh durch Optionen, wenn du eine leichte Utility für schnelle Entscheidungen brauchst.",
+        "Dreh durch Optionen, wenn du ein leichtes Tool für schnelle Entscheidungen brauchst.",
       description:
-        "Nutze einen zufälligen Picker mit Animation und klarem Ergebnis, wenn du ein Extra-Tool außerhalb der Kernflüsse brauchst.",
-      eyebrow: "Schnelle Utility",
+        "Nutze einen zufälligen Picker mit Animation und klarem Ergebnis, wenn du für eine kleine Entscheidung schnelle Hilfe brauchst.",
+      eyebrow: "Schnelle Hilfe",
       metaTitle: "Entscheidungsrad — Zufallsauswahl | Toolyflow",
       metaDescription:
         "Füge Optionen hinzu, drehe das Rad und erhalte eine Zufallsauswahl mit einem kostenlosen Entscheidungsrad.",
@@ -5612,6 +5761,7 @@ const de = translateDictionary(en, "de", {
       structuredDescription:
         "Kostenloses Online-Decision-Wheel zum Drehen durch Optionen und Wählen eines Zufallsergebnisses.",
       content: {
+        howToUseTitle: "So nutzt du das Entscheidungsrad",
         howToUseDescription:
           "Dieses Tool ist bewusst leicht gehalten. Füge klare Optionen ein, drehe einmal und nutze das Ergebnis für eine schnelle Entscheidung ohne Grübeln.",
         howToUseSteps: [
@@ -5631,6 +5781,7 @@ const de = translateDictionary(en, "de", {
               "Nimm das Ergebnis für eine schnelle Entscheidung oder ändere die Liste und drehe erneut, wenn eher die Optionenauswahl selbst noch nicht passt.",
           },
         ],
+        useCasesTitle: "Beste Einsatzfälle",
         useCasesDescription:
           "Das Rad ist am hilfreichsten für kleine Entscheidungen, bei denen Tempo wichtiger ist als tiefe Analyse.",
         useCases: [
@@ -5650,13 +5801,14 @@ const de = translateDictionary(en, "de", {
               "Durchbrich Unentschlossenheit bei simplen Tagesoptionen, ohne die Seite zu verlassen.",
           },
         ],
+        examplesTitle: "Beispiele",
         examplesDescription:
           "Die besten Einsatzfälle sind kurze Listen mit echtem Bedarf an einer einfachen Schlussentscheidung.",
         examples: [
           {
             title: "Content-Ideen-Shortlist",
             inputLabel: "Eingabe",
-            input: "Behind the scenes\nNew tool demo\nWorkflow tips\nLaunch update",
+            input: "Behind the scenes\nNeues Tool-Demo\nWorkflow-Tipps\nLaunch-Update",
             outputLabel: "Ergebnis",
             output: "Das Rad landet auf einer Option und zeigt eine finale Auswahl an.",
             note: "Hilfreich, wenn die Shortlist schon gut genug ist und nur noch eine letzte Wahl fehlt.",
@@ -5664,15 +5816,16 @@ const de = translateDictionary(en, "de", {
           {
             title: "Mittagspause wählen",
             inputLabel: "Eingabe",
-            input: "Pizza\nSushi\nSalad\nBurgers",
+            input: "Pizza\nSushi\nSalat\nBurger",
             outputLabel: "Ergebnis",
             output: "Nach dem Spin wird eine Option ausgewählt.",
             note: "Ein einfacher Alltagsfall für die leichtere Utility-Schicht.",
           },
         ],
+        faqTitle: "Entscheidungsrad FAQ",
         faqs: [
           {
-            question: "Wofür eignet sich das Decision Wheel am besten?",
+            question: "Wofür eignet sich das Entscheidungsrad am besten?",
             answer:
               "Am besten für schnelle Entscheidungen mit geringem Risiko, bei denen ein einfacher Zufallspick sinnvoller ist als langes Diskutieren.",
           },
@@ -6082,16 +6235,20 @@ const fr = translateDictionary(en, "fr", {
         title: "Parcours nettoyage de texte",
         description:
           "Entrez dans la couche d'outils de formatage et de nettoyage qui doit encore s'étoffer.",
-        links: [{ label: "Case Converter", slug: "case-converter" }],
+        links: [
+          { label: "Convertisseur de texte", slug: "case-converter" },
+          { label: "Compteur de mots", slug: "word-counter" },
+          { label: "Nettoyeur de texte", slug: "text-cleaner" },
+        ],
       },
       {
         title: "Parcours profil créateur",
         description:
           "Utilisez bios, pseudos et outils de profil dans le même cluster.",
         links: [
-          { label: "Bio Generator", slug: "bio-generator" },
-          { label: "Nickname Generator", slug: "nickname-generator" },
-          { label: "QR Code Generator", slug: "qr-generator" },
+          { label: "Générateur de bio", slug: "bio-generator" },
+          { label: "Générateur de pseudo", slug: "nickname-generator" },
+          { label: "Générateur de hashtags", slug: "hashtag-generator" },
         ],
       },
       {
@@ -6099,8 +6256,9 @@ const fr = translateDictionary(en, "fr", {
         description:
           "Accédez aux outils plus légers quand vous avez besoin d'une sortie simple sans casser le flux principal.",
         links: [
-          { label: "QR Code Generator", slug: "qr-generator" },
-          { label: "Decision Wheel", slug: "decision-wheel" },
+          { label: "Convertisseur de couleurs", slug: "color-code-converter" },
+          { label: "Calculateur de pourcentage", slug: "percentage-calculator" },
+          { label: "Calculateur de remise", slug: "discount-calculator" },
         ],
       },
     ],
@@ -6344,7 +6502,7 @@ const fr = translateDictionary(en, "fr", {
       shortDescription:
         "Générez des bios plus nettes pour Instagram, TikTok, X, YouTube et Twitch.",
       description:
-        "Générez des bios par plateforme, ton, longueur, emoji et CTA, puis copiez la version qui colle à votre profil.",
+        "Générez des bios par plateforme, ton, longueur, emoji et appel à l'action, puis copiez la version qui colle à votre profil.",
       eyebrow: "Outil de profil social",
       metaTitle: "Générateur de bio — Gratuit en ligne | Toolyflow",
       metaDescription:
@@ -6358,8 +6516,8 @@ const fr = translateDictionary(en, "fr", {
       ],
       highlights: [
         "Les réglages de ton, longueur, emoji et CTA rendent la sortie plus précise.",
-        "Très utile pour les profils sociaux, pages créateur et bios de chaîne.",
-        "Chaque génération renvoie un nouveau lot à comparer rapidement.",
+        "Très utile pour les profils sociaux, les bios de chaîne et les pages personnelles.",
+        "Chaque génération renvoie plusieurs pistes à comparer rapidement.",
       ],
       structuredDescription:
         "Générateur de bio gratuit pour profils créateur avec contrôles de plateforme, ton, longueur, emoji et CTA.",
@@ -6550,7 +6708,7 @@ const fr = translateDictionary(en, "fr", {
         "Transformez n'importe quel lien ou texte en QR code et téléchargez-le instantanément.",
       description:
         "Créez des QR codes dans le navigateur avec aperçu en direct, plusieurs types de QR et téléchargement rapide en PNG ou SVG.",
-      eyebrow: "Outil utility",
+      eyebrow: "Outil rapide",
       metaTitle: "Générateur de QR code — Gratuit en ligne | Toolyflow",
       metaDescription:
         "Créez des QR codes pour URL, texte, email, téléphone ou WiFi avec un générateur gratuit en ligne.",
@@ -6608,7 +6766,7 @@ const fr = translateDictionary(en, "fr", {
           },
         ],
         examplesDescription:
-          "Ces réglages montrent les types de QR que l'on génère le plus souvent sur une utility page comme celle-ci.",
+          "Ces réglages montrent les types de QR que l'on génère le plus souvent sur une page comme celle-ci.",
         examples: [
           {
             title: "QR pour lien web",
@@ -6753,10 +6911,10 @@ const fr = translateDictionary(en, "fr", {
     "decision-wheel": {
       name: "Roue de décision",
       shortDescription:
-        "Faites tourner des options quand vous avez besoin d'une utility légère pour un choix rapide.",
+        "Faites tourner des options quand vous avez besoin d'un outil léger pour un choix rapide.",
       description:
-        "Utilisez un sélecteur aléatoire avec animation et résultat clair quand vous voulez un outil bonus en dehors des flux principaux.",
-      eyebrow: "Utility rapide",
+        "Utilisez un sélecteur aléatoire avec animation et résultat clair quand vous voulez trancher vite sur un petit choix.",
+      eyebrow: "Outil rapide",
       metaTitle: "Roue de décision — Sélecteur aléatoire | Toolyflow",
       metaDescription:
         "Ajoutez vos options, faites tourner la roue et obtenez un résultat aléatoire avec une roue de décision gratuite.",
@@ -6775,6 +6933,7 @@ const fr = translateDictionary(en, "fr", {
       structuredDescription:
         "Decision wheel gratuite pour faire tourner des options et obtenir un résultat aléatoire.",
       content: {
+        howToUseTitle: "Comment utiliser la roue de décision",
         howToUseDescription:
           "Cet outil est volontairement léger. Ajoutez des options claires, lancez un tour et utilisez le résultat quand vous voulez décider vite sans trop réfléchir.",
         howToUseSteps: [
@@ -6794,6 +6953,7 @@ const fr = translateDictionary(en, "fr", {
               "Prenez le résultat pour une décision rapide, ou ajustez la liste et relancez si le vrai problème vient des options elles-mêmes.",
           },
         ],
+        useCasesTitle: "Meilleurs cas d’usage",
         useCasesDescription:
           "La roue aide surtout pour les petites décisions où la vitesse compte plus qu'une analyse approfondie.",
         useCases: [
@@ -6813,13 +6973,14 @@ const fr = translateDictionary(en, "fr", {
               "Débloquez une hésitation sur de petites options du quotidien sans quitter la page.",
           },
         ],
+        examplesTitle: "Exemples",
         examplesDescription:
           "Les meilleurs cas d'usage sont des listes courtes avec un vrai besoin d'une décision finale simple.",
         examples: [
           {
             title: "Shortlist d'idées de contenu",
             inputLabel: "Entrée",
-            input: "Behind the scenes\nNew tool demo\nWorkflow tips\nLaunch update",
+            input: "Coulisses\nDémo du nouvel outil\nConseils workflow\nMise à jour de lancement",
             outputLabel: "Résultat",
             output: "La roue s'arrête sur une option et affiche un choix final unique.",
             note: "Utile quand la shortlist est déjà assez bonne et qu'il ne manque qu'un dernier choix.",
@@ -6827,15 +6988,16 @@ const fr = translateDictionary(en, "fr", {
           {
             title: "Choix du déjeuner",
             inputLabel: "Entrée",
-            input: "Pizza\nSushi\nSalad\nBurgers",
+            input: "Pizza\nSushi\nSalade\nBurger",
             outputLabel: "Résultat",
             output: "Une option est sélectionnée après le spin.",
             note: "Un cas d'usage simple et quotidien pour la couche utility légère.",
           },
         ],
+        faqTitle: "FAQ de la roue de décision",
         faqs: [
           {
-            question: "À quoi sert le mieux la decision wheel ?",
+            question: "À quoi sert le mieux la roue de décision ?",
             answer:
               "Elle est surtout utile pour des choix rapides et peu risqués, quand un tirage simple vaut mieux qu'une longue discussion.",
           },
@@ -7245,16 +7407,20 @@ const pt = translateDictionary(en, "pt", {
         title: "Caminho de limpeza de texto",
         description:
           "Entre na camada de formatação e limpeza que deve continuar crescendo dentro do produto.",
-        links: [{ label: "Case Converter", slug: "case-converter" }],
+        links: [
+          { label: "Conversor de texto", slug: "case-converter" },
+          { label: "Contador de palavras", slug: "word-counter" },
+          { label: "Limpador de texto", slug: "text-cleaner" },
+        ],
       },
       {
         title: "Caminho de perfil de criador",
         description:
           "Use bios, nicknames e ferramentas de apoio ao perfil dentro do mesmo cluster.",
         links: [
-          { label: "Bio Generator", slug: "bio-generator" },
-          { label: "Nickname Generator", slug: "nickname-generator" },
-          { label: "QR Code Generator", slug: "qr-generator" },
+          { label: "Gerador de biografia", slug: "bio-generator" },
+          { label: "Gerador de nome de usuário", slug: "nickname-generator" },
+          { label: "Gerador de hashtags", slug: "hashtag-generator" },
         ],
       },
       {
@@ -7262,8 +7428,9 @@ const pt = translateDictionary(en, "pt", {
         description:
           "Acesse ferramentas mais leves quando precisar de uma saída simples sem sair do fluxo principal.",
         links: [
-          { label: "QR Code Generator", slug: "qr-generator" },
-          { label: "Decision Wheel", slug: "decision-wheel" },
+          { label: "Conversor de cores", slug: "color-code-converter" },
+          { label: "Calculadora de porcentagem", slug: "percentage-calculator" },
+          { label: "Calculadora de desconto", slug: "discount-calculator" },
         ],
       },
     ],
@@ -7507,7 +7674,7 @@ const pt = translateDictionary(en, "pt", {
       shortDescription:
         "Gere bios mais limpas para Instagram, TikTok, X, YouTube e Twitch.",
       description:
-        "Gere bios por plataforma, tom, tamanho, emoji e CTA e copie a versão que melhor encaixa no seu perfil.",
+        "Gere bios por plataforma, tom, tamanho, emoji e chamada final e copie a versão que melhor encaixa no seu perfil.",
       eyebrow: "Ferramenta de perfil social",
       metaTitle: "Gerador de biografia — Grátis online | Toolyflow",
       metaDescription:
@@ -7521,8 +7688,8 @@ const pt = translateDictionary(en, "pt", {
       ],
       highlights: [
         "Os controles de tom, tamanho, emoji e CTA deixam a saída mais precisa.",
-        "Funciona bem para perfis sociais, páginas de criador e bios de canal.",
-        "Cada geração devolve um lote novo para comparar rápido.",
+        "Funciona bem para perfis sociais, bios de canal e páginas pessoais.",
+        "Cada geração devolve novas opções para comparar rápido.",
       ],
       structuredDescription:
         "Gerador online grátis de bios para perfis de criador com controles de plataforma, tom, tamanho, emoji e CTA.",
@@ -7714,7 +7881,7 @@ const pt = translateDictionary(en, "pt", {
         "Transforme qualquer link ou texto em QR code e baixe na hora.",
       description:
         "Crie QR codes no navegador com preview ao vivo, vários tipos de QR e download rápido em PNG ou SVG.",
-      eyebrow: "Ferramenta utility",
+      eyebrow: "Ferramenta rápida",
       metaTitle: "Gerador de QR code — Grátis online | Toolyflow",
       metaDescription:
         "Crie QR codes para URL, texto, email, telefone ou WiFi com um gerador grátis online.",
@@ -7772,7 +7939,7 @@ const pt = translateDictionary(en, "pt", {
           },
         ],
         examplesDescription:
-          "Essas configurações mostram os tipos de QR que normalmente fazem sentido em uma utility page como esta.",
+          "Essas configurações mostram os tipos de QR que normalmente fazem sentido em uma página como esta.",
         examples: [
           {
             title: "QR para link de site",
@@ -7917,10 +8084,10 @@ const pt = translateDictionary(en, "pt", {
     "decision-wheel": {
       name: "Roda de decisão",
       shortDescription:
-        "Gire opções quando você precisar de uma utility leve para uma escolha rápida.",
+        "Gire opções quando você precisar de uma ferramenta leve para uma escolha rápida.",
       description:
-        "Use um seletor aleatório com animação e resultado claro quando quiser uma ferramenta extra fora dos fluxos principais.",
-      eyebrow: "Utility rápida",
+        "Use um seletor aleatório com animação e resultado claro quando quiser fechar uma decisão pequena sem perder tempo.",
+      eyebrow: "Ferramenta rápida",
       metaTitle: "Roda de decisão — Seletor aleatório | Toolyflow",
       metaDescription:
         "Adicione opções, gire a roda e receba um resultado aleatório com uma roda de decisão grátis.",
@@ -7939,6 +8106,7 @@ const pt = translateDictionary(en, "pt", {
       structuredDescription:
         "Decision wheel online grátis para girar opções e escolher um resultado aleatório.",
       content: {
+        howToUseTitle: "Como usar a roda de decisão",
         howToUseDescription:
           "Esta ferramenta é propositalmente leve. Adicione opções claras, gire uma vez e use o resultado quando quiser decidir rápido sem pensar demais.",
         howToUseSteps: [
@@ -7958,6 +8126,7 @@ const pt = translateDictionary(en, "pt", {
               "Aceite o resultado para uma decisão rápida ou ajuste a lista e gire de novo se o problema estiver nas opções em si.",
           },
         ],
+        useCasesTitle: "Melhores casos de uso",
         useCasesDescription:
           "A roda ajuda mais em decisões pequenas nas quais velocidade importa mais do que análise profunda.",
         useCases: [
@@ -7977,13 +8146,14 @@ const pt = translateDictionary(en, "pt", {
               "Quebre a indecisão em opções pequenas do dia a dia sem sair da página.",
           },
         ],
+        examplesTitle: "Exemplos",
         examplesDescription:
           "Os melhores casos de uso são listas curtas com necessidade real de uma escolha final simples.",
         examples: [
           {
             title: "Shortlist de ideias de conteúdo",
             inputLabel: "Entrada",
-            input: "Behind the scenes\nNew tool demo\nWorkflow tips\nLaunch update",
+            input: "Bastidores\nDemo da nova ferramenta\nDicas de workflow\nAtualização de lançamento",
             outputLabel: "Resultado",
             output: "A roda cai em uma opção e mostra uma escolha final única.",
             note: "Útil quando a shortlist já é boa o bastante e só falta uma decisão final.",
@@ -7991,15 +8161,16 @@ const pt = translateDictionary(en, "pt", {
           {
             title: "Escolha do almoço",
             inputLabel: "Entrada",
-            input: "Pizza\nSushi\nSalad\nBurgers",
+            input: "Pizza\nSushi\nSalada\nHambúrguer",
             outputLabel: "Resultado",
             output: "Uma opção é selecionada depois do giro.",
             note: "Um caso simples e cotidiano para essa camada utility mais leve.",
           },
         ],
+        faqTitle: "Perguntas frequentes da roda de decisão",
         faqs: [
           {
-            question: "Para que a decision wheel serve melhor?",
+            question: "Para que a roda de decisão funciona melhor?",
             answer:
               "Ela funciona melhor para escolhas rápidas e de baixo risco, quando um sorteio simples é mais útil do que alongar a discussão.",
           },
@@ -8381,10 +8552,16 @@ function withLocalizedExtraToolContent(
       ...dictionary.tools,
       "word-counter": localizedWordCounterTools[locale],
       "text-cleaner": localizedTextCleanerTools[locale],
+      "color-code-converter": localizedUtilityTools[locale]["color-code-converter"],
+      "percentage-calculator": localizedUtilityTools[locale]["percentage-calculator"],
+      "discount-calculator": localizedUtilityTools[locale]["discount-calculator"],
       "hashtag-generator": localizedHashtagTools[locale],
     },
     wordCounter: localizedWordCounterLabels[locale],
     textCleaner: localizedTextCleanerLabels[locale],
+    colorCodeConverter: localizedColorCodeConverterLabels[locale],
+    percentageCalculator: localizedPercentageCalculatorLabels[locale],
+    discountCalculator: localizedDiscountCalculatorLabels[locale],
     hashtagGenerator: localizedHashtagGeneratorLabels[locale],
   };
 }
