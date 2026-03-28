@@ -9,9 +9,10 @@ import { ToolPageShell } from "@/components/tool-page-shell";
 import { BioGenerator } from "@/components/tools/bio-generator";
 import { CaseConverter } from "@/components/tools/case-converter";
 import { DecisionWheel } from "@/components/tools/decision-wheel";
+import { HashtagGenerator } from "@/components/tools/hashtag-generator";
 import { NicknameGenerator } from "@/components/tools/nickname-generator";
 import { QrGenerator } from "@/components/tools/qr-generator";
-import { getDictionary, getToolEntries } from "@/lib/dictionaries";
+import { getDictionary, getToolEntries, getToolEntry } from "@/lib/dictionaries";
 import { isLocale, localizePath, type Locale } from "@/lib/i18n";
 import { createLocalizedMetadata } from "@/lib/metadata";
 import {
@@ -71,7 +72,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   if (isToolSlug(pageSlug)) {
-    const tool = dictionary.tools[pageSlug];
+    const tool = getToolEntry(locale, pageSlug);
+
+    if (!tool) {
+      return {};
+    }
 
     return createLocalizedMetadata({
       locale,
@@ -152,6 +157,7 @@ function renderUnifiedHome(locale: Locale) {
   const iconMap: Record<string, string> = {
     "bio-generator": "✨",
     "nickname-generator": "🎯",
+    "hashtag-generator": "#",
     "qr-generator": "⚡",
     "case-converter": "✍️",
     "decision-wheel": "🎡",
@@ -397,7 +403,11 @@ function renderToolPage(locale: Locale, slug: string) {
   }
 
   const dictionary = getDictionary(locale);
-  const tool = dictionary.tools[slug];
+  const tool = getToolEntry(locale, slug);
+
+  if (!tool) {
+    return notFound();
+  }
   const toolCategory = getCategoryForTool(slug);
   const prioritizedSlugs = toolCategory
     ? getToolSlugsForCategory(toolCategory).filter((item) => item !== slug)
@@ -439,6 +449,8 @@ function renderToolPage(locale: Locale, slug: string) {
         <BioGenerator labels={dictionary.bioGenerator} />
       ) : slug === "nickname-generator" ? (
         <NicknameGenerator labels={dictionary.nicknameGenerator} />
+      ) : slug === "hashtag-generator" ? (
+        <HashtagGenerator labels={dictionary.hashtagGenerator} />
       ) : slug === "qr-generator" ? (
         <QrGenerator labels={dictionary.qrGenerator} />
       ) : slug === "case-converter" ? (

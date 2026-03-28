@@ -40,7 +40,7 @@ export function SiteHeader({ locale, labels }: SiteHeaderProps) {
   ];
 
   return (
-    <header className="sticky top-0 z-30 border-b border-[color:var(--brand-border)] bg-[color:var(--brand-bg)]/92 backdrop-blur-xl">
+    <header className="sticky top-0 z-[100] border-b border-[color:var(--brand-border)] bg-[color:var(--brand-bg)]/92 backdrop-blur-xl">
       <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4">
           <Link
@@ -108,68 +108,68 @@ export function SiteHeader({ locale, labels }: SiteHeaderProps) {
           </div>
         </div>
 
-        {isMenuOpen ? (
-          <>
-            <button
-              type="button"
-              aria-label={labels.menu}
-              className="fixed inset-x-0 bottom-0 top-[73px] z-40 bg-black/55 lg:hidden"
-              onClick={() => setIsMenuOpen(false)}
-            />
-            <div className="fixed bottom-0 right-0 top-[73px] z-50 w-[min(88vw,360px)] overflow-y-auto overscroll-contain border-l border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-5 pb-[calc(2rem+env(safe-area-inset-bottom))] shadow-[-24px_0_60px_rgba(0,0,0,0.32)] lg:hidden">
-              <nav aria-label="Mobile primary">
-                <ul className="grid gap-2">
-                  {[
-                    ...navigation,
-                    { href: localizePath(locale, "contact"), label: labels.contact },
-                  ].map((item) => (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        onClick={() => setIsMenuOpen(false)}
-                        className="flex min-h-11 items-center justify-between rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-4 py-3 text-sm font-medium text-[color:var(--brand-text-primary)] transition hover:border-[color:var(--brand-border-hover)]"
-                      >
-                        <span>{item.label}</span>
-                        <span className="text-lg text-[color:var(--brand-secondary)]">↗</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
+      </div>
+      {isMenuOpen ? (
+        <div className="fixed inset-0 z-[120] lg:hidden">
+          <button
+            type="button"
+            aria-label={labels.menu}
+            className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"
+            onClick={() => setIsMenuOpen(false)}
+          />
+          <div className="absolute inset-y-0 right-0 w-[min(88vw,360px)] overflow-y-auto overscroll-contain border-l border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-5 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-[88px] shadow-[-24px_0_60px_rgba(0,0,0,0.42)]">
+            <nav aria-label="Mobile primary">
+              <ul className="grid gap-2">
+                {[
+                  ...navigation,
+                  { href: localizePath(locale, "contact"), label: labels.contact },
+                ].map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex min-h-11 items-center justify-between rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-4 py-3 text-sm font-medium text-[color:var(--brand-text-primary)] transition hover:border-[color:var(--brand-border-hover)]"
+                    >
+                      <span>{item.label}</span>
+                      <span className="text-lg text-[color:var(--brand-secondary)]">↗</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
-              <div className="mt-5 border-t border-[color:var(--brand-border)] pt-5">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-text-secondary)]">
-                  {labels.language}
-                </p>
-                <div className="mt-3 grid gap-2">
-                  {locales.map((targetLocale) => {
-                    const isActive = targetLocale === locale;
+            <div className="mt-5 border-t border-[color:var(--brand-border)] pt-5">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-text-secondary)]">
+                {labels.language}
+              </p>
+              <div className="mt-3 grid gap-2">
+                {locales.map((targetLocale) => {
+                  const isActive = targetLocale === locale;
 
-                    return (
-                      <Link
-                        key={targetLocale}
-                        href={replaceLocaleInPath(pathname, targetLocale)}
-                        hrefLang={targetLocale}
-                        onClick={() => setIsMenuOpen(false)}
-                        className={`flex min-h-11 items-center justify-between rounded-2xl border px-4 py-3 text-sm font-medium transition ${
-                          isActive
-                            ? "border-transparent bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
-                            : "border-[color:var(--brand-border)] bg-[color:var(--brand-card)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
-                        }`}
-                      >
-                        <span>{localeLabels[targetLocale]}</span>
-                        <span className="text-xs font-semibold uppercase tracking-[0.16em] opacity-80">
-                          {targetLocale}
-                        </span>
-                      </Link>
-                    );
-                  })}
-                </div>
+                  return (
+                    <Link
+                      key={targetLocale}
+                      href={replaceLocaleInPath(pathname, targetLocale)}
+                      hrefLang={targetLocale}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={`flex min-h-11 items-center justify-between rounded-2xl border px-4 py-3 text-sm font-medium transition ${
+                        isActive
+                          ? "border-transparent bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                          : "border-[color:var(--brand-border)] bg-[color:var(--brand-card)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
+                      }`}
+                    >
+                      <span>{localeLabels[targetLocale]}</span>
+                      <span className="text-xs font-semibold uppercase tracking-[0.16em] opacity-80">
+                        {targetLocale}
+                      </span>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
-          </>
-        ) : null}
-      </div>
+          </div>
+        </div>
+      ) : null}
     </header>
   );
 }

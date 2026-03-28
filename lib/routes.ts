@@ -3,6 +3,7 @@ import { categorySlugs, type CategorySlug } from "@/lib/tool-categories";
 export const toolSlugs = [
   "bio-generator",
   "nickname-generator",
+  "hashtag-generator",
   "qr-generator",
   "case-converter",
   "decision-wheel",

@@ -263,15 +263,719 @@ export type Dictionary = {
     emptyResult: string;
     starterOptions: string[];
   };
+  hashtagGenerator: {
+    nicheLabel: string;
+    nichePlaceholder: string;
+    platformLabel: string;
+    popularityLabel: string;
+    helper: string;
+    emptyState: string;
+    generate: string;
+    copyAll: string;
+    copyOne: string;
+    copied: string;
+    allCopied: string;
+    countSuffix: string;
+    defaultTopic: string;
+    platforms: Record<"instagram" | "tiktok" | "x" | "youtube", string>;
+    popularityModes: Record<"viral" | "balanced" | "niche", string>;
+    pools: {
+      modifiers: string[];
+      generic: string[];
+      platformTags: Record<"instagram" | "tiktok" | "x" | "youtube", string[]>;
+      popularityTags: Record<"viral" | "balanced" | "niche", string[]>;
+    };
+  };
 };
 
 const baseToolSlugs: ToolSlug[] = [
   "case-converter",
   "bio-generator",
   "nickname-generator",
+  "hashtag-generator",
   "qr-generator",
   "decision-wheel",
 ];
+
+const localizedHashtagGeneratorLabels: Record<Locale, Dictionary["hashtagGenerator"]> = {
+  en: {
+    nicheLabel: "Topic or niche",
+    nichePlaceholder: "e.g. food, fashion, gaming",
+    platformLabel: "Platform",
+    popularityLabel: "Popularity",
+    helper:
+      "Enter a niche, choose the platform, then generate a batch that mixes broad, balanced, or long-tail hashtags.",
+    emptyState: "Generate a batch to see your hashtag list.",
+    generate: "Generate hashtags",
+    copyAll: "Copy all",
+    copyOne: "Copy",
+    copied: "Copied",
+    allCopied: "All copied",
+    countSuffix: "hashtags",
+    defaultTopic: "creator",
+    platforms: {
+      instagram: "Instagram",
+      tiktok: "TikTok",
+      x: "Twitter / X",
+      youtube: "YouTube",
+    },
+    popularityModes: {
+      viral: "Viral",
+      balanced: "Medium",
+      niche: "Niche",
+    },
+    pools: {
+      modifiers: ["tips", "ideas", "daily", "guide", "community", "studio", "hub", "world"],
+      generic: ["contentcreator", "creatortools", "onlinecreator", "digitalcreator"],
+      platformTags: {
+        instagram: ["instagram", "reels", "instacreator", "instatips", "instagrowth", "content"],
+        tiktok: ["tiktok", "fyp", "tiktoktips", "viralvideo", "creatorlife", "shortform"],
+        x: ["twitterx", "xcreator", "socialtips", "trendwatch", "creatornews", "posting"],
+        youtube: ["youtube", "youtubeshorts", "videocreator", "channelgrowth", "youtubetips", "shorts"],
+      },
+      popularityTags: {
+        viral: ["viral", "trending", "foryou", "explorepage", "mustsee", "popularnow"],
+        balanced: ["tips", "ideas", "growth", "strategy", "community", "creativework"],
+        niche: ["insideguide", "deepdive", "workflow", "behindthescenes", "targeted", "specialized"],
+      },
+    },
+  },
+  tr: {
+    nicheLabel: "Konu veya niş",
+    nichePlaceholder: "ör. yemek, moda, oyun",
+    platformLabel: "Platform",
+    popularityLabel: "Popülerlik",
+    helper:
+      "Niş alanını yaz, platformu seç ve daha geniş, dengeli ya da uzun kuyruklu hashtag setleri üret.",
+    emptyState: "Hashtag listesini görmek için bir üretim başlat.",
+    generate: "Hashtag üret",
+    copyAll: "Tümünü kopyala",
+    copyOne: "Kopyala",
+    copied: "Kopyalandı",
+    allCopied: "Tümü kopyalandı",
+    countSuffix: "hashtag",
+    defaultTopic: "icerik",
+    platforms: {
+      instagram: "Instagram",
+      tiktok: "TikTok",
+      x: "Twitter / X",
+      youtube: "YouTube",
+    },
+    popularityModes: {
+      viral: "Viral",
+      balanced: "Orta",
+      niche: "Niş",
+    },
+    pools: {
+      modifiers: ["ipuclari", "onerileri", "rehberi", "gunlugu", "toplulugu", "dunyasi", "fikri", "notlari"],
+      generic: ["icerikuretici", "creatoraraclari", "dijitaluretim", "sosyalmedya"],
+      platformTags: {
+        instagram: ["instagram", "reels", "kesfet", "instaturkiye", "icerik", "sosyalmedya"],
+        tiktok: ["tiktok", "fyp", "kesfet", "viralvideo", "icerikfikirleri", "kisaicerik"],
+        x: ["twitterx", "gundem", "iceriktaktikleri", "paylasim", "sosyaltrend", "xgundem"],
+        youtube: ["youtube", "shorts", "videouretimi", "kanalbuyutme", "youtubeipucu", "icerik"],
+      },
+      popularityTags: {
+        viral: ["viral", "trend", "kesfetteyiz", "onerilenler", "cokkonusulan", "foryou"],
+        balanced: ["ipuclari", "fikirler", "buyume", "icerikplani", "topluluk", "uretmek"],
+        niche: ["odak", "detaylar", "rehber", "arkaplan", "isakisi", "ozelicerik"],
+      },
+    },
+  },
+  es: {
+    nicheLabel: "Tema o nicho",
+    nichePlaceholder: "ej. comida, moda, gaming",
+    platformLabel: "Plataforma",
+    popularityLabel: "Popularidad",
+    helper:
+      "Escribe el nicho, elige la plataforma y genera una mezcla de hashtags virales, equilibrados o más específicos.",
+    emptyState: "Genera una tanda para ver tu lista de hashtags.",
+    generate: "Generar hashtags",
+    copyAll: "Copiar todo",
+    copyOne: "Copiar",
+    copied: "Copiado",
+    allCopied: "Todo copiado",
+    countSuffix: "hashtags",
+    defaultTopic: "creador",
+    platforms: {
+      instagram: "Instagram",
+      tiktok: "TikTok",
+      x: "Twitter / X",
+      youtube: "YouTube",
+    },
+    popularityModes: {
+      viral: "Viral",
+      balanced: "Media",
+      niche: "Nicho",
+    },
+    pools: {
+      modifiers: ["ideas", "tips", "guia", "diario", "comunidad", "estudio", "mundo", "notas"],
+      generic: ["creadordecontenido", "herramientascreator", "socialmedia", "creadordigital"],
+      platformTags: {
+        instagram: ["instagram", "reels", "instacreador", "instatips", "contenido", "crecimiento"],
+        tiktok: ["tiktok", "fyp", "videoviral", "creador", "videovertical", "ideas"],
+        x: ["twitterx", "tendencias", "creadordigital", "posteo", "socialtips", "actualidad"],
+        youtube: ["youtube", "shorts", "videocreador", "canal", "youtubeideas", "contenido"],
+      },
+      popularityTags: {
+        viral: ["viral", "tendencia", "parati", "descubrir", "popular", "mustwatch"],
+        balanced: ["ideas", "estrategia", "crecimiento", "comunidad", "tips", "creatividad"],
+        niche: ["guia", "detalle", "workflow", "segmentado", "especializado", "profundo"],
+      },
+    },
+  },
+  de: {
+    nicheLabel: "Thema oder Nische",
+    nichePlaceholder: "z. B. food, mode, gaming",
+    platformLabel: "Plattform",
+    popularityLabel: "Beliebtheit",
+    helper:
+      "Nische eingeben, Plattform wählen und dann eine Mischung aus breiten, ausgewogenen oder gezielten Hashtags erzeugen.",
+    emptyState: "Erzeuge eine Runde, um deine Hashtag-Liste zu sehen.",
+    generate: "Hashtags erzeugen",
+    copyAll: "Alle kopieren",
+    copyOne: "Kopieren",
+    copied: "Kopiert",
+    allCopied: "Alles kopiert",
+    countSuffix: "Hashtags",
+    defaultTopic: "creator",
+    platforms: {
+      instagram: "Instagram",
+      tiktok: "TikTok",
+      x: "Twitter / X",
+      youtube: "YouTube",
+    },
+    popularityModes: {
+      viral: "Viral",
+      balanced: "Mittel",
+      niche: "Nische",
+    },
+    pools: {
+      modifiers: ["tipps", "ideen", "guide", "alltag", "community", "studio", "welt", "notizen"],
+      generic: ["contentcreator", "creatorwerkzeuge", "socialmedia", "digitalcreator"],
+      platformTags: {
+        instagram: ["instagram", "reels", "instatipps", "creatorleben", "content", "wachstum"],
+        tiktok: ["tiktok", "fyp", "viralvideo", "creatoralltag", "kurzvideo", "ideen"],
+        x: ["twitterx", "trends", "socialtipps", "postings", "creatornews", "aktuell"],
+        youtube: ["youtube", "shorts", "videocreator", "kanalwachstum", "youtubeideen", "content"],
+      },
+      popularityTags: {
+        viral: ["viral", "trend", "foryou", "entdecken", "beliebt", "imtrend"],
+        balanced: ["tipps", "strategie", "wachstum", "community", "ideen", "kreativ"],
+        niche: ["leitfaden", "detail", "workflow", "gezielt", "spezialisiert", "fokussiert"],
+      },
+    },
+  },
+  fr: {
+    nicheLabel: "Sujet ou niche",
+    nichePlaceholder: "ex. food, mode, gaming",
+    platformLabel: "Plateforme",
+    popularityLabel: "Popularité",
+    helper:
+      "Écris la niche, choisis la plateforme puis génère un mélange de hashtags viraux, équilibrés ou plus ciblés.",
+    emptyState: "Lance une génération pour voir ta liste de hashtags.",
+    generate: "Générer les hashtags",
+    copyAll: "Tout copier",
+    copyOne: "Copier",
+    copied: "Copié",
+    allCopied: "Tout copié",
+    countSuffix: "hashtags",
+    defaultTopic: "createur",
+    platforms: {
+      instagram: "Instagram",
+      tiktok: "TikTok",
+      x: "Twitter / X",
+      youtube: "YouTube",
+    },
+    popularityModes: {
+      viral: "Viral",
+      balanced: "Moyen",
+      niche: "Niche",
+    },
+    pools: {
+      modifiers: ["astuces", "idees", "guide", "journal", "communaute", "studio", "univers", "notes"],
+      generic: ["createurdecontenu", "outilscreator", "socialmedia", "createurdigital"],
+      platformTags: {
+        instagram: ["instagram", "reels", "instastuces", "contenu", "croissance", "createur"],
+        tiktok: ["tiktok", "fyp", "videoviral", "createur", "formatcourt", "idees"],
+        x: ["twitterx", "tendances", "socialtips", "publication", "actualite", "createur"],
+        youtube: ["youtube", "shorts", "videocreateur", "chaine", "youtubeastuces", "contenu"],
+      },
+      popularityTags: {
+        viral: ["viral", "tendance", "pourtoi", "adecouvrir", "populaire", "mustsee"],
+        balanced: ["astuces", "strategie", "croissance", "communaute", "idees", "creatif"],
+        niche: ["guide", "detail", "workflow", "cible", "specialise", "profond"],
+      },
+    },
+  },
+  pt: {
+    nicheLabel: "Tema ou nicho",
+    nichePlaceholder: "ex. comida, moda, gaming",
+    platformLabel: "Plataforma",
+    popularityLabel: "Popularidade",
+    helper:
+      "Escreva o nicho, escolha a plataforma e gere uma mistura de hashtags virais, equilibradas ou mais específicas.",
+    emptyState: "Gere uma rodada para ver sua lista de hashtags.",
+    generate: "Gerar hashtags",
+    copyAll: "Copiar tudo",
+    copyOne: "Copiar",
+    copied: "Copiado",
+    allCopied: "Tudo copiado",
+    countSuffix: "hashtags",
+    defaultTopic: "creator",
+    platforms: {
+      instagram: "Instagram",
+      tiktok: "TikTok",
+      x: "Twitter / X",
+      youtube: "YouTube",
+    },
+    popularityModes: {
+      viral: "Viral",
+      balanced: "Médio",
+      niche: "Nicho",
+    },
+    pools: {
+      modifiers: ["dicas", "ideias", "guia", "diario", "comunidade", "studio", "universo", "notas"],
+      generic: ["criadorconteudo", "ferramentascreator", "socialmedia", "criadordigital"],
+      platformTags: {
+        instagram: ["instagram", "reels", "instadicas", "conteudo", "crescimento", "creator"],
+        tiktok: ["tiktok", "fyp", "videoviral", "creatorlife", "formatocurto", "ideias"],
+        x: ["twitterx", "tendencias", "socialtips", "postagem", "creatornews", "atualidade"],
+        youtube: ["youtube", "shorts", "videocreator", "canal", "youtubedicas", "conteudo"],
+      },
+      popularityTags: {
+        viral: ["viral", "tendencia", "paravoce", "descobrir", "popular", "mustwatch"],
+        balanced: ["dicas", "estrategia", "crescimento", "comunidade", "ideias", "criativo"],
+        niche: ["guia", "detalhes", "workflow", "segmentado", "especializado", "profundo"],
+      },
+    },
+  },
+};
+
+const localizedHashtagTools: Record<Locale, LocalizedTool> = {
+  en: {
+    slug: "hashtag-generator",
+    name: "Hashtag Generator",
+    shortDescription: "Generate ready-to-copy hashtag batches for Instagram, TikTok, X, and YouTube.",
+    description:
+      "Turn one niche into 20 to 30 platform-ready hashtags, then copy the full batch or the tags you want to keep.",
+    eyebrow: "Creator growth tool",
+    accentLabel: "TAGS",
+    metaTitle: "Hashtag Generator — Free Online | Toolyflow",
+    metaDescription:
+      "Generate Instagram, TikTok, X, and YouTube hashtags in seconds with a free online hashtag generator.",
+    keywords: [
+      "hashtag generator",
+      "instagram hashtag generator",
+      "tiktok hashtag generator",
+      "youtube hashtag generator",
+      "twitter hashtag generator",
+    ],
+    highlights: [
+      "Generates 20 to 30 hashtags in one batch instead of single tag ideas.",
+      "Platform and popularity filters shift the mix between broad and niche tags.",
+      "Copy the whole set in one click or grab individual tags fast.",
+    ],
+    structuredDescription:
+      "Free online hashtag generator for Instagram, TikTok, X, and YouTube with niche, platform, and popularity filters.",
+    content: {
+      howToUseTitle: "How to use the hashtag generator",
+      howToUseDescription:
+        "Start with the niche, set the platform, then decide whether you want a broader or more targeted batch before copying the final list.",
+      howToUseSteps: [
+        {
+          title: "Enter the niche",
+          body:
+            "Type the topic or niche you want to rank around, such as food, fashion, gaming, fitness, or travel.",
+        },
+        {
+          title: "Pick platform and popularity",
+          body:
+            "Choose the platform first, then decide whether the batch should lean viral, balanced, or more niche.",
+        },
+        {
+          title: "Generate and copy",
+          body:
+            "Generate the batch, review the 20 to 30 hashtag suggestions, then copy all of them or only the ones that fit the post.",
+        },
+      ],
+      useCasesTitle: "Best use cases",
+      useCasesDescription:
+        "This tool is strongest when you want a useful first batch fast without building hashtag sets from scratch every time.",
+      useCases: [
+        {
+          title: "Caption prep before posting",
+          description:
+            "Generate a ready-to-paste set when a post is finished and you want matching hashtags in seconds.",
+        },
+        {
+          title: "Content planning by niche",
+          description:
+            "Test different niche angles and keep multiple batches for future posts, reels, shorts, or threads.",
+        },
+        {
+          title: "Mix broader and narrower reach",
+          description:
+            "Use the popularity filter to avoid a feed full of only hyper-competitive or only ultra-specific tags.",
+        },
+      ],
+      examplesTitle: "Examples",
+      examplesDescription:
+        "The page should help you get quick, usable hashtag groups like these.",
+      examples: [
+        {
+          title: "Food creator batch",
+          inputLabel: "Setup",
+          input: "Niche: food\nPlatform: Instagram\nPopularity: Balanced",
+          outputLabel: "Example output",
+          output: "#food #foodtips #foodideas #instagram #reels #instacreator",
+          note: "Good when you want a mix of topic tags, platform tags, and medium-competition tags.",
+        },
+        {
+          title: "Gaming short-form batch",
+          inputLabel: "Setup",
+          input: "Niche: gaming\nPlatform: TikTok\nPopularity: Viral",
+          outputLabel: "Example output",
+          output: "#gaming #gamingtips #tiktok #fyp #viral #creatorlife",
+          note: "Useful for faster reach experiments on short-form posts.",
+        },
+      ],
+      faqTitle: "Hashtag generator FAQ",
+      faqs: [
+        {
+          question: "How many hashtags does the tool generate?",
+          answer:
+            "Each batch returns between 20 and 30 hashtags so you have enough options to copy, trim, and test.",
+        },
+        {
+          question: "Can I copy all hashtags at once?",
+          answer:
+            "Yes. You can copy the full batch in one click, or copy individual hashtags one by one.",
+        },
+        {
+          question: "Does the platform choice change the output?",
+          answer:
+            "Yes. The generator blends niche, platform, and popularity signals so Instagram, TikTok, X, and YouTube batches do not look identical.",
+        },
+      ],
+    },
+  },
+  tr: {
+    slug: "hashtag-generator",
+    name: "Hashtag Üreticisi",
+    shortDescription: "Instagram, TikTok, X ve YouTube için kopyalanabilir hashtag setleri üretin.",
+    description:
+      "Tek bir niş alanından 20 ila 30 adet platform uyumlu hashtag üretin, sonra tümünü ya da seçtiklerinizi kopyalayın.",
+    eyebrow: "Creator büyüme aracı",
+    accentLabel: "TAGS",
+    metaTitle: "Hashtag Üreticisi — Ücretsiz Online | Toolyflow",
+    metaDescription:
+      "Instagram, TikTok, X ve YouTube için saniyeler içinde hashtag üret. Ücretsiz online hashtag üreticisi.",
+    keywords: [
+      "hashtag üreticisi",
+      "instagram hashtag üreticisi",
+      "tiktok hashtag üreticisi",
+      "youtube hashtag üreticisi",
+      "x hashtag üreticisi",
+    ],
+    highlights: [
+      "Tek tek fikir yerine 20 ila 30 adet hazır hashtag batch'i üretir.",
+      "Platform ve popülerlik filtresi geniş ve niş tag dengesini değiştirir.",
+      "Tüm listeyi tek tıkla ya da tag'leri tek tek hızlıca kopyalayabilirsiniz.",
+    ],
+    structuredDescription:
+      "Niş, platform ve popülerlik filtresi sunan ücretsiz online hashtag üreticisi.",
+    content: {
+      howToUseTitle: "Hashtag üreticisi nasıl kullanılır",
+      howToUseDescription:
+        "Önce niş alanı yazın, sonra platformu seçin ve daha geniş mi yoksa daha niş mi bir batch istediğinize karar verin.",
+      howToUseSteps: [
+        {
+          title: "Niş alanı girin",
+          body:
+            "Yemek, moda, oyun, fitness veya seyahat gibi içerik alanınızı yazın ki üretim o konu etrafında şekillensin.",
+        },
+        {
+          title: "Platformu ve popülerliği seçin",
+          body:
+            "Önce platformu belirleyin, sonra batch’in viral, dengeli veya daha niş ağırlıklı olmasını seçin.",
+        },
+        {
+          title: "Üretin ve kopyalayın",
+          body:
+            "20 ila 30 hashtag içeren listeyi üretin, sonra tümünü tek seferde ya da uygun olanları tek tek kopyalayın.",
+        },
+      ],
+      useCasesTitle: "En iyi kullanım senaryoları",
+      useCasesDescription:
+        "Bu araç, her paylaşım öncesi sıfırdan hashtag listesi kurmak yerine hızlıca kullanılabilir bir set görmek istediğinizde daha değerlidir.",
+      useCases: [
+        {
+          title: "Paylaşım öncesi caption hazırlığı",
+          description:
+            "İçerik hazırsa, ona uygun hashtag setini birkaç saniyede çıkarıp açıklamaya ekleyin.",
+        },
+        {
+          title: "Niş bazlı içerik planlama",
+          description:
+            "Farklı konu açılarında yeni batch'ler üretip future post, reels, shorts veya thread'ler için saklayın.",
+        },
+        {
+          title: "Geniş ve dar erişimi dengelemek",
+          description:
+            "Sadece aşırı rekabetçi ya da sadece aşırı niş tag'lere kalmadan daha dengeli bir karışım kurun.",
+        },
+      ],
+      examplesTitle: "Örnekler",
+      examplesDescription:
+        "Araç size buna benzer hızlı ve kullanılabilir hashtag grupları vermelidir.",
+      examples: [
+        {
+          title: "Yemek creator batch'i",
+          inputLabel: "Kurulum",
+          input: "Niş: yemek\nPlatform: Instagram\nPopülerlik: Orta",
+          outputLabel: "Örnek çıktı",
+          output: "#yemek #yemekipuclari #yemekfikirleri #instagram #reels #instaturkiye",
+          note: "Konu tag'leri, platform tag'leri ve orta rekabetli tag'leri dengeli biçimde birleştirir.",
+        },
+        {
+          title: "Oyun kısa format batch'i",
+          inputLabel: "Kurulum",
+          input: "Niş: oyun\nPlatform: TikTok\nPopülerlik: Viral",
+          outputLabel: "Örnek çıktı",
+          output: "#oyun #oyunipuclari #tiktok #fyp #viral #icerikfikirleri",
+          note: "Kısa format içeriklerde daha hızlı erişim denemeleri için uygundur.",
+        },
+      ],
+      faqTitle: "Hashtag üreticisi sık sorulan sorular",
+      faqs: [
+        {
+          question: "Araç kaç hashtag üretir?",
+          answer:
+            "Her batch 20 ila 30 hashtag döner. Böylece direkt kopyalayabilir ya da birkaç tanesini çıkarıp düzenleyebilirsiniz.",
+        },
+        {
+          question: "Tüm hashtag'leri tek seferde kopyalayabilir miyim?",
+          answer:
+            "Evet. Tüm batch'i tek tıkla kopyalayabilir ya da hashtag'leri tek tek kopyalayabilirsiniz.",
+        },
+        {
+          question: "Platform seçimi gerçekten çıktıyı değiştiriyor mu?",
+          answer:
+            "Evet. Instagram, TikTok, X ve YouTube için platform ve popülerlik karışımı ayrı şekilde ayarlanır; bu yüzden tüm batch'ler aynı görünmez.",
+        },
+      ],
+    },
+  },
+  es: {
+    ...{
+      slug: "hashtag-generator",
+      name: "Generador de hashtags",
+      shortDescription: "Genera lotes de hashtags listos para copiar para Instagram, TikTok, X y YouTube.",
+      description:
+        "Convierte un nicho en 20 a 30 hashtags listos para cada plataforma y copia todo el lote o solo los que te interesen.",
+      eyebrow: "Herramienta de crecimiento creator",
+      accentLabel: "TAGS",
+      metaTitle: "Generador de hashtags — Gratis online | Toolyflow",
+      metaDescription:
+        "Genera hashtags para Instagram, TikTok, X y YouTube en segundos con un generador gratis online.",
+      keywords: ["generador de hashtags", "hashtags instagram", "hashtags tiktok", "hashtags youtube", "hashtags x"],
+      highlights: [
+        "Devuelve lotes de 20 a 30 hashtags en vez de ideas aisladas.",
+        "Los filtros de plataforma y popularidad cambian la mezcla entre hashtags amplios y de nicho.",
+        "Puedes copiar todo el grupo o llevarte etiquetas individuales.",
+      ],
+      structuredDescription:
+        "Generador gratis de hashtags para Instagram, TikTok, X y YouTube con filtros de nicho, plataforma y popularidad.",
+      content: {
+        howToUseTitle: "Cómo usar el generador de hashtags",
+        howToUseDescription:
+          "Empieza con el nicho, luego elige la plataforma y decide si quieres una tanda más viral, equilibrada o más específica.",
+        howToUseSteps: [
+          { title: "Escribe el nicho", body: "Introduce el tema principal, por ejemplo comida, moda, gaming, fitness o viajes." },
+          { title: "Define plataforma y nivel", body: "Selecciona la plataforma y después elige si la tanda debe ir a viral, media o nicho." },
+          { title: "Genera y copia", body: "Revisa la tanda de 20 a 30 hashtags y copia todo el bloque o solo los hashtags que mejor encajen." },
+        ],
+        useCasesTitle: "Mejores casos de uso",
+        useCasesDescription:
+          "Va mejor cuando necesitas una primera tanda útil rápido sin montar listas desde cero en cada publicación.",
+        useCases: [
+          { title: "Preparar captions antes de publicar", description: "Genera una tanda lista para pegar cuando el post ya está terminado." },
+          { title: "Planificar contenido por nicho", description: "Prueba varios ángulos de nicho y guarda tandas para reels, shorts o posts futuros." },
+          { title: "Equilibrar alcance amplio y segmentado", description: "Evita quedarte solo con hashtags masivos o solo con etiquetas demasiado cerradas." },
+        ],
+        examplesTitle: "Ejemplos",
+        examplesDescription: "La herramienta debería darte grupos rápidos y útiles como estos.",
+        examples: [
+          { title: "Lote para food creator", inputLabel: "Configuración", input: "Nicho: comida\nPlataforma: Instagram\nPopularidad: Media", outputLabel: "Salida", output: "#comida #comidatips #ideascomida #instagram #reels #instacreador", note: "Mezcla etiquetas del tema, de la plataforma y de dificultad media." },
+          { title: "Lote gaming short-form", inputLabel: "Configuración", input: "Nicho: gaming\nPlataforma: TikTok\nPopularidad: Viral", outputLabel: "Salida", output: "#gaming #gamingtips #tiktok #fyp #viral #videoviral", note: "Útil para probar alcance rápido en vídeos cortos." },
+        ],
+        faqTitle: "FAQ del generador de hashtags",
+        faqs: [
+          { question: "¿Cuántos hashtags genera?", answer: "Cada tanda devuelve entre 20 y 30 hashtags para que puedas copiar o recortar lo que necesites." },
+          { question: "¿Puedo copiar todos de una vez?", answer: "Sí. Puedes copiar el lote completo o copiar hashtags individuales." },
+          { question: "¿La plataforma cambia el resultado?", answer: "Sí. Instagram, TikTok, X y YouTube usan mezclas distintas de plataforma y popularidad." },
+        ],
+      },
+    },
+  },
+  de: {
+    ...{
+      slug: "hashtag-generator",
+      name: "Hashtag-Generator",
+      shortDescription: "Erzeuge kopierfertige Hashtag-Batches für Instagram, TikTok, X und YouTube.",
+      description:
+        "Verwandle eine Nische in 20 bis 30 plattformtaugliche Hashtags und kopiere den ganzen Batch oder nur einzelne Tags.",
+      eyebrow: "Creator-Wachstumstool",
+      accentLabel: "TAGS",
+      metaTitle: "Hashtag-Generator — Kostenlos online | Toolyflow",
+      metaDescription:
+        "Erzeuge Instagram-, TikTok-, X- und YouTube-Hashtags in Sekunden mit einem kostenlosen Online-Tool.",
+      keywords: ["hashtag-generator", "instagram hashtags", "tiktok hashtags", "youtube hashtags", "x hashtags"],
+      highlights: [
+        "Erzeugt 20 bis 30 Hashtags pro Batch statt einzelner Ideen.",
+        "Plattform- und Beliebtheitsfilter verschieben die Mischung zwischen breit und fokussiert.",
+        "Der komplette Satz oder einzelne Tags lassen sich schnell kopieren.",
+      ],
+      structuredDescription:
+        "Kostenloser Hashtag-Generator für Instagram, TikTok, X und YouTube mit Nischen-, Plattform- und Beliebtheitsfiltern.",
+      content: {
+        howToUseTitle: "So nutzt du den Hashtag-Generator",
+        howToUseDescription:
+          "Starte mit der Nische, wähle dann die Plattform und entscheide, ob der Batch breiter, ausgewogener oder spezieller sein soll.",
+        howToUseSteps: [
+          { title: "Nische eingeben", body: "Gib das Thema ein, zum Beispiel Food, Mode, Gaming, Fitness oder Reisen." },
+          { title: "Plattform und Popularität wählen", body: "Wähle zuerst die Plattform und dann, ob der Batch eher viral, mittel oder nischig sein soll." },
+          { title: "Erzeugen und kopieren", body: "Prüfe den Batch mit 20 bis 30 Hashtags und kopiere alles oder nur die Tags, die zum Post passen." },
+        ],
+        useCasesTitle: "Beste Anwendungsfälle",
+        useCasesDescription:
+          "Besonders nützlich, wenn du schnell einen brauchbaren ersten Satz brauchst statt jedes Mal bei null anzufangen.",
+        useCases: [
+          { title: "Caption direkt vor dem Posten vorbereiten", description: "Wenn der Inhalt fertig ist, fehlt oft nur noch ein sauberer Hashtag-Satz." },
+          { title: "Content nach Nischen planen", description: "Teste verschiedene Nischenwinkel und speichere Batches für spätere Posts, Reels oder Shorts." },
+          { title: "Breite und enge Reichweite balancieren", description: "Nutze den Filter, um nicht nur auf überlaufene oder ultrakleine Tags zu setzen." },
+        ],
+        examplesTitle: "Beispiele",
+        examplesDescription: "Der Generator sollte dir schnelle, brauchbare Gruppen wie diese liefern.",
+        examples: [
+          { title: "Food-Creator-Batch", inputLabel: "Setup", input: "Nische: food\nPlattform: Instagram\nBeliebtheit: Mittel", outputLabel: "Beispielausgabe", output: "#food #foodtipps #foodideen #instagram #reels #instatipps", note: "Mischt Nischentags, Plattformtags und mittelstarke Begriffe." },
+          { title: "Gaming-Shortform-Batch", inputLabel: "Setup", input: "Nische: gaming\nPlattform: TikTok\nBeliebtheit: Viral", outputLabel: "Beispielausgabe", output: "#gaming #gamingtipps #tiktok #fyp #viral #creatoralltag", note: "Sinnvoll für schnelle Reichweiten-Tests in Kurzvideoformaten." },
+        ],
+        faqTitle: "Hashtag-Generator FAQ",
+        faqs: [
+          { question: "Wie viele Hashtags werden erzeugt?", answer: "Jeder Batch liefert zwischen 20 und 30 Hashtags, die du komplett oder teilweise übernehmen kannst." },
+          { question: "Kann ich alle Hashtags auf einmal kopieren?", answer: "Ja. Du kannst den ganzen Batch auf einmal oder einzelne Hashtags separat kopieren." },
+          { question: "Ändert die Plattformwahl den Output?", answer: "Ja. Instagram, TikTok, X und YouTube nutzen unterschiedliche Plattform- und Popularitätssignale." },
+        ],
+      },
+    },
+  },
+  fr: {
+    ...{
+      slug: "hashtag-generator",
+      name: "Générateur de hashtags",
+      shortDescription: "Génère des lots de hashtags prêts à copier pour Instagram, TikTok, X et YouTube.",
+      description:
+        "Transforme une niche en 20 à 30 hashtags adaptés à la plateforme, puis copie tout le lot ou seulement les tags utiles.",
+      eyebrow: "Outil de croissance créateur",
+      accentLabel: "TAGS",
+      metaTitle: "Générateur de hashtags — Gratuit en ligne | Toolyflow",
+      metaDescription:
+        "Générez des hashtags pour Instagram, TikTok, X et YouTube en quelques secondes avec un outil gratuit.",
+      keywords: ["générateur de hashtags", "hashtags instagram", "hashtags tiktok", "hashtags youtube", "hashtags x"],
+      highlights: [
+        "Crée des lots de 20 à 30 hashtags au lieu de quelques idées isolées.",
+        "Les filtres de plateforme et de popularité modifient l'équilibre entre tags larges et ciblés.",
+        "Copie le lot complet ou récupère les hashtags un par un.",
+      ],
+      structuredDescription:
+        "Générateur gratuit de hashtags pour Instagram, TikTok, X et YouTube avec filtres de niche, plateforme et popularité.",
+      content: {
+        howToUseTitle: "Comment utiliser le générateur de hashtags",
+        howToUseDescription:
+          "Commence par la niche, choisis la plateforme, puis décide si tu veux un lot plus viral, plus équilibré ou plus ciblé.",
+        howToUseSteps: [
+          { title: "Saisis la niche", body: "Entre ton sujet principal, comme food, mode, gaming, fitness ou voyage." },
+          { title: "Choisis la plateforme et le niveau", body: "Sélectionne la plateforme puis le niveau viral, moyen ou niche." },
+          { title: "Génère et copie", body: "Parcours les 20 à 30 hashtags générés puis copie tout le lot ou seulement ceux qui collent au post." },
+        ],
+        useCasesTitle: "Meilleurs cas d'usage",
+        useCasesDescription:
+          "Le plus utile quand tu veux une première base solide sans reconstruire une liste à chaque publication.",
+        useCases: [
+          { title: "Préparer la légende avant publication", description: "Quand le contenu est prêt, il manque souvent juste un lot de hashtags cohérent." },
+          { title: "Planifier le contenu par niche", description: "Teste plusieurs angles de niche et garde des lots pour des reels, shorts ou posts à venir." },
+          { title: "Mélanger portée large et ciblée", description: "Utilise le filtre pour éviter un lot composé uniquement de tags trop génériques ou trop étroits." },
+        ],
+        examplesTitle: "Exemples",
+        examplesDescription: "L'outil doit t'aider à obtenir rapidement des groupes utiles comme ceux-ci.",
+        examples: [
+          { title: "Lot food creator", inputLabel: "Configuration", input: "Niche: food\nPlateforme: Instagram\nPopularité: Moyen", outputLabel: "Exemple", output: "#food #foodastuces #ideesfood #instagram #reels #contenu", note: "Mélange tags de sujet, de plateforme et de concurrence moyenne." },
+          { title: "Lot gaming short-form", inputLabel: "Configuration", input: "Niche: gaming\nPlateforme: TikTok\nPopularité: Viral", outputLabel: "Exemple", output: "#gaming #gamingastuces #tiktok #fyp #viral #formatcourt", note: "Pratique pour tester des posts courts à portée rapide." },
+        ],
+        faqTitle: "FAQ du générateur de hashtags",
+        faqs: [
+          { question: "Combien de hashtags sont générés ?", answer: "Chaque lot contient entre 20 et 30 hashtags à copier ou à réduire ensuite." },
+          { question: "Peut-on tout copier d'un clic ?", answer: "Oui. Tu peux copier le lot complet ou prendre les hashtags un par un." },
+          { question: "Le choix de la plateforme change-t-il vraiment le résultat ?", answer: "Oui. Instagram, TikTok, X et YouTube ne reçoivent pas exactement le même mélange." },
+        ],
+      },
+    },
+  },
+  pt: {
+    ...{
+      slug: "hashtag-generator",
+      name: "Gerador de hashtags",
+      shortDescription: "Gere lotes de hashtags prontos para copiar para Instagram, TikTok, X e YouTube.",
+      description:
+        "Transforme um nicho em 20 a 30 hashtags prontos para a plataforma e copie tudo ou só as tags que fizerem sentido.",
+      eyebrow: "Ferramenta de crescimento creator",
+      accentLabel: "TAGS",
+      metaTitle: "Gerador de hashtags — Grátis online | Toolyflow",
+      metaDescription:
+        "Gere hashtags para Instagram, TikTok, X e YouTube em segundos com um gerador online grátis.",
+      keywords: ["gerador de hashtags", "hashtags instagram", "hashtags tiktok", "hashtags youtube", "hashtags x"],
+      highlights: [
+        "Entrega lotes com 20 a 30 hashtags, não só ideias soltas.",
+        "Os filtros de plataforma e popularidade mudam o equilíbrio entre alcance amplo e nichado.",
+        "Copie tudo de uma vez ou pegue hashtags individuais.",
+      ],
+      structuredDescription:
+        "Gerador grátis de hashtags para Instagram, TikTok, X e YouTube com filtros de nicho, plataforma e popularidade.",
+      content: {
+        howToUseTitle: "Como usar o gerador de hashtags",
+        howToUseDescription:
+          "Comece pelo nicho, escolha a plataforma e depois defina se o lote deve ser mais viral, equilibrado ou mais específico.",
+        howToUseSteps: [
+          { title: "Digite o nicho", body: "Escreva o tema principal, como comida, moda, gaming, fitness ou viagem." },
+          { title: "Escolha plataforma e popularidade", body: "Selecione a plataforma e depois o nível viral, médio ou nichado." },
+          { title: "Gere e copie", body: "Revise o lote com 20 a 30 hashtags e copie tudo ou só as que combinam com o post." },
+        ],
+        useCasesTitle: "Melhores casos de uso",
+        useCasesDescription:
+          "Faz mais sentido quando você precisa de um primeiro lote útil sem montar uma lista do zero em toda publicação.",
+        useCases: [
+          { title: "Preparar a legenda antes de postar", description: "Quando o conteúdo já está pronto, falta apenas um bloco coerente de hashtags." },
+          { title: "Planejar conteúdo por nicho", description: "Teste ângulos diferentes e salve lotes para reels, shorts ou posts futuros." },
+          { title: "Equilibrar alcance amplo e específico", description: "Use o filtro para não cair só em tags super concorridas ou super fechadas." },
+        ],
+        examplesTitle: "Exemplos",
+        examplesDescription: "A ferramenta deve entregar grupos rápidos e úteis como estes.",
+        examples: [
+          { title: "Lote para food creator", inputLabel: "Configuração", input: "Nicho: comida\nPlataforma: Instagram\nPopularidade: Médio", outputLabel: "Exemplo", output: "#comida #comidadicas #ideiascomida #instagram #reels #conteudo", note: "Mistura tags do tema, da plataforma e de competição média." },
+          { title: "Lote gaming short-form", inputLabel: "Configuração", input: "Nicho: gaming\nPlataforma: TikTok\nPopularidade: Viral", outputLabel: "Exemplo", output: "#gaming #gamingdicas #tiktok #fyp #viral #formatocurto", note: "Útil para testar alcance rápido em vídeos curtos." },
+        ],
+        faqTitle: "Perguntas frequentes do gerador de hashtags",
+        faqs: [
+          { question: "Quantas hashtags o gerador cria?", answer: "Cada lote traz entre 20 e 30 hashtags para você copiar ou aparar depois." },
+          { question: "Posso copiar todas de uma vez?", answer: "Sim. Dá para copiar o lote completo ou pegar hashtags individuais." },
+          { question: "A plataforma realmente muda a saída?", answer: "Sim. Instagram, TikTok, X e YouTube usam combinações diferentes de plataforma e popularidade." },
+        ],
+      },
+    },
+  },
+};
 
 function createEnglishDictionary(): Dictionary {
   return {
@@ -905,6 +1609,7 @@ function createEnglishDictionary(): Dictionary {
           ],
         },
       },
+      "hashtag-generator": localizedHashtagTools.en,
       "qr-generator": {
         slug: "qr-generator",
         name: "QR Code Generator",
@@ -1536,6 +2241,7 @@ function createEnglishDictionary(): Dictionary {
         },
       },
     },
+    hashtagGenerator: localizedHashtagGeneratorLabels.en,
     decisionWheel: {
       inputLabel: "One option per line",
       button: "Spin the wheel",
@@ -1674,6 +2380,34 @@ function translateDictionary(
         ...overrides.bioGenerator?.templates,
       },
     } as Dictionary["bioGenerator"],
+    hashtagGenerator: {
+      ...base.hashtagGenerator,
+      ...overrides.hashtagGenerator,
+      platforms: {
+        ...base.hashtagGenerator.platforms,
+        ...overrides.hashtagGenerator?.platforms,
+      },
+      popularityModes: {
+        ...base.hashtagGenerator.popularityModes,
+        ...overrides.hashtagGenerator?.popularityModes,
+      },
+      pools: {
+        ...base.hashtagGenerator.pools,
+        ...overrides.hashtagGenerator?.pools,
+        modifiers:
+          overrides.hashtagGenerator?.pools?.modifiers ?? base.hashtagGenerator.pools.modifiers,
+        generic:
+          overrides.hashtagGenerator?.pools?.generic ?? base.hashtagGenerator.pools.generic,
+        platformTags: {
+          ...base.hashtagGenerator.pools.platformTags,
+          ...overrides.hashtagGenerator?.pools?.platformTags,
+        },
+        popularityTags: {
+          ...base.hashtagGenerator.pools.popularityTags,
+          ...overrides.hashtagGenerator?.pools?.popularityTags,
+        },
+      },
+    } as Dictionary["hashtagGenerator"],
     decisionWheel: {
       ...base.decisionWheel,
       ...overrides.decisionWheel,
@@ -7613,13 +8347,27 @@ function withLocalizedToolContentTitles(
   };
 }
 
+function withLocalizedHashtagContent(
+  locale: Locale,
+  dictionary: Dictionary
+): Dictionary {
+  return {
+    ...dictionary,
+    tools: {
+      ...dictionary.tools,
+      "hashtag-generator": localizedHashtagTools[locale],
+    },
+    hashtagGenerator: localizedHashtagGeneratorLabels[locale],
+  };
+}
+
 const dictionaries: Record<Locale, Dictionary> = {
-  en: withLocalizedToolContentTitles("en", en),
-  tr: withLocalizedToolContentTitles("tr", tr),
-  es: withLocalizedToolContentTitles("es", es),
-  de: withLocalizedToolContentTitles("de", de),
-  fr: withLocalizedToolContentTitles("fr", fr),
-  pt: withLocalizedToolContentTitles("pt", pt),
+  en: withLocalizedToolContentTitles("en", withLocalizedHashtagContent("en", en)),
+  tr: withLocalizedToolContentTitles("tr", withLocalizedHashtagContent("tr", tr)),
+  es: withLocalizedToolContentTitles("es", withLocalizedHashtagContent("es", es)),
+  de: withLocalizedToolContentTitles("de", withLocalizedHashtagContent("de", de)),
+  fr: withLocalizedToolContentTitles("fr", withLocalizedHashtagContent("fr", fr)),
+  pt: withLocalizedToolContentTitles("pt", withLocalizedHashtagContent("pt", pt)),
 };
 
 export function getDictionary(locale: Locale): Dictionary {
@@ -7629,4 +8377,8 @@ export function getDictionary(locale: Locale): Dictionary {
 export function getToolEntries(locale: Locale) {
   const dictionary = getDictionary(locale);
   return baseToolSlugs.map((slug) => dictionary.tools[slug]);
+}
+
+export function getToolEntry(locale: Locale, slug: ToolSlug) {
+  return getToolEntries(locale).find((tool) => tool.slug === slug);
 }

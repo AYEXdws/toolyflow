@@ -33,7 +33,7 @@ type LocalizedCategory = CategoryCopy & {
 
 const categoryToolMap: Record<CategorySlug, ToolSlug[]> = {
   "text-tools": ["case-converter"],
-  "creator-tools": ["bio-generator", "nickname-generator", "qr-generator"],
+  "creator-tools": ["bio-generator", "nickname-generator", "hashtag-generator", "qr-generator"],
 };
 
 const categoryLabels: Record<Locale, CategoryLabels> = {
