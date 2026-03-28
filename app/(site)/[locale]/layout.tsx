@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -140,6 +141,12 @@ export default async function LocaleRootLayout({
             tools={tools}
           />
         </div>
+        <Script
+          id="adsense-account"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2143362801140173"
+          strategy="beforeInteractive"
+          crossOrigin="anonymous"
+        />
       </body>
     </html>
   );
