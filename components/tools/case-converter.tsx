@@ -7,6 +7,7 @@ import { copyToClipboard } from "@/lib/copy-to-clipboard";
 type CaseConverterLabels = {
   inputLabel: string;
   placeholder: string;
+  initialText?: string;
   characters: string;
   words: string;
   lines: string;
@@ -101,7 +102,8 @@ type CaseConverterProps = {
 
 export function CaseConverter({ labels }: CaseConverterProps) {
   const [input, setInput] = useState(
-    "Toolyflow helps you clean up text in seconds.\nUse one input and copy the output you need."
+    labels.initialText ??
+      "Toolyflow helps you clean up text in seconds.\nUse one input and copy the output you need."
   );
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
@@ -150,58 +152,58 @@ export function CaseConverter({ labels }: CaseConverterProps) {
   }
 
   return (
-    <section className="rounded-[32px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)] sm:p-8">
+    <section className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:p-8">
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_220px]">
         <label className="space-y-3">
-          <span className="text-sm font-medium text-[color:var(--color-foreground)]">
+          <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">
             {labels.inputLabel}
           </span>
           <textarea
             value={input}
             onChange={(event) => setInput(event.target.value)}
             rows={10}
-            className="min-h-[220px] w-full rounded-[24px] border border-black/10 bg-white px-4 py-4 text-sm leading-7 text-[color:var(--color-foreground)] outline-none transition focus:border-[color:var(--color-accent)]"
+            className="min-h-[220px] w-full rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-4 text-sm leading-7 text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
             placeholder={labels.placeholder}
           />
         </label>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-          <div className="rounded-[24px] bg-black/[0.03] p-4">
-            <p className="text-xs uppercase tracking-[0.22em] text-[color:var(--color-muted)]">
+          <div className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-4">
+            <p className="text-[11px] uppercase tracking-[0.06em] text-[color:var(--brand-text-tertiary)]">
               {labels.characters}
             </p>
-            <p className="mt-2 font-display text-3xl text-[color:var(--color-foreground)]">
+            <p className="mt-2 text-3xl font-bold text-[color:var(--brand-text-primary)]">
               {stats.characters}
             </p>
           </div>
-          <div className="rounded-[24px] bg-black/[0.03] p-4">
-            <p className="text-xs uppercase tracking-[0.22em] text-[color:var(--color-muted)]">
+          <div className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-4">
+            <p className="text-[11px] uppercase tracking-[0.06em] text-[color:var(--brand-text-tertiary)]">
               {labels.words}
             </p>
-            <p className="mt-2 font-display text-3xl text-[color:var(--color-foreground)]">
+            <p className="mt-2 text-3xl font-bold text-[color:var(--brand-text-primary)]">
               {stats.words}
             </p>
           </div>
-          <div className="rounded-[24px] bg-black/[0.03] p-4">
-            <p className="text-xs uppercase tracking-[0.22em] text-[color:var(--color-muted)]">
+          <div className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-4">
+            <p className="text-[11px] uppercase tracking-[0.06em] text-[color:var(--brand-text-tertiary)]">
               {labels.lines}
             </p>
-            <p className="mt-2 font-display text-3xl text-[color:var(--color-foreground)]">
+            <p className="mt-2 text-3xl font-bold text-[color:var(--brand-text-primary)]">
               {stats.lines}
             </p>
           </div>
-          <div className="rounded-[24px] bg-black/[0.03] p-4">
-            <p className="text-xs uppercase tracking-[0.22em] text-[color:var(--color-muted)]">
+          <div className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-4">
+            <p className="text-[11px] uppercase tracking-[0.06em] text-[color:var(--brand-text-tertiary)]">
               {labels.readingTime}
             </p>
-            <p className="mt-2 font-display text-3xl text-[color:var(--color-foreground)]">
+            <p className="mt-2 text-3xl font-bold text-[color:var(--brand-text-primary)]">
               {stats.readingMinutes}
             </p>
           </div>
           <button
             type="button"
             onClick={() => setInput("")}
-            className="rounded-[24px] border border-black/10 px-4 py-4 text-left text-sm font-medium text-[color:var(--color-foreground)] transition hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-accent-soft)] lg:col-span-1 sm:col-span-2"
+            className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-4 text-left text-sm font-medium text-[color:var(--brand-text-primary)] transition hover:border-[color:var(--brand-border-hover)] hover:bg-white/4 lg:col-span-1 sm:col-span-2"
           >
             {labels.clearText}
           </button>
@@ -212,21 +214,21 @@ export function CaseConverter({ labels }: CaseConverterProps) {
         {outputs.map((item) => (
           <article
             key={item.key}
-            className="min-w-0 rounded-[26px] border border-black/8 bg-white p-5"
+            className="min-w-0 rounded-[26px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-5"
           >
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-              <h2 className="min-w-0 font-display text-xl tracking-tight text-[color:var(--color-foreground)] sm:text-2xl">
+              <h2 className="min-w-0 text-xl font-bold tracking-tight text-[color:var(--brand-text-primary)] sm:text-2xl">
                 {item.label}
               </h2>
               <button
                 type="button"
                 onClick={() => handleCopy(item.key, item.value)}
-                className="w-full min-h-11 shrink-0 rounded-full bg-[color:var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white sm:w-auto"
+                className="w-full min-h-11 shrink-0 rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-4 py-2.5 text-sm font-semibold text-white sm:w-auto"
               >
                 {copiedKey === item.key ? labels.copied : labels.copy}
               </button>
             </div>
-            <p className="mt-4 whitespace-pre-wrap break-words text-sm leading-7 text-[color:var(--color-muted)]">
+            <p className="mt-4 whitespace-pre-wrap break-words text-sm leading-7 text-[color:var(--brand-text-secondary)]">
               {item.value || labels.noText}
             </p>
           </article>

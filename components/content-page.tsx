@@ -22,28 +22,28 @@ export function ContentPage({
   return (
     <main className="pb-16">
       <section className="mx-auto max-w-4xl px-4 pt-14 sm:px-6 lg:px-8">
-        <div className="space-y-5 rounded-[32px] border border-black/8 bg-[color:var(--color-surface)] px-6 py-8 shadow-[0_20px_60px_rgba(23,28,24,0.05)] sm:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[color:var(--color-accent-strong)]">
+        <div className="space-y-5 rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-8 shadow-[0_24px_70px_rgba(0,0,0,0.22)] sm:px-8">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
             {eyebrow}
           </p>
-          <h1 className="font-display text-4xl tracking-tight text-[color:var(--color-foreground)] sm:text-5xl">
+          <h1 className="text-4xl font-extrabold tracking-tight text-[color:var(--brand-text-primary)] sm:text-5xl">
             {title}
           </h1>
-          <p className="max-w-2xl text-base leading-8 text-[color:var(--color-muted)]">
+          <p className="max-w-2xl text-base leading-8 text-[color:var(--brand-text-secondary)]">
             {description}
           </p>
         </div>
       </section>
 
       <section className="mx-auto max-w-4xl px-4 pt-8 sm:px-6 lg:px-8">
-        <div className="rounded-[32px] border border-black/8 bg-[color:var(--color-surface)] px-6 py-8 shadow-[0_20px_60px_rgba(23,28,24,0.05)] sm:px-8">
+        <div className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-8 shadow-[0_24px_70px_rgba(0,0,0,0.22)] sm:px-8">
           <div className="space-y-8">
             {sections.map((section) => (
               <section key={section.title} className="space-y-3">
-                <h2 className="font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
+                <h2 className="text-3xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
                   {section.title}
                 </h2>
-                <p className="whitespace-pre-line text-base leading-8 text-[color:var(--color-muted)]">
+                <p className="whitespace-pre-line text-base leading-8 text-[color:var(--brand-text-secondary)]">
                   {section.body}
                 </p>
                 {section.items?.length ? (
@@ -51,7 +51,7 @@ export function ContentPage({
                     {section.items.map((item) => (
                       <li
                         key={item}
-                        className="rounded-[20px] bg-black/[0.03] px-4 py-3 text-sm leading-7 text-[color:var(--color-muted)]"
+                        className="rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]"
                       >
                         {item}
                       </li>
@@ -62,7 +62,7 @@ export function ContentPage({
                   <div className="pt-1">
                     <Link
                       href={`mailto:${section.email}`}
-                      className="inline-flex min-h-11 flex-wrap items-center gap-2 rounded-full border border-[color:var(--color-accent)] bg-[color:var(--color-accent-soft)] px-4 py-2.5 text-sm font-medium text-[color:var(--color-accent-strong)] transition hover:bg-white"
+                      className="inline-flex min-h-11 flex-wrap items-center gap-2 rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
                     >
                       <span>{section.emailLabel ?? "Email"}</span>
                       <span>{section.email}</span>

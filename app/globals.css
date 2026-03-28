@@ -1,15 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4efe6;
-  --foreground: #172019;
-  --surface: rgba(255, 252, 246, 0.78);
-  --surface-strong: #efe5d5;
-  --muted: #5d655f;
-  --line: #d8cfbf;
-  --accent: #0f766e;
-  --accent-strong: #115e59;
-  --accent-soft: #d9f1ea;
+  --background: #0a0a0f;
+  --foreground: #f8fafc;
+  --surface: #13131a;
+  --surface-strong: #1c1c27;
+  --muted: #94a3b8;
+  --line: #2d2d3f;
+  --accent: #7c3aed;
+  --accent-strong: #06b6d4;
+  --accent-soft: rgba(168, 85, 247, 0.15);
+  --brand-bg: #0a0a0f;
+  --brand-surface: #13131a;
+  --brand-card: #1c1c27;
+  --brand-border: #2d2d3f;
+  --brand-border-hover: #7c3aed;
+  --brand-primary: #7c3aed;
+  --brand-secondary: #06b6d4;
+  --brand-text-primary: #f8fafc;
+  --brand-text-secondary: #94a3b8;
+  --brand-text-tertiary: #475569;
+  --brand-success: #10b981;
+  --brand-badge-bg: rgba(168, 85, 247, 0.15);
+  --brand-badge-text: #c084fc;
 }
 
 @theme inline {
@@ -22,8 +35,8 @@
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
-  --font-sans: var(--font-plus-jakarta-sans);
-  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-inter);
 }
 
 * {
@@ -36,11 +49,11 @@ html {
 
 body {
   background:
-    radial-gradient(circle at top left, rgba(15, 118, 110, 0.12), transparent 28%),
-    radial-gradient(circle at 85% 12%, rgba(217, 119, 6, 0.12), transparent 18%),
-    linear-gradient(180deg, #f7f3eb 0%, #f4efe6 100%);
+    radial-gradient(circle at top center, rgba(124, 58, 237, 0.16), transparent 26%),
+    radial-gradient(circle at 82% 10%, rgba(6, 182, 212, 0.12), transparent 18%),
+    linear-gradient(180deg, #0a0a0f 0%, #101019 100%);
   color: var(--foreground);
-  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 a {
@@ -49,14 +62,14 @@ a {
 }
 
 ::selection {
-  background: rgba(15, 118, 110, 0.18);
+  background: rgba(124, 58, 237, 0.28);
 }
 
 .prose h2 {
-  font-family: var(--font-fraunces), serif;
+  font-family: var(--font-inter), sans-serif;
   color: var(--foreground);
-  font-weight: 500;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  letter-spacing: -0.04em;
 }
 
 .prose p,

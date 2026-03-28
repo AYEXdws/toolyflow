@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 type ToolContentSectionsProps = {
   content: {
     howToUseTitle: string;
@@ -21,28 +19,17 @@ type ToolContentSectionsProps = {
     faqTitle: string;
     faqs: Array<{ question: string; answer: string }>;
   };
-  relatedHeading: string;
-  relatedTools: Array<{
-    slug: string;
-    name: string;
-    shortDescription: string;
-    href: string;
-  }>;
 };
 
-export function ToolContentSections({
-  content,
-  relatedHeading,
-  relatedTools,
-}: ToolContentSectionsProps) {
+export function ToolContentSections({ content }: ToolContentSectionsProps) {
   return (
     <div className="space-y-8">
-      <section className="rounded-[32px] border border-black/8 bg-[color:var(--color-surface)] px-6 py-7 shadow-[0_20px_60px_rgba(23,28,24,0.05)] sm:px-8">
+      <section className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:px-8">
         <div className="max-w-3xl">
-          <h2 className="font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
+          <h2 className="text-3xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
             {content.howToUseTitle}
           </h2>
-          <p className="mt-3 text-base leading-8 text-[color:var(--color-muted)]">
+          <p className="mt-3 text-base leading-8 text-[color:var(--brand-text-secondary)]">
             {content.howToUseDescription}
           </p>
         </div>
@@ -50,15 +37,15 @@ export function ToolContentSections({
           {content.howToUseSteps.map((step, index) => (
             <article
               key={step.title}
-              className="rounded-[24px] border border-black/8 bg-white px-5 py-5"
+              className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-5 py-5"
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--color-accent-strong)]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
                 {String(index + 1).padStart(2, "0")}
               </p>
-              <h3 className="mt-3 font-display text-2xl tracking-tight text-[color:var(--color-foreground)]">
+              <h3 className="mt-3 text-2xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
                 {step.title}
               </h3>
-              <p className="mt-3 text-sm leading-7 text-[color:var(--color-muted)]">
+              <p className="mt-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
                 {step.body}
               </p>
             </article>
@@ -66,12 +53,12 @@ export function ToolContentSections({
         </div>
       </section>
 
-      <section className="rounded-[32px] border border-black/8 bg-[color:var(--color-surface)] px-6 py-7 shadow-[0_20px_60px_rgba(23,28,24,0.05)] sm:px-8">
+      <section className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:px-8">
         <div className="max-w-3xl">
-          <h2 className="font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
+          <h2 className="text-3xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
             {content.useCasesTitle}
           </h2>
-          <p className="mt-3 text-base leading-8 text-[color:var(--color-muted)]">
+          <p className="mt-3 text-base leading-8 text-[color:var(--brand-text-secondary)]">
             {content.useCasesDescription}
           </p>
         </div>
@@ -79,12 +66,12 @@ export function ToolContentSections({
           {content.useCases.map((useCase) => (
             <article
               key={useCase.title}
-              className="rounded-[24px] border border-black/8 bg-white px-5 py-5"
+              className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-5 py-5"
             >
-              <h3 className="font-display text-2xl tracking-tight text-[color:var(--color-foreground)]">
+              <h3 className="text-2xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
                 {useCase.title}
               </h3>
-              <p className="mt-3 text-sm leading-7 text-[color:var(--color-muted)]">
+              <p className="mt-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
                 {useCase.description}
               </p>
             </article>
@@ -92,12 +79,12 @@ export function ToolContentSections({
         </div>
       </section>
 
-      <section className="rounded-[32px] border border-black/8 bg-[color:var(--color-surface)] px-6 py-7 shadow-[0_20px_60px_rgba(23,28,24,0.05)] sm:px-8">
+      <section className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:px-8">
         <div className="max-w-3xl">
-          <h2 className="font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
+          <h2 className="text-3xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
             {content.examplesTitle}
           </h2>
-          <p className="mt-3 text-base leading-8 text-[color:var(--color-muted)]">
+          <p className="mt-3 text-base leading-8 text-[color:var(--brand-text-secondary)]">
             {content.examplesDescription}
           </p>
         </div>
@@ -105,30 +92,30 @@ export function ToolContentSections({
           {content.examples.map((example) => (
             <article
               key={example.title}
-              className="rounded-[24px] border border-black/8 bg-white px-5 py-5"
+              className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-5 py-5"
             >
-              <h3 className="font-display text-2xl tracking-tight text-[color:var(--color-foreground)]">
+              <h3 className="text-2xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
                 {example.title}
               </h3>
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                <div className="min-w-0 rounded-[20px] bg-black/[0.03] p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--color-accent-strong)]">
+                <div className="min-w-0 rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
                     {example.inputLabel}
                   </p>
-                  <pre className="mt-3 whitespace-pre-wrap break-words font-sans text-sm leading-7 text-[color:var(--color-foreground)]">
+                  <pre className="mt-3 whitespace-pre-wrap break-words font-sans text-sm leading-7 text-[color:var(--brand-text-primary)]">
                     {example.input}
                   </pre>
                 </div>
-                <div className="min-w-0 rounded-[20px] bg-[color:var(--color-accent-soft)] p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--color-accent-strong)]">
+                <div className="min-w-0 rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-badge-bg)] p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
                     {example.outputLabel}
                   </p>
-                  <pre className="mt-3 whitespace-pre-wrap break-words font-sans text-sm leading-7 text-[color:var(--color-foreground)]">
+                  <pre className="mt-3 whitespace-pre-wrap break-words font-sans text-sm leading-7 text-[color:var(--brand-text-primary)]">
                     {example.output}
                   </pre>
                 </div>
               </div>
-              <p className="mt-4 text-sm leading-7 text-[color:var(--color-muted)]">
+              <p className="mt-4 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
                 {example.note}
               </p>
             </article>
@@ -136,45 +123,23 @@ export function ToolContentSections({
         </div>
       </section>
 
-      <section className="rounded-[32px] border border-black/8 bg-[color:var(--color-surface)] px-6 py-7 shadow-[0_20px_60px_rgba(23,28,24,0.05)] sm:px-8">
-        <h2 className="font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
+      <section className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:px-8">
+        <h2 className="text-3xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
           {content.faqTitle}
         </h2>
         <div className="mt-6 space-y-4">
           {content.faqs.map((item) => (
             <article
               key={item.question}
-              className="rounded-[24px] border border-black/8 bg-white px-5 py-5"
+              className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-5 py-5"
             >
-              <h3 className="font-display text-2xl tracking-tight text-[color:var(--color-foreground)]">
+              <h3 className="text-2xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
                 {item.question}
               </h3>
-              <p className="mt-3 text-sm leading-7 text-[color:var(--color-muted)]">
+              <p className="mt-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
                 {item.answer}
               </p>
             </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="rounded-[32px] border border-black/8 bg-[color:var(--color-surface)] px-6 py-7 shadow-[0_20px_60px_rgba(23,28,24,0.05)] sm:px-8">
-        <h2 className="font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
-          {relatedHeading}
-        </h2>
-        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {relatedTools.map((tool) => (
-            <Link
-              key={tool.slug}
-              href={tool.href}
-              className="rounded-[24px] border border-black/8 bg-white px-5 py-5 transition hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-accent-soft)]"
-            >
-              <h3 className="font-display text-2xl tracking-tight text-[color:var(--color-foreground)]">
-                {tool.name}
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-[color:var(--color-muted)]">
-                {tool.shortDescription}
-              </p>
-            </Link>
           ))}
         </div>
       </section>

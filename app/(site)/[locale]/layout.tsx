@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import { Fraunces, Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 
@@ -13,6 +13,11 @@ import "../../globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
+  subsets: ["latin"],
+});
+
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -116,7 +121,7 @@ export default async function LocaleRootLayout({
   return (
     <html
       lang={typedLocale}
-      className={`${plusJakartaSans.variable} ${fraunces.variable} h-full`}
+      className={`${plusJakartaSans.variable} ${inter.variable} ${fraunces.variable} h-full`}
     >
       <body className="min-h-full bg-[color:var(--color-background)] text-[color:var(--color-foreground)] antialiased">
         <div className="flex min-h-screen flex-col">
@@ -124,6 +129,7 @@ export default async function LocaleRootLayout({
             locale={typedLocale}
             labels={{
               tools: dictionary.header.tools,
+              categories: categoryLabels.categoriesHeading,
               textTools: categories[0].name,
               creatorTools: categories[1].name,
               about: dictionary.header.about,

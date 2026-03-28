@@ -56,43 +56,42 @@ export function ToolPageShell({
       <div className="mx-auto max-w-6xl px-4 pt-14 sm:px-6 lg:px-8">
         <div className="grid gap-8 2xl:grid-cols-[minmax(0,1.3fr)_320px]">
           <section className="min-w-0 space-y-8">
-            <div className="space-y-5 rounded-[32px] border border-black/8 bg-[color:var(--color-surface)] px-6 py-8 shadow-[0_20px_60px_rgba(23,28,24,0.05)] sm:px-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[color:var(--color-accent-strong)]">
+            <div className="space-y-5 rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-8 shadow-[0_24px_70px_rgba(0,0,0,0.22)] sm:px-8">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
                 {eyebrow}
               </p>
-              <h1 className="font-display text-4xl tracking-tight text-[color:var(--color-foreground)] sm:text-5xl">
+              <h1 className="text-4xl font-extrabold tracking-tight text-[color:var(--brand-text-primary)] sm:text-5xl">
                 {title}
               </h1>
-              <p className="max-w-3xl text-base leading-8 text-[color:var(--color-muted)]">
+              <p className="max-w-3xl text-base leading-8 text-[color:var(--brand-text-secondary)]">
                 {description}
               </p>
             </div>
 
             {children}
 
-            <ToolContentSections
-              content={content}
-              relatedHeading={labels.exploreMore}
-              relatedTools={relatedTools}
-            />
+            <ToolContentSections content={content} />
           </section>
 
           <aside className="min-w-0 space-y-6">
-            <div className="rounded-[28px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)]">
-              <h2 className="font-display text-2xl tracking-tight text-[color:var(--color-foreground)]">
+            <div className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.18)]">
+              <h2 className="text-2xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
                 {labels.whyUseIt}
               </h2>
-              <ul className="mt-5 space-y-3 text-sm leading-7 text-[color:var(--color-muted)]">
+              <ul className="mt-5 space-y-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
                 {highlights.map((item) => (
-                  <li key={item} className="rounded-2xl bg-black/[0.03] px-4 py-3">
+                  <li
+                    key={item}
+                    className="rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3"
+                  >
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="rounded-[28px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)]">
-              <h2 className="font-display text-2xl tracking-tight text-[color:var(--color-foreground)]">
+            <div className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.18)]">
+              <h2 className="text-2xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
                 {labels.exploreMore}
               </h2>
               <div className="mt-5 space-y-3">
@@ -100,9 +99,9 @@ export function ToolPageShell({
                   <Link
                     key={tool.slug}
                     href={tool.href}
-                    className="block rounded-2xl border border-black/8 px-4 py-3 text-sm text-[color:var(--color-muted)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-foreground)]"
+                    className="block rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-secondary)] transition hover:border-[color:var(--brand-border-hover)] hover:text-[color:var(--brand-text-primary)]"
                   >
-                    <span className="block font-medium text-[color:var(--color-foreground)]">
+                    <span className="block font-medium text-[color:var(--brand-text-primary)]">
                       {tool.name}
                     </span>
                     <span>{tool.shortDescription}</span>

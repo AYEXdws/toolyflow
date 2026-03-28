@@ -4,9 +4,7 @@ import { notFound } from "next/navigation";
 
 import { CategoryPage } from "@/components/category-page";
 import { ContentPage } from "@/components/content-page";
-import { HomeToolSearch } from "@/components/home-tool-search";
 import { StructuredData } from "@/components/structured-data";
-import { ToolCard } from "@/components/tool-card";
 import { ToolPageShell } from "@/components/tool-page-shell";
 import { BioGenerator } from "@/components/tools/bio-generator";
 import { CaseConverter } from "@/components/tools/case-converter";
@@ -114,438 +112,225 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {};
 }
 
-function renderHome(locale: Locale) {
+function renderUnifiedHome(locale: Locale) {
   const dictionary = getDictionary(locale);
-  const categoryLabels = getCategoryLabels(locale);
   const categories = getCategories(locale);
-  const tools = getToolEntries(locale);
-  const searchItems = [
-    ...tools.map((tool) => ({
-      label: tool.name,
-      description: tool.shortDescription,
-      href: localizePath(locale, tool.slug),
-      kind: dictionary.header.tools,
-      terms: tool.keywords,
-    })),
-    ...categories.map((category) => ({
-      label: category.navLabel,
-      description: category.description,
-      href: localizePath(locale, category.slug),
-      kind: categoryLabels.categoriesHeading,
-      terms: category.keywords,
-    })),
+  const categoryLabels = getCategoryLabels(locale);
+  const quickLabelByLocale: Record<Locale, string> = {
+    tr: "Hızlı Araçlar",
+    en: "Quick Tools",
+    es: "Herramientas rápidas",
+    de: "Schnelle Tools",
+    fr: "Outils rapides",
+    pt: "Ferramentas rápidas",
+  };
+  const quickBadgeByLocale: Record<Locale, string> = {
+    tr: "Hızlı",
+    en: "Quick",
+    es: "Rápida",
+    de: "Schnell",
+    fr: "Rapide",
+    pt: "Rápida",
+  };
+  const categoryPills = [
+    {
+      label: categories.find((category) => category.slug === "creator-tools")?.navLabel ?? "",
+      emoji: "🎨",
+      href: localizePath(locale, "creator-tools"),
+    },
+    {
+      label: categories.find((category) => category.slug === "text-tools")?.navLabel ?? "",
+      emoji: "✍️",
+      href: localizePath(locale, "text-tools"),
+    },
+    {
+      label: quickLabelByLocale[locale],
+      emoji: "⚡",
+      href: "#tools",
+    },
   ];
+  const iconMap: Record<string, string> = {
+    "bio-generator": "✨",
+    "nickname-generator": "🎯",
+    "qr-generator": "⚡",
+    "case-converter": "✍️",
+    "decision-wheel": "🎡",
+  };
+  const tools = getToolEntries(locale).map((tool) => ({
+    ...tool,
+    icon: iconMap[tool.slug] ?? "✦",
+    badge:
+      tool.slug === "case-converter"
+        ? categories.find((category) => category.slug === "text-tools")?.navLabel ?? tool.accentLabel
+        : tool.slug === "decision-wheel" || tool.slug === "qr-generator"
+          ? quickBadgeByLocale[locale]
+          : categories.find((category) => category.slug === "creator-tools")?.navLabel ?? tool.accentLabel,
+  }));
 
   return (
-    <main className="pb-16">
+    <main className="bg-[color:var(--brand-bg)] pb-20 font-[family:var(--font-inter)] text-[color:var(--brand-text-primary)]">
       <StructuredData
         data={{
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: siteConfig.name,
           url: `${siteConfig.url}${localizePath(locale)}`,
-          description: dictionary.home.metaDescription,
+          description:
+            "Instagram, TikTok ve YouTube için ihtiyacın olan tüm araçlar ücretsiz, hızlı ve Türkçe.",
           inLanguage: locale,
         }}
       />
-      <StructuredData
-        data={{
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: dictionary.home.faqs.map((item) => ({
-            "@type": "Question",
-            name: item.question,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: item.answer,
-            },
-          })),
-        }}
-      />
 
-      <section className="mx-auto max-w-6xl px-4 pt-14 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-[40px] border border-black/8 bg-[linear-gradient(160deg,rgba(250,247,239,0.95),rgba(255,255,255,0.98))] shadow-[0_28px_90px_rgba(23,28,24,0.08)]">
-          <div className="grid gap-10 px-6 py-8 sm:px-8 xl:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)] xl:px-10 xl:py-12">
-            <div className="space-y-8">
-              <div className="inline-flex items-center rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--color-accent-strong)]">
-                <span>{dictionary.home.eyebrow}</span>
-              </div>
-
-              <div className="space-y-5">
-                <h1 className="max-w-4xl font-display text-5xl tracking-tight text-[color:var(--color-foreground)] sm:text-6xl xl:text-7xl">
-                  {dictionary.home.tagline}
-                </h1>
-                <p className="max-w-3xl text-lg leading-8 text-[color:var(--color-muted)]">
-                  {dictionary.home.description}
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-3">
-                <Link
-                  href="#tools"
-                  className="rounded-full bg-[color:var(--color-accent)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[color:var(--color-accent-strong)]"
-                >
-                  {dictionary.home.primaryCta}
-                </Link>
-                <Link
-                  href={localizePath(locale, "about")}
-                  className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-medium text-[color:var(--color-foreground)] transition hover:border-[color:var(--color-accent)]"
-                >
-                  {dictionary.home.secondaryCta}
-                </Link>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                {dictionary.home.stats.slice(0, 2).map((stat) => (
-                  <div key={stat.label} className="rounded-[24px] border border-black/8 bg-white p-5">
-                    <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--color-muted)]">
-                      {stat.label}
-                    </p>
-                    <p className="mt-3 font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
-                      {stat.value}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="rounded-[28px] border border-black/8 bg-[color:var(--color-surface)]/80 p-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-accent-strong)]">
-                  {dictionary.home.searchLabel}
-                </p>
-                <div className="mt-4">
-                  <HomeToolSearch
-                    items={searchItems}
-                    placeholder={dictionary.home.searchPlaceholder}
-                    emptyLabel={dictionary.home.searchEmpty}
-                  />
-                </div>
-              </div>
-
-              <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-1">
-                <div className="rounded-[24px] border border-black/8 bg-white p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-accent-strong)]">
-                    {categoryLabels.categoriesHeading}
-                  </p>
-                  <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
-                    {categories.map((category) => (
-                      <Link
-                        key={category.slug}
-                        href={localizePath(locale, category.slug)}
-                        className="rounded-[20px] border border-black/8 px-4 py-4 transition hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-accent-soft)]"
-                      >
-                        <p className="font-medium text-[color:var(--color-foreground)]">
-                          {category.navLabel}
-                        </p>
-                        <p className="mt-1 text-sm leading-6 text-[color:var(--color-muted)]">
-                          {category.description}
-                        </p>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="rounded-[24px] border border-black/8 bg-white p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-accent-strong)]">
-                    {dictionary.home.toolsEyebrow}
-                  </p>
-                  <div className="mt-4 space-y-3">
-                    {tools.map((tool) => (
-                      <Link
-                        key={tool.slug}
-                        href={localizePath(locale, tool.slug)}
-                        className="flex items-start justify-between gap-4 rounded-[20px] border border-black/8 px-4 py-4 transition hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-accent-soft)]"
-                      >
-                        <div className="min-w-0">
-                          <p className="font-medium text-[color:var(--color-foreground)]">
-                            {tool.name}
-                          </p>
-                          <p className="mt-1 text-sm leading-6 text-[color:var(--color-muted)]">
-                            {tool.shortDescription}
-                          </p>
-                        </div>
-                        <span className="shrink-0 rounded-full border border-black/10 px-4 py-2 text-sm font-medium text-[color:var(--color-foreground)]">
-                          {dictionary.shared.go}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.22),transparent_55%)]" />
+        <div className="mx-auto max-w-6xl px-4 pb-8 pt-14 sm:px-6 lg:px-8 lg:pb-12 lg:pt-20">
+          <div className="relative z-10 max-w-4xl">
+            <p className="mb-4 inline-flex rounded-full border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+              {dictionary.home.eyebrow}
+            </p>
+            <h1 className="max-w-3xl text-5xl font-extrabold leading-[0.95] tracking-[-0.04em] sm:text-6xl lg:text-7xl">
+              <span className="block bg-[linear-gradient(135deg,#A855F7,#06B6D4)] bg-clip-text text-transparent">
+                {dictionary.home.title}
+              </span>
+              <span className="mt-2 block">{dictionary.home.tagline}</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-7 text-[color:var(--brand-text-secondary)] sm:text-lg sm:leading-8">
+              {dictionary.home.description}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href="#tools"
+                className="inline-flex min-h-11 items-center rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 active:translate-y-px"
+              >
+                {dictionary.home.primaryCta}
+              </Link>
+              <Link
+                href={localizePath(locale, "creator-tools")}
+                className="inline-flex min-h-11 items-center rounded-xl border border-[color:var(--brand-border)] px-6 py-3 text-sm font-semibold text-[color:var(--brand-text-primary)] transition hover:border-[color:var(--brand-border-hover)]"
+              >
+                {categories.find((category) => category.slug === "creator-tools")?.navLabel}
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+      <section id="categories" className="mx-auto max-w-6xl px-4 pt-4 sm:px-6 lg:px-8">
+        <div className="flex items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-accent-strong)]">
-              {dictionary.home.proofEyebrow}
-            </p>
-            <h2 className="mt-3 font-display text-4xl tracking-tight text-[color:var(--color-foreground)]">
-              {dictionary.home.proofTitle}
-            </h2>
-          </div>
-          <p className="max-w-xl text-sm leading-7 text-[color:var(--color-muted)]">
-            {dictionary.home.proofDescription}
-          </p>
-        </div>
-
-        <div className="grid gap-5 xl:grid-cols-3">
-          {dictionary.home.proofExamples.map((example) => (
-            <article
-              key={example.title}
-              className="rounded-[28px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)]"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h2 className="font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
-                    {example.title}
-                  </h2>
-                  <p className="mt-4 text-sm leading-7 text-[color:var(--color-muted)]">
-                    {example.description}
-                  </p>
-                </div>
-                <Link
-                  href={localizePath(locale, example.toolSlug)}
-                  className="inline-flex min-h-11 shrink-0 items-center rounded-full border border-black/10 px-4 py-2.5 text-sm font-medium text-[color:var(--color-foreground)] transition hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-accent-soft)]"
-                >
-                  {example.toolName}
-                </Link>
-              </div>
-
-              <div className="mt-6 grid gap-4">
-                <div className="rounded-[20px] bg-black/[0.03] p-4">
-                  <p className="text-[0.8125rem] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-accent-strong)]">
-                    {example.inputLabel}
-                  </p>
-                  <pre className="mt-3 whitespace-pre-wrap break-words font-sans text-sm leading-7 text-[color:var(--color-foreground)]">
-                    {example.input}
-                  </pre>
-                </div>
-                <div className="rounded-[20px] bg-[color:var(--color-accent-soft)] p-4">
-                  <p className="text-[0.8125rem] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-accent-strong)]">
-                    {example.outputLabel}
-                  </p>
-                  <pre className="mt-3 whitespace-pre-wrap break-words font-sans text-sm leading-7 text-[color:var(--color-foreground)]">
-                    {example.output}
-                  </pre>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-accent-strong)]">
-              {dictionary.home.whyEyebrow}
-            </p>
-            <h2 className="mt-3 font-display text-4xl tracking-tight text-[color:var(--color-foreground)]">
-              {dictionary.home.whyTitle}
-            </h2>
-          </div>
-          <p className="max-w-xl text-sm leading-7 text-[color:var(--color-muted)]">
-            {dictionary.home.whyDescription}
-          </p>
-        </div>
-
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {dictionary.home.brandPoints.map((point) => (
-            <article
-              key={point.title}
-              className="rounded-[28px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)]"
-            >
-              <h2 className="font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
-                {point.title}
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-[color:var(--color-muted)]">
-                {point.description}
-              </p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-accent-strong)]">
-              {dictionary.home.pathsEyebrow}
-            </p>
-            <h2 className="mt-3 font-display text-4xl tracking-tight text-[color:var(--color-foreground)]">
-              {dictionary.home.pathsTitle}
-            </h2>
-          </div>
-          <p className="max-w-xl text-sm leading-7 text-[color:var(--color-muted)]">
-            {dictionary.home.pathsDescription}
-          </p>
-        </div>
-
-        <div className="grid gap-5 lg:grid-cols-3">
-          {dictionary.home.paths.map((path) => (
-            <article
-              key={path.title}
-              className="rounded-[28px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)]"
-            >
-              <h2 className="font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
-                {path.title}
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-[color:var(--color-muted)]">
-                {path.description}
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                {path.links.map((item) => (
-                  <Link
-                    key={`${path.title}-${item.slug}-${item.label}`}
-                    href={localizePath(locale, item.slug)}
-                    className="inline-flex min-h-11 items-center rounded-full border border-black/10 bg-white px-4 py-2.5 text-sm font-medium text-[color:var(--color-foreground)] transition hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-accent-soft)]"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-accent-strong)]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
               {categoryLabels.browseEyebrow}
             </p>
-            <h2 className="mt-3 font-display text-4xl tracking-tight text-[color:var(--color-foreground)]">
+            <h2 className="mt-3 text-2xl font-bold text-[color:var(--brand-text-primary)]">
               {categoryLabels.browseTitle}
             </h2>
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-[color:var(--brand-text-secondary)]">
+              {categoryLabels.browseDescription}
+            </p>
           </div>
-          <p className="max-w-xl text-sm leading-7 text-[color:var(--color-muted)]">
-            {categoryLabels.browseDescription}
-          </p>
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-2">
-          {categories.map((category) => (
+        <div className="mt-6 flex gap-3 overflow-x-auto pb-2">
+          {categoryPills.map((category) => (
             <Link
-              key={category.slug}
-              href={localizePath(locale, category.slug)}
-              className="group rounded-[28px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)] transition hover:-translate-y-1 hover:shadow-[0_26px_70px_rgba(23,28,24,0.1)]"
+              key={category.label}
+              href={category.href}
+              className="inline-flex min-h-11 shrink-0 items-center gap-3 rounded-full border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-5 py-3 text-sm font-semibold text-[color:var(--brand-text-primary)] transition hover:border-[color:var(--brand-border-hover)]"
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-accent-strong)]">
-                {category.eyebrow}
-              </p>
-              <h2 className="mt-4 font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
-                {category.navLabel}
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-[color:var(--color-muted)]">
-                {category.description}
-              </p>
-              <div className="mt-6 flex items-center justify-between text-sm">
-                <span className="font-medium text-[color:var(--color-foreground)]">
-                  {category.toolSlugs.length} {categoryLabels.countSuffix}
-                </span>
-                <span className="rounded-full border border-black/10 px-4 py-2 font-medium text-[color:var(--color-foreground)] transition group-hover:border-[color:var(--color-accent)] group-hover:bg-[color:var(--color-accent)] group-hover:text-white">
-                  {dictionary.shared.go}
-                </span>
-              </div>
+              <span className="text-lg">{category.emoji}</span>
+              <span>{category.label}</span>
             </Link>
           ))}
         </div>
       </section>
 
-      <section id="tools" className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-accent-strong)]">
-              {dictionary.home.toolsEyebrow}
+      <section className="mx-auto max-w-6xl px-4 pt-12 sm:px-6 lg:px-8">
+        <div className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.2)] sm:p-8">
+          <div className="max-w-3xl">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+              {dictionary.home.whyEyebrow}
             </p>
-            <h2 className="mt-3 font-display text-4xl tracking-tight text-[color:var(--color-foreground)]">
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-[color:var(--brand-text-primary)] sm:text-4xl">
+              {dictionary.home.whyTitle}
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-[color:var(--brand-text-secondary)] sm:text-base">
+              {dictionary.home.whyDescription}
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-4 lg:grid-cols-3">
+            {dictionary.home.brandPoints.slice(0, 3).map((item, index) => (
+              <article
+                key={item.title}
+                className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-5"
+              >
+                <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-4 text-xl font-bold text-[color:var(--brand-text-primary)]">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
+                  {item.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="tools" className="mx-auto max-w-6xl px-4 pt-12 sm:px-6 lg:px-8">
+        <div className="mb-8 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+              {dictionary.header.tools}
+            </p>
+            <h2 className="mt-3 text-2xl font-bold text-[color:var(--brand-text-primary)]">
               {dictionary.home.toolsTitle}
             </h2>
           </div>
-          <p className="max-w-xl text-sm leading-7 text-[color:var(--color-muted)]">
+          <p className="max-w-2xl text-sm leading-7 text-[color:var(--brand-text-secondary)]">
             {dictionary.home.toolsDescription}
           </p>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {tools.map((tool) => (
-            <ToolCard
+            <Link
               key={tool.slug}
-              tool={tool}
               href={localizePath(locale, tool.slug)}
-              goLabel={dictionary.shared.go}
-            />
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-accent-strong)]">
-              {dictionary.home.useCasesEyebrow}
-          </p>
-          <h2 className="mt-3 font-display text-4xl tracking-tight text-[color:var(--color-foreground)]">
-              {dictionary.home.useCasesTitle}
-          </h2>
-          </div>
-          <p className="max-w-xl text-sm leading-7 text-[color:var(--color-muted)]">
-            {dictionary.home.useCasesDescription}
-          </p>
-        </div>
-
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {dictionary.home.useCases.map((feature) => (
-            <article
-              key={feature.title}
-              className="rounded-[28px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)]"
+              className="group rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 transition duration-200 hover:scale-[1.02] hover:border-[color:var(--brand-border-hover)] hover:shadow-[0_18px_50px_rgba(124,58,237,0.18)]"
             >
-              <h2 className="font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
-                {feature.title}
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-[color:var(--color-muted)]">
-                {feature.description}
-              </p>
-            </article>
+              <div className="flex items-start justify-between gap-4">
+                <span className="inline-flex h-11 w-11 items-center justify-center rounded-[10px] bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-xl text-white">
+                  {tool.icon}
+                </span>
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-[color:var(--brand-border)] text-lg text-[color:var(--brand-text-secondary)] transition group-hover:border-[color:var(--brand-border-hover)] group-hover:text-[color:var(--brand-text-primary)]">
+                  ↗
+                </span>
+              </div>
+
+              <div className="mt-5">
+                <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+                  {tool.badge}
+                </span>
+                <h3 className="mt-4 text-xl font-bold text-[color:var(--brand-text-primary)]">
+                  {tool.name}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
+                  {tool.description}
+                </p>
+              </div>
+            </Link>
           ))}
         </div>
       </section>
-
-      <section className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-accent-strong)]">
-            {dictionary.home.faqEyebrow}
-          </p>
-          <h2 className="mt-3 font-display text-4xl tracking-tight text-[color:var(--color-foreground)]">
-            {dictionary.home.faqTitle}
-          </h2>
-        </div>
-
-        <div className="grid gap-4">
-          {dictionary.home.faqs.map((item) => (
-            <details
-              key={item.question}
-              className="rounded-[24px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)]"
-            >
-              <summary className="flex min-h-11 cursor-pointer list-none items-center pr-8 font-display text-2xl tracking-tight text-[color:var(--color-foreground)]">
-                {item.question}
-              </summary>
-              <p className="mt-4 max-w-3xl text-sm leading-7 text-[color:var(--color-muted)]">
-                {item.answer}
-              </p>
-            </details>
-          ))}
-        </div>
-      </section>
-
     </main>
   );
+}
+
+function renderHome(locale: Locale) {
+  return renderUnifiedHome(locale);
 }
 
 function renderCategoryPage(locale: Locale, slug: string) {

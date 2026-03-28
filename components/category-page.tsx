@@ -27,14 +27,14 @@ export function CategoryPage({ category, labels, tools }: CategoryPageProps) {
     <main className="pb-16">
       <section className="mx-auto max-w-6xl px-4 pt-14 sm:px-6 lg:px-8">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_320px]">
-          <div className="space-y-5 rounded-[32px] border border-black/8 bg-[color:var(--color-surface)] px-6 py-8 shadow-[0_20px_60px_rgba(23,28,24,0.05)] sm:px-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[color:var(--color-accent-strong)]">
+          <div className="space-y-5 rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-8 shadow-[0_24px_70px_rgba(0,0,0,0.22)] sm:px-8">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
               {category.eyebrow}
             </p>
-            <h1 className="font-display text-4xl tracking-tight text-[color:var(--color-foreground)] sm:text-5xl">
+            <h1 className="text-4xl font-extrabold tracking-tight text-[color:var(--brand-text-primary)] sm:text-5xl">
               {category.title}
             </h1>
-            <p className="max-w-3xl text-base leading-8 text-[color:var(--color-muted)]">
+            <p className="max-w-3xl text-base leading-8 text-[color:var(--brand-text-secondary)]">
               {category.description}
             </p>
           </div>
@@ -43,9 +43,9 @@ export function CategoryPage({ category, labels, tools }: CategoryPageProps) {
             {category.highlights.map((item) => (
               <div
                 key={item}
-                className="rounded-[28px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)]"
+                className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.18)]"
               >
-                <p className="text-sm leading-7 text-[color:var(--color-muted)]">{item}</p>
+                <p className="text-sm leading-7 text-[color:var(--brand-text-secondary)]">{item}</p>
               </div>
             ))}
           </div>
@@ -55,14 +55,14 @@ export function CategoryPage({ category, labels, tools }: CategoryPageProps) {
       <section className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-accent-strong)]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
               {labels.toolListHeading}
             </p>
-            <h2 className="mt-3 font-display text-4xl tracking-tight text-[color:var(--color-foreground)]">
+            <h2 className="mt-3 text-4xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
               {category.title}
             </h2>
           </div>
-          <p className="max-w-xl text-sm leading-7 text-[color:var(--color-muted)]">
+          <p className="max-w-xl text-sm leading-7 text-[color:var(--brand-text-secondary)]">
             {labels.toolListDescription}
           </p>
         </div>

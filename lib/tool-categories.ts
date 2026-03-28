@@ -140,7 +140,7 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
   },
   tr: {
     "text-tools": {
-      navLabel: "Metin araçları",
+      navLabel: "Metin Araçları",
       eyebrow: "Metin iş akışı kategorisi",
       title: "Biçimlendirme ve temizlik için metin araçları",
       description:
@@ -155,17 +155,17 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
       ],
     },
     "creator-tools": {
-      navLabel: "Creator araçları",
-      eyebrow: "Creator iş akışı kategorisi",
+      navLabel: "Creator Araçları",
+      eyebrow: "İçerik üretici iş akışı kategorisi",
       title: "Bio, isim ve profil iş akışları için creator araçları",
       description:
-        "Bu kategori; creator’ların bio, nickname ve profil odaklı işlerinde kullanacağı araçları aynı çatı altında toplar ve yayınlama akışlarını destekler.",
-      metaTitle: "Creator Araçları",
+        "Bu kategori; içerik üreticilerin bio, nickname, QR ve profil odaklı işlerinde kullanacağı araçları aynı çatı altında toplar ve yayınlama akışlarını destekler.",
+      metaTitle: "İçerik Üretici Araçları",
       metaDescription:
-        "Bio, nickname, profil fikirleri ve creator odaklı hızlı iş akışları için Toolyflow creator araçlarını keşfedin.",
-      keywords: ["creator araçları", "bio generator", "nickname generator", "profil araçları"],
+        "Bio, nickname, profil fikirleri ve creator odaklı hızlı iş akışları için Toolyflow içerik üretici araçlarını keşfedin.",
+      keywords: ["içerik üretici araçları", "bio generator", "nickname generator", "profil araçları"],
       highlights: [
-        "Creator’lar, handle’lar, bio’lar ve profil odaklı yayın akışları için tasarlandı.",
+        "İçerik üreticiler, handle’lar, bio’lar ve profil odaklı yayın akışları için tasarlandı.",
         "Kimlik ve isim araçlarını sitede dağınık tutmak yerine tek yerde toplar.",
       ],
     },

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-const palette = ["#0f766e", "#d97706", "#2563eb", "#8b5cf6", "#dc2626", "#059669"];
+const palette = ["#7c3aed", "#06b6d4", "#8b5cf6", "#4f46e5", "#9333ea", "#0ea5e9"];
 
 type DecisionWheelLabels = {
   inputLabel: string;
@@ -90,38 +90,38 @@ export function DecisionWheel({ labels }: DecisionWheelProps) {
   }
 
   return (
-    <section className="rounded-[32px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)] sm:p-8">
+    <section className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:p-8">
       <div className="grid gap-8 xl:grid-cols-[320px_minmax(0,1fr)]">
         <div className="space-y-4">
           <label className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--color-foreground)]">
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">
               {labels.inputLabel}
             </span>
             <textarea
               value={rawOptions}
               onChange={(event) => setRawOptions(event.target.value)}
               rows={10}
-              className="w-full rounded-[24px] border border-black/10 bg-white px-4 py-4 text-sm leading-7 text-[color:var(--color-foreground)] outline-none transition focus:border-[color:var(--color-accent)]"
+              className="w-full rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-4 text-sm leading-7 text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
             />
           </label>
           <button
             type="button"
             onClick={spinWheel}
             disabled={spinning || options.length < 2}
-            className="rounded-full bg-[color:var(--color-accent)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[color:var(--color-accent-strong)] disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {spinning ? labels.spinning : labels.button}
           </button>
-          <p className="text-sm leading-7 text-[color:var(--color-muted)]">
+          <p className="text-sm leading-7 text-[color:var(--brand-text-secondary)]">
             {labels.helper}
           </p>
         </div>
 
         <div className="space-y-6">
           <div className="relative mx-auto flex max-w-[420px] justify-center">
-            <div className="absolute top-1 z-10 h-0 w-0 border-x-[18px] border-t-[28px] border-x-transparent border-t-[color:var(--color-foreground)]" />
+            <div className="absolute top-1 z-10 h-0 w-0 border-x-[18px] border-t-[28px] border-x-transparent border-t-[color:var(--brand-text-primary)]" />
             <div
-              className="aspect-square w-full max-w-[420px] rounded-full border-[10px] border-white bg-white shadow-[0_24px_80px_rgba(23,28,24,0.12)]"
+              className="aspect-square w-full max-w-[420px] rounded-full border-[10px] border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
               style={{
                 transform: `rotate(${rotation}deg)`,
                 transition: spinning
@@ -142,13 +142,13 @@ export function DecisionWheel({ labels }: DecisionWheelProps) {
                       <path
                         d={describeSector(start, end)}
                         fill={palette[index % palette.length]}
-                        stroke="#fffdf8"
+                        stroke="#13131A"
                         strokeWidth="1.5"
                       />
                       <text
                         x={labelPosition.x}
                         y={labelPosition.y}
-                        fill="#fffdf8"
+                        fill="#F8FAFC"
                         fontSize="7.5"
                         fontWeight="600"
                         textAnchor="middle"
@@ -164,17 +164,17 @@ export function DecisionWheel({ labels }: DecisionWheelProps) {
                     </g>
                   );
                 })}
-                <circle cx="100" cy="100" r="16" fill="#132019" />
-                <circle cx="100" cy="100" r="7" fill="#fffdf8" />
+                <circle cx="100" cy="100" r="16" fill="#13131A" />
+                <circle cx="100" cy="100" r="7" fill="#F8FAFC" />
               </svg>
             </div>
           </div>
 
-          <div className="rounded-[24px] border border-black/8 bg-white p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-muted)]">
+          <div className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
               {labels.resultLabel}
             </p>
-            <p className="mt-3 font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
+            <p className="mt-3 text-3xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
               {result || labels.emptyResult}
             </p>
           </div>

@@ -42,12 +42,12 @@ export function HomeToolSearch({
   }, [items, query]);
 
   return (
-    <div className="rounded-[28px] border border-black/8 bg-white/90 p-4 shadow-[0_20px_60px_rgba(23,28,24,0.07)] backdrop-blur">
+    <div className="rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-4 shadow-[0_24px_70px_rgba(0,0,0,0.24)] backdrop-blur">
       <input
         value={query}
         onChange={(event) => setQuery(event.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-[20px] border border-black/10 bg-[color:var(--color-surface)] px-4 py-3 text-sm text-[color:var(--color-foreground)] outline-none transition focus:border-[color:var(--color-accent)]"
+        className="w-full rounded-xl border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
       />
 
       <div className="mt-4 grid gap-3">
@@ -56,23 +56,23 @@ export function HomeToolSearch({
             <Link
               key={`${item.kind}-${item.href}`}
               href={item.href}
-              className="rounded-[20px] border border-black/8 bg-white px-4 py-4 transition hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-accent-soft)]"
+              className="rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-4 transition hover:border-[color:var(--brand-border-hover)] hover:bg-white/3"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="font-medium text-[color:var(--color-foreground)]">{item.label}</p>
-                  <p className="mt-1 text-sm leading-6 text-[color:var(--color-muted)]">
+                  <p className="font-medium text-[color:var(--brand-text-primary)]">{item.label}</p>
+                  <p className="mt-1 text-sm leading-6 text-[color:var(--brand-text-secondary)]">
                     {item.description}
                   </p>
                 </div>
-                <span className="rounded-full bg-black/[0.04] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[color:var(--color-muted)]">
+                <span className="rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
                   {item.kind}
                 </span>
               </div>
             </Link>
           ))
         ) : (
-          <div className="rounded-[20px] border border-dashed border-black/10 px-4 py-6 text-sm text-[color:var(--color-muted)]">
+          <div className="rounded-2xl border border-dashed border-[color:var(--brand-border)] px-4 py-6 text-sm text-[color:var(--brand-text-secondary)]">
             {emptyLabel}
           </div>
         )}

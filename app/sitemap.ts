@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { locales, localizePath } from "@/lib/i18n";
+import { defaultLocale, locales, localizePath } from "@/lib/i18n";
 import { categorySlugs, staticSlugs, toolSlugs } from "@/lib/routes";
 import { siteConfig } from "@/lib/site-config";
 
@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteConfig.url}${localizePath(locale)}`,
       lastModified: now,
       changeFrequency: "daily" as const,
-      priority: locale === "en" ? 1 : 0.9,
+      priority: locale === defaultLocale ? 1 : 0.9,
       alternates: buildAlternates(),
     },
     ...staticSlugs.map((slug) => ({
@@ -34,14 +34,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteConfig.url}${localizePath(locale, slug)}`,
       lastModified: now,
       changeFrequency: "weekly" as const,
-      priority: locale === "en" ? 0.85 : 0.75,
+      priority: locale === defaultLocale ? 0.85 : 0.75,
       alternates: buildAlternates(slug),
     })),
     ...toolSlugs.map((slug) => ({
       url: `${siteConfig.url}${localizePath(locale, slug)}`,
       lastModified: now,
       changeFrequency: "weekly" as const,
-      priority: locale === "en" ? 0.9 : 0.8,
+      priority: locale === defaultLocale ? 0.9 : 0.8,
       alternates: buildAlternates(slug),
     })),
   ]);

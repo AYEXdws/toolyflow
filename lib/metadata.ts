@@ -22,13 +22,14 @@ export function createLocalizedMetadata({
 }: MetadataInput): Metadata {
   const path = slug ? `/${slug}` : "";
   const canonicalPath = localizePath(locale, slug);
-  const fullTitle = `${title} | ${siteConfig.name}`;
+  const hasBrandSuffix = title.endsWith(`| ${siteConfig.name}`);
+  const fullTitle = hasBrandSuffix ? title : `${title} | ${siteConfig.name}`;
   const absoluteUrl = new URL(canonicalPath, siteConfig.url);
   const socialImage = new URL(siteConfig.ogImagePath, siteConfig.url);
 
   return {
     metadataBase: new URL(siteConfig.url),
-    title,
+    title: hasBrandSuffix ? { absolute: title } : title,
     description,
     keywords,
     alternates: {

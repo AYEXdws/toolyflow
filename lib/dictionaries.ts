@@ -143,6 +143,7 @@ export type Dictionary = {
   caseConverter: {
     inputLabel: string;
     placeholder: string;
+    initialText?: string;
     characters: string;
     words: string;
     lines: string;
@@ -301,10 +302,10 @@ function createEnglishDictionary(): Dictionary {
       exploreMore: "Explore more",
       noText: "No text yet.",
     },
-    home: {
-      metaTitle: "Fast, simple, free online tools",
-      metaDescription:
-        "Toolyflow is a focused utility hub for text tools, creator tools, and quick online tasks with clean pages and multilingual SEO structure.",
+  home: {
+    metaTitle: "Toolyflow — Creator Toolbox",
+    metaDescription:
+      "Free online tools for Instagram, TikTok, and YouTube creators. Fast, mobile-friendly, and easy to use.",
       keywords: [
         "online tools",
         "free online tools",
@@ -314,22 +315,22 @@ function createEnglishDictionary(): Dictionary {
         "case converter",
         "bio generator",
       ],
-      eyebrow: "Focused utility hub",
-      title: "Toolyflow",
-      tagline: "Fast text tools and creator tools that feel useful.",
-      description:
-        "Toolyflow brings together text tools, creator tools, and quick utilities in clean pages people can return to and use on any device.",
+    eyebrow: "Creator toolbox",
+    title: "Toolyflow",
+    tagline: "The toolbox for content creators.",
+    description:
+      "Everything you need for Instagram, TikTok, and YouTube in one place. Toolyflow brings creator tools, text tools, and lightweight utilities together in a mobile-first experience.",
       primaryCta: "Browse tools",
       secondaryCta: "Learn more",
       stats: [
-        { label: "Core tool pages", value: "4 live" },
-        { label: "Coverage", value: "6 languages" },
-        { label: "Guided pages", value: "4 with content" },
+      { label: "Focus", value: "Creator tools" },
+      { label: "Experience", value: "Mobile first" },
+      { label: "Approach", value: "Creator-led" },
       ],
-      toolsEyebrow: "Core tools",
-      toolsTitle: "Built around text tools and creator tools",
-      toolsDescription:
-        "The main library now prioritizes tools for writing, formatting, bios, usernames, and fast creator workflows. Lighter utilities stay available without defining the whole product.",
+    toolsEyebrow: "Popular tools",
+    toolsTitle: "Built for creator tasks and fast production flows",
+    toolsDescription:
+      "The main tool library highlights repeat workflows such as bios, usernames, QR codes, and text cleanup. Lighter utilities stay in the product as support tools.",
       features: [
         {
           title: "Text tools",
@@ -392,24 +393,24 @@ function createEnglishDictionary(): Dictionary {
         },
       ],
       whyEyebrow: "Why Toolyflow",
-      whyTitle: "What the product is trying to get right",
+      whyTitle: "Built to feel fast, clear, and worth returning to",
       whyDescription:
-        "The goal is not to sound bigger than the product. The goal is to make a few useful pages easier to trust, easier to use, and easier to revisit.",
+        "Toolyflow is not trying to be every tool on the internet. It is being shaped around a smaller set of creator and text workflows that people can open fast, understand instantly, and reuse without friction.",
       brandPoints: [
         {
-          title: "Useful fast",
+          title: "Fast enough for repeat tasks",
           description:
-            "A visitor should be able to paste, generate, or convert something useful within seconds of landing on the page.",
+            "The page should get you to the first useful action in seconds, whether that means generating a bio, cleaning text, or exporting a QR code.",
         },
         {
-          title: "Clear scope",
+          title: "Focused on creator and text work",
           description:
-            "The site is being narrowed around text workflows and creator workflows so the product feels more coherent and less random.",
+            "The product stays tighter around creator profiles, names, QR sharing, and text cleanup so the library feels intentional instead of random.",
         },
         {
-          title: "Worth returning to",
+          title: "Clean enough to trust again",
           description:
-            "Pages should stay calm, readable, and lightweight enough that users do not mind coming back for the same task again.",
+            "Pages should stay readable, lightweight, and stable enough that coming back for the same task feels obvious, not annoying.",
         },
       ],
       pathsEyebrow: "Start here",
@@ -489,7 +490,7 @@ function createEnglishDictionary(): Dictionary {
     staticPages: {
       about: {
         slug: "about",
-        metaTitle: "About",
+        metaTitle: "About Toolyflow | Toolyflow",
         metaDescription:
           "Learn who runs Toolyflow, why it exists, and how the product is being built around useful online tools.",
         keywords: ["about toolyflow", "online tools website", "free online tools"],
@@ -538,7 +539,7 @@ function createEnglishDictionary(): Dictionary {
       },
       contact: {
         slug: "contact",
-        metaTitle: "Contact",
+        metaTitle: "Contact Toolyflow | Toolyflow",
         metaDescription:
           "Contact Toolyflow for support, partnerships, advertising, or general questions about the website.",
         keywords: ["contact toolyflow", "toolyflow support", "online tools contact"],
@@ -595,7 +596,7 @@ function createEnglishDictionary(): Dictionary {
       },
       "privacy-policy": {
         slug: "privacy-policy",
-        metaTitle: "Privacy Policy",
+        metaTitle: "Toolyflow Privacy Policy | Toolyflow",
         metaDescription:
           "Read the Toolyflow privacy policy to understand cookies, advertising services, consent, and how browser-based tools handle visitor data.",
         keywords: ["toolyflow privacy policy", "online tools privacy", "website privacy policy"],
@@ -660,7 +661,7 @@ function createEnglishDictionary(): Dictionary {
       },
       "terms-of-service": {
         slug: "terms-of-service",
-        metaTitle: "Terms of Service",
+        metaTitle: "Toolyflow Terms of Service | Toolyflow",
         metaDescription:
           "Read the Toolyflow terms of service for general usage rules, limitations, and website conditions.",
         keywords: ["toolyflow terms of service", "website terms", "online tools terms"],
@@ -697,12 +698,14 @@ function createEnglishDictionary(): Dictionary {
           "Generate cleaner bios by platform, tone, length, emoji use, and CTA style, then copy the version that fits your profile.",
         eyebrow: "Social profile tool",
         accentLabel: "BIO",
-        metaTitle: "Bio Generator",
+        metaTitle: "Bio Generator — Free Online | Toolyflow",
         metaDescription:
-          "Generate cleaner bios for Instagram, TikTok, X, YouTube, and Twitch with tone, length, emoji, and CTA controls in a free online bio generator.",
+          "Create better bios for Instagram, TikTok, YouTube, and more with a free online bio generator.",
         keywords: [
           "bio generator",
           "instagram bio generator",
+          "tiktok bio generator",
+          "youtube bio generator",
           "short bio generator",
           "profile bio ideas",
         ],
@@ -804,9 +807,9 @@ function createEnglishDictionary(): Dictionary {
           "Generate memorable nicknames with optional keywords and quick copy actions for fast brainstorming.",
         eyebrow: "Name idea tool",
         accentLabel: "NICK",
-        metaTitle: "Nickname Generator",
+        metaTitle: "Nickname Generator — Free Online | Toolyflow",
         metaDescription:
-          "Create nickname ideas in cool, dark, gaming, and aesthetic styles with a free online nickname generator.",
+          "Find catchy nickname ideas for gaming, social media, and creator profiles with a free online generator.",
         keywords: [
           "nickname generator",
           "username generator",
@@ -911,10 +914,16 @@ function createEnglishDictionary(): Dictionary {
           "Create QR codes in the browser with live previews, multiple QR types, and quick PNG or SVG downloads.",
         eyebrow: "Utility tool",
         accentLabel: "QR",
-        metaTitle: "QR Code Generator",
+        metaTitle: "QR Code Generator — Free Online | Toolyflow",
         metaDescription:
-          "Generate QR codes for links, text, email, phone, or WiFi and download them instantly as PNG or SVG.",
-        keywords: ["qr code generator", "free qr code generator", "url to qr", "text to qr"],
+          "Create QR codes instantly for URLs, text, email, phone, and WiFi with a free online QR generator.",
+        keywords: [
+          "qr code generator",
+          "free qr code generator",
+          "url to qr",
+          "text to qr",
+          "wifi qr code generator",
+        ],
         highlights: [
           "Instant QR previews update as you type.",
           "Downloads stay simple with one-click PNG export.",
@@ -1013,10 +1022,16 @@ function createEnglishDictionary(): Dictionary {
           "Switch text case instantly, compare richer outputs side by side, and copy the version you need.",
         eyebrow: "Text formatting tool",
         accentLabel: "CASE",
-        metaTitle: "Case Converter",
+        metaTitle: "Case Converter — Uppercase & Lowercase | Toolyflow",
         metaDescription:
-          "Convert text to uppercase, lowercase, sentence case, title case, camelCase, snake_case, and more with a fast free online case converter.",
-        keywords: ["case converter", "uppercase converter", "lowercase converter", "capitalize text"],
+          "Convert text to uppercase, lowercase, title case, camelCase, snake_case, and more with a free online case converter.",
+        keywords: [
+          "case converter",
+          "uppercase converter",
+          "lowercase converter",
+          "capitalize text",
+          "title case converter",
+        ],
         highlights: [
           "Fast for titles, captions, notes, and quick formatting checks.",
           "Keeps outputs visible side by side instead of forcing extra clicks.",
@@ -1115,10 +1130,16 @@ function createEnglishDictionary(): Dictionary {
           "Use a lightweight random picker with animated spinning and clear results when you need a bonus utility outside the core text and creator flows.",
         eyebrow: "Quick utility",
         accentLabel: "WHEEL",
-        metaTitle: "Decision Wheel",
+        metaTitle: "Decision Wheel — Random Picker | Toolyflow",
         metaDescription:
-          "Enter choices, spin the wheel, and get a random result with a free online decision wheel tool.",
-        keywords: ["decision wheel", "spin the wheel", "random picker", "choice wheel"],
+          "Add your options, spin the wheel, and get a random result with a free online decision wheel.",
+        keywords: [
+          "decision wheel",
+          "spin the wheel",
+          "random picker",
+          "choice wheel",
+          "random decision maker",
+        ],
         highlights: [
           "Ideal for quick team choices, content ideas, and small decisions.",
           "The animated spin makes the result feel clear and interactive.",
@@ -1665,20 +1686,20 @@ const tr = translateDictionary(en, "tr", {
   siteDescription: "Hızlı, sade ve ücretsiz online araçlar.",
   header: {
     tools: "Araçlar",
-    about: "Hakkında",
+    about: "Hakkımızda",
     contact: "İletişim",
     menu: "Menüyü aç",
   },
-  footer: {
-    description:
-      "Günlük işler için hızlı, sade ve ücretsiz online araçlar. Her araç telefonda, tablette ve bilgisayarda temiz çalışacak şekilde tasarlandı.",
-    toolsHeading: "Araçlar",
-    companyHeading: "Site",
-    about: "Hakkında",
-    contact: "İletişim",
-    privacy: "Gizlilik Politikası",
-    terms: "Kullanım Şartları",
-  },
+    footer: {
+      description:
+        "Günlük işler için hızlı, sade ve ücretsiz online araçlar. Her araç telefonda, tablette ve bilgisayarda temiz çalışacak şekilde tasarlandı.",
+      toolsHeading: "Araçlar",
+      companyHeading: "Site",
+      about: "Hakkımızda",
+      contact: "İletişim",
+      privacy: "Gizlilik Politikası",
+      terms: "Kullanım Koşulları",
+    },
   shared: {
     language: "Dil",
     openTool: "Aracı aç",
@@ -1688,9 +1709,9 @@ const tr = translateDictionary(en, "tr", {
     noText: "Henüz metin yok.",
   },
   home: {
-    metaTitle: "Hızlı, sade ve ücretsiz online araçlar",
+    metaTitle: "Toolyflow — Türk Creator'ların Araç Kutusu",
     metaDescription:
-      "Toolyflow; metin araçları, creator araçları ve hızlı online yardımcılar için odaklı sayfalar sunan çok dilli bir utility hub'dır.",
+      "Instagram, TikTok ve YouTube içerik üreticileri için ücretsiz online araçlar. Türkçe, hızlı, mobil uyumlu.",
     keywords: [
       "online araçlar",
       "ücretsiz online araçlar",
@@ -1700,36 +1721,36 @@ const tr = translateDictionary(en, "tr", {
       "case converter",
       "bio generator",
     ],
-    eyebrow: "Odaklı utility hub",
-    tagline: "Gerçekten işe yarayan metin ve creator araçları.",
+    eyebrow: "TR-first creator hub",
+    tagline: "İçerik üreticilerin araç kutusu",
     description:
-      "Toolyflow; metin araçları, creator araçları ve hızlı yardımcı utility sayfalarını telefonda ve masaüstünde rahat kullanılan temiz bir ürün içinde bir araya getirir.",
-    primaryCta: "Araçlara göz at",
+      "Sosyal medya için ihtiyacın olan tüm araçlar — ücretsiz, hızlı, Türkçe. Toolyflow; creator araçları, metin araçları ve hafif yardımcı utility’leri mobil öncelikli bir deneyimde bir araya getirir.",
+    primaryCta: "Araçları keşfet",
     secondaryCta: "Daha fazla bilgi",
     stats: [
-      { label: "Ana araç sayfası", value: "4 canlı" },
-      { label: "Kapsam", value: "6 dil" },
-      { label: "İçerikli araç sayfası", value: "4 rehberli" },
+      { label: "Odak", value: "Creator araçları" },
+      { label: "Deneyim", value: "Mobil öncelikli" },
+      { label: "Dil", value: "Türkçe merkezli" },
     ],
-    toolsEyebrow: "Ana araçlar",
-    toolsTitle: "Metin araçları ve creator araçları etrafında kuruldu",
+    toolsEyebrow: "Popüler araçlar",
+    toolsTitle: "Creator işleri ve hızlı üretim akışları için kuruldu",
     toolsDescription:
-      "Ana araç kütüphanesi; yazma, düzenleme, bio, nickname ve hızlı creator iş akışlarını öne çıkarır. Daha hafif utility araçları ise ürünü destekleyen ikinci katmanda kalır.",
+      "Ana araç kütüphanesi; bio, nickname, QR ve metin düzenleme gibi tekrar ziyaret getiren akışları öne çıkarır. Daha hafif utility araçları ise destekleyici katmanda kalır.",
     features: [
+      {
+        title: "İçerik üretici araçları",
+        description:
+          "Bio, nickname, profil ve paylaşım akışına yakın araçlar; creator kullanıcı için ürünün ana çekim alanı olmalı.",
+      },
       {
         title: "Metin araçları",
         description:
-          "Yazı biçimlendirme, temizlik ve hızlı düzenleme araçları ürünün en güçlü katmanına dönüşmelidir çünkü tekrar eden ihtiyaç çözerler.",
+          "Başlık düzenleme, format dönüştürme ve metin temizliği gibi işler; içerik üretiminde sürekli tekrar eden ihtiyaçları çözer.",
       },
       {
-        title: "Creator araçları",
+        title: "Hızlı araçlar",
         description:
-          "Bio, username ve nickname sayfaları jenerik his vermek yerine creator odaklı, kısa ve sahiplenilebilir çıktılar sunmalıdır.",
-      },
-      {
-        title: "Hızlı yardımcı araçlar",
-        description:
-          "Küçük yardımcı araçlar hâlâ önemli; ancak artık markayı taşıyan ana omurga değiller. Önce odak, sonra genişlik gelmelidir.",
+          "Küçük utility sayfaları hâlâ değerli; ancak ürün kimliğini taşıyan ana katman creator ve metin araçları olmalı.",
       },
     ],
     searchLabel: "Hızlı arama",
@@ -1777,43 +1798,35 @@ const tr = translateDictionary(en, "tr", {
       },
     ],
     whyEyebrow: "Neden Toolyflow",
-    whyTitle: "Ürünün doğru yapmaya çalıştığı şeyler",
+    whyTitle: "Hızlı, net ve tekrar açmaya değer olması için kuruldu",
     whyDescription:
-      "Amaç ürünü olduğundan büyük göstermek değil; birkaç faydalı aracı daha güvenilir, daha net ve daha tekrar kullanılabilir hale getirmek.",
+      "Toolyflow internetin bütün araçlarını toplamaya çalışmıyor. Creator işleri ve metin akışları etrafında daha dar, daha temiz ve gerçekten geri dönülebilir bir ürün kurmaya odaklanıyor.",
     brandPoints: [
       {
-        title: "Hızlıca iş görmeli",
+        title: "Tekrar eden işlerde gerçekten hızlı olmalı",
         description:
-          "Bir ziyaretçi sayfaya geldiğinde saniyeler içinde yapıştırma, üretme veya dönüştürme gibi işe yarayan ilk aksiyonu alabilmeli.",
+          "Sayfa açıldıktan birkaç saniye sonra bio üretmek, metin dönüştürmek veya QR çıkarmak gibi ilk işe yarayan aksiyon alınabilmeli.",
       },
       {
-        title: "Kapsam net olmalı",
+        title: "Creator ve metin işlerine odaklı kalmalı",
         description:
-          "Site metin iş akışları ve creator iş akışları etrafında daraldıkça daha tutarlı ve daha az rastgele hissettirmeli.",
+          "Ürün; bio, kullanıcı adı, paylaşım akışları ve metin düzenleme gibi net işlere odaklandıkça daha güçlü ve daha tutarlı görünmeli.",
       },
       {
-        title: "Geri dönmeye değer olmalı",
+        title: "Temiz olduğu için tekrar açılmalı",
         description:
-          "Sayfalar sakin, okunabilir ve hafif kalmalı ki kullanıcı aynı iş için yeniden gelmekten çekinmesin.",
+          "Sayfalar hafif, okunabilir ve güven veren bir düzende kalmalı ki kullanıcı aynı iş için tekrar geldiğinde yabancılık çekmesin.",
       },
     ],
-    pathsEyebrow: "Başlangıç yolları",
-    pathsTitle: "Araç kütüphanesine daha net girişler",
+    pathsEyebrow: "Kategoriler",
+    pathsTitle: "Creator odaklı daha net başlangıç yolları",
     pathsDescription:
-      "Ziyaretçinin nereden başlayacağını tahmin etmesini beklemek yerine, mevcut ürünün en net giriş yolları burada verilir.",
+      "Ziyaretçinin nereden başlayacağını tahmin etmesini beklemek yerine, creator işleri, metin düzenleme ve hızlı utility akışları burada ayrılır.",
     paths: [
       {
-        title: "Metin düzenleme yolu",
+        title: "Creator araçları",
         description:
-          "Biçimlendirme ve temizlik işleriyle başlayıp zamanla büyüyecek metin araç katmanına girin.",
-        links: [
-          { label: "Case Converter", slug: "case-converter" },
-        ],
-      },
-      {
-        title: "Creator profil yolu",
-        description:
-          "Bio, nickname ve destekleyici creator araçlarını aynı cluster içinde kullanın.",
+          "Bio, nickname ve QR gibi profil ve paylaşım akışına yakın araçlara buradan girin.",
         links: [
           { label: "Bio Generator", slug: "bio-generator" },
           { label: "Nickname Generator", slug: "nickname-generator" },
@@ -1821,9 +1834,15 @@ const tr = translateDictionary(en, "tr", {
         ],
       },
       {
-        title: "Hızlı utility yolu",
+        title: "Metin araçları",
         description:
-          "Ana akıştan kopmadan basit bir çıktıyı hızlıca almak için daha hafif araçlara gidin.",
+          "Biçimlendirme, temizlik ve hızlı düzenleme işi için metin tarafına geçin.",
+        links: [{ label: "Case Converter", slug: "case-converter" }],
+      },
+      {
+        title: "Hızlı araçlar",
+        description:
+          "Ana akıştan kopmadan küçük bir kararı veya paylaşım işini hızlıca çözmek için destek araçlarına gidin.",
         links: [
           { label: "QR Code Generator", slug: "qr-generator" },
           { label: "Decision Wheel", slug: "decision-wheel" },
@@ -1874,7 +1893,7 @@ const tr = translateDictionary(en, "tr", {
   staticPages: {
     about: {
       slug: "about",
-      metaTitle: "Hakkında",
+      metaTitle: "Toolyflow Hakkında | Toolyflow",
       metaDescription:
         "Toolyflow’u kimin işlettiğini, neden kurulduğunu ve ürünün hangi mantıkla geliştirildiğini öğrenin.",
       keywords: ["toolyflow hakkında", "online araç sitesi", "ücretsiz online araçlar"],
@@ -1923,7 +1942,7 @@ const tr = translateDictionary(en, "tr", {
     },
     contact: {
       slug: "contact",
-      metaTitle: "İletişim",
+      metaTitle: "Toolyflow İletişim | Toolyflow",
       metaDescription:
         "Destek, iş birlikleri veya genel sorular için Toolyflow ile iletişime geçin.",
       keywords: ["toolyflow iletişim", "online tools iletişim", "toolyflow destek"],
@@ -1980,7 +1999,7 @@ const tr = translateDictionary(en, "tr", {
     },
     "privacy-policy": {
       slug: "privacy-policy",
-      metaTitle: "Gizlilik Politikası",
+      metaTitle: "Toolyflow Gizlilik Politikası | Toolyflow",
       metaDescription:
         "Toolyflow gizlilik politikasını okuyun; çerezler, reklam servisleri, üçüncü taraf sağlayıcılar ve ziyaretçi onayı hakkında bilgi alın.",
       keywords: ["toolyflow gizlilik politikası", "online araçlar gizlilik", "site gizlilik politikası"],
@@ -2045,7 +2064,7 @@ const tr = translateDictionary(en, "tr", {
     },
     "terms-of-service": {
       slug: "terms-of-service",
-      metaTitle: "Kullanım Şartları",
+      metaTitle: "Toolyflow Kullanım Şartları | Toolyflow",
       metaDescription:
         "Toolyflow kullanım şartlarını okuyun ve site kullanım koşullarını inceleyin.",
       keywords: ["toolyflow kullanım şartları", "site şartları", "online araçlar kullanım şartları"],
@@ -2075,14 +2094,22 @@ const tr = translateDictionary(en, "tr", {
   tools: {
     "bio-generator": {
       ...en.tools["bio-generator"],
-      name: "Bio Generator",
+      name: "Biyografi Üreticisi",
       shortDescription:
         "Instagram, TikTok, X, YouTube ve Twitch için daha güçlü bio alternatifleri üretin.",
       description:
         "Platform, ton, uzunluk, emoji ve CTA seçerek daha temiz bio alternatifleri üretin ve profilinize uyanı kopyalayın.",
       eyebrow: "Sosyal profil aracı",
+      metaTitle: "Biyografi Üreticisi — Ücretsiz Online | Toolyflow",
       metaDescription:
-        "Instagram, TikTok, X, YouTube ve Twitch için ton, uzunluk, emoji ve CTA kontrolleriyle ücretsiz bio üretin.",
+        "Instagram, TikTok ve YouTube için saniyeler içinde etkileyici biyografi oluştur. Ücretsiz, Türkçe.",
+      keywords: [
+        "biyografi üreticisi",
+        "instagram biyografi üreticisi",
+        "tiktok biyografi üreticisi",
+        "youtube biyografi üreticisi",
+        "bio oluşturucu",
+      ],
       highlights: [
         "Ton, uzunluk, emoji ve CTA kontrolleri çıktıyı daha net şekillendirir.",
         "Sosyal profil, creator sayfası ve kanal bio'ları için uygundur.",
@@ -2174,14 +2201,22 @@ const tr = translateDictionary(en, "tr", {
     },
     "nickname-generator": {
       ...en.tools["nickname-generator"],
-      name: "Nickname Generator",
+      name: "Kullanıcı Adı Üreticisi",
       shortDescription:
         "Cool, dark, gaming ve aesthetic stillerde takma ad fikirleri üretin.",
       description:
         "Anahtar kelimeye göre hızlıca hatırlanabilir nickname önerileri alın ve kopyalayın.",
       eyebrow: "İsim fikri aracı",
+      metaTitle: "Kullanıcı Adı Üreticisi — Ücretsiz Online | Toolyflow",
       metaDescription:
-        "Cool, dark, gaming ve aesthetic stillerde ücretsiz takma ad önerileri üretin.",
+        "Akılda kalan, özgün kullanıcı adları bul. Oyun, sosyal medya ve marka için ücretsiz nickname üreticisi.",
+      keywords: [
+        "kullanıcı adı üreticisi",
+        "nickname üreticisi",
+        "oyun nicki üretici",
+        "sosyal medya kullanıcı adı",
+        "özgün kullanıcı adı",
+      ],
       highlights: [
         "Kullanıcı adı, sosyal medya handle, creator alias ve oyun nicki için uygundur.",
         "Stil, uzunluk, sembol ve okunabilirlik filtreleri sonucu istediğiniz havaya yaklaştırır.",
@@ -2273,14 +2308,22 @@ const tr = translateDictionary(en, "tr", {
     },
     "qr-generator": {
       ...en.tools["qr-generator"],
-      name: "QR Code Generator",
+      name: "QR Kod Üreticisi",
       shortDescription:
         "Herhangi bir linki veya metni QR koda dönüştürün ve anında indirin.",
       description:
         "Tarayıcı içinde canlı önizleme, farklı QR tipleri ve PNG veya SVG indirme ile hızlı QR kod üretin.",
       eyebrow: "Yardımcı araç",
+      metaTitle: "QR Kod Üreticisi — Ücretsiz Online | Toolyflow",
       metaDescription:
-        "Link, metin, e-posta, telefon veya WiFi için ücretsiz QR kod oluşturun ve PNG ya da SVG olarak indirin.",
+        "Anında QR kod oluştur. URL, metin, e-posta, telefon ve WiFi için ücretsiz QR kod üreticisi.",
+      keywords: [
+        "qr kod üreticisi",
+        "ücretsiz qr kod oluşturucu",
+        "linkten qr kod",
+        "wifi qr kodu",
+        "metinden qr kod",
+      ],
       highlights: [
         "Yazdıkça anında QR önizlemesi güncellenir.",
         "PNG indirme süreci tek tıkla basit kalır.",
@@ -2372,14 +2415,22 @@ const tr = translateDictionary(en, "tr", {
     },
     "case-converter": {
       ...en.tools["case-converter"],
-      name: "Case Converter",
+      name: "Metin Dönüştürücü",
       shortDescription:
         "Metni uppercase, lowercase, sentence, title, camel, snake ve kebab formatlarına dönüştürün.",
       description:
         "Metin biçimini anında değiştirin, zengin çıktıları yan yana karşılaştırın ve ihtiyacınız olanı kopyalayın.",
       eyebrow: "Metin biçimlendirme aracı",
+      metaTitle: "Metin Dönüştürücü — Büyük/Küçük Harf | Toolyflow",
       metaDescription:
-        "Metni uppercase, lowercase, sentence case, title case, camelCase, snake_case ve daha fazlasına hızlıca dönüştürün.",
+        "Metni büyük harf, küçük harf, başlık düzeni ve daha fazlasına dönüştür. Ücretsiz online metin aracı.",
+      keywords: [
+        "metin dönüştürücü",
+        "büyük harf dönüştürücü",
+        "küçük harf dönüştürücü",
+        "başlık düzeni dönüştürücü",
+        "case converter türkçe",
+      ],
       highlights: [
         "Başlıklar, açıklamalar ve notlar için hızlıdır.",
         "Çıktıları tek ekranda tuttuğu için ekstra tıklama istemez.",
@@ -2471,14 +2522,22 @@ const tr = translateDictionary(en, "tr", {
     },
     "decision-wheel": {
       ...en.tools["decision-wheel"],
-      name: "Decision Wheel",
+      name: "Karar Çarkı",
       shortDescription:
         "Seçenekleri girin, çarkı çevirin ve sonucu otomatik seçtirin.",
       description:
         "Küçük kararlar için animasyonlu ve net sonuç veren hafif bir rastgele seçim aracı kullanın.",
       eyebrow: "Seçim aracı",
+      metaTitle: "Karar Çarkı — Rastgele Seçim Aracı | Toolyflow",
       metaDescription:
-        "Seçenekleri girin, çarkı çevirin ve ücretsiz decision wheel ile rastgele sonuç alın.",
+        "Karar vermekte zorlanıyor musun? Seçeneklerini ekle, çarkı çevir. Ücretsiz online karar çarkı.",
+      keywords: [
+        "karar çarkı",
+        "rastgele seçim aracı",
+        "çark çevir",
+        "seçim çarkı",
+        "random picker türkçe",
+      ],
       highlights: [
         "Hızlı ekip kararları, içerik fikirleri ve küçük seçimler için uygundur.",
         "Animasyon sonucu daha net ve etkileşimli hissettirir.",
@@ -2491,6 +2550,7 @@ const tr = translateDictionary(en, "tr", {
   caseConverter: {
     inputLabel: "Metninizi yapıştırın",
     placeholder: "Dönüştürmek için metin girin veya yapıştırın.",
+    initialText: "Toolyflow ile metinlerini saniyeler içinde düzenle.",
     characters: "Karakter",
     words: "Kelime",
     lines: "Satır",
@@ -2826,24 +2886,24 @@ const es = translateDictionary(en, "es", {
     noText: "Aún no hay texto.",
   },
   home: {
-    metaTitle: "Herramientas online rápidas, simples y gratis",
+    metaTitle: "Toolyflow — Caja de herramientas para creadores",
     metaDescription:
-      "Toolyflow es un hub utilitario centrado en herramientas de texto, herramientas para creadores y tareas online rápidas con estructura multilingüe.",
-    eyebrow: "Hub utilitario enfocado",
-    tagline: "Herramientas de texto y para creadores que sí se sienten útiles.",
+      "Herramientas online gratis para creadores de Instagram, TikTok y YouTube. Rápidas, mobile-first y fáciles de usar.",
+    eyebrow: "Caja de herramientas para creadores",
+    tagline: "La caja de herramientas para creadores.",
     description:
-      "Toolyflow reúne herramientas de texto, herramientas para creadores y utilidades rápidas en páginas limpias a las que puedes volver y usar en cualquier dispositivo.",
+      "Todo lo que necesitas para Instagram, TikTok y YouTube en un solo lugar. Toolyflow reúne herramientas para creadores, herramientas de texto y utilidades ligeras en una experiencia mobile-first.",
     primaryCta: "Ver herramientas",
     secondaryCta: "Saber más",
     stats: [
-      { label: "Enfoque", value: "2 grupos" },
-      { label: "Herramientas clave", value: "4 principales" },
-      { label: "Cobertura", value: "6 idiomas" },
+      { label: "Enfoque", value: "Herramientas para creadores" },
+      { label: "Experiencia", value: "Primero móvil" },
+      { label: "Enfoque de producto", value: "Pensado para creadores" },
     ],
-    toolsEyebrow: "Herramientas clave",
-    toolsTitle: "Construido alrededor de herramientas de texto y para creadores",
+    toolsEyebrow: "Herramientas populares",
+    toolsTitle: "Construido para tareas de creador y flujos rápidos de producción",
     toolsDescription:
-      "La biblioteca principal prioriza herramientas para escribir, limpiar texto, crear bios y generar nombres. Las utilidades más ligeras siguen presentes, pero ya no definen todo el producto.",
+      "La biblioteca principal destaca flujos repetidos como bios, nombres de usuario, QR y limpieza de texto. Las utilidades ligeras siguen dentro del producto como apoyo.",
     features: [
       {
         title: "Herramientas de texto",
@@ -3001,7 +3061,7 @@ const es = translateDictionary(en, "es", {
   staticPages: {
     about: {
       eyebrow: "Acerca de Toolyflow",
-      metaTitle: "Acerca de",
+      metaTitle: "Acerca de Toolyflow | Toolyflow",
       metaDescription:
         "Descubre quién opera Toolyflow, por qué existe y cómo se está construyendo el producto.",
       title: "Un producto de herramientas enfocado para utilidades diarias",
@@ -3048,7 +3108,7 @@ const es = translateDictionary(en, "es", {
     },
     contact: {
       eyebrow: "Contacto",
-      metaTitle: "Contacto",
+      metaTitle: "Contacto Toolyflow | Toolyflow",
       metaDescription:
         "Contacta con Toolyflow para soporte, alianzas, publicidad o dudas generales sobre el sitio.",
       title: "Habla con el equipo de Toolyflow",
@@ -3103,7 +3163,7 @@ const es = translateDictionary(en, "es", {
     },
     "privacy-policy": {
       eyebrow: "Política de privacidad",
-      metaTitle: "Política de privacidad",
+      metaTitle: "Política de privacidad de Toolyflow | Toolyflow",
       metaDescription:
         "Lee la política de privacidad de Toolyflow para entender cookies, servicios publicitarios, consentimiento y tratamiento de datos.",
       title: "Política de privacidad",
@@ -3166,7 +3226,7 @@ const es = translateDictionary(en, "es", {
     },
     "terms-of-service": {
       eyebrow: "Términos del servicio",
-      metaTitle: "Términos del servicio",
+      metaTitle: "Términos de servicio de Toolyflow | Toolyflow",
       metaDescription:
         "Lee los términos de servicio de Toolyflow para conocer reglas generales de uso, límites y condiciones del sitio.",
       title: "Términos del servicio",
@@ -3193,13 +3253,22 @@ const es = translateDictionary(en, "es", {
   },
   tools: {
     "bio-generator": {
+      name: "Generador de biografías",
       shortDescription:
         "Genera bios más limpias para Instagram, TikTok, X, YouTube y Twitch.",
       description:
         "Genera bios por plataforma, tono, longitud, emojis y CTA, y copia la opción que mejor encaje con tu perfil.",
       eyebrow: "Herramienta de perfil social",
+      metaTitle: "Generador de biografías — Gratis online | Toolyflow",
       metaDescription:
-        "Genera bios para Instagram, TikTok, X, YouTube y Twitch con controles de tono, longitud, emoji y CTA en un generador gratis.",
+        "Crea biografías para Instagram, TikTok y YouTube en segundos con un generador online gratis.",
+      keywords: [
+        "generador de biografías",
+        "biografía para instagram",
+        "generador de bio tiktok",
+        "bio para youtube",
+        "crear biografía online",
+      ],
       highlights: [
         "Los controles de tono, longitud, emoji y CTA ajustan mejor el resultado.",
         "Va bien para perfiles sociales, páginas de creador y bios de canal.",
@@ -3288,13 +3357,22 @@ const es = translateDictionary(en, "es", {
       },
     },
     "nickname-generator": {
+      name: "Generador de nombres de usuario",
       shortDescription:
         "Crea ideas de nick en estilos cool, oscuro, gaming y aesthetic.",
       description:
         "Genera nicknames memorables con palabra base opcional y copia rápida para sesiones de brainstorming.",
       eyebrow: "Herramienta de nombres",
+      metaTitle: "Generador de nombres de usuario — Gratis | Toolyflow",
       metaDescription:
-        "Crea ideas de nickname en estilos cool, oscuro, gaming y aesthetic con un generador online gratis.",
+        "Encuentra nombres de usuario originales para gaming, redes sociales y marca con un generador gratis.",
+      keywords: [
+        "generador de nombres de usuario",
+        "generador de nickname",
+        "nombres para gaming",
+        "usuario para redes sociales",
+        "nick original",
+      ],
       highlights: [
         "Útil para usernames, handles sociales, alias de creador y tags de gaming.",
         "Los filtros de estilo, longitud, símbolos y legibilidad alinean mejor el resultado con el vibe que buscas.",
@@ -3381,13 +3459,22 @@ const es = translateDictionary(en, "es", {
       },
     },
     "qr-generator": {
+      name: "Generador de códigos QR",
       shortDescription:
         "Convierte cualquier enlace o texto en un QR y descárgalo al instante.",
       description:
         "Crea códigos QR en el navegador con vista previa en vivo, varios tipos de QR y descarga rápida en PNG o SVG.",
       eyebrow: "Herramienta utility",
+      metaTitle: "Generador de códigos QR — Gratis online | Toolyflow",
       metaDescription:
-        "Genera códigos QR para enlaces, texto, email, teléfono o WiFi y descárgalos al instante en PNG o SVG.",
+        "Crea códigos QR al instante para URL, texto, email, teléfono o WiFi con un generador gratis.",
+      keywords: [
+        "generador de códigos qr",
+        "qr gratis",
+        "url a qr",
+        "wifi qr",
+        "texto a qr",
+      ],
       highlights: [
         "La vista previa se actualiza al instante mientras escribes.",
         "La descarga sigue siendo simple con exportación directa en PNG o SVG.",
@@ -3474,13 +3561,22 @@ const es = translateDictionary(en, "es", {
       },
     },
     "case-converter": {
+      name: "Convertidor de texto",
       shortDescription:
         "Convierte texto entre uppercase, lowercase, sentence, title, camel, snake y kebab.",
       description:
         "Cambia el case al instante, compara varias salidas lado a lado y copia justo la versión que necesitas.",
       eyebrow: "Herramienta de formato de texto",
+      metaTitle: "Convertidor de texto — Mayúsculas y minúsculas | Toolyflow",
       metaDescription:
-        "Convierte texto a uppercase, lowercase, sentence case, title case, camelCase, snake_case y más con un case converter rápido y gratis.",
+        "Convierte texto a mayúsculas, minúsculas, title case, camelCase y más con una herramienta gratis.",
+      keywords: [
+        "convertidor de texto",
+        "convertir mayúsculas y minúsculas",
+        "case converter",
+        "title case",
+        "camelcase online",
+      ],
       highlights: [
         "Rápido para títulos, captions, notas y revisiones de formato.",
         "Mantiene todas las salidas visibles a la vez en lugar de obligarte a dar más clics.",
@@ -3569,13 +3665,22 @@ const es = translateDictionary(en, "es", {
       },
     },
     "decision-wheel": {
+      name: "Ruleta de decisiones",
       shortDescription:
         "Haz girar opciones cuando necesites una utility ligera para una elección rápida.",
       description:
         "Usa un selector aleatorio con animación y resultado claro cuando necesites una herramienta extra fuera del flujo central.",
       eyebrow: "Utility rápida",
+      metaTitle: "Ruleta de decisiones — Selector aleatorio | Toolyflow",
       metaDescription:
-        "Introduce opciones, gira la rueda y obtén un resultado aleatorio con una decision wheel online gratis.",
+        "Añade opciones, gira la ruleta y obtén una elección aleatoria con una decision wheel gratis.",
+      keywords: [
+        "ruleta de decisiones",
+        "selector aleatorio",
+        "girar la rueda",
+        "elegir al azar",
+        "decision wheel",
+      ],
       highlights: [
         "Útil para decisiones rápidas, ideas de contenido y pequeñas elecciones de equipo.",
         "La animación hace que el resultado se sienta claro e interactivo.",
@@ -3960,24 +4065,24 @@ const de = translateDictionary(en, "de", {
     noText: "Noch kein Text.",
   },
   home: {
-    metaTitle: "Schnelle, einfache und kostenlose Online-Tools",
+    metaTitle: "Toolyflow — Creator-Toolbox",
     metaDescription:
-      "Toolyflow ist ein fokussierter Utility-Hub für Text-Tools, Creator-Tools und schnelle Online-Aufgaben mit mehrsprachiger Struktur.",
-    eyebrow: "Fokussierter Utility-Hub",
-    tagline: "Text-Tools und Creator-Tools, die wirklich nützlich wirken.",
+      "Kostenlose Online-Tools für Instagram-, TikTok- und YouTube-Creator. Schnell, mobilfreundlich und leicht zu nutzen.",
+    eyebrow: "Creator-Toolbox",
+    tagline: "Die Toolbox für Content Creator.",
     description:
-      "Toolyflow richtet sich auf Text-Tools, Creator-Tools und eine kleine Ebene schneller Utilities aus. Das Produkt soll nicht zufällig breit wirken, sondern klar und wiederverwendbar.",
+      "Alles, was du für Instagram, TikTok und YouTube brauchst, an einem Ort. Toolyflow bringt Creator-Tools, Text-Tools und leichte Utilities in einer mobile-first Erfahrung zusammen.",
     primaryCta: "Tools ansehen",
     secondaryCta: "Mehr erfahren",
     stats: [
-      { label: "Fokus", value: "2 Cluster" },
-      { label: "Kern-Tools", value: "4 Prioritäten" },
-      { label: "Abdeckung", value: "6 Sprachen" },
+      { label: "Fokus", value: "Creator-Tools" },
+      { label: "Erlebnis", value: "Mobile first" },
+      { label: "Ansatz", value: "Creator-zentriert" },
     ],
-    toolsEyebrow: "Kern-Tools",
-    toolsTitle: "Rund um Text-Tools und Creator-Tools aufgebaut",
+    toolsEyebrow: "Beliebte Tools",
+    toolsTitle: "Gebaut für Creator-Aufgaben und schnelle Produktionsflows",
     toolsDescription:
-      "Die Hauptbibliothek priorisiert Schreiben, Textbereinigung, Bios, Nicknames und schnelle Creator-Workflows. Leichtere Utilities bleiben verfügbar, stehen aber nicht mehr im Zentrum.",
+      "Die Hauptbibliothek hebt wiederkehrende Workflows wie Bios, Usernames, QR-Codes und Textbereinigung hervor. Leichte Utilities bleiben als Support im Produkt.",
     searchLabel: "Seite schnell finden",
     searchPlaceholder: "Nach Tools und Kategorien suchen",
     searchEmpty: "Dafür gibt es noch keine Treffer.",
@@ -4118,7 +4223,7 @@ const de = translateDictionary(en, "de", {
   staticPages: {
     about: {
       eyebrow: "Über Toolyflow",
-      metaTitle: "Über uns",
+      metaTitle: "Über Toolyflow | Toolyflow",
       metaDescription:
         "Erfahre, wer Toolyflow betreibt, warum es existiert und wie das Produkt aufgebaut wird.",
       title: "Ein fokussiertes Tool-Produkt für tägliche Utility-Aufgaben",
@@ -4165,7 +4270,7 @@ const de = translateDictionary(en, "de", {
     },
     contact: {
       eyebrow: "Kontakt",
-      metaTitle: "Kontakt",
+      metaTitle: "Toolyflow Kontakt | Toolyflow",
       metaDescription:
         "Kontaktiere Toolyflow für Support, Partnerschaften, Werbung oder allgemeine Fragen.",
       title: "Erreiche das Toolyflow-Team",
@@ -4220,7 +4325,7 @@ const de = translateDictionary(en, "de", {
     },
     "privacy-policy": {
       eyebrow: "Datenschutz",
-      metaTitle: "Datenschutz",
+      metaTitle: "Toolyflow Datenschutz | Toolyflow",
       metaDescription:
         "Lies die Datenschutzerklärung von Toolyflow, um Cookies, Werbedienste, Einwilligung und Datenverarbeitung zu verstehen.",
       title: "Datenschutzerklärung",
@@ -4283,7 +4388,7 @@ const de = translateDictionary(en, "de", {
     },
     "terms-of-service": {
       eyebrow: "Nutzungsbedingungen",
-      metaTitle: "Nutzungsbedingungen",
+      metaTitle: "Toolyflow Nutzungsbedingungen | Toolyflow",
       metaDescription:
         "Lies die Nutzungsbedingungen von Toolyflow für allgemeine Regeln, Grenzen und Bedingungen der Website.",
       title: "Nutzungsbedingungen",
@@ -4310,13 +4415,22 @@ const de = translateDictionary(en, "de", {
   },
   tools: {
     "bio-generator": {
+      name: "Biografie-Generator",
       shortDescription:
         "Erzeuge klarere Bios für Instagram, TikTok, X, YouTube und Twitch.",
       description:
         "Generiere Bios nach Plattform, Ton, Länge, Emoji-Nutzung und CTA und kopiere die Version, die zu deinem Profil passt.",
       eyebrow: "Profil-Tool",
+      metaTitle: "Biografie-Generator — Kostenlos online | Toolyflow",
       metaDescription:
-        "Erzeuge klarere Bios für Instagram, TikTok, X, YouTube und Twitch mit Ton-, Längen-, Emoji- und CTA-Steuerung.",
+        "Erstelle in Sekunden bessere Bios für Instagram, TikTok und YouTube mit einem kostenlosen Online-Generator.",
+      keywords: [
+        "biografie-generator",
+        "instagram bio generator",
+        "tiktok bio generator",
+        "youtube bio",
+        "bio online erstellen",
+      ],
       highlights: [
         "Ton, Länge, Emoji und CTA formen die Ausgabe präziser.",
         "Gut geeignet für Social-Profile, Creator-Seiten und Channel-Bios.",
@@ -4404,13 +4518,22 @@ const de = translateDictionary(en, "de", {
       },
     },
     "nickname-generator": {
+      name: "Benutzernamen-Generator",
       shortDescription:
         "Erzeuge Nickname-Ideen in coolen, dunklen, Gaming- und ästhetischen Stilen.",
       description:
         "Generiere einprägsame Nicknames mit optionalem Keyword und schnellem Copy-Flow fürs Brainstorming.",
       eyebrow: "Namensidee-Tool",
+      metaTitle: "Benutzernamen-Generator — Kostenlos | Toolyflow",
       metaDescription:
-        "Erzeuge Nickname-Ideen in coolen, dunklen, Gaming- und ästhetischen Stilen mit einem kostenlosen Online-Generator.",
+        "Finde originelle Benutzernamen für Gaming, Social Media und Creator-Profile mit einem kostenlosen Generator.",
+      keywords: [
+        "benutzernamen-generator",
+        "nickname generator",
+        "gaming namen generator",
+        "social media name",
+        "username ideen",
+      ],
       highlights: [
         "Nützlich für Usernames, Social-Handles, Creator-Aliase und Gaming-Tags.",
         "Stil-, Längen-, Symbol- und Lesbarkeitsfilter halten die Richtung näher an dem Vibe, den du suchst.",
@@ -4497,13 +4620,22 @@ const de = translateDictionary(en, "de", {
       },
     },
     "qr-generator": {
+      name: "QR-Code-Generator",
       shortDescription:
         "Wandle jeden Link oder Text in einen QR-Code um und lade ihn sofort herunter.",
       description:
         "Erstelle QR-Codes im Browser mit Live-Vorschau, mehreren QR-Typen und schnellem PNG- oder SVG-Download.",
       eyebrow: "Utility-Tool",
+      metaTitle: "QR-Code-Generator — Kostenlos online | Toolyflow",
       metaDescription:
-        "Erzeuge QR-Codes für Links, Text, E-Mail, Telefon oder WiFi und lade sie direkt als PNG oder SVG herunter.",
+        "Erstelle QR-Codes sofort für URLs, Text, E-Mail, Telefon oder WLAN mit einem kostenlosen Online-Tool.",
+      keywords: [
+        "qr-code-generator",
+        "kostenloser qr code",
+        "url zu qr",
+        "wlan qr code",
+        "text zu qr",
+      ],
       highlights: [
         "Die QR-Vorschau aktualisiert sich sofort während der Eingabe.",
         "Der Download bleibt mit direktem PNG- und SVG-Export einfach.",
@@ -4590,13 +4722,22 @@ const de = translateDictionary(en, "de", {
       },
     },
     "case-converter": {
+      name: "Text-Konverter",
       shortDescription:
         "Wandle Text in uppercase, lowercase, sentence, title, camel, snake und kebab um.",
       description:
         "Wechsle das Textformat sofort, vergleiche mehrere Ausgaben nebeneinander und kopiere genau die Version, die du brauchst.",
       eyebrow: "Textformatierungs-Tool",
+      metaTitle: "Text-Konverter — Groß- und Kleinschreibung | Toolyflow",
       metaDescription:
-        "Wandle Text in uppercase, lowercase, sentence case, title case, camelCase, snake_case und mehr um.",
+        "Wandle Text in Großbuchstaben, Kleinbuchstaben, Title Case, camelCase und mehr mit einem kostenlosen Tool um.",
+      keywords: [
+        "text-konverter",
+        "groß und kleinschreibung umwandeln",
+        "case converter",
+        "title case generator",
+        "camelcase konverter",
+      ],
       highlights: [
         "Schnell für Überschriften, Captions, Notizen und Formatierungschecks.",
         "Hält alle Ausgaben gleichzeitig sichtbar, statt unnötige Zusatzklicks zu erzwingen.",
@@ -4685,13 +4826,22 @@ const de = translateDictionary(en, "de", {
       },
     },
     "decision-wheel": {
+      name: "Entscheidungsrad",
       shortDescription:
         "Dreh durch Optionen, wenn du eine leichte Utility für schnelle Entscheidungen brauchst.",
       description:
         "Nutze einen zufälligen Picker mit Animation und klarem Ergebnis, wenn du ein Extra-Tool außerhalb der Kernflüsse brauchst.",
       eyebrow: "Schnelle Utility",
+      metaTitle: "Entscheidungsrad — Zufallsauswahl | Toolyflow",
       metaDescription:
-        "Gib Optionen ein, dreh das Rad und erhalte ein zufälliges Ergebnis mit einem kostenlosen Decision Wheel.",
+        "Füge Optionen hinzu, drehe das Rad und erhalte eine Zufallsauswahl mit einem kostenlosen Entscheidungsrad.",
+      keywords: [
+        "entscheidungsrad",
+        "zufallsauswahl",
+        "rad drehen",
+        "random picker",
+        "entscheidungshilfe online",
+      ],
       highlights: [
         "Nützlich für schnelle Team-Entscheidungen, Content-Ideen und kleine Auswahlmomente.",
         "Die Animation macht das Ergebnis klar und interaktiv.",
@@ -5076,24 +5226,24 @@ const fr = translateDictionary(en, "fr", {
     noText: "Pas encore de texte.",
   },
   home: {
-    metaTitle: "Outils en ligne rapides, simples et gratuits",
+    metaTitle: "Toolyflow — Boîte à outils pour créateurs",
     metaDescription:
-      "Toolyflow est un hub utilitaire centré sur les outils de texte, les outils pour créateurs et les tâches rapides en ligne avec une structure multilingue.",
-    eyebrow: "Hub utilitaire ciblé",
-    tagline: "Des outils de texte et pour créateurs qui paraissent vraiment utiles.",
+      "Des outils en ligne gratuits pour les créateurs Instagram, TikTok et YouTube. Rapides, pensés mobile et faciles à utiliser.",
+    eyebrow: "Boîte à outils pour créateurs",
+    tagline: "La boîte à outils des créateurs.",
     description:
-      "Toolyflow réunit des outils de texte, des outils pour créateurs et des utilitaires rapides dans des pages propres que l'on peut réutiliser sur mobile comme sur desktop.",
+      "Tout ce qu'il te faut pour Instagram, TikTok et YouTube au même endroit. Toolyflow réunit outils créateur, outils de texte et utilitaires légers dans une expérience mobile-first.",
     primaryCta: "Voir les outils",
     secondaryCta: "En savoir plus",
     stats: [
-      { label: "Focus", value: "2 groupes" },
-      { label: "Outils clés", value: "4 priorités" },
-      { label: "Couverture", value: "6 langues" },
+      { label: "Focus", value: "Outils créateur" },
+      { label: "Expérience", value: "Mobile first" },
+      { label: "Approche", value: "Pensé pour les créateurs" },
     ],
-    toolsEyebrow: "Outils clés",
-    toolsTitle: "Construit autour des outils de texte et pour créateurs",
+    toolsEyebrow: "Outils populaires",
+    toolsTitle: "Construit pour les tâches créateur et les flux rapides",
     toolsDescription:
-      "La bibliothèque principale met en avant l'écriture, le nettoyage de texte, les bios, les pseudos et les flux rapides pour créateurs. Les utilitaires légers restent disponibles, sans définir tout le produit.",
+      "La bibliothèque principale met en avant des workflows répétés comme les bios, noms d'utilisateur, QR et nettoyage de texte. Les utilitaires légers restent là comme couche de support.",
     searchLabel: "Trouver une page rapidement",
     searchPlaceholder: "Rechercher des outils et catégories",
     searchEmpty: "Aucun résultat pour cette recherche pour l'instant.",
@@ -5234,7 +5384,7 @@ const fr = translateDictionary(en, "fr", {
   staticPages: {
     about: {
       eyebrow: "À propos de Toolyflow",
-      metaTitle: "À propos",
+      metaTitle: "À propos de Toolyflow | Toolyflow",
       metaDescription:
         "Découvrez qui gère Toolyflow, pourquoi il existe et comment le produit est construit.",
       title: "Un produit d'outils ciblé pour les utilités du quotidien",
@@ -5281,7 +5431,7 @@ const fr = translateDictionary(en, "fr", {
     },
     contact: {
       eyebrow: "Contact",
-      metaTitle: "Contact",
+      metaTitle: "Contacter Toolyflow | Toolyflow",
       metaDescription:
         "Contactez Toolyflow pour le support, les partenariats, la publicité ou les questions générales.",
       title: "Contacter l'équipe Toolyflow",
@@ -5336,7 +5486,7 @@ const fr = translateDictionary(en, "fr", {
     },
     "privacy-policy": {
       eyebrow: "Politique de confidentialité",
-      metaTitle: "Politique de confidentialité",
+      metaTitle: "Politique de confidentialité Toolyflow | Toolyflow",
       metaDescription:
         "Lisez la politique de confidentialité de Toolyflow pour comprendre cookies, publicité, consentement et traitement des données.",
       title: "Politique de confidentialité",
@@ -5399,7 +5549,7 @@ const fr = translateDictionary(en, "fr", {
     },
     "terms-of-service": {
       eyebrow: "Conditions d'utilisation",
-      metaTitle: "Conditions d'utilisation",
+      metaTitle: "Conditions d'utilisation Toolyflow | Toolyflow",
       metaDescription:
         "Lisez les conditions d'utilisation de Toolyflow pour connaître les règles générales, limites et conditions du site.",
       title: "Conditions d'utilisation",
@@ -5426,13 +5576,22 @@ const fr = translateDictionary(en, "fr", {
   },
   tools: {
     "bio-generator": {
+      name: "Générateur de bio",
       shortDescription:
         "Générez des bios plus nettes pour Instagram, TikTok, X, YouTube et Twitch.",
       description:
         "Générez des bios par plateforme, ton, longueur, emoji et CTA, puis copiez la version qui colle à votre profil.",
       eyebrow: "Outil de profil social",
+      metaTitle: "Générateur de bio — Gratuit en ligne | Toolyflow",
       metaDescription:
-        "Générez des bios pour Instagram, TikTok, X, YouTube et Twitch avec des réglages de ton, longueur, emoji et CTA.",
+        "Créez rapidement des bios pour Instagram, TikTok et YouTube avec un générateur gratuit en ligne.",
+      keywords: [
+        "générateur de bio",
+        "bio instagram",
+        "générateur bio tiktok",
+        "bio youtube",
+        "créer une bio en ligne",
+      ],
       highlights: [
         "Les réglages de ton, longueur, emoji et CTA rendent la sortie plus précise.",
         "Très utile pour les profils sociaux, pages créateur et bios de chaîne.",
@@ -5520,13 +5679,22 @@ const fr = translateDictionary(en, "fr", {
       },
     },
     "nickname-generator": {
+      name: "Générateur de pseudo",
       shortDescription:
         "Créez des idées de pseudos en styles cool, sombre, gaming et esthétique.",
       description:
         "Générez des nicknames mémorables avec mot-clé optionnel et copie rapide pour vos sessions de brainstorming.",
       eyebrow: "Outil d'idées de nom",
+      metaTitle: "Générateur de pseudo — Gratuit | Toolyflow",
       metaDescription:
-        "Créez des idées de nickname en styles cool, sombre, gaming et esthétique avec un générateur en ligne gratuit.",
+        "Trouvez des pseudos originaux pour le gaming, les réseaux sociaux et les profils créateur avec un générateur gratuit.",
+      keywords: [
+        "générateur de pseudo",
+        "générateur de nom d'utilisateur",
+        "pseudo gaming",
+        "nom pour réseaux sociaux",
+        "idée de pseudo",
+      ],
       highlights: [
         "Utile pour usernames, handles sociaux, alias créateur et tags gaming.",
         "Les filtres de style, longueur, symboles et lisibilité gardent les résultats plus proches du vibe recherché.",
@@ -5613,13 +5781,22 @@ const fr = translateDictionary(en, "fr", {
       },
     },
     "qr-generator": {
+      name: "Générateur de QR code",
       shortDescription:
         "Transformez n'importe quel lien ou texte en QR code et téléchargez-le instantanément.",
       description:
         "Créez des QR codes dans le navigateur avec aperçu en direct, plusieurs types de QR et téléchargement rapide en PNG ou SVG.",
       eyebrow: "Outil utility",
+      metaTitle: "Générateur de QR code — Gratuit en ligne | Toolyflow",
       metaDescription:
-        "Générez des QR codes pour liens, texte, email, téléphone ou WiFi et téléchargez-les en PNG ou SVG.",
+        "Créez des QR codes pour URL, texte, email, téléphone ou WiFi avec un générateur gratuit en ligne.",
+      keywords: [
+        "générateur de qr code",
+        "qr code gratuit",
+        "url vers qr",
+        "wifi qr code",
+        "texte en qr",
+      ],
       highlights: [
         "L'aperçu du QR se met à jour en direct pendant la saisie.",
         "Le téléchargement reste simple avec export direct en PNG ou SVG.",
@@ -5706,13 +5883,22 @@ const fr = translateDictionary(en, "fr", {
       },
     },
     "case-converter": {
+      name: "Convertisseur de texte",
       shortDescription:
         "Convertissez du texte entre uppercase, lowercase, sentence, title, camel, snake et kebab.",
       description:
         "Changez instantanément le format du texte, comparez plusieurs sorties côte à côte et copiez la bonne version.",
       eyebrow: "Outil de formatage de texte",
+      metaTitle: "Convertisseur de texte — Majuscules et minuscules | Toolyflow",
       metaDescription:
-        "Convertissez du texte en uppercase, lowercase, sentence case, title case, camelCase, snake_case et plus encore.",
+        "Convertissez du texte en majuscules, minuscules, title case, camelCase et plus avec un outil gratuit.",
+      keywords: [
+        "convertisseur de texte",
+        "majuscules minuscules",
+        "case converter",
+        "title case",
+        "convertir camelcase",
+      ],
       highlights: [
         "Rapide pour les titres, captions, notes et contrôles de format.",
         "Garde les sorties visibles ensemble au lieu d'ajouter des clics inutiles.",
@@ -5801,13 +5987,22 @@ const fr = translateDictionary(en, "fr", {
       },
     },
     "decision-wheel": {
+      name: "Roue de décision",
       shortDescription:
         "Faites tourner des options quand vous avez besoin d'une utility légère pour un choix rapide.",
       description:
         "Utilisez un sélecteur aléatoire avec animation et résultat clair quand vous voulez un outil bonus en dehors des flux principaux.",
       eyebrow: "Utility rapide",
+      metaTitle: "Roue de décision — Sélecteur aléatoire | Toolyflow",
       metaDescription:
-        "Entrez des choix, faites tourner la roue et obtenez un résultat aléatoire avec une decision wheel gratuite.",
+        "Ajoutez vos options, faites tourner la roue et obtenez un résultat aléatoire avec une roue de décision gratuite.",
+      keywords: [
+        "roue de décision",
+        "sélecteur aléatoire",
+        "faire tourner la roue",
+        "choix aléatoire",
+        "decision wheel",
+      ],
       highlights: [
         "Utile pour les décisions rapides, idées de contenu et petits choix d'équipe.",
         "L'animation rend le résultat clair et interactif.",
@@ -6192,24 +6387,24 @@ const pt = translateDictionary(en, "pt", {
     noText: "Ainda sem texto.",
   },
   home: {
-    metaTitle: "Ferramentas online rápidas, simples e grátis",
+    metaTitle: "Toolyflow — Caixa de ferramentas para creators",
     metaDescription:
-      "Toolyflow é um hub utilitário focado em ferramentas de texto, ferramentas para criadores e tarefas rápidas online com estrutura multilíngue.",
-    eyebrow: "Hub utilitário focado",
-    tagline: "Ferramentas de texto e para criadores que parecem realmente úteis.",
+      "Ferramentas online grátis para creators de Instagram, TikTok e YouTube. Rápidas, mobile-first e fáceis de usar.",
+    eyebrow: "Caixa de ferramentas para creators",
+    tagline: "A caixa de ferramentas dos creators.",
     description:
-      "Toolyflow reúne ferramentas de texto, ferramentas para criadores e utilidades rápidas em páginas limpas que funcionam bem no celular e no desktop.",
+      "Tudo o que você precisa para Instagram, TikTok e YouTube em um só lugar. Toolyflow reúne ferramentas para creators, ferramentas de texto e utilidades leves em uma experiência mobile-first.",
     primaryCta: "Ver ferramentas",
     secondaryCta: "Saiba mais",
     stats: [
-      { label: "Foco", value: "2 clusters" },
-      { label: "Ferramentas-chave", value: "4 prioridades" },
-      { label: "Cobertura", value: "6 idiomas" },
+      { label: "Foco", value: "Ferramentas para creators" },
+      { label: "Experiência", value: "Mobile first" },
+      { label: "Abordagem", value: "Pensado para creators" },
     ],
-    toolsEyebrow: "Ferramentas-chave",
-    toolsTitle: "Construído em torno de ferramentas de texto e para criadores",
+    toolsEyebrow: "Ferramentas populares",
+    toolsTitle: "Construído para tarefas de creator e fluxos rápidos",
     toolsDescription:
-      "A biblioteca principal prioriza escrita, limpeza de texto, bios, nicknames e fluxos rápidos para criadores. Utilidades mais leves continuam disponíveis, mas já não definem todo o produto.",
+      "A biblioteca principal destaca fluxos repetidos como bios, nomes de usuário, QR e limpeza de texto. As utilidades leves continuam no produto como apoio.",
     searchLabel: "Encontre uma página rápido",
     searchPlaceholder: "Busque ferramentas e categorias",
     searchEmpty: "Ainda não há resultados para essa busca.",
@@ -6350,7 +6545,7 @@ const pt = translateDictionary(en, "pt", {
   staticPages: {
     about: {
       eyebrow: "Sobre Toolyflow",
-      metaTitle: "Sobre",
+      metaTitle: "Sobre Toolyflow | Toolyflow",
       metaDescription:
         "Saiba quem opera a Toolyflow, por que ela existe e como o produto está sendo construído.",
       title: "Um produto de ferramentas focado em utilidade do dia a dia",
@@ -6397,7 +6592,7 @@ const pt = translateDictionary(en, "pt", {
     },
     contact: {
       eyebrow: "Contato",
-      metaTitle: "Contato",
+      metaTitle: "Contato Toolyflow | Toolyflow",
       metaDescription:
         "Fale com a Toolyflow para suporte, parcerias, publicidade ou dúvidas gerais sobre o site.",
       title: "Entre em contato com a equipe Toolyflow",
@@ -6452,7 +6647,7 @@ const pt = translateDictionary(en, "pt", {
     },
     "privacy-policy": {
       eyebrow: "Política de privacidade",
-      metaTitle: "Política de privacidade",
+      metaTitle: "Política de privacidade Toolyflow | Toolyflow",
       metaDescription:
         "Leia a política de privacidade da Toolyflow para entender cookies, publicidade, consentimento e tratamento de dados.",
       title: "Política de privacidade",
@@ -6515,7 +6710,7 @@ const pt = translateDictionary(en, "pt", {
     },
     "terms-of-service": {
       eyebrow: "Termos de serviço",
-      metaTitle: "Termos de serviço",
+      metaTitle: "Termos de serviço Toolyflow | Toolyflow",
       metaDescription:
         "Leia os termos de serviço da Toolyflow para entender regras gerais, limites e condições do site.",
       title: "Termos de serviço",
@@ -6542,13 +6737,22 @@ const pt = translateDictionary(en, "pt", {
   },
   tools: {
     "bio-generator": {
+      name: "Gerador de biografia",
       shortDescription:
         "Gere bios mais limpas para Instagram, TikTok, X, YouTube e Twitch.",
       description:
         "Gere bios por plataforma, tom, tamanho, emoji e CTA e copie a versão que melhor encaixa no seu perfil.",
       eyebrow: "Ferramenta de perfil social",
+      metaTitle: "Gerador de biografia — Grátis online | Toolyflow",
       metaDescription:
-        "Gere bios para Instagram, TikTok, X, YouTube e Twitch com controles de tom, tamanho, emoji e CTA.",
+        "Crie bios para Instagram, TikTok e YouTube em segundos com um gerador grátis online.",
+      keywords: [
+        "gerador de biografia",
+        "bio para instagram",
+        "gerador de bio tiktok",
+        "bio para youtube",
+        "criar biografia online",
+      ],
       highlights: [
         "Os controles de tom, tamanho, emoji e CTA deixam a saída mais precisa.",
         "Funciona bem para perfis sociais, páginas de criador e bios de canal.",
@@ -6637,13 +6841,22 @@ const pt = translateDictionary(en, "pt", {
       },
     },
     "nickname-generator": {
+      name: "Gerador de nome de usuário",
       shortDescription:
         "Crie ideias de nickname em estilos cool, dark, gaming e aesthetic.",
       description:
         "Gere nicknames memoráveis com palavra-base opcional e cópia rápida para brainstorming.",
       eyebrow: "Ferramenta de ideias de nome",
+      metaTitle: "Gerador de nome de usuário — Grátis | Toolyflow",
       metaDescription:
-        "Crie ideias de nickname em estilos cool, dark, gaming e aesthetic com um gerador online grátis.",
+        "Encontre nomes de usuário originais para gaming, redes sociais e perfis creator com um gerador grátis.",
+      keywords: [
+        "gerador de nome de usuário",
+        "gerador de nickname",
+        "nome para gaming",
+        "usuário para redes sociais",
+        "nickname original",
+      ],
       highlights: [
         "Útil para usernames, handles sociais, aliases de criador e tags de gaming.",
         "Os filtros de estilo, tamanho, símbolos e legibilidade mantêm os resultados mais próximos do vibe desejado.",
@@ -6730,13 +6943,22 @@ const pt = translateDictionary(en, "pt", {
       },
     },
     "qr-generator": {
+      name: "Gerador de QR code",
       shortDescription:
         "Transforme qualquer link ou texto em QR code e baixe na hora.",
       description:
         "Crie QR codes no navegador com preview ao vivo, vários tipos de QR e download rápido em PNG ou SVG.",
       eyebrow: "Ferramenta utility",
+      metaTitle: "Gerador de QR code — Grátis online | Toolyflow",
       metaDescription:
-        "Gere QR codes para links, texto, email, telefone ou WiFi e baixe instantaneamente em PNG ou SVG.",
+        "Crie QR codes para URL, texto, email, telefone ou WiFi com um gerador grátis online.",
+      keywords: [
+        "gerador de qr code",
+        "qr code grátis",
+        "url para qr",
+        "wifi qr code",
+        "texto para qr",
+      ],
       highlights: [
         "O preview do QR atualiza em tempo real enquanto você digita.",
         "O download continua simples com exportação direta em PNG ou SVG.",
@@ -6823,13 +7045,22 @@ const pt = translateDictionary(en, "pt", {
       },
     },
     "case-converter": {
+      name: "Conversor de texto",
       shortDescription:
         "Converta texto entre uppercase, lowercase, sentence, title, camel, snake e kebab.",
       description:
         "Troque o formato do texto instantaneamente, compare várias saídas lado a lado e copie exatamente a versão de que você precisa.",
       eyebrow: "Ferramenta de formatação de texto",
+      metaTitle: "Conversor de texto — Maiúsculas e minúsculas | Toolyflow",
       metaDescription:
-        "Converta texto em uppercase, lowercase, sentence case, title case, camelCase, snake_case e muito mais.",
+        "Converta texto em maiúsculas, minúsculas, title case, camelCase e mais com uma ferramenta grátis.",
+      keywords: [
+        "conversor de texto",
+        "maiúsculas e minúsculas",
+        "case converter",
+        "title case",
+        "camelcase online",
+      ],
       highlights: [
         "Rápido para títulos, captions, notas e checagens de formatação.",
         "Mantém várias saídas visíveis ao mesmo tempo em vez de exigir cliques extras.",
@@ -6918,13 +7149,22 @@ const pt = translateDictionary(en, "pt", {
       },
     },
     "decision-wheel": {
+      name: "Roda de decisão",
       shortDescription:
         "Gire opções quando você precisar de uma utility leve para uma escolha rápida.",
       description:
         "Use um seletor aleatório com animação e resultado claro quando quiser uma ferramenta extra fora dos fluxos principais.",
       eyebrow: "Utility rápida",
+      metaTitle: "Roda de decisão — Seletor aleatório | Toolyflow",
       metaDescription:
-        "Digite opções, gire a roda e obtenha um resultado aleatório com uma decision wheel online grátis.",
+        "Adicione opções, gire a roda e receba um resultado aleatório com uma roda de decisão grátis.",
+      keywords: [
+        "roda de decisão",
+        "seletor aleatório",
+        "girar a roda",
+        "escolha aleatória",
+        "decision wheel",
+      ],
       highlights: [
         "Útil para decisões rápidas, ideias de conteúdo e pequenas escolhas de equipe.",
         "A animação torna o resultado mais claro e interativo.",

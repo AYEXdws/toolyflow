@@ -360,23 +360,23 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
   }, [ctaEnabled, emojiEnabled, generationCount, labels, length, name, platform, tone]);
 
   return (
-    <section className="rounded-[32px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)] sm:p-8">
+    <section className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:p-8">
       <div className="grid gap-8 xl:grid-cols-[360px_minmax(0,1fr)]">
         <div className="space-y-5">
           <label className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--color-foreground)]">
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">
               {labels.nameLabel}
             </span>
             <input
               value={name}
               onChange={(event) => setName(event.target.value)}
-              className="w-full rounded-[20px] border border-black/10 bg-white px-4 py-3 text-sm text-[color:var(--color-foreground)] outline-none transition focus:border-[color:var(--color-accent)]"
+              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
               placeholder={labels.namePlaceholder}
             />
           </label>
 
           <div className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--color-foreground)]">
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">
               {labels.platformLabel}
             </span>
             <div className="grid grid-cols-2 gap-3">
@@ -384,11 +384,11 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
                 <button
                   key={item}
                   type="button"
-                  onClick={() => setPlatform(item)}
-                  className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
-                    platform === item
-                      ? "bg-[color:var(--color-accent)] text-white"
-                      : "border border-black/10 bg-white text-[color:var(--color-foreground)] hover:border-[color:var(--color-accent)]"
+                    onClick={() => setPlatform(item)}
+                    className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
+                      platform === item
+                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
                   {labels.platforms[item]}
@@ -398,7 +398,7 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
           </div>
 
           <div className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--color-foreground)]">
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">
               {labels.toneLabel}
             </span>
             <div className="grid grid-cols-2 gap-3">
@@ -406,11 +406,11 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
                 <button
                   key={item}
                   type="button"
-                  onClick={() => setTone(item)}
-                  className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
-                    tone === item
-                      ? "bg-[color:var(--color-accent)] text-white"
-                      : "border border-black/10 bg-white text-[color:var(--color-foreground)] hover:border-[color:var(--color-accent)]"
+                    onClick={() => setTone(item)}
+                    className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
+                      tone === item
+                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
                   {labels.tones[item]}
@@ -420,7 +420,7 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
           </div>
 
           <div className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--color-foreground)]">
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">
               {labels.lengthLabel}
             </span>
             <div className="grid grid-cols-3 gap-3">
@@ -428,11 +428,11 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
                 <button
                   key={item}
                   type="button"
-                  onClick={() => setLength(item)}
-                  className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
-                    length === item
-                      ? "bg-[color:var(--color-accent)] text-white"
-                      : "border border-black/10 bg-white text-[color:var(--color-foreground)] hover:border-[color:var(--color-accent)]"
+                    onClick={() => setLength(item)}
+                    className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
+                      length === item
+                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
                   {labels.lengths[item]}
@@ -444,14 +444,14 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
           <div className="grid gap-3 sm:grid-cols-2">
             <button
               type="button"
-              onClick={() => setEmojiEnabled((value) => !value)}
-              className={`rounded-[20px] px-4 py-3 text-left text-sm font-medium transition ${
+            onClick={() => setEmojiEnabled((value) => !value)}
+            className={`rounded-[20px] px-4 py-3 text-left text-sm font-medium transition ${
                 emojiEnabled
-                  ? "bg-[color:var(--color-accent)] text-white"
-                  : "border border-black/10 bg-white text-[color:var(--color-foreground)] hover:border-[color:var(--color-accent)]"
+                  ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                  : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
               }`}
             >
-              <span className="block text-[0.8125rem] uppercase tracking-[0.18em] opacity-80">
+              <span className="block text-[11px] uppercase tracking-[0.06em] opacity-80">
                 {labels.emojiLabel}
               </span>
               <span className="mt-2 block">{emojiEnabled ? labels.toggleOn : labels.toggleOff}</span>
@@ -459,14 +459,14 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
 
             <button
               type="button"
-              onClick={() => setCtaEnabled((value) => !value)}
-              className={`rounded-[20px] px-4 py-3 text-left text-sm font-medium transition ${
+            onClick={() => setCtaEnabled((value) => !value)}
+            className={`rounded-[20px] px-4 py-3 text-left text-sm font-medium transition ${
                 ctaEnabled
-                  ? "bg-[color:var(--color-accent)] text-white"
-                  : "border border-black/10 bg-white text-[color:var(--color-foreground)] hover:border-[color:var(--color-accent)]"
+                  ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                  : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
               }`}
             >
-              <span className="block text-[0.8125rem] uppercase tracking-[0.18em] opacity-80">
+              <span className="block text-[11px] uppercase tracking-[0.06em] opacity-80">
                 {labels.ctaLabel}
               </span>
               <span className="mt-2 block">{ctaEnabled ? labels.toggleOn : labels.toggleOff}</span>
@@ -476,7 +476,7 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
           <button
             type="button"
             onClick={handleGenerate}
-            className="rounded-full bg-[color:var(--color-accent)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[color:var(--color-accent-strong)]"
+            className="rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
           >
             {labels.generate}
           </button>
@@ -486,25 +486,25 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
           {bios.map((bio, index) => (
             <article
               key={bio.id}
-              className="rounded-[24px] border border-black/8 bg-white p-5 transition hover:-translate-y-0.5 hover:border-[color:var(--color-accent)]"
+              className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-5 transition hover:-translate-y-0.5 hover:border-[color:var(--brand-border-hover)]"
             >
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="flex flex-wrap gap-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-muted)]">
-                    <span className="rounded-full bg-black/[0.04] px-3 py-1">
+                  <div className="flex flex-wrap gap-2 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+                    <span className="rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1">
                       {labels.platforms[platform]}
                     </span>
-                    <span className="rounded-full bg-black/[0.04] px-3 py-1">
+                    <span className="rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1">
                       {labels.tones[tone]}
                     </span>
-                    <span className="rounded-full bg-black/[0.04] px-3 py-1">
+                    <span className="rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1">
                       #{index + 1}
                     </span>
                   </div>
                   <button
                     type="button"
                     onClick={() => handleCopy(bio.text)}
-                    className="inline-flex min-h-11 w-fit shrink-0 items-center justify-center rounded-full border border-[color:var(--color-accent)] bg-[color:var(--color-surface)] px-4 py-2.5 text-sm font-semibold text-[color:var(--color-accent-strong)] transition hover:bg-[color:var(--color-accent)] hover:text-white"
+                    className="inline-flex min-h-11 w-fit shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
                   >
                     {copiedValue === bio.text ? labels.copied : labels.copy}
                   </button>
@@ -516,8 +516,8 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
                       key={`${bio.id}-${lineIndex}`}
                       className={
                         lineIndex === 0
-                          ? "text-base font-medium leading-7 text-[color:var(--color-foreground)]"
-                          : "text-sm leading-7 text-[color:var(--color-muted)]"
+                          ? "text-base font-medium leading-7 text-[color:var(--brand-text-primary)]"
+                          : "text-sm leading-7 text-[color:var(--brand-text-secondary)]"
                       }
                     >
                       {line}

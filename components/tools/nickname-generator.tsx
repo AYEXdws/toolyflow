@@ -451,23 +451,23 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
   }
 
   return (
-    <section className="rounded-[32px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)] sm:p-8">
+    <section className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:p-8">
       <div className="grid gap-8 xl:grid-cols-[340px_minmax(0,1fr)]">
         <div className="space-y-5">
           <label className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--color-foreground)]">
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">
               {labels.keywordLabel}
             </span>
             <input
               value={keyword}
               onChange={(event) => setKeyword(event.target.value)}
-              className="w-full rounded-[20px] border border-black/10 bg-white px-4 py-3 text-sm text-[color:var(--color-foreground)] outline-none transition focus:border-[color:var(--color-accent)]"
+              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
               placeholder={labels.keywordPlaceholder}
             />
           </label>
 
           <div className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--color-foreground)]">
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">
               {labels.styleLabel}
             </span>
             <div className="grid grid-cols-2 gap-3">
@@ -478,8 +478,8 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
                   onClick={() => setStyle(item)}
                   className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
                     style === item
-                      ? "bg-[color:var(--color-accent)] text-white"
-                      : "border border-black/10 bg-white text-[color:var(--color-foreground)] hover:border-[color:var(--color-accent)]"
+                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
                   {labels.styles[item]}
@@ -489,7 +489,7 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
           </div>
 
           <div className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--color-foreground)]">
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">
               {labels.lengthLabel}
             </span>
             <div className="grid grid-cols-3 gap-3">
@@ -500,8 +500,8 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
                   onClick={() => setLength(item)}
                   className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
                     length === item
-                      ? "bg-[color:var(--color-accent)] text-white"
-                      : "border border-black/10 bg-white text-[color:var(--color-foreground)] hover:border-[color:var(--color-accent)]"
+                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
                   {labels.lengthModes[item]}
@@ -511,7 +511,7 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
           </div>
 
           <div className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--color-foreground)]">
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">
               {labels.symbolsLabel}
             </span>
             <div className="grid grid-cols-3 gap-3">
@@ -522,8 +522,8 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
                   onClick={() => setSymbolMode(item)}
                   className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
                     symbolMode === item
-                      ? "bg-[color:var(--color-accent)] text-white"
-                      : "border border-black/10 bg-white text-[color:var(--color-foreground)] hover:border-[color:var(--color-accent)]"
+                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
                   {labels.symbolModes[item]}
@@ -537,11 +537,11 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
             onClick={() => setPronounceable((value) => !value)}
             className={`w-full rounded-[20px] px-4 py-3 text-left text-sm font-medium transition ${
               pronounceable
-                ? "bg-[color:var(--color-accent)] text-white"
-                : "border border-black/10 bg-white text-[color:var(--color-foreground)] hover:border-[color:var(--color-accent)]"
+                ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
             }`}
           >
-            <span className="block text-xs uppercase tracking-[0.22em] opacity-80">
+            <span className="block text-[11px] uppercase tracking-[0.06em] opacity-80">
               {labels.pronounceableLabel}
             </span>
             <span className="mt-2 block">
@@ -557,7 +557,7 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
                 count: current.signature === currentSignature ? current.count + 1 : 1,
               }))
             }
-            className="rounded-full bg-[color:var(--color-accent)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[color:var(--color-accent-strong)]"
+            className="rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
           >
             {labels.generateMore}
           </button>
@@ -567,21 +567,21 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
           {results.map((nickname) => (
             <article
               key={nickname}
-              className="min-w-0 rounded-[24px] border border-black/8 bg-white p-5 transition hover:-translate-y-0.5 hover:border-[color:var(--color-accent)]"
+              className="min-w-0 rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-5 transition hover:-translate-y-0.5 hover:border-[color:var(--brand-border-hover)]"
             >
               <div className="flex min-h-[156px] flex-col justify-between gap-5">
                 <div className="min-w-0">
-                  <p className="break-words font-display text-[clamp(1.5rem,4vw,2.2rem)] leading-[0.95] tracking-tight text-[color:var(--color-foreground)]">
+                  <p className="break-words text-[clamp(1.5rem,4vw,2.2rem)] font-extrabold leading-[0.95] tracking-tight text-[color:var(--brand-text-primary)]">
                     {nickname}
                   </p>
-                  <p className="mt-3 text-sm leading-6 text-[color:var(--color-muted)]">
+                  <p className="mt-3 text-sm leading-6 text-[color:var(--brand-text-secondary)]">
                     {labels.tapToCopy}
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => copyNickname(nickname)}
-                  className="inline-flex min-h-11 w-fit items-center justify-center rounded-full border border-[color:var(--color-accent)] bg-[color:var(--color-surface)] px-4 py-2.5 text-sm font-semibold text-[color:var(--color-accent-strong)] transition hover:bg-[color:var(--color-accent)] hover:text-white"
+                  className="inline-flex min-h-11 w-fit items-center justify-center rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
                 >
                   {copiedValue === nickname ? labels.copied : labels.copyButton}
                 </button>
