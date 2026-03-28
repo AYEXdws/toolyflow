@@ -1,6 +1,8 @@
 import { categorySlugs, type CategorySlug } from "@/lib/tool-categories";
 
 export const toolSlugs = [
+  "word-counter",
+  "text-cleaner",
   "bio-generator",
   "nickname-generator",
   "hashtag-generator",

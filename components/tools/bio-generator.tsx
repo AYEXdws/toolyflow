@@ -106,6 +106,10 @@ function uniqueWords(value: string) {
     .filter((item) => item.length > 2);
 }
 
+function normalizeStem(value: string) {
+  return value.toLowerCase().replace(/(ing|ler|lar|lari|leri|tion|tions|ed|es|s)$/i, "");
+}
+
 function joinBioParts(parts: string[], separator: string) {
   return parts.map(cleanClause).filter(Boolean).join(separator);
 }
@@ -126,6 +130,30 @@ function lineOverlapPenalty(value: string) {
   }
 
   return penalty;
+}
+
+function candidateSimilarity(left: string, right: string) {
+  const leftWords = new Set(uniqueWords(left).map(normalizeStem));
+  const rightWords = new Set(uniqueWords(right).map(normalizeStem));
+
+  if (leftWords.size === 0 || rightWords.size === 0) {
+    return 0;
+  }
+
+  let overlap = 0;
+
+  for (const word of leftWords) {
+    if (rightWords.has(word)) {
+      overlap += 1;
+    }
+  }
+
+  return overlap / Math.min(leftWords.size, rightWords.size);
+}
+
+function openingSignature(value: string) {
+  const firstLine = value.split("\n").find(Boolean) ?? value;
+  return uniqueWords(firstLine).slice(0, 3).map(normalizeStem).join("-");
 }
 
 function scoreBioCandidate(value: string, length: BioLength) {
@@ -159,8 +187,20 @@ function scoreBioCandidate(value: string, length: BioLength) {
     score += 5;
   }
 
+  if (lineCount === 1) {
+    score -= 4;
+  }
+
   if (!/[A-Za-z\u00c0-\u024f\u0100-\u017f]/.test(text)) {
     score -= 10;
+  }
+
+  if (/(\b\w+\b)(?:.*\b\1\b){2,}/i.test(text)) {
+    score -= 10;
+  }
+
+  if (/^(.*)(\n\1)+$/im.test(value)) {
+    score -= 16;
   }
 
   score -= duplicatePenalty * 5;
@@ -292,19 +332,44 @@ function buildBios(
     collectBioPool(name, platform, tone, length, emojiEnabled, ctaEnabled, labels),
     baseSeed
   );
-  const batchSize = 4;
+  const batchSize = 3;
   const safePool =
     shuffledPool.length > 0 ? shuffledPool : [cleanClause(labels.templates[tone].starters[0] ?? "")];
   const startIndex = (generationIndex * batchSize) % safePool.length;
-
-  return Array.from({ length: Math.min(batchSize, safePool.length) }, (_, offset) => {
-    const text = safePool[(startIndex + offset) % safePool.length];
-
-    return {
-      id: `${signature}-${generationIndex}-${offset}`,
-      text,
-    };
+  const rotatedPool = Array.from({ length: safePool.length }, (_, offset) => {
+    return safePool[(startIndex + offset) % safePool.length];
   });
+  const selected: string[] = [];
+  const openingKeys = new Set<string>();
+
+  for (const candidate of rotatedPool) {
+    const key = openingSignature(candidate);
+
+    if (selected.some((item) => candidateSimilarity(item, candidate) >= 0.55)) {
+      continue;
+    }
+
+    if (key && openingKeys.has(key) && rotatedPool.length > batchSize) {
+      continue;
+    }
+
+    selected.push(candidate);
+
+    if (key) {
+      openingKeys.add(key);
+    }
+
+    if (selected.length === batchSize) {
+      break;
+    }
+  }
+
+  const finalBatch = selected.length > 0 ? selected : rotatedPool.slice(0, batchSize);
+
+  return finalBatch.map((text, offset) => ({
+    id: `${signature}-${generationIndex}-${offset}`,
+    text,
+  }));
 }
 
 type BioGeneratorProps = {

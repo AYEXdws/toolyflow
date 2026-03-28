@@ -1,5 +1,13 @@
 import { localeLabels, type Locale } from "@/lib/i18n";
 import { type ToolSlug } from "@/lib/routes";
+import {
+  localizedTextCleanerLabels,
+  localizedTextCleanerTools,
+  localizedWordCounterLabels,
+  localizedWordCounterTools,
+  type TextCleanerLabels,
+  type WordCounterLabels,
+} from "@/lib/text-tool-localizations";
 
 type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends Array<infer U>
@@ -140,6 +148,8 @@ export type Dictionary = {
   };
   staticPages: Record<StaticPageContent["slug"], StaticPageContent>;
   tools: Record<ToolSlug, LocalizedTool>;
+  wordCounter: WordCounterLabels;
+  textCleaner: TextCleanerLabels;
   caseConverter: {
     inputLabel: string;
     placeholder: string;
@@ -289,6 +299,8 @@ export type Dictionary = {
 };
 
 const baseToolSlugs: ToolSlug[] = [
+  "word-counter",
+  "text-cleaner",
   "case-converter",
   "bio-generator",
   "nickname-generator",
@@ -1393,6 +1405,8 @@ function createEnglishDictionary(): Dictionary {
       },
     },
     tools: {
+      "word-counter": localizedWordCounterTools.en,
+      "text-cleaner": localizedTextCleanerTools.en,
       "bio-generator": {
         slug: "bio-generator",
         name: "Bio Generator",
@@ -1935,6 +1949,8 @@ function createEnglishDictionary(): Dictionary {
         },
       },
     },
+    wordCounter: localizedWordCounterLabels.en,
+    textCleaner: localizedTextCleanerLabels.en,
     caseConverter: {
       inputLabel: "Paste your text",
       placeholder: "Enter or paste text to convert.",
@@ -2328,6 +2344,14 @@ function translateDictionary(
         ];
       })
     ) as Dictionary["tools"],
+    wordCounter: {
+      ...base.wordCounter,
+      ...overrides.wordCounter,
+    } as Dictionary["wordCounter"],
+    textCleaner: {
+      ...base.textCleaner,
+      ...overrides.textCleaner,
+    } as Dictionary["textCleaner"],
     caseConverter: {
       ...base.caseConverter,
       ...overrides.caseConverter,
@@ -8347,7 +8371,7 @@ function withLocalizedToolContentTitles(
   };
 }
 
-function withLocalizedHashtagContent(
+function withLocalizedExtraToolContent(
   locale: Locale,
   dictionary: Dictionary
 ): Dictionary {
@@ -8355,19 +8379,23 @@ function withLocalizedHashtagContent(
     ...dictionary,
     tools: {
       ...dictionary.tools,
+      "word-counter": localizedWordCounterTools[locale],
+      "text-cleaner": localizedTextCleanerTools[locale],
       "hashtag-generator": localizedHashtagTools[locale],
     },
+    wordCounter: localizedWordCounterLabels[locale],
+    textCleaner: localizedTextCleanerLabels[locale],
     hashtagGenerator: localizedHashtagGeneratorLabels[locale],
   };
 }
 
 const dictionaries: Record<Locale, Dictionary> = {
-  en: withLocalizedToolContentTitles("en", withLocalizedHashtagContent("en", en)),
-  tr: withLocalizedToolContentTitles("tr", withLocalizedHashtagContent("tr", tr)),
-  es: withLocalizedToolContentTitles("es", withLocalizedHashtagContent("es", es)),
-  de: withLocalizedToolContentTitles("de", withLocalizedHashtagContent("de", de)),
-  fr: withLocalizedToolContentTitles("fr", withLocalizedHashtagContent("fr", fr)),
-  pt: withLocalizedToolContentTitles("pt", withLocalizedHashtagContent("pt", pt)),
+  en: withLocalizedToolContentTitles("en", withLocalizedExtraToolContent("en", en)),
+  tr: withLocalizedToolContentTitles("tr", withLocalizedExtraToolContent("tr", tr)),
+  es: withLocalizedToolContentTitles("es", withLocalizedExtraToolContent("es", es)),
+  de: withLocalizedToolContentTitles("de", withLocalizedExtraToolContent("de", de)),
+  fr: withLocalizedToolContentTitles("fr", withLocalizedExtraToolContent("fr", fr)),
+  pt: withLocalizedToolContentTitles("pt", withLocalizedExtraToolContent("pt", pt)),
 };
 
 export function getDictionary(locale: Locale): Dictionary {

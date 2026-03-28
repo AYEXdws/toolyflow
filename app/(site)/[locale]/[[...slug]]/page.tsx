@@ -12,6 +12,8 @@ import { DecisionWheel } from "@/components/tools/decision-wheel";
 import { HashtagGenerator } from "@/components/tools/hashtag-generator";
 import { NicknameGenerator } from "@/components/tools/nickname-generator";
 import { QrGenerator } from "@/components/tools/qr-generator";
+import { TextCleaner } from "@/components/tools/text-cleaner";
+import { WordCounter } from "@/components/tools/word-counter";
 import { getDictionary, getToolEntries, getToolEntry } from "@/lib/dictionaries";
 import { isLocale, localizePath, type Locale } from "@/lib/i18n";
 import { createLocalizedMetadata } from "@/lib/metadata";
@@ -155,6 +157,8 @@ function renderUnifiedHome(locale: Locale) {
     },
   ];
   const iconMap: Record<string, string> = {
+    "word-counter": "📏",
+    "text-cleaner": "🧹",
     "bio-generator": "✨",
     "nickname-generator": "🎯",
     "hashtag-generator": "#",
@@ -166,7 +170,9 @@ function renderUnifiedHome(locale: Locale) {
     ...tool,
     icon: iconMap[tool.slug] ?? "✦",
     badge:
-      tool.slug === "case-converter"
+      tool.slug === "case-converter" ||
+      tool.slug === "word-counter" ||
+      tool.slug === "text-cleaner"
         ? categories.find((category) => category.slug === "text-tools")?.navLabel ?? tool.accentLabel
         : tool.slug === "decision-wheel" || tool.slug === "qr-generator"
           ? quickBadgeByLocale[locale]
@@ -447,6 +453,10 @@ function renderToolPage(locale: Locale, slug: string) {
     >
       {slug === "bio-generator" ? (
         <BioGenerator labels={dictionary.bioGenerator} />
+      ) : slug === "word-counter" ? (
+        <WordCounter labels={dictionary.wordCounter} />
+      ) : slug === "text-cleaner" ? (
+        <TextCleaner labels={dictionary.textCleaner} />
       ) : slug === "nickname-generator" ? (
         <NicknameGenerator labels={dictionary.nicknameGenerator} />
       ) : slug === "hashtag-generator" ? (

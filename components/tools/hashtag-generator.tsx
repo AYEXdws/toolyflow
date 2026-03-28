@@ -96,6 +96,14 @@ function buildTopicVariants(tokens: string[]) {
   return [...new Set([full, first, last, joined].filter((item) => item.length >= 3))];
 }
 
+function addHashtag(pool: Set<string>, value: string) {
+  const normalized = value.replace(/[^a-z0-9]/g, "").toLowerCase();
+
+  if (normalized.length >= 3 && normalized.length <= 24) {
+    pool.add(normalized);
+  }
+}
+
 function scoreHashtag(
   value: string,
   topicVariants: string[],
@@ -116,6 +124,10 @@ function scoreHashtag(
     score += 10;
   }
 
+  if (/^[a-z0-9]+$/.test(value)) {
+    score += 3;
+  }
+
   if (value.includes(platform)) {
     score += 4;
   }
@@ -132,6 +144,10 @@ function scoreHashtag(
     score -= 6;
   }
 
+  if (/(tips|ideas|guide|community|studio|hub)$/.test(value)) {
+    score += 2;
+  }
+
   return score;
 }
 
@@ -146,29 +162,48 @@ function createHashtagBatch(
   const topicVariants = buildTopicVariants(tokens);
   const seed = createHash(`${tokens.join("-")}-${platform}-${popularity}-${generationCount}`);
   const pool = new Set<string>();
+  const topicCore = new Set<string>();
+  const modifierMix = new Set<string>();
+  const platformMix = new Set<string>();
+  const popularityMix = new Set<string>();
+  const genericMix = new Set<string>();
 
   for (const variant of topicVariants) {
-    pool.add(variant);
+    addHashtag(topicCore, variant);
 
     for (const modifier of labels.pools.modifiers) {
-      pool.add(`${variant}${modifier}`);
+      addHashtag(modifierMix, `${variant}${modifier}`);
     }
 
     for (const tag of labels.pools.platformTags[platform].slice(0, 4)) {
-      pool.add(`${variant}${tag}`);
+      addHashtag(platformMix, `${variant}${tag}`);
+    }
+
+    for (const tag of labels.pools.popularityTags[popularity].slice(0, 4)) {
+      addHashtag(popularityMix, `${variant}${tag}`);
     }
   }
 
   for (const tag of labels.pools.generic) {
-    pool.add(tag);
+    addHashtag(genericMix, tag);
   }
 
   for (const tag of labels.pools.platformTags[platform]) {
-    pool.add(tag);
+    addHashtag(platformMix, tag);
   }
 
   for (const tag of labels.pools.popularityTags[popularity]) {
-    pool.add(tag);
+    addHashtag(popularityMix, tag);
+  }
+
+  for (const item of [
+    ...topicCore,
+    ...modifierMix,
+    ...platformMix,
+    ...popularityMix,
+    ...genericMix,
+  ]) {
+    addHashtag(pool, item);
   }
 
   const ordered = [...pool]
@@ -185,8 +220,38 @@ function createHashtagBatch(
       return createHash(`${right}-${seed}`) - createHash(`${left}-${seed}`);
     });
 
-  const shuffled = shuffleWithSeed(ordered.slice(0, 72), seed + generationCount * 17);
-  const batch = shuffled.slice(0, 24).map((item) => `#${item}`);
+  const pickBucket = (items: Set<string>, limit: number, bucketSeed: number) => {
+    return shuffleWithSeed(
+      [...items].sort((left, right) => {
+        const scoreDiff =
+          scoreHashtag(right, topicVariants, popularity, platform) -
+          scoreHashtag(left, topicVariants, popularity, platform);
+
+        if (scoreDiff !== 0) {
+          return scoreDiff;
+        }
+
+        return left.localeCompare(right);
+      }),
+      seed + bucketSeed
+    ).slice(0, limit);
+  };
+  const quotaByPopularity: Record<HashtagPopularity, [number, number, number, number, number]> = {
+    viral: [7, 6, 6, 5, 2],
+    balanced: [8, 6, 5, 4, 3],
+    niche: [9, 5, 4, 5, 3],
+  };
+  const [topicLimit, modifierLimit, platformLimit, popularityLimit, genericLimit] =
+    quotaByPopularity[popularity];
+  const curated = [
+    ...pickBucket(topicCore, topicLimit, 11),
+    ...pickBucket(modifierMix, modifierLimit, 23),
+    ...pickBucket(platformMix, platformLimit, 37),
+    ...pickBucket(popularityMix, popularityLimit, 41),
+    ...pickBucket(genericMix, genericLimit, 53),
+  ];
+  const finalPool = [...new Set([...curated, ...shuffleWithSeed(ordered.slice(0, 80), seed + generationCount * 17)])];
+  const batch = finalPool.slice(0, 26).map((item) => `#${item}`);
 
   return batch;
 }
