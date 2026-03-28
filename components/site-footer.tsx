@@ -46,7 +46,7 @@ export function SiteFooter({
               <li key={category.slug}>
                 <Link
                   href={localizePath(locale, category.slug)}
-                  className="transition hover:text-[color:var(--color-foreground)]"
+                  className="flex min-h-11 w-full items-center rounded-xl py-1 transition hover:text-[color:var(--color-foreground)]"
                 >
                   {category.name}
                 </Link>
@@ -64,7 +64,7 @@ export function SiteFooter({
               <li key={tool.slug}>
                 <Link
                   href={localizePath(locale, tool.slug)}
-                  className="transition hover:text-[color:var(--color-foreground)]"
+                  className="flex min-h-11 w-full items-center rounded-xl py-1 transition hover:text-[color:var(--color-foreground)]"
                 >
                   {tool.name}
                 </Link>
@@ -81,7 +81,7 @@ export function SiteFooter({
             <li>
               <Link
                 href={localizePath(locale, "about")}
-                className="transition hover:text-[color:var(--color-foreground)]"
+                className="flex min-h-11 w-full items-center rounded-xl py-1 transition hover:text-[color:var(--color-foreground)]"
               >
                 {labels.about}
               </Link>
@@ -89,7 +89,7 @@ export function SiteFooter({
             <li>
               <Link
                 href={localizePath(locale, "contact")}
-                className="transition hover:text-[color:var(--color-foreground)]"
+                className="flex min-h-11 w-full items-center rounded-xl py-1 transition hover:text-[color:var(--color-foreground)]"
               >
                 {labels.contact}
               </Link>
@@ -97,7 +97,7 @@ export function SiteFooter({
             <li>
               <Link
                 href={localizePath(locale, "privacy-policy")}
-                className="transition hover:text-[color:var(--color-foreground)]"
+                className="flex min-h-11 w-full items-center rounded-xl py-1 transition hover:text-[color:var(--color-foreground)]"
               >
                 {labels.privacy}
               </Link>
@@ -105,7 +105,7 @@ export function SiteFooter({
             <li>
               <Link
                 href={localizePath(locale, "terms-of-service")}
-                className="transition hover:text-[color:var(--color-foreground)]"
+                className="flex min-h-11 w-full items-center rounded-xl py-1 transition hover:text-[color:var(--color-foreground)]"
               >
                 {labels.terms}
               </Link>

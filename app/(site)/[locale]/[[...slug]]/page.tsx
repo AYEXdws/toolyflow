@@ -169,10 +169,8 @@ function renderHome(locale: Locale) {
         <div className="overflow-hidden rounded-[40px] border border-black/8 bg-[linear-gradient(160deg,rgba(250,247,239,0.95),rgba(255,255,255,0.98))] shadow-[0_28px_90px_rgba(23,28,24,0.08)]">
           <div className="grid gap-10 px-6 py-8 sm:px-8 xl:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)] xl:px-10 xl:py-12">
             <div className="space-y-8">
-              <div className="inline-flex items-center gap-3 rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--color-accent-strong)]">
+              <div className="inline-flex items-center rounded-full border border-black/8 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--color-accent-strong)]">
                 <span>{dictionary.home.eyebrow}</span>
-                <span className="h-1 w-1 rounded-full bg-[color:var(--color-accent)]" />
-                <span>{dictionary.home.stats[0].value}</span>
               </div>
 
               <div className="space-y-5">
@@ -199,8 +197,8 @@ function renderHome(locale: Locale) {
                 </Link>
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                {dictionary.home.stats.map((stat) => (
+              <div className="grid gap-4 sm:grid-cols-2">
+                {dictionary.home.stats.slice(0, 2).map((stat) => (
                   <div key={stat.label} className="rounded-[24px] border border-black/8 bg-white p-5">
                     <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--color-muted)]">
                       {stat.label}
@@ -269,7 +267,7 @@ function renderHome(locale: Locale) {
                             {tool.shortDescription}
                           </p>
                         </div>
-                        <span className="shrink-0 rounded-full border border-black/10 px-3 py-1 text-xs font-medium text-[color:var(--color-foreground)]">
+                        <span className="shrink-0 rounded-full border border-black/10 px-4 py-2 text-sm font-medium text-[color:var(--color-foreground)]">
                           {dictionary.shared.go}
                         </span>
                       </Link>
@@ -279,6 +277,67 @@ function renderHome(locale: Locale) {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8">
+        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-accent-strong)]">
+              {dictionary.home.proofEyebrow}
+            </p>
+            <h2 className="mt-3 font-display text-4xl tracking-tight text-[color:var(--color-foreground)]">
+              {dictionary.home.proofTitle}
+            </h2>
+          </div>
+          <p className="max-w-xl text-sm leading-7 text-[color:var(--color-muted)]">
+            {dictionary.home.proofDescription}
+          </p>
+        </div>
+
+        <div className="grid gap-5 xl:grid-cols-3">
+          {dictionary.home.proofExamples.map((example) => (
+            <article
+              key={example.title}
+              className="rounded-[28px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)]"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h2 className="font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
+                    {example.title}
+                  </h2>
+                  <p className="mt-4 text-sm leading-7 text-[color:var(--color-muted)]">
+                    {example.description}
+                  </p>
+                </div>
+                <Link
+                  href={localizePath(locale, example.toolSlug)}
+                  className="inline-flex min-h-11 shrink-0 items-center rounded-full border border-black/10 px-4 py-2.5 text-sm font-medium text-[color:var(--color-foreground)] transition hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-accent-soft)]"
+                >
+                  {example.toolName}
+                </Link>
+              </div>
+
+              <div className="mt-6 grid gap-4">
+                <div className="rounded-[20px] bg-black/[0.03] p-4">
+                  <p className="text-[0.8125rem] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-accent-strong)]">
+                    {example.inputLabel}
+                  </p>
+                  <pre className="mt-3 whitespace-pre-wrap break-words font-sans text-sm leading-7 text-[color:var(--color-foreground)]">
+                    {example.input}
+                  </pre>
+                </div>
+                <div className="rounded-[20px] bg-[color:var(--color-accent-soft)] p-4">
+                  <p className="text-[0.8125rem] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-accent-strong)]">
+                    {example.outputLabel}
+                  </p>
+                  <pre className="mt-3 whitespace-pre-wrap break-words font-sans text-sm leading-7 text-[color:var(--color-foreground)]">
+                    {example.output}
+                  </pre>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -309,6 +368,49 @@ function renderHome(locale: Locale) {
               <p className="mt-4 text-sm leading-7 text-[color:var(--color-muted)]">
                 {point.description}
               </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8">
+        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--color-accent-strong)]">
+              {dictionary.home.pathsEyebrow}
+            </p>
+            <h2 className="mt-3 font-display text-4xl tracking-tight text-[color:var(--color-foreground)]">
+              {dictionary.home.pathsTitle}
+            </h2>
+          </div>
+          <p className="max-w-xl text-sm leading-7 text-[color:var(--color-muted)]">
+            {dictionary.home.pathsDescription}
+          </p>
+        </div>
+
+        <div className="grid gap-5 lg:grid-cols-3">
+          {dictionary.home.paths.map((path) => (
+            <article
+              key={path.title}
+              className="rounded-[28px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)]"
+            >
+              <h2 className="font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
+                {path.title}
+              </h2>
+              <p className="mt-4 text-sm leading-7 text-[color:var(--color-muted)]">
+                {path.description}
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {path.links.map((item) => (
+                  <Link
+                    key={`${path.title}-${item.slug}-${item.label}`}
+                    href={localizePath(locale, item.slug)}
+                    className="inline-flex min-h-11 items-center rounded-full border border-black/10 bg-white px-4 py-2.5 text-sm font-medium text-[color:var(--color-foreground)] transition hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-accent-soft)]"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
             </article>
           ))}
         </div>
@@ -433,7 +535,7 @@ function renderHome(locale: Locale) {
               key={item.question}
               className="rounded-[24px] border border-black/8 bg-[color:var(--color-surface)] p-6 shadow-[0_20px_60px_rgba(23,28,24,0.05)]"
             >
-              <summary className="cursor-pointer list-none font-display text-2xl tracking-tight text-[color:var(--color-foreground)]">
+              <summary className="flex min-h-11 cursor-pointer list-none items-center pr-8 font-display text-2xl tracking-tight text-[color:var(--color-foreground)]">
                 {item.question}
               </summary>
               <p className="mt-4 max-w-3xl text-sm leading-7 text-[color:var(--color-muted)]">
@@ -571,6 +673,7 @@ function renderToolPage(locale: Locale, slug: string) {
       title={tool.name}
       description={tool.description}
       highlights={tool.highlights}
+      content={tool.content}
       labels={{
         whyUseIt: dictionary.shared.whyUseIt,
         exploreMore: dictionary.shared.exploreMore,
@@ -608,6 +711,20 @@ function renderToolPage(locale: Locale, slug: string) {
           description: tool.structuredDescription,
           url: `${siteConfig.url}${localizePath(locale, slug)}`,
           inLanguage: locale,
+        }}
+      />
+      <StructuredData
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: tool.content.faqs.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.answer,
+            },
+          })),
         }}
       />
       {shell}

@@ -581,7 +581,7 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
                 <button
                   type="button"
                   onClick={() => copyNickname(nickname)}
-                  className="inline-flex w-fit items-center justify-center rounded-full border border-[color:var(--color-accent)] bg-[color:var(--color-surface)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--color-accent-strong)] transition hover:bg-[color:var(--color-accent)] hover:text-white"
+                  className="inline-flex min-h-11 w-fit items-center justify-center rounded-full border border-[color:var(--color-accent)] bg-[color:var(--color-surface)] px-4 py-2.5 text-sm font-semibold text-[color:var(--color-accent-strong)] transition hover:bg-[color:var(--color-accent)] hover:text-white"
                 >
                   {copiedValue === nickname ? labels.copied : labels.copyButton}
                 </button>

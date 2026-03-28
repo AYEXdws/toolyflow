@@ -21,6 +21,26 @@ type LocalizedTool = {
   keywords: string[];
   highlights: string[];
   structuredDescription: string;
+  content: {
+    howToUseTitle: string;
+    howToUseDescription: string;
+    howToUseSteps: Array<{ title: string; body: string }>;
+    useCasesTitle: string;
+    useCasesDescription: string;
+    useCases: Array<{ title: string; description: string }>;
+    examplesTitle: string;
+    examplesDescription: string;
+    examples: Array<{
+      title: string;
+      inputLabel: string;
+      input: string;
+      outputLabel: string;
+      output: string;
+      note: string;
+    }>;
+    faqTitle: string;
+    faqs: Array<{ question: string; answer: string }>;
+  };
 };
 
 type StaticPageContent = {
@@ -31,7 +51,13 @@ type StaticPageContent = {
   eyebrow: string;
   title: string;
   description: string;
-  sections: Array<{ title: string; body: string }>;
+  sections: Array<{
+    title: string;
+    body: string;
+    items?: string[];
+    emailLabel?: string;
+    email?: string;
+  }>;
 };
 
 export type Dictionary = {
@@ -78,10 +104,31 @@ export type Dictionary = {
     searchLabel: string;
     searchPlaceholder: string;
     searchEmpty: string;
+    proofEyebrow: string;
+    proofTitle: string;
+    proofDescription: string;
+    proofExamples: Array<{
+      title: string;
+      description: string;
+      toolSlug: ToolSlug;
+      toolName: string;
+      inputLabel: string;
+      input: string;
+      outputLabel: string;
+      output: string;
+    }>;
     whyEyebrow: string;
     whyTitle: string;
     whyDescription: string;
     brandPoints: Array<{ title: string; description: string }>;
+    pathsEyebrow: string;
+    pathsTitle: string;
+    pathsDescription: string;
+    paths: Array<{
+      title: string;
+      description: string;
+      links: Array<{ label: string; slug: ToolSlug }>;
+    }>;
     useCasesEyebrow: string;
     useCasesTitle: string;
     useCasesDescription: string;
@@ -273,9 +320,9 @@ function createEnglishDictionary(): Dictionary {
       primaryCta: "Browse tools",
       secondaryCta: "Learn more",
       stats: [
-        { label: "Focus", value: "2 clusters" },
-        { label: "Core tools", value: "4 primary" },
+        { label: "Core tool pages", value: "4 live" },
         { label: "Coverage", value: "6 languages" },
+        { label: "Guided pages", value: "4 with content" },
       ],
       toolsEyebrow: "Core tools",
       toolsTitle: "Built around text tools and creator tools",
@@ -301,25 +348,99 @@ function createEnglishDictionary(): Dictionary {
       searchLabel: "Find a page fast",
       searchPlaceholder: "Search tools and categories",
       searchEmpty: "No matching tools or categories yet.",
+      proofEyebrow: "In practice",
+      proofTitle: "What people can actually do here",
+      proofDescription:
+        "Instead of generic product claims, these examples show the kind of quick jobs the current tools can already help finish.",
+      proofExamples: [
+        {
+          title: "Clean up copied text fast",
+          description:
+            "Use the case converter when a title, note, or rough text block needs to be reformatted and copied immediately.",
+          toolSlug: "case-converter",
+          toolName: "Case Converter",
+          inputLabel: "Example input",
+          input: "launch your next creator page with cleaner text",
+          outputLabel: "Useful output",
+          output:
+            "Title Case: Launch Your Next Creator Page With Cleaner Text\nkebab-case: launch-your-next-creator-page-with-cleaner-text",
+        },
+        {
+          title: "Generate a publishable profile bio",
+          description:
+            "Use the bio generator to compare short platform-specific options instead of writing from scratch every time.",
+          toolSlug: "bio-generator",
+          toolName: "Bio Generator",
+          inputLabel: "Example setup",
+          input: "Platform: Instagram\nTone: Cool\nLength: Balanced\nCTA: On",
+          outputLabel: "Useful output",
+          output:
+            "clean visuals, steady presence\nsimple content, strong identity\nopen to collabs",
+        },
+        {
+          title: "Create a usable handle direction",
+          description:
+            "Use the nickname generator when you need a cleaner handle shortlist for social, gaming, or creator profiles.",
+          toolSlug: "nickname-generator",
+          toolName: "Nickname Generator",
+          inputLabel: "Example setup",
+          input: "Keyword: orbit\nStyle: Cool\nLength: Short\nPronounceable: On",
+          outputLabel: "Useful output",
+          output: "orbitlane\nvexaflow\nsorashift",
+        },
+      ],
       whyEyebrow: "Why Toolyflow",
-      whyTitle: "Built for fast, low-friction daily tasks",
+      whyTitle: "What the product is trying to get right",
       whyDescription:
-        "Toolyflow should feel like a product with a point of view: fast entry, useful output, low friction, and pages that are easy to trust on both mobile and desktop.",
+        "The goal is not to sound bigger than the product. The goal is to make a few useful pages easier to trust, easier to use, and easier to revisit.",
       brandPoints: [
         {
-          title: "Fast first action",
+          title: "Useful fast",
           description:
-            "The first useful interaction should happen immediately. Inputs stay visible, outputs stay easy to copy, and the page does not make the user work to get value.",
+            "A visitor should be able to paste, generate, or convert something useful within seconds of landing on the page.",
         },
         {
-          title: "Focused scope",
+          title: "Clear scope",
           description:
-            "The product now centers on text workflows and creator workflows so users understand what Toolyflow is good at within seconds.",
+            "The site is being narrowed around text workflows and creator workflows so the product feels more coherent and less random.",
         },
         {
-          title: "Clean enough to return to",
+          title: "Worth returning to",
           description:
-            "The brand should feel practical and calm, not loud. The goal is to be the page users keep open while they work.",
+            "Pages should stay calm, readable, and lightweight enough that users do not mind coming back for the same task again.",
+        },
+      ],
+      pathsEyebrow: "Start here",
+      pathsTitle: "Stronger paths into the tool library",
+      pathsDescription:
+        "These link groups are the clearest ways into the current product instead of making visitors guess where to start.",
+      paths: [
+        {
+          title: "Text cleanup path",
+          description:
+            "Start with formatting or cleanup tasks, then move into other text workflows as the library grows.",
+          links: [
+            { label: "Case Converter", slug: "case-converter" },
+          ],
+        },
+        {
+          title: "Creator profile path",
+          description:
+            "Build or refine bios, profile handles, and supporting creator assets in one cluster.",
+          links: [
+            { label: "Bio Generator", slug: "bio-generator" },
+            { label: "Nickname Generator", slug: "nickname-generator" },
+            { label: "QR Code Generator", slug: "qr-generator" },
+          ],
+        },
+        {
+          title: "Quick utility path",
+          description:
+            "Use a lighter utility when you need a simple output fast without leaving the main workflow.",
+          links: [
+            { label: "QR Code Generator", slug: "qr-generator" },
+            { label: "Decision Wheel", slug: "decision-wheel" },
+          ],
         },
       ],
       useCasesEyebrow: "Use cases",
@@ -368,27 +489,48 @@ function createEnglishDictionary(): Dictionary {
         slug: "about",
         metaTitle: "About",
         metaDescription:
-          "Learn what Toolyflow is, why it exists, and how the project is designed around fast and simple online tools.",
+          "Learn who runs Toolyflow, why it exists, and how the product is being built around useful online tools.",
         keywords: ["about toolyflow", "online tools website", "free online tools"],
         eyebrow: "About Toolyflow",
-        title: "A focused utility website",
+        title: "A focused tools product built for everyday utility",
         description:
-          "Toolyflow is built to offer quick, clean, free online tools without unnecessary friction.",
+          "Toolyflow is being built as a practical online tools product focused on fast utility, clear output, and pages people can trust enough to reuse.",
         sections: [
           {
-            title: "What Toolyflow does",
+            title: "Who runs Toolyflow",
             body:
-              "Toolyflow is an online tools website focused on everyday utility pages that open fast, work well on any screen size, and stay simple enough to use in seconds.",
+              "Toolyflow is operated as an independent web product focused on building useful browser-based tools without unnecessary account friction or heavy backend complexity.",
           },
           {
-            title: "What the product is becoming",
+            title: "Why Toolyflow exists",
             body:
-              "Toolyflow is moving toward a sharper product direction built around text tools and creator tools. Quick utilities still exist, but the main product now leads with clearer, more useful workflows.",
+              "The product exists to solve small repeat tasks quickly. Instead of making users jump across cluttered pages, Toolyflow aims to keep core workflows clean, fast, and easy to return to.",
           },
           {
-            title: "Why the product stays simple",
+            title: "What the product is focused on",
             body:
-              "The goal is to ship a production-ready first version, not an over-engineered system. Most features run client-side so the site stays fast, lightweight, and easier to maintain.",
+              "Toolyflow is currently centered on text tools, creator tools, and a smaller layer of quick utilities. The direction is deliberate: fewer categories, stronger pages, and more useful outputs.",
+            items: [
+              "Text tools for cleanup, formatting, and quick writing tasks.",
+              "Creator tools for bios, names, handles, and profile workflows.",
+              "A smaller utility layer for lightweight tasks that still fit the product.",
+            ],
+          },
+          {
+            title: "How the product is built",
+            body:
+              "The goal is to ship useful pages, not over-engineer the stack. Most tools run client-side so the site can stay faster, easier to maintain, and more dependable across phone, tablet, and desktop screens.",
+          },
+          {
+            title: "How to contact the team",
+            body:
+              "Use the contact addresses below depending on the reason for your message. Support and bug reports should stay separate from general business conversations so nothing gets lost.",
+            items: [
+              "Use info@toolyflow.com for tool issues, support questions, and general site feedback.",
+              "Use hello@toolyflow.com for partnerships, advertising, collaborations, and business inquiries.",
+            ],
+            emailLabel: "General contact",
+            email: "hello@toolyflow.com",
           },
         ],
       },
@@ -396,27 +538,56 @@ function createEnglishDictionary(): Dictionary {
         slug: "contact",
         metaTitle: "Contact",
         metaDescription:
-          "Contact Toolyflow for support, partnerships, or general questions about the online tools website.",
+          "Contact Toolyflow for support, partnerships, advertising, or general questions about the website.",
         keywords: ["contact toolyflow", "toolyflow support", "online tools contact"],
         eyebrow: "Contact",
         title: "Reach the Toolyflow team",
         description:
-          "Use the contact details below for support requests, business questions, or feedback about the site.",
+          "Use the right contact route below for support, bug reports, partnerships, advertising, or general product questions.",
         sections: [
           {
-            title: "Email",
+            title: "Support and site issues",
             body:
-              "The fastest way to reach Toolyflow is by email at hello@toolyflow.com.",
+              "For tool issues, broken pages, feedback, or general support, contact the support inbox first.",
+            items: [
+              "Best for bug reports and page errors.",
+              "Best for feedback about tool quality or usability.",
+              "Best for general questions about how the site works.",
+            ],
+            emailLabel: "Support email",
+            email: "info@toolyflow.com",
           },
           {
-            title: "What to include",
+            title: "Partnerships, ads, and business",
             body:
-              "If you are reporting a tool issue, include the page URL, the device you used, and a short description of what happened so the issue can be reproduced quickly.",
+              "For partnerships, sponsorships, advertising, or other business conversations, use the business inbox so those requests stay separate from support traffic.",
+            items: [
+              "Include your company or project name.",
+              "Explain the type of collaboration you want.",
+              "Add timeline, budget range, or campaign details if relevant.",
+            ],
+            emailLabel: "Business email",
+            email: "hello@toolyflow.com",
           },
           {
-            title: "Partnerships and ads",
+            title: "What to include in support emails",
             body:
-              "For sponsorship, advertising, or growth opportunities, send a message with your company details and the type of collaboration you have in mind.",
+              "The clearer the report, the faster it can be reviewed and reproduced.",
+            items: [
+              "The exact page URL where the issue happened.",
+              "Your device, browser, and screen type if possible.",
+              "A short note explaining what you expected and what actually happened.",
+            ],
+          },
+          {
+            title: "Response flow",
+            body:
+              "Messages are reviewed manually. Tool reports, product feedback, and business requests may be answered on different timelines depending on volume and priority.",
+            items: [
+              "Support messages should stay focused and include enough detail to reproduce the issue.",
+              "Business requests should clearly state the purpose of the outreach.",
+              "If you are unsure which inbox to use, send the message to hello@toolyflow.com.",
+            ],
           },
         ],
       },
@@ -424,12 +595,12 @@ function createEnglishDictionary(): Dictionary {
         slug: "privacy-policy",
         metaTitle: "Privacy Policy",
         metaDescription:
-          "Read the Toolyflow privacy policy and understand how the site handles visitor information and browser-based tools.",
+          "Read the Toolyflow privacy policy to understand cookies, advertising services, consent, and how browser-based tools handle visitor data.",
         keywords: ["toolyflow privacy policy", "online tools privacy", "website privacy policy"],
         eyebrow: "Privacy Policy",
         title: "Privacy policy",
         description:
-          "This page explains the basic privacy approach for Toolyflow and its browser-based tools.",
+          "This page explains how Toolyflow handles browser-based tool input, cookies, third-party services, advertising technologies, and visitor consent.",
         sections: [
           {
             title: "Information handling",
@@ -437,14 +608,51 @@ function createEnglishDictionary(): Dictionary {
               "Toolyflow is designed to keep the first version lightweight. Most tools run directly in the browser, which means user input is generally processed client-side instead of being sent to a backend service.",
           },
           {
-            title: "Analytics and service providers",
+            title: "Cookies and local browser storage",
             body:
-              "Toolyflow may use analytics, hosting, security, or advertising services to understand site traffic, keep the website available, and support future monetization. Those providers may process technical information such as browser type, device data, and page visits.",
+              "Toolyflow and its service providers may use cookies, local storage, or similar technologies to keep the site working, understand traffic, remember limited preferences, measure performance, and support advertising.",
+            items: [
+              "Cookies may be used for site functionality, analytics, and advertising-related measurement.",
+              "Some browser storage may be created directly by embedded services or advertising technology.",
+              "You can control or delete cookies from your browser settings at any time.",
+            ],
+          },
+          {
+            title: "Advertising and third-party vendors",
+            body:
+              "Toolyflow may work with third-party vendors, including Google, to serve ads, measure ad performance, and understand how visitors use the site. Those vendors may use cookies, web beacons, identifiers, IP address information, browser data, and page interaction signals to show or measure advertising.",
+            items: [
+              "Google and other vendors may use cookies to serve ads based on prior visits to this site or other websites.",
+              "Third-party advertising vendors may combine technical browser and device signals for ad delivery, frequency control, fraud prevention, and reporting.",
+              "Hosting, analytics, security, and advertising partners may process technical data needed to operate their services.",
+            ],
+          },
+          {
+            title: "Consent and visitor choices",
+            body:
+              "Where required by applicable law, Toolyflow may request consent before using non-essential cookies or certain advertising technologies. Consent choices may affect how advertising, analytics, or personalization features behave on the site.",
+            items: [
+              "You may be asked to accept, reject, or manage certain cookie categories.",
+              "Withdrawing consent later may reduce personalized advertising or analytics functionality.",
+              "You can also manage many advertising preferences directly through your browser or Google ad settings.",
+            ],
+          },
+          {
+            title: "Contact for privacy questions",
+            body:
+              "If you have a privacy-related question about how Toolyflow handles visitor data, cookies, or advertising services, use the address below.",
+            emailLabel: "Privacy contact",
+            email: "info@toolyflow.com",
           },
           {
             title: "Policy updates",
             body:
               "This policy may be updated as the product grows. Any future changes will be reflected on this page with the latest published version.",
+          },
+          {
+            title: "Analytics and service providers",
+            body:
+              "Toolyflow may use analytics, hosting, security, or advertising services to understand site traffic, keep the website available, and support future monetization. Those providers may process technical information such as browser type, device data, and page visits.",
           },
         ],
       },
@@ -503,6 +711,87 @@ function createEnglishDictionary(): Dictionary {
         ],
         structuredDescription:
           "Free online bio generator for creator profiles with platform, tone, length, emoji, and CTA controls.",
+        content: {
+          howToUseTitle: "How to use the bio generator",
+          howToUseDescription:
+            "The strongest results come from picking a clear platform and tone first, then trimming the options to the one that actually sounds like your profile.",
+          howToUseSteps: [
+            {
+              title: "Choose the platform and tone",
+              body:
+                "Start with the platform you are writing for, then pick the tone that matches how you want to sound: clean, bold, personal, minimal, or more mysterious.",
+            },
+            {
+              title: "Set the format filters",
+              body:
+                "Adjust the length, emoji toggle, and CTA line so the batch stays close to the type of bio you would realistically publish.",
+            },
+            {
+              title: "Generate, compare, and copy",
+              body:
+                "Generate a fresh batch, compare the strongest options side by side, and copy the version that fits your profile without extra editing.",
+            },
+          ],
+          useCasesTitle: "Best use cases",
+          useCasesDescription:
+            "This tool works best when you need multiple profile-ready bio options quickly instead of writing from scratch every time.",
+          useCases: [
+            {
+              title: "Refresh a creator profile",
+              description:
+                "Generate cleaner options when your Instagram, TikTok, X, YouTube, or Twitch bio feels flat, outdated, or too generic.",
+            },
+            {
+              title: "Launch a new channel",
+              description:
+                "Use the tool to find a tighter first bio when opening a new creator account and you want the profile to look intentional from day one.",
+            },
+            {
+              title: "Test different positioning",
+              description:
+                "Compare a minimal, sharp, playful, or more professional direction before you update your public profile.",
+            },
+          ],
+          examplesTitle: "Examples",
+          examplesDescription:
+            "These are the kinds of concise bios the page should help you arrive at after a few generate cycles.",
+          examples: [
+            {
+              title: "Instagram creator bio",
+              inputLabel: "Setup",
+              input: "Platform: Instagram\nTone: Cool\nLength: Balanced\nEmoji: Off\nCTA: On",
+              outputLabel: "Example output",
+              output: "clean visuals, steady presence\nsimple content, strong identity\nopen to collabs",
+              note: "Works when you want a direct creator profile without sounding overwritten.",
+            },
+            {
+              title: "YouTube channel bio",
+              inputLabel: "Setup",
+              input: "Platform: YouTube\nTone: Professional\nLength: Short\nEmoji: Off\nCTA: Off",
+              outputLabel: "Example output",
+              output: "clear voice, steady uploads\nbuilding useful videos consistently",
+              note: "Good for channel pages that should feel credible and structured.",
+            },
+          ],
+          faqTitle: "Bio generator FAQ",
+          faqs: [
+            {
+              question: "Does the bio generator create different results every time?",
+              answer:
+                "Yes. Each generate action returns a fresh batch so you can compare multiple directions instead of getting one locked answer.",
+            },
+            {
+              question: "Which platforms does the bio generator support?",
+              answer:
+                "The tool is tuned for Instagram, TikTok, X, YouTube, and Twitch so the output feels closer to how those profiles are usually written.",
+            },
+            {
+              question: "Can I use the results as-is?",
+              answer:
+                "Yes, but the best workflow is to generate a few batches, pick the strongest line set, and make a small final tweak so it feels personal.",
+            },
+          ],
+        },
       },
       "nickname-generator": {
         slug: "nickname-generator",
@@ -529,6 +818,87 @@ function createEnglishDictionary(): Dictionary {
         ],
         structuredDescription:
           "Free online nickname generator for cool, dark, gaming, and aesthetic handles with style and readability controls.",
+        content: {
+          howToUseTitle: "How to use the nickname generator",
+          howToUseDescription:
+            "The best nickname results usually come from a clear vibe, shorter lengths, and only light styling unless you specifically want a louder handle.",
+          howToUseSteps: [
+            {
+              title: "Start with a vibe or keyword",
+              body:
+                "Enter a short keyword if you have one, or leave it broad and let the style steer the batch toward a cleaner handle direction.",
+            },
+            {
+              title: "Choose style, length, and symbols",
+              body:
+                "Use the filters to decide whether the results should feel cool, dark, gaming, or aesthetic, then keep the length and symbol style aligned with the platforms you care about.",
+            },
+            {
+              title: "Refresh until one feels claimable",
+              body:
+                "Generate a new batch until you get a nickname that looks usable, sounds good when read aloud, and feels worth keeping.",
+            },
+          ],
+          useCasesTitle: "Best use cases",
+          useCasesDescription:
+            "This tool is strongest when you need a handle-style name that looks good fast, not a literal dictionary word.",
+          useCases: [
+            {
+              title: "Gaming tags and usernames",
+              description:
+                "Generate shorter handles that feel sharper on Discord, Twitch, Steam, or in-game profiles.",
+            },
+            {
+              title: "Creator alias brainstorming",
+              description:
+                "Use it to find a more ownable nickname before you settle on a public username or brand-facing alias.",
+            },
+            {
+              title: "Aesthetic or dark profile handles",
+              description:
+                "Test multiple vibes quickly when the goal is style, tone, and memorability rather than literal meaning.",
+            },
+          ],
+          examplesTitle: "Examples",
+          examplesDescription:
+            "Strong outputs should feel short enough to use, easy enough to remember, and distinct enough to own.",
+          examples: [
+            {
+              title: "Cool profile handle",
+              inputLabel: "Setup",
+              input: "Keyword: orbit\nStyle: Cool\nLength: Short\nSymbols: Clean\nPronounceable: On",
+              outputLabel: "Example output",
+              output: "orbitlane\nvexaflow\nsorashift",
+              note: "These feel closer to usable handles than random broken syllables.",
+            },
+            {
+              title: "Dark gaming nickname",
+              inputLabel: "Setup",
+              input: "Keyword: raven\nStyle: Dark\nLength: Balanced\nSymbols: Light\nPronounceable: Off",
+              outputLabel: "Example output",
+              output: "ravenveil\nnoxdrift\nonyxmark",
+              note: "Useful when you want something moodier without becoming unreadable.",
+            },
+          ],
+          faqTitle: "Nickname generator FAQ",
+          faqs: [
+            {
+              question: "Will the nickname generator return a new batch each time?",
+              answer:
+                "Yes. Every generate action rotates to a fresh batch so you can keep exploring new handle directions with the same settings.",
+            },
+            {
+              question: "Is the goal literal meaning or a good-looking handle?",
+              answer:
+                "The goal is a nickname that looks usable and feels right for the vibe you picked. A strong result does not always need a strict dictionary meaning.",
+            },
+            {
+              question: "Should I keep symbols on?",
+              answer:
+                "Usually start with clean or light styling first. It keeps the nickname more readable and easier to reuse across platforms.",
+            },
+          ],
+        },
       },
       "qr-generator": {
         slug: "qr-generator",
@@ -550,6 +920,87 @@ function createEnglishDictionary(): Dictionary {
         ],
         structuredDescription:
           "Free online QR code generator with instant preview, multiple QR types, and PNG or SVG download.",
+        content: {
+          howToUseTitle: "How to use the QR code generator",
+          howToUseDescription:
+            "The tool works best when you choose the right QR type first, then confirm the preview before downloading the final file.",
+          howToUseSteps: [
+            {
+              title: "Pick the QR type",
+              body:
+                "Choose URL, text, email, phone, or WiFi so the encoded content matches the action you want people to take after scanning.",
+            },
+            {
+              title: "Fill in the details and preview",
+              body:
+                "Enter the content, adjust the size and colors if needed, and make sure the live preview still looks clean and scannable.",
+            },
+            {
+              title: "Download the format you need",
+              body:
+                "Export the final QR code as PNG for quick sharing or SVG when you want a cleaner scalable file for print and design use.",
+            },
+          ],
+          useCasesTitle: "Best use cases",
+          useCasesDescription:
+            "QR codes are most useful when you need a fast bridge between offline surfaces and a clean digital destination.",
+          useCases: [
+            {
+              title: "Menu, event, or profile links",
+              description:
+                "Turn a landing page, menu, booking page, or creator profile into a scannable code in seconds.",
+            },
+            {
+              title: "WiFi and contact sharing",
+              description:
+                "Create quick QR codes for guest WiFi, email addresses, or phone numbers when you want a cleaner handoff than typing details manually.",
+            },
+            {
+              title: "Posters, print assets, and packaging",
+              description:
+                "Use the SVG download for cleaner print workflows when you need the code to stay sharp at different sizes.",
+            },
+          ],
+          examplesTitle: "Examples",
+          examplesDescription:
+            "These setups show the kinds of QR outputs people usually create on a utility page like this.",
+          examples: [
+            {
+              title: "Website link QR",
+              inputLabel: "Setup",
+              input: "Type: URL\nValue: https://toolyflow.com/en/bio-generator\nSize: 320 px",
+              outputLabel: "Result",
+              output: "A scannable website QR ready for PNG or SVG download.",
+              note: "Useful for flyers, profile cards, and quick share flows.",
+            },
+            {
+              title: "Guest WiFi QR",
+              inputLabel: "Setup",
+              input: "Type: WiFi\nSSID: StudioGuest\nPassword: CreateFast24\nSecurity: WPA",
+              outputLabel: "Result",
+              output: "A QR that lets visitors join the network without typing the password manually.",
+              note: "A practical use case for cafes, studios, offices, and events.",
+            },
+          ],
+          faqTitle: "QR code generator FAQ",
+          faqs: [
+            {
+              question: "Can I generate QR codes for more than just URLs?",
+              answer:
+                "Yes. The tool supports URL, text, email, phone, and WiFi modes so the code can match the type of action you need.",
+            },
+            {
+              question: "Should I download PNG or SVG?",
+              answer:
+                "PNG is usually enough for quick digital use. SVG is better when you need a scalable file for print or design work.",
+            },
+            {
+              question: "Does the QR code update live?",
+              answer:
+                "Yes. The preview updates as you change the content and settings, which makes it easier to confirm the final output before downloading.",
+            },
+          ],
+        },
       },
       "case-converter": {
         slug: "case-converter",
@@ -571,6 +1022,87 @@ function createEnglishDictionary(): Dictionary {
         ],
         structuredDescription:
           "Free online case converter for uppercase, lowercase, sentence case, title case, camelCase, snake_case, and kebab-case text.",
+        content: {
+          howToUseTitle: "How to use the case converter",
+          howToUseDescription:
+            "The page is built for quick compare-and-copy workflows, so the main idea is to paste once, review multiple formats, and copy the right one immediately.",
+          howToUseSteps: [
+            {
+              title: "Paste the source text",
+              body:
+                "Drop in the text you want to clean up or reformat. The tool calculates the output views instantly as you type or paste.",
+            },
+            {
+              title: "Compare the output formats",
+              body:
+                "Review uppercase, lowercase, sentence case, title case, camelCase, PascalCase, snake_case, and kebab-case side by side without leaving the page.",
+            },
+            {
+              title: "Copy the exact result you need",
+              body:
+                "Use the copy action on the card that matches your workflow, whether you are fixing copy, naming fields, or formatting titles.",
+            },
+          ],
+          useCasesTitle: "Best use cases",
+          useCasesDescription:
+            "This tool is strongest when text needs to move quickly between content, product, and development contexts.",
+          useCases: [
+            {
+              title: "Headlines and content cleanup",
+              description:
+                "Switch between sentence case, title case, upper, or lower when editing headlines, captions, and notes.",
+            },
+            {
+              title: "Developer naming formats",
+              description:
+                "Generate camelCase, PascalCase, snake_case, or kebab-case versions for variables, routes, and field names.",
+            },
+            {
+              title: "Bulk formatting checks",
+              description:
+                "Keep multiple output styles visible at once so you can compare and copy the right version without extra steps.",
+            },
+          ],
+          examplesTitle: "Examples",
+          examplesDescription:
+            "A good case converter should make input and output differences obvious at a glance.",
+          examples: [
+            {
+              title: "Headline formatting",
+              inputLabel: "Input",
+              input: "build fast tools without extra friction",
+              outputLabel: "Output",
+              output: "Title Case: Build Fast Tools Without Extra Friction\nSentence case: Build fast tools without extra friction",
+              note: "Useful when you are deciding between editorial styles quickly.",
+            },
+            {
+              title: "Developer naming",
+              inputLabel: "Input",
+              input: "fast online tools",
+              outputLabel: "Output",
+              output: "camelCase: fastOnlineTools\nsnake_case: fast_online_tools\nkebab-case: fast-online-tools",
+              note: "Handy for slugs, variables, and simple naming tasks.",
+            },
+          ],
+          faqTitle: "Case converter FAQ",
+          faqs: [
+            {
+              question: "Which formats can I copy from the case converter?",
+              answer:
+                "The page gives you uppercase, lowercase, sentence case, title case, camelCase, PascalCase, snake_case, kebab-case, trimmed text, and a single-line cleanup output.",
+            },
+            {
+              question: "Can I compare multiple text formats at the same time?",
+              answer:
+                "Yes. The outputs stay visible together so you can compare styles and copy the right one without opening another page.",
+            },
+            {
+              question: "Is the case converter useful for development work too?",
+              answer:
+                "Yes. It is useful for both writing tasks and developer naming tasks, especially when switching between content and code-friendly formats.",
+            },
+          ],
+        },
       },
       "decision-wheel": {
         slug: "decision-wheel",
@@ -592,6 +1124,87 @@ function createEnglishDictionary(): Dictionary {
         ],
         structuredDescription:
           "Free online decision wheel for spinning through options and picking a random result.",
+        content: {
+          howToUseTitle: "How to use the decision wheel",
+          howToUseDescription:
+            "This tool is intentionally lightweight. Add clear options, spin once, and use the result when you want a quick decision without overthinking.",
+          howToUseSteps: [
+            {
+              title: "Add the choices you want to compare",
+              body:
+                "Enter each option as a separate line so the wheel can distribute the choices clearly before the spin begins.",
+            },
+            {
+              title: "Spin the wheel",
+              body:
+                "Start the spin and let the wheel land on one final result instead of manually debating similar options.",
+            },
+            {
+              title: "Use the result or reshuffle",
+              body:
+                "Accept the outcome for a quick decision, or update the list and spin again if the option set itself needs work.",
+            },
+          ],
+          useCasesTitle: "Best use cases",
+          useCasesDescription:
+            "The wheel is most helpful for small decisions where speed matters more than deep analysis.",
+          useCases: [
+            {
+              title: "Content and naming picks",
+              description:
+                "Pick between post ideas, title options, or shortlists when you want a quick tie-breaker.",
+            },
+            {
+              title: "Team micro-decisions",
+              description:
+                "Use it for lightweight team choices like order, rotation, or quick activity selection.",
+            },
+            {
+              title: "Personal choice cleanup",
+              description:
+                "Break indecision on small daily options without leaving the page.",
+            },
+          ],
+          examplesTitle: "Examples",
+          examplesDescription:
+            "The best use cases are short lists with a real need for a simple final pick.",
+          examples: [
+            {
+              title: "Content idea shortlist",
+              inputLabel: "Input",
+              input: "Behind the scenes\nNew tool demo\nWorkflow tips\nLaunch update",
+              outputLabel: "Result",
+              output: "The wheel lands on one option and shows a single final pick.",
+              note: "Helpful when a shortlist is already good enough and you just need a final choice.",
+            },
+            {
+              title: "Lunch rotation",
+              inputLabel: "Input",
+              input: "Pizza\nSushi\nSalad\nBurgers",
+              outputLabel: "Result",
+              output: "One choice is selected after the spin.",
+              note: "A straightforward everyday use case for the utility layer.",
+            },
+          ],
+          faqTitle: "Decision wheel FAQ",
+          faqs: [
+            {
+              question: "What is the decision wheel best for?",
+              answer:
+                "It is best for quick low-stakes choices where a simple random pick is faster than discussing the options for too long.",
+            },
+            {
+              question: "Can I edit the options before I spin?",
+              answer:
+                "Yes. You can rewrite the option list before spinning so the wheel only includes the choices you actually want to consider.",
+            },
+            {
+              question: "Is the wheel part of the main Toolyflow focus?",
+              answer:
+                "It sits in the lighter utility layer. The main product focus is still text tools and creator tools.",
+            },
+          ],
+        },
       },
     },
     caseConverter: {
@@ -1046,9 +1659,9 @@ const tr = translateDictionary(en, "tr", {
     primaryCta: "Araçlara göz at",
     secondaryCta: "Daha fazla bilgi",
     stats: [
-      { label: "Odak", value: "2 cluster" },
-      { label: "Ana araçlar", value: "4 öncelik" },
+      { label: "Ana araç sayfası", value: "4 canlı" },
       { label: "Kapsam", value: "6 dil" },
+      { label: "İçerikli araç sayfası", value: "4 rehberli" },
     ],
     toolsEyebrow: "Ana araçlar",
     toolsTitle: "Metin araçları ve creator araçları etrafında kuruldu",
@@ -1074,25 +1687,99 @@ const tr = translateDictionary(en, "tr", {
     searchLabel: "Hızlı arama",
     searchPlaceholder: "Araç veya kategori ara",
     searchEmpty: "Eşleşen araç veya kategori bulunamadı.",
+    proofEyebrow: "Pratikte",
+    proofTitle: "Burada gerçekten hangi işler çözülebilir",
+    proofDescription:
+      "Genel ürün iddiaları yerine, mevcut araçların bugün hangi küçük işleri gerçekten bitirebildiğini gösteren örnekler burada durur.",
+    proofExamples: [
+      {
+        title: "Kopyalanmış metni hızlıca düzenlemek",
+        description:
+          "Case Converter; başlık, not veya ham metni hızlıca biçimlendirip doğru formatta kopyalamak için kullanılır.",
+        toolSlug: "case-converter",
+        toolName: "Case Converter",
+        inputLabel: "Örnek girdi",
+        input: "launch your next creator page with cleaner text",
+        outputLabel: "İşe yarayan çıktı",
+        output:
+          "Title Case: Launch Your Next Creator Page With Cleaner Text\nkebab-case: launch-your-next-creator-page-with-cleaner-text",
+      },
+      {
+        title: "Yayınlanabilir bir bio üretmek",
+        description:
+          "Bio Generator; her seferinde sıfırdan yazmak yerine kısa ve platforma uygun bio alternatiflerini karşılaştırmak için kullanılır.",
+        toolSlug: "bio-generator",
+        toolName: "Bio Generator",
+        inputLabel: "Örnek kurulum",
+        input: "Platform: Instagram\nTon: Cool\nUzunluk: Dengeli\nCTA: Açık",
+        outputLabel: "İşe yarayan çıktı",
+        output:
+          "net görsel, düzenli enerji\ntemiz içerik, güçlü stil\niş birliklerine açık",
+      },
+      {
+        title: "Kullanılabilir bir handle yönü bulmak",
+        description:
+          "Nickname Generator; sosyal medya, oyun veya creator profilleri için daha temiz bir nickname shortlist’i oluşturur.",
+        toolSlug: "nickname-generator",
+        toolName: "Nickname Generator",
+        inputLabel: "Örnek kurulum",
+        input: "Kelime: orbit\nStil: Cool\nUzunluk: Kısa\nOkunabilirlik: Açık",
+        outputLabel: "İşe yarayan çıktı",
+        output: "orbitlane\nvexaflow\nsorashift",
+      },
+    ],
     whyEyebrow: "Neden Toolyflow",
-    whyTitle: "Hızlı ve düşük sürtünmeli günlük işler için kuruldu",
+    whyTitle: "Ürünün doğru yapmaya çalıştığı şeyler",
     whyDescription:
-      "Toolyflow’un amacı yalnızca sayfa açmak değil; hızlı giriş, net çıktı, düşük sürtünme ve mobilde de güven veren bir araç deneyimi kurmaktır.",
+      "Amaç ürünü olduğundan büyük göstermek değil; birkaç faydalı aracı daha güvenilir, daha net ve daha tekrar kullanılabilir hale getirmek.",
     brandPoints: [
       {
-        title: "İlk aksiyon hızlı olmalı",
+        title: "Hızlıca iş görmeli",
         description:
-          "Kullanıcı sayfaya girdiğinde hemen değer almalı. Input alanı görünür, çıktı kopyalanabilir ve arayüz gereksiz uğraş çıkarmamalı.",
+          "Bir ziyaretçi sayfaya geldiğinde saniyeler içinde yapıştırma, üretme veya dönüştürme gibi işe yarayan ilk aksiyonu alabilmeli.",
       },
       {
-        title: "Odaklı kapsam",
+        title: "Kapsam net olmalı",
         description:
-          "Ürün artık metin iş akışları ve creator iş akışları etrafında kurulduğu için Toolyflow’un neye iyi geldiği birkaç saniyede anlaşılmalı.",
+          "Site metin iş akışları ve creator iş akışları etrafında daraldıkça daha tutarlı ve daha az rastgele hissettirmeli.",
       },
       {
-        title: "Geri dönülebilir sadelik",
+        title: "Geri dönmeye değer olmalı",
         description:
-          "Marka yüksek sesli değil, pratik ve sakin hissettirmeli. Hedef; çalışırken açık bırakılan araç sayfası olmak.",
+          "Sayfalar sakin, okunabilir ve hafif kalmalı ki kullanıcı aynı iş için yeniden gelmekten çekinmesin.",
+      },
+    ],
+    pathsEyebrow: "Başlangıç yolları",
+    pathsTitle: "Araç kütüphanesine daha net girişler",
+    pathsDescription:
+      "Ziyaretçinin nereden başlayacağını tahmin etmesini beklemek yerine, mevcut ürünün en net giriş yolları burada verilir.",
+    paths: [
+      {
+        title: "Metin düzenleme yolu",
+        description:
+          "Biçimlendirme ve temizlik işleriyle başlayıp zamanla büyüyecek metin araç katmanına girin.",
+        links: [
+          { label: "Case Converter", slug: "case-converter" },
+        ],
+      },
+      {
+        title: "Creator profil yolu",
+        description:
+          "Bio, nickname ve destekleyici creator araçlarını aynı cluster içinde kullanın.",
+        links: [
+          { label: "Bio Generator", slug: "bio-generator" },
+          { label: "Nickname Generator", slug: "nickname-generator" },
+          { label: "QR Code Generator", slug: "qr-generator" },
+        ],
+      },
+      {
+        title: "Hızlı utility yolu",
+        description:
+          "Ana akıştan kopmadan basit bir çıktıyı hızlıca almak için daha hafif araçlara gidin.",
+        links: [
+          { label: "QR Code Generator", slug: "qr-generator" },
+          { label: "Decision Wheel", slug: "decision-wheel" },
+        ],
       },
     ],
     useCasesEyebrow: "Kullanım senaryoları",
@@ -1141,27 +1828,48 @@ const tr = translateDictionary(en, "tr", {
       slug: "about",
       metaTitle: "Hakkında",
       metaDescription:
-        "Toolyflow’un ne olduğunu, neden kurulduğunu ve hızlı online araçlar etrafında nasıl tasarlandığını öğrenin.",
+        "Toolyflow’u kimin işlettiğini, neden kurulduğunu ve ürünün hangi mantıkla geliştirildiğini öğrenin.",
       keywords: ["toolyflow hakkında", "online araç sitesi", "ücretsiz online araçlar"],
       eyebrow: "Toolyflow Hakkında",
-      title: "Odaklı bir utility sitesi",
+      title: "Günlük utility işleri için kurulan odaklı bir ürün",
       description:
-        "Toolyflow, gereksiz karmaşa olmadan hızlı, temiz ve ücretsiz online araçlar sunmak için kuruldu.",
+        "Toolyflow; hızlı utility, net çıktı ve tekrar ziyaret edilmeye değer sayfalar üretmek için geliştirilen pratik bir online tools ürünüdür.",
       sections: [
         {
-          title: "Toolyflow ne yapar",
+          title: "Toolyflow’u kim işletiyor",
           body:
-            "Toolyflow; hızlı açılan, her ekranda düzgün çalışan ve saniyeler içinde kullanılabilen günlük yardımcı araçlara odaklanan bir online tools sitesidir.",
+            "Toolyflow, gereksiz hesap adımları ve ağır sistemler kurmadan tarayıcı içinde çalışan kullanışlı araçlar üretmeye odaklanan bağımsız bir web ürünüdür.",
         },
         {
-          title: "Ürün hangi yöne gidiyor",
+          title: "Neden kuruldu",
           body:
-            "Toolyflow artık metin araçları ve creator araçları etrafında daha net konumlanan bir ürüne dönüşüyor. Hızlı utility sayfaları kalır, ancak ürün kimliğini onlar belirlemez.",
+            "Amaç; küçük ama tekrar eden işleri hızlıca çözmek. Kullanıcıların dağınık ve düşük kaliteli araçlar arasında gezinmek zorunda kalmadan temiz, hızlı ve tekrar kullanılabilir sayfalara ulaşabilmesi hedefleniyor.",
         },
         {
-          title: "Neden sade tutuldu",
+          title: "Ürün neye odaklanıyor",
           body:
-            "Hedef aşırı kompleks bir sistem kurmak değil, üretime yakın ilk sürümü yayınlamaktır. Bu yüzden özelliklerin çoğu client-side çalışır; site hızlı, hafif ve bakım açısından daha kolay kalır.",
+            "Toolyflow şu anda metin araçları, creator araçları ve daha küçük bir hızlı utility katmanı üzerine kuruluyor. Yön bilinçli biçimde dar tutuluyor: daha az kategori, daha güçlü sayfalar, daha kullanışlı çıktılar.",
+          items: [
+            "Temizlik, biçimlendirme ve hızlı yazı işleri için metin araçları.",
+            "Bio, isim, handle ve profil akışları için creator araçları.",
+            "Ürünü destekleyen hafif utility sayfaları.",
+          ],
+        },
+        {
+          title: "Nasıl geliştiriliyor",
+          body:
+            "Amaç teknoloji gösterisi yapmak değil, çalışan sayfalar üretmek. Bu yüzden araçların çoğu client-side çalışır; site telefon, tablet ve masaüstünde daha hızlı, daha hafif ve daha bakımı kolay kalır.",
+        },
+        {
+          title: "Ekibe nasıl ulaşılır",
+          body:
+            "Mesajın konusuna göre doğru adrese yazmak, destek ve iş birliği süreçlerinin karışmamasını sağlar.",
+          items: [
+            "Araç hataları, destek ve genel geri bildirim için info@toolyflow.com adresini kullanın.",
+            "İş birliği, reklam ve ticari konular için hello@toolyflow.com adresini kullanın.",
+          ],
+          emailLabel: "Genel iletişim",
+          email: "hello@toolyflow.com",
         },
       ],
     },
@@ -1174,22 +1882,51 @@ const tr = translateDictionary(en, "tr", {
       eyebrow: "İletişim",
       title: "Toolyflow ekibine ulaşın",
       description:
-        "Destek talepleri, iş birlikleri veya siteyle ilgili geri bildirimler için aşağıdaki iletişim bilgilerini kullanın.",
+        "Destek, hata bildirimi, iş birlikleri, reklam veya genel ürün soruları için aşağıdaki iletişim akışını kullanın.",
       sections: [
         {
-          title: "E-posta",
+          title: "Destek ve site sorunları",
           body:
-            "Toolyflow’a ulaşmanın en hızlı yolu hello@toolyflow.com adresine e-posta göndermektir.",
+            "Araç hataları, çalışan ama yanlış sonuç veren sayfalar, genel geri bildirim veya destek talepleri için önce destek adresine yazın.",
+          items: [
+            "Araç hataları ve bozuk sayfalar için uygundur.",
+            "Kullanılabilirlik ve çıktı kalitesi geri bildirimi için uygundur.",
+            "Sitenin çalışma mantığıyla ilgili genel sorular için uygundur.",
+          ],
+          emailLabel: "Destek e-postası",
+          email: "info@toolyflow.com",
         },
         {
-          title: "Neler eklenmeli",
+          title: "İş birlikleri, reklam ve ticari konular",
           body:
-            "Bir araç hatası bildiriyorsanız sayfa URL’sini, kullandığınız cihazı ve yaşadığınız sorunun kısa açıklamasını ekleyin. Bu sayede sorun daha hızlı yeniden üretilebilir.",
+            "İş birliği, sponsorluk, reklam veya başka bir ticari görüşme için business inbox kullanılmalıdır; böylece destek mesajlarıyla karışmaz.",
+          items: [
+            "Şirket veya proje adınızı belirtin.",
+            "Nasıl bir iş birliği düşündüğünüzü açık yazın.",
+            "Varsa zamanlama, bütçe veya kampanya detaylarını ekleyin.",
+          ],
+          emailLabel: "Business e-postası",
+          email: "hello@toolyflow.com",
         },
         {
-          title: "İş birlikleri ve reklam",
+          title: "Destek e-postasına neler eklenmeli",
           body:
-            "Sponsorluk, reklam veya büyüme odaklı iş birlikleri için şirket bilgilerinizi ve düşündüğünüz iş modelini paylaşabilirsiniz.",
+            "Mesaj ne kadar net olursa sorun o kadar hızlı incelenebilir.",
+          items: [
+            "Sorunun yaşandığı tam sayfa URL’si.",
+            "Mümkünse kullandığınız cihaz, tarayıcı ve ekran tipi.",
+            "Ne beklediğinizi ve gerçekte ne olduğunu anlatan kısa açıklama.",
+          ],
+        },
+        {
+          title: "Yanıt akışı",
+          body:
+            "Mesajlar manuel olarak incelenir. Destek talepleri, ürün geri bildirimleri ve ticari görüşmeler yoğunluk ve önceliğe göre farklı sürelerde yanıtlanabilir.",
+          items: [
+            "Destek mesajlarını kısa ve tekrar üretilebilir detaylarla yazın.",
+            "Ticari mesajlarda amacınızı ilk paragrafta netleştirin.",
+            "Hangi adrese yazmanız gerektiğinden emin değilseniz hello@toolyflow.com adresini kullanın.",
+          ],
         },
       ],
     },
@@ -1197,12 +1934,12 @@ const tr = translateDictionary(en, "tr", {
       slug: "privacy-policy",
       metaTitle: "Gizlilik Politikası",
       metaDescription:
-        "Toolyflow gizlilik politikasını okuyun ve sitenin ziyaretçi verilerini nasıl ele aldığını öğrenin.",
+        "Toolyflow gizlilik politikasını okuyun; çerezler, reklam servisleri, üçüncü taraf sağlayıcılar ve ziyaretçi onayı hakkında bilgi alın.",
       keywords: ["toolyflow gizlilik politikası", "online araçlar gizlilik", "site gizlilik politikası"],
       eyebrow: "Gizlilik Politikası",
       title: "Gizlilik politikası",
       description:
-        "Bu sayfa Toolyflow’un gizlilik yaklaşımını ve tarayıcı tabanlı araçlarını nasıl ele aldığını açıklar.",
+        "Bu sayfa Toolyflow’un tarayıcı tabanlı araçları, çerezleri, üçüncü taraf servisleri, reklam teknolojileri ve ziyaretçi onayını nasıl ele aldığını açıklar.",
       sections: [
         {
           title: "Bilgi işleme",
@@ -1210,14 +1947,51 @@ const tr = translateDictionary(en, "tr", {
             "Toolyflow ilk sürümde hafif kalacak şekilde tasarlanmıştır. Araçların çoğu doğrudan tarayıcıda çalıştığı için kullanıcı girdileri genellikle backend’e gönderilmeden client-side işlenir.",
         },
         {
-          title: "Analitik ve servis sağlayıcılar",
+          title: "Çerezler ve tarayıcı içi depolama",
           body:
-            "Toolyflow; trafik takibi, site sürekliliği ve gelecekteki gelir modeli için analitik, hosting, güvenlik veya reklam servisleri kullanabilir. Bu servisler tarayıcı tipi, cihaz bilgisi ve sayfa ziyaretleri gibi teknik verileri işleyebilir.",
+            "Toolyflow ve servis sağlayıcıları; sitenin çalışması, trafik ölçümü, sınırlı tercihlerin hatırlanması, performans analizi ve reklam desteği için çerezler, local storage veya benzer teknolojiler kullanabilir.",
+          items: [
+            "Çerezler site işlevleri, analitik ve reklam ölçümü için kullanılabilir.",
+            "Bazı tarayıcı verileri doğrudan gömülü servisler veya reklam teknolojileri tarafından oluşturulabilir.",
+            "Çerezleri tarayıcı ayarlarınız üzerinden istediğiniz zaman yönetebilir veya silebilirsiniz.",
+          ],
+        },
+        {
+          title: "Reklam servisleri ve üçüncü taraf sağlayıcılar",
+          body:
+            "Toolyflow, reklam göstermek, reklam performansını ölçmek ve site kullanımını anlamak için Google dahil üçüncü taraf sağlayıcılarla çalışabilir. Bu sağlayıcılar reklam sunumu ve ölçümü için çerez, web beacon, tanımlayıcı, IP adresi, tarayıcı bilgisi ve sayfa etkileşimi gibi teknik sinyalleri kullanabilir.",
+          items: [
+            "Google ve diğer sağlayıcılar, bu siteye veya başka sitelere yapılan önceki ziyaretlere göre reklam göstermek için çerez kullanabilir.",
+            "Üçüncü taraf reklam sağlayıcıları; reklam sunumu, frekans kontrolü, sahtecilik önleme ve raporlama için teknik verileri işleyebilir.",
+            "Hosting, analitik, güvenlik ve reklam ortakları kendi hizmetlerini çalıştırmak için gerekli teknik verileri işleyebilir.",
+          ],
+        },
+        {
+          title: "Onay ve ziyaretçi tercihleri",
+          body:
+            "Yürürlükteki mevzuatın gerekli olduğu durumlarda Toolyflow, zorunlu olmayan çerezler veya belirli reklam teknolojileri kullanılmadan önce ziyaretçiden onay isteyebilir. Verilen onay, reklam ve ölçüm özelliklerinin nasıl çalıştığını etkileyebilir.",
+          items: [
+            "Bazı çerez kategorileri için kabul, red veya tercih yönetimi ekranı gösterilebilir.",
+            "Onayın geri çekilmesi, kişiselleştirilmiş reklam veya analitik işlevlerini azaltabilir.",
+            "Birçok reklam tercihine tarayıcı ayarlarından veya Google reklam ayarlarından da müdahale edebilirsiniz.",
+          ],
+        },
+        {
+          title: "Gizlilik soruları için iletişim",
+          body:
+            "Çerezler, reklam servisleri veya ziyaretçi verileriyle ilgili gizlilik soruları için aşağıdaki adrese yazabilirsiniz.",
+          emailLabel: "Gizlilik iletişimi",
+          email: "info@toolyflow.com",
         },
         {
           title: "Politika güncellemeleri",
           body:
             "Ürün büyüdükçe bu politika güncellenebilir. Değişiklikler en güncel sürüm olarak bu sayfada yayınlanır.",
+        },
+        {
+          title: "Analitik ve servis sağlayıcılar",
+          body:
+            "Toolyflow; trafik takibi, site sürekliliği ve gelecekteki gelir modeli için analitik, hosting, güvenlik veya reklam servisleri kullanabilir. Bu servisler tarayıcı tipi, cihaz bilgisi ve sayfa ziyaretleri gibi teknik verileri işleyebilir.",
         },
       ],
     },
@@ -1268,6 +2042,87 @@ const tr = translateDictionary(en, "tr", {
       ],
       structuredDescription:
         "Platform, ton, uzunluk, emoji ve CTA kontrolleri sunan ücretsiz online bio generator.",
+      content: {
+        howToUseTitle: "Bio generator nasıl kullanılır",
+        howToUseDescription:
+          "En iyi sonuç için önce platformu ve tonu seçin, sonra gerçekten profilinizde durabilecek bio alternatifleri arasından seçim yapın.",
+        howToUseSteps: [
+          {
+            title: "Platformu ve tonu seçin",
+            body:
+              "Bio’nun yayınlanacağı platformu seçin, ardından profilinizin havasına uyan tonu belirleyin: clean, güçlü, kişisel, minimal veya daha gizemli.",
+          },
+          {
+            title: "Format filtrelerini ayarlayın",
+            body:
+              "Uzunluk, emoji ve CTA satırı seçeneklerini düzenleyerek çıkan batch’in gerçekten kullanabileceğiniz bio formatına yaklaşmasını sağlayın.",
+          },
+          {
+            title: "Üretin, karşılaştırın ve kopyalayın",
+            body:
+              "Yeni bir batch üretin, güçlü alternatifleri yan yana okuyun ve profilinize en uygun olanı doğrudan kopyalayın.",
+          },
+        ],
+        useCasesTitle: "En iyi kullanım senaryoları",
+        useCasesDescription:
+          "Bu araç, her seferinde sıfırdan bio yazmak yerine hızlıca birkaç düzgün alternatif görmek istediğinizde daha değerlidir.",
+        useCases: [
+          {
+            title: "Creator profilini yenilemek",
+            description:
+              "Instagram, TikTok, X, YouTube veya Twitch bio’nuz fazla düz, eski veya jenerik kalıyorsa daha temiz alternatifler üretin.",
+          },
+          {
+            title: "Yeni bir hesap açmak",
+            description:
+              "Yeni açılan creator hesabı için ilk bio’yu daha niyetli ve daha düzenli göstermek istediğinizde kullanın.",
+          },
+          {
+            title: "Farklı konumlandırmaları karşılaştırmak",
+            description:
+              "Minimal, keskin, eğlenceli veya daha profesyonel bir profil yönünü bio üzerinden test edin.",
+          },
+        ],
+        examplesTitle: "Örnekler",
+        examplesDescription:
+          "Araç birkaç üretim sonrası sizi buna benzer kısa ve kullanılabilir bio’lara yaklaştırmalıdır.",
+        examples: [
+          {
+            title: "Instagram creator bio",
+            inputLabel: "Kurulum",
+            input: "Platform: Instagram\nTon: Cool\nUzunluk: Dengeli\nEmoji: Kapalı\nCTA: Açık",
+            outputLabel: "Örnek çıktı",
+            output: "net görsel, düzenli enerji\ntemiz içerik, güçlü stil\niş birliklerine açık",
+            note: "Gösterişsiz ama niyetli görünen creator profilleri için uygundur.",
+          },
+          {
+            title: "YouTube kanal bio",
+            inputLabel: "Kurulum",
+            input: "Platform: YouTube\nTon: Profesyonel\nUzunluk: Kısa\nEmoji: Kapalı\nCTA: Kapalı",
+            outputLabel: "Örnek çıktı",
+            output: "net anlatım, düzenli yayın\ndüzenli video, temiz kurgu",
+            note: "Kanal sayfasının daha güvenilir ve düzenli görünmesini sağlar.",
+          },
+        ],
+        faqTitle: "Bio generator sık sorulan sorular",
+        faqs: [
+          {
+            question: "Bio generator her seferinde farklı sonuç verir mi?",
+            answer:
+              "Evet. Her üretimde yeni bir batch gelir; böylece tek bir cevaba sıkışmadan farklı yönleri karşılaştırabilirsiniz.",
+          },
+          {
+            question: "Hangi platformlar için uygundur?",
+            answer:
+              "Araç Instagram, TikTok, X, YouTube ve Twitch için ayarlanmıştır. Bu yüzden çıktılar bu profillerde daha doğal görünür.",
+          },
+          {
+            question: "Çıktıları doğrudan kullanabilir miyim?",
+            answer:
+              "Evet. Yine de en iyi yöntem birkaç batch üretip en iyi satırları seçmek ve son küçük dokunuşu kendiniz yapmaktır.",
+          },
+        ],
+      },
     },
     "nickname-generator": {
       ...en.tools["nickname-generator"],
@@ -1286,6 +2141,87 @@ const tr = translateDictionary(en, "tr", {
       ],
       structuredDescription:
         "Stil ve okunabilirlik kontrolleri sunan ücretsiz nickname generator.",
+      content: {
+        howToUseTitle: "Nickname generator nasıl kullanılır",
+        howToUseDescription:
+          "En iyi nickname sonuçları genelde net bir hava, daha kısa uzunluklar ve gerekmedikçe daha sade sembol kullanımıyla gelir.",
+        howToUseSteps: [
+          {
+            title: "Bir hava veya anahtar kelime ile başlayın",
+            body:
+              "İsterseniz kısa bir kelime girin, isterseniz boş bırakıp stil seçiminin batch’i yönlendirmesine izin verin.",
+          },
+          {
+            title: "Stil, uzunluk ve sembol tipini seçin",
+            body:
+              "Cool, dark, gaming veya aesthetic yönlerinden birini seçin; sonra nickname’in hangi platformlarda kullanılacağını düşünerek uzunluk ve sembol stilini ayarlayın.",
+          },
+          {
+            title: "Sahiplenilebilir bir sonuç gelene kadar yenileyin",
+            body:
+              "Yeni batch’ler üretin ve kulağa iyi gelen, okunabilen ve gerçekten kullanılabilir duran nickname’i seçin.",
+          },
+        ],
+        useCasesTitle: "En iyi kullanım senaryoları",
+        useCasesDescription:
+          "Bu araç, sözlük anlamı aramaktan çok iyi duran ve kullanılabilir hissi veren bir handle bulmak istediğinizde daha güçlüdür.",
+        useCases: [
+          {
+            title: "Oyun nicki ve kullanıcı adı üretmek",
+            description:
+              "Discord, Twitch, Steam veya oyun içi profiller için daha kısa ve daha güçlü handle’lar üretin.",
+          },
+          {
+            title: "Creator alias aramak",
+            description:
+              "Herkese açık kullanıcı adınızı veya creator isminizi belirlemeden önce daha sahiplenilebilir seçenekler görmek için kullanın.",
+          },
+          {
+            title: "Dark veya aesthetic profil adı bulmak",
+            description:
+              "Amaç kelime anlamından çok hava, ton ve akılda kalıcılıksa farklı stilleri hızlıca deneyin.",
+          },
+        ],
+        examplesTitle: "Örnekler",
+        examplesDescription:
+          "Güçlü bir çıktı kısa, akılda kalıcı ve sahiplenilebilir görünmelidir; bozuk hece yığını gibi durmamalıdır.",
+        examples: [
+          {
+            title: "Cool profil handle",
+            inputLabel: "Kurulum",
+            input: "Kelime: orbit\nStil: Cool\nUzunluk: Kısa\nSemboller: Temiz\nOkunabilirlik: Açık",
+            outputLabel: "Örnek çıktı",
+            output: "orbitlane\nvexaflow\nsorashift",
+            note: "Bunlar rastgele parçalanmış kelimelerden çok gerçek handle gibi görünür.",
+          },
+          {
+            title: "Dark gaming nickname",
+            inputLabel: "Kurulum",
+            input: "Kelime: raven\nStil: Dark\nUzunluk: Dengeli\nSemboller: Hafif\nOkunabilirlik: Kapalı",
+            outputLabel: "Örnek çıktı",
+            output: "ravenveil\nnoxdrift\nonyxmark",
+            note: "Daha karanlık bir hava verirken tamamen okunmaz hale düşmez.",
+          },
+        ],
+        faqTitle: "Nickname generator sık sorulan sorular",
+        faqs: [
+          {
+            question: "Nickname generator her tıklamada yeni batch verir mi?",
+            answer:
+              "Evet. Her üretimde yeni bir batch döner; böylece aynı ayarlarla farklı handle yönlerini hızlıca görürsünüz.",
+          },
+          {
+            question: "Amaç kelime anlamı mı, iyi görünen bir handle mı?",
+            answer:
+              "Asıl amaç iyi duran ve kullanılabilir hissi veren bir nickname bulmaktır. Güçlü bir sonucun her zaman düz sözlük anlamı olmak zorunda değildir.",
+          },
+          {
+            question: "Sembol kullanımı açık mı kapalı mı olmalı?",
+            answer:
+              "Genelde önce temiz veya hafif stillerle başlamak daha iyidir. Böylece nickname daha okunur kalır ve daha çok platformda rahat kullanılır.",
+          },
+        ],
+      },
     },
     "qr-generator": {
       ...en.tools["qr-generator"],
@@ -1304,6 +2240,87 @@ const tr = translateDictionary(en, "tr", {
       ],
       structuredDescription:
         "Canlı önizleme, farklı QR tipleri ve PNG veya SVG indirme sunan ücretsiz QR code generator.",
+      content: {
+        howToUseTitle: "QR code generator nasıl kullanılır",
+        howToUseDescription:
+          "En iyi akış, önce doğru QR tipini seçmek ve ardından indirmeden önce önizlemeyi kontrol etmektir.",
+        howToUseSteps: [
+          {
+            title: "QR tipini seçin",
+            body:
+              "URL, metin, e-posta, telefon veya WiFi seçeneklerinden size uygun olanı seçin ki kod tarandığında doğru aksiyon çalışsın.",
+          },
+          {
+            title: "Detayları girin ve önizlemeyi kontrol edin",
+            body:
+              "İçeriği ekleyin, gerekirse boyut ve renkleri ayarlayın, ardından önizlemenin temiz ve taranabilir kaldığından emin olun.",
+          },
+          {
+            title: "Gereken formatta indirin",
+            body:
+              "Hızlı paylaşım için PNG, baskı ve tasarım işlerinde daha esnek kullanım için SVG indirin.",
+          },
+        ],
+        useCasesTitle: "En iyi kullanım senaryoları",
+        useCasesDescription:
+          "QR kodlar, fiziksel yüzey ile dijital hedef arasında hızlı bir köprü gerektiğinde en değerlidir.",
+        useCases: [
+          {
+            title: "Link, menü veya profil paylaşımı",
+            description:
+              "Bir landing page, menü, rezervasyon sayfası veya creator profilini saniyeler içinde taranabilir hale getirin.",
+          },
+          {
+            title: "WiFi ve iletişim paylaşımı",
+            description:
+              "Misafir WiFi, e-posta veya telefon paylaşımını elle yazdırmak yerine QR ile daha temiz verin.",
+          },
+          {
+            title: "Poster, baskı ve paketleme işleri",
+            description:
+              "SVG indirerek kodun farklı boyutlarda da net kalmasını sağlayın.",
+          },
+        ],
+        examplesTitle: "Örnekler",
+        examplesDescription:
+          "Bunlar utility tipi bir QR aracında en sık görülen ve değer üreten kullanım örnekleridir.",
+        examples: [
+          {
+            title: "Web sitesi link QR",
+            inputLabel: "Kurulum",
+            input: "Tip: URL\nDeğer: https://toolyflow.com/tr/bio-generator\nBoyut: 320 px",
+            outputLabel: "Sonuç",
+            output: "PNG veya SVG olarak indirilmeye hazır taranabilir bir web sitesi QR kodu.",
+            note: "El ilanı, profil kartı ve hızlı paylaşım akışları için uygundur.",
+          },
+          {
+            title: "Misafir WiFi QR",
+            inputLabel: "Kurulum",
+            input: "Tip: WiFi\nSSID: StudioGuest\nŞifre: CreateFast24\nGüvenlik: WPA",
+            outputLabel: "Sonuç",
+            output: "Ziyaretçilerin şifre yazmadan ağa bağlanmasını sağlayan bir QR kod.",
+            note: "Kafe, stüdyo, ofis ve etkinliklerde pratik bir kullanım sunar.",
+          },
+        ],
+        faqTitle: "QR code generator sık sorulan sorular",
+        faqs: [
+          {
+            question: "Sadece link için mi QR oluşturabilirim?",
+            answer:
+              "Hayır. Araç URL, metin, e-posta, telefon ve WiFi modlarını destekler; böylece ihtiyacınız olan aksiyona uygun QR oluşturabilirsiniz.",
+          },
+          {
+            question: "PNG mi yoksa SVG mi indirmeliyim?",
+            answer:
+              "Hızlı dijital kullanım için çoğu zaman PNG yeterlidir. Baskı veya tasarım odaklı işlerde SVG daha esnektir.",
+          },
+          {
+            question: "QR kod önizlemesi canlı güncelleniyor mu?",
+            answer:
+              "Evet. İçerik ve ayarlar değiştikçe önizleme canlı güncellenir; böylece indirmeden önce sonucu rahatça kontrol edebilirsiniz.",
+          },
+        ],
+      },
     },
     "case-converter": {
       ...en.tools["case-converter"],
@@ -1322,6 +2339,87 @@ const tr = translateDictionary(en, "tr", {
       ],
       structuredDescription:
         "Uppercase, lowercase, sentence case, title case, camelCase, snake_case ve kebab-case için ücretsiz case converter.",
+      content: {
+        howToUseTitle: "Case converter nasıl kullanılır",
+        howToUseDescription:
+          "Sayfa tek yapıştırma ile çoklu çıktı görüp doğru formatı hemen kopyalama mantığıyla çalışır.",
+        howToUseSteps: [
+          {
+            title: "Kaynak metni yapıştırın",
+            body:
+              "Dönüştürmek istediğiniz metni kutuya bırakın. Çıktılar yazdıkça veya yapıştırdıkça anında güncellenir.",
+          },
+          {
+            title: "Formatları yan yana karşılaştırın",
+            body:
+              "Uppercase, lowercase, sentence, title, camelCase, PascalCase, snake_case ve kebab-case çıktıları tek ekranda görün.",
+          },
+          {
+            title: "İhtiyacınız olan çıktıyı kopyalayın",
+            body:
+              "İçerik düzenleme, değişken isimlendirme veya hızlı biçimlendirme için doğru karttaki sonucu doğrudan kopyalayın.",
+          },
+        ],
+        useCasesTitle: "En iyi kullanım senaryoları",
+        useCasesDescription:
+          "Bu araç metnin içerik, ürün ve geliştirme işleri arasında hızlıca taşınması gerektiğinde daha güçlüdür.",
+        useCases: [
+          {
+            title: "Başlık ve içerik düzenleme",
+            description:
+              "Başlık, açıklama, caption ve notlarda sentence case, title case veya diğer temel formatlara hızlıca geçin.",
+          },
+          {
+            title: "Developer isimlendirme formatları",
+            description:
+              "camelCase, PascalCase, snake_case ve kebab-case çıktıları değişken, route veya alan isimleri için üretin.",
+          },
+          {
+            title: "Toplu biçim kontrolü",
+            description:
+              "Birden fazla formatı aynı anda açık tutarak en doğru sonucu ekstra sayfa açmadan seçin.",
+          },
+        ],
+        examplesTitle: "Örnekler",
+        examplesDescription:
+          "İyi bir case converter, giriş ve çıkış farkını tek bakışta net göstermelidir.",
+        examples: [
+          {
+            title: "Başlık biçimlendirme",
+            inputLabel: "Girdi",
+            input: "build fast tools without extra friction",
+            outputLabel: "Çıktı",
+            output: "Title Case: Build Fast Tools Without Extra Friction\nSentence case: Build fast tools without extra friction",
+            note: "Editoryal stil seçimini hızlı yapmak için uygundur.",
+          },
+          {
+            title: "Developer isimlendirme",
+            inputLabel: "Girdi",
+            input: "fast online tools",
+            outputLabel: "Çıktı",
+            output: "camelCase: fastOnlineTools\nsnake_case: fast_online_tools\nkebab-case: fast-online-tools",
+            note: "Slug, değişken ve alan adı üretiminde pratiktir.",
+          },
+        ],
+        faqTitle: "Case converter sık sorulan sorular",
+        faqs: [
+          {
+            question: "Hangi formatları kopyalayabilirim?",
+            answer:
+              "Sayfa uppercase, lowercase, sentence case, title case, camelCase, PascalCase, snake_case, kebab-case, trimmed text ve single-line çıktılarını sunar.",
+          },
+          {
+            question: "Birden fazla formatı aynı anda karşılaştırabilir miyim?",
+            answer:
+              "Evet. Çıktılar aynı ekranda birlikte durur; böylece farklı stilleri rahatça karşılaştırıp doğru olanı kopyalayabilirsiniz.",
+          },
+          {
+            question: "Bu araç geliştiriciler için de uygun mu?",
+            answer:
+              "Evet. Hem içerik işleri hem de kod dostu isimlendirme formatları için kullanışlıdır.",
+          },
+        ],
+      },
     },
     "decision-wheel": {
       ...en.tools["decision-wheel"],

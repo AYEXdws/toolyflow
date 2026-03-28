@@ -221,7 +221,7 @@ export function CaseConverter({ labels }: CaseConverterProps) {
               <button
                 type="button"
                 onClick={() => handleCopy(item.key, item.value)}
-                className="w-full shrink-0 rounded-full bg-[color:var(--color-accent)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white sm:w-auto"
+                className="w-full min-h-11 shrink-0 rounded-full bg-[color:var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white sm:w-auto"
               >
                 {copiedKey === item.key ? labels.copied : labels.copy}
               </button>

@@ -1,8 +1,16 @@
+import Link from "next/link";
+
 type ContentPageProps = {
   eyebrow: string;
   title: string;
   description: string;
-  sections: Array<{ title: string; body: string }>;
+  sections: Array<{
+    title: string;
+    body: string;
+    items?: string[];
+    emailLabel?: string;
+    email?: string;
+  }>;
 };
 
 export function ContentPage({
@@ -35,9 +43,32 @@ export function ContentPage({
                 <h2 className="font-display text-3xl tracking-tight text-[color:var(--color-foreground)]">
                   {section.title}
                 </h2>
-                <p className="text-base leading-8 text-[color:var(--color-muted)]">
+                <p className="whitespace-pre-line text-base leading-8 text-[color:var(--color-muted)]">
                   {section.body}
                 </p>
+                {section.items?.length ? (
+                  <ul className="space-y-3 pt-1">
+                    {section.items.map((item) => (
+                      <li
+                        key={item}
+                        className="rounded-[20px] bg-black/[0.03] px-4 py-3 text-sm leading-7 text-[color:var(--color-muted)]"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+                {section.email ? (
+                  <div className="pt-1">
+                    <Link
+                      href={`mailto:${section.email}`}
+                      className="inline-flex min-h-11 flex-wrap items-center gap-2 rounded-full border border-[color:var(--color-accent)] bg-[color:var(--color-accent-soft)] px-4 py-2.5 text-sm font-medium text-[color:var(--color-accent-strong)] transition hover:bg-white"
+                    >
+                      <span>{section.emailLabel ?? "Email"}</span>
+                      <span>{section.email}</span>
+                    </Link>
+                  </div>
+                ) : null}
               </section>
             ))}
           </div>

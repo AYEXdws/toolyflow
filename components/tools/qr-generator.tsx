@@ -347,7 +347,7 @@ export function QrGenerator({ labels }: QrGeneratorProps) {
                     key={option}
                     type="button"
                     onClick={() => setSize(option)}
-                    className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                    className={`min-h-11 rounded-full px-4 py-2.5 text-sm font-medium transition ${
                       size === option
                         ? "bg-[color:var(--color-accent)] text-white"
                         : "border border-black/10 bg-white text-[color:var(--color-foreground)] hover:border-[color:var(--color-accent)]"

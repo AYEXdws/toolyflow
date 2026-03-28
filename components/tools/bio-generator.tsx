@@ -451,7 +451,7 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
                   : "border border-black/10 bg-white text-[color:var(--color-foreground)] hover:border-[color:var(--color-accent)]"
               }`}
             >
-              <span className="block text-xs uppercase tracking-[0.22em] opacity-80">
+              <span className="block text-[0.8125rem] uppercase tracking-[0.18em] opacity-80">
                 {labels.emojiLabel}
               </span>
               <span className="mt-2 block">{emojiEnabled ? labels.toggleOn : labels.toggleOff}</span>
@@ -466,7 +466,7 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
                   : "border border-black/10 bg-white text-[color:var(--color-foreground)] hover:border-[color:var(--color-accent)]"
               }`}
             >
-              <span className="block text-xs uppercase tracking-[0.22em] opacity-80">
+              <span className="block text-[0.8125rem] uppercase tracking-[0.18em] opacity-80">
                 {labels.ctaLabel}
               </span>
               <span className="mt-2 block">{ctaEnabled ? labels.toggleOn : labels.toggleOff}</span>
@@ -490,7 +490,7 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
             >
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="flex flex-wrap gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-muted)]">
+                  <div className="flex flex-wrap gap-2 text-[13px] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-muted)]">
                     <span className="rounded-full bg-black/[0.04] px-3 py-1">
                       {labels.platforms[platform]}
                     </span>
@@ -504,7 +504,7 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
                   <button
                     type="button"
                     onClick={() => handleCopy(bio.text)}
-                    className="inline-flex w-fit shrink-0 items-center justify-center rounded-full border border-[color:var(--color-accent)] bg-[color:var(--color-surface)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--color-accent-strong)] transition hover:bg-[color:var(--color-accent)] hover:text-white"
+                    className="inline-flex min-h-11 w-fit shrink-0 items-center justify-center rounded-full border border-[color:var(--color-accent)] bg-[color:var(--color-surface)] px-4 py-2.5 text-sm font-semibold text-[color:var(--color-accent-strong)] transition hover:bg-[color:var(--color-accent)] hover:text-white"
                   >
                     {copiedValue === bio.text ? labels.copied : labels.copy}
                   </button>

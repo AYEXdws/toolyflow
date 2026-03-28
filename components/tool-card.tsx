@@ -36,7 +36,7 @@ export function ToolCard({ tool, href, goLabel }: ToolCardProps) {
       <div className="mt-8 flex justify-end">
         <Link
           href={href}
-          className="inline-flex rounded-full border border-black/10 px-4 py-2 text-sm font-medium text-[color:var(--color-foreground)] transition group-hover:border-[color:var(--color-accent)] group-hover:bg-[color:var(--color-accent)] group-hover:text-white"
+          className="inline-flex min-h-11 items-center rounded-full border border-black/10 px-4 py-2.5 text-sm font-medium text-[color:var(--color-foreground)] transition group-hover:border-[color:var(--color-accent)] group-hover:bg-[color:var(--color-accent)] group-hover:text-white"
         >
           {goLabel}
         </Link>

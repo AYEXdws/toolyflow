@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 
+import { ToolContentSections } from "@/components/tool-content-sections";
+
 type ToolPageShellProps = {
   eyebrow: string;
   title: string;
@@ -16,6 +18,26 @@ type ToolPageShellProps = {
     shortDescription: string;
     href: string;
   }>;
+  content: {
+    howToUseTitle: string;
+    howToUseDescription: string;
+    howToUseSteps: Array<{ title: string; body: string }>;
+    useCasesTitle: string;
+    useCasesDescription: string;
+    useCases: Array<{ title: string; description: string }>;
+    examplesTitle: string;
+    examplesDescription: string;
+    examples: Array<{
+      title: string;
+      inputLabel: string;
+      input: string;
+      outputLabel: string;
+      output: string;
+      note: string;
+    }>;
+    faqTitle: string;
+    faqs: Array<{ question: string; answer: string }>;
+  };
   children: ReactNode;
 };
 
@@ -26,6 +48,7 @@ export function ToolPageShell({
   highlights,
   labels,
   relatedTools,
+  content,
   children,
 }: ToolPageShellProps) {
   return (
@@ -46,6 +69,12 @@ export function ToolPageShell({
             </div>
 
             {children}
+
+            <ToolContentSections
+              content={content}
+              relatedHeading={labels.exploreMore}
+              relatedTools={relatedTools}
+            />
           </section>
 
           <aside className="min-w-0 space-y-6">
