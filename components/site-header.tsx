@@ -2,10 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import { LanguageSwitcher } from "@/components/language-switcher";
-import { localizePath, type Locale } from "@/lib/i18n";
+import {
+  localeLabels,
+  locales,
+  localizePath,
+  replaceLocaleInPath,
+  type Locale,
+} from "@/lib/i18n";
 
 type SiteHeaderProps = {
   locale: Locale;
@@ -24,6 +31,7 @@ type SiteHeaderProps = {
 
 export function SiteHeader({ locale, labels }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
   const homeHref = localizePath(locale);
   const navigation = [
     { href: `${homeHref}#tools`, label: labels.tools },
@@ -105,10 +113,10 @@ export function SiteHeader({ locale, labels }: SiteHeaderProps) {
             <button
               type="button"
               aria-label={labels.menu}
-              className="fixed inset-0 top-[73px] z-30 bg-black/55 lg:hidden"
+              className="fixed inset-x-0 bottom-0 top-[73px] z-40 bg-black/55 lg:hidden"
               onClick={() => setIsMenuOpen(false)}
             />
-            <div className="fixed inset-y-[73px] right-0 z-40 w-[min(88vw,360px)] border-l border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-5 shadow-[-24px_0_60px_rgba(0,0,0,0.32)] lg:hidden">
+            <div className="fixed bottom-0 right-0 top-[73px] z-50 w-[min(88vw,360px)] overflow-y-auto overscroll-contain border-l border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-5 pb-[calc(2rem+env(safe-area-inset-bottom))] shadow-[-24px_0_60px_rgba(0,0,0,0.32)] lg:hidden">
               <nav aria-label="Mobile primary">
                 <ul className="grid gap-2">
                   {[
@@ -130,7 +138,33 @@ export function SiteHeader({ locale, labels }: SiteHeaderProps) {
               </nav>
 
               <div className="mt-5 border-t border-[color:var(--brand-border)] pt-5">
-                <LanguageSwitcher currentLocale={locale} label={labels.language} />
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-text-secondary)]">
+                  {labels.language}
+                </p>
+                <div className="mt-3 grid gap-2">
+                  {locales.map((targetLocale) => {
+                    const isActive = targetLocale === locale;
+
+                    return (
+                      <Link
+                        key={targetLocale}
+                        href={replaceLocaleInPath(pathname, targetLocale)}
+                        hrefLang={targetLocale}
+                        onClick={() => setIsMenuOpen(false)}
+                        className={`flex min-h-11 items-center justify-between rounded-2xl border px-4 py-3 text-sm font-medium transition ${
+                          isActive
+                            ? "border-transparent bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                            : "border-[color:var(--brand-border)] bg-[color:var(--brand-card)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
+                        }`}
+                      >
+                        <span>{localeLabels[targetLocale]}</span>
+                        <span className="text-xs font-semibold uppercase tracking-[0.16em] opacity-80">
+                          {targetLocale}
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </>

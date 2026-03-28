@@ -101,10 +101,7 @@ type CaseConverterProps = {
 };
 
 export function CaseConverter({ labels }: CaseConverterProps) {
-  const [input, setInput] = useState(
-    labels.initialText ??
-      "Toolyflow helps you clean up text in seconds.\nUse one input and copy the output you need."
-  );
+  const [input, setInput] = useState(labels.initialText ?? "");
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   const stats = useMemo(() => {

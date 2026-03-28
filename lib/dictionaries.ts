@@ -1233,6 +1233,8 @@ function createEnglishDictionary(): Dictionary {
     caseConverter: {
       inputLabel: "Paste your text",
       placeholder: "Enter or paste text to convert.",
+      initialText:
+        "Toolyflow helps you clean up text in seconds.\nUse one input and copy the output you need.",
       characters: "Characters",
       words: "Words",
       lines: "Lines",
@@ -1771,7 +1773,7 @@ const tr = translateDictionary(en, "tr", {
         input: "launch your next creator page with cleaner text",
         outputLabel: "İşe yarayan çıktı",
         output:
-          "Title Case: Launch Your Next Creator Page With Cleaner Text\nkebab-case: launch-your-next-creator-page-with-cleaner-text",
+          "Başlık düzeni: Launch Your Next Creator Page With Cleaner Text\nkebab-case: launch-your-next-creator-page-with-cleaner-text",
       },
       {
         title: "Yayınlanabilir bir bio üretmek",
@@ -1780,7 +1782,7 @@ const tr = translateDictionary(en, "tr", {
         toolSlug: "bio-generator",
         toolName: "Bio Generator",
         inputLabel: "Örnek kurulum",
-        input: "Platform: Instagram\nTon: Cool\nUzunluk: Dengeli\nCTA: Açık",
+        input: "Platform: Instagram\nTon: Havalı\nUzunluk: Dengeli\nCTA: Açık",
         outputLabel: "İşe yarayan çıktı",
         output:
           "net görsel, düzenli enerji\ntemiz içerik, güçlü stil\niş birliklerine açık",
@@ -1792,7 +1794,7 @@ const tr = translateDictionary(en, "tr", {
         toolSlug: "nickname-generator",
         toolName: "Nickname Generator",
         inputLabel: "Örnek kurulum",
-        input: "Kelime: orbit\nStil: Cool\nUzunluk: Kısa\nOkunabilirlik: Açık",
+        input: "Kelime: orbit\nStil: Havalı\nUzunluk: Kısa\nOkunabilirlik: Açık",
         outputLabel: "İşe yarayan çıktı",
         output: "orbitlane\nvexaflow\nsorashift",
       },
@@ -2165,7 +2167,7 @@ const tr = translateDictionary(en, "tr", {
           {
             title: "Instagram creator bio",
             inputLabel: "Kurulum",
-            input: "Platform: Instagram\nTon: Cool\nUzunluk: Dengeli\nEmoji: Kapalı\nCTA: Açık",
+            input: "Platform: Instagram\nTon: Havalı\nUzunluk: Dengeli\nEmoji: Kapalı\nCTA: Açık",
             outputLabel: "Örnek çıktı",
             output: "net görsel, düzenli enerji\ntemiz içerik, güçlü stil\niş birliklerine açık",
             note: "Gösterişsiz ama niyetli görünen creator profilleri için uygundur.",
@@ -2203,7 +2205,7 @@ const tr = translateDictionary(en, "tr", {
       ...en.tools["nickname-generator"],
       name: "Kullanıcı Adı Üreticisi",
       shortDescription:
-        "Cool, dark, gaming ve aesthetic stillerde takma ad fikirleri üretin.",
+        "Havalı, karanlık, oyun ve estetik stillerde kullanıcı adı fikirleri üretin.",
       description:
         "Anahtar kelimeye göre hızlıca hatırlanabilir nickname önerileri alın ve kopyalayın.",
       eyebrow: "İsim fikri aracı",
@@ -2237,7 +2239,7 @@ const tr = translateDictionary(en, "tr", {
           {
             title: "Stil, uzunluk ve sembol tipini seçin",
             body:
-              "Cool, dark, gaming veya aesthetic yönlerinden birini seçin; sonra nickname’in hangi platformlarda kullanılacağını düşünerek uzunluk ve sembol stilini ayarlayın.",
+              "Havalı, karanlık, oyun veya estetik yönlerinden birini seçin; sonra kullanıcı adının hangi platformlarda kullanılacağını düşünerek uzunluk ve sembol stilini ayarlayın.",
           },
           {
             title: "Sahiplenilebilir bir sonuç gelene kadar yenileyin",
@@ -2260,7 +2262,7 @@ const tr = translateDictionary(en, "tr", {
               "Herkese açık kullanıcı adınızı veya creator isminizi belirlemeden önce daha sahiplenilebilir seçenekler görmek için kullanın.",
           },
           {
-            title: "Dark veya aesthetic profil adı bulmak",
+            title: "Karanlık veya estetik profil adı bulmak",
             description:
               "Amaç kelime anlamından çok hava, ton ve akılda kalıcılıksa farklı stilleri hızlıca deneyin.",
           },
@@ -2270,17 +2272,17 @@ const tr = translateDictionary(en, "tr", {
           "Güçlü bir çıktı kısa, akılda kalıcı ve sahiplenilebilir görünmelidir; bozuk hece yığını gibi durmamalıdır.",
         examples: [
           {
-            title: "Cool profil handle",
+            title: "Havalı profil kullanıcı adı",
             inputLabel: "Kurulum",
-            input: "Kelime: orbit\nStil: Cool\nUzunluk: Kısa\nSemboller: Temiz\nOkunabilirlik: Açık",
+            input: "Kelime: orbit\nStil: Havalı\nUzunluk: Kısa\nSemboller: Temiz\nOkunabilirlik: Açık",
             outputLabel: "Örnek çıktı",
             output: "orbitlane\nvexaflow\nsorashift",
             note: "Bunlar rastgele parçalanmış kelimelerden çok gerçek handle gibi görünür.",
           },
           {
-            title: "Dark gaming nickname",
+            title: "Karanlık oyun kullanıcı adı",
             inputLabel: "Kurulum",
-            input: "Kelime: raven\nStil: Dark\nUzunluk: Dengeli\nSemboller: Hafif\nOkunabilirlik: Kapalı",
+            input: "Kelime: raven\nStil: Karanlık\nUzunluk: Dengeli\nSemboller: Hafif\nOkunabilirlik: Kapalı",
             outputLabel: "Örnek çıktı",
             output: "ravenveil\nnoxdrift\nonyxmark",
             note: "Daha karanlık bir hava verirken tamamen okunmaz hale düşmez.",
@@ -2488,7 +2490,7 @@ const tr = translateDictionary(en, "tr", {
             inputLabel: "Girdi",
             input: "build fast tools without extra friction",
             outputLabel: "Çıktı",
-            output: "Title Case: Build Fast Tools Without Extra Friction\nSentence case: Build fast tools without extra friction",
+            output: "Başlık düzeni: Build Fast Tools Without Extra Friction\nCümle düzeni: Build fast tools without extra friction",
             note: "Editoryal stil seçimini hızlı yapmak için uygundur.",
           },
           {
@@ -2614,10 +2616,10 @@ const tr = translateDictionary(en, "tr", {
     toggleOn: "Açık",
     toggleOff: "Kapalı",
     styles: {
-      cool: "Cool",
-      dark: "Dark",
-      gaming: "Gaming",
-      aesthetic: "Aesthetic",
+      cool: "Havalı",
+      dark: "Karanlık",
+      gaming: "Oyun",
+      aesthetic: "Estetik",
     },
     lengthModes: {
       short: "Kısa",
@@ -2670,8 +2672,8 @@ const tr = translateDictionary(en, "tr", {
       twitch: "Twitch",
     },
     tones: {
-      cool: "Cool",
-      mysterious: "Mysterious",
+      cool: "Havalı",
+      mysterious: "Gizemli",
       personal: "Kişisel",
       professional: "Profesyonel",
       minimal: "Minimal",
@@ -2939,7 +2941,7 @@ const es = translateDictionary(en, "es", {
         input: "launch your next creator page with cleaner text",
         outputLabel: "Salida útil",
         output:
-          "Title Case: Launch Your Next Creator Page With Cleaner Text\nkebab-case: launch-your-next-creator-page-with-cleaner-text",
+          "Formato título: Launch Your Next Creator Page With Cleaner Text\nkebab-case: launch-your-next-creator-page-with-cleaner-text",
       },
       {
         title: "Generar una bio publicable",
@@ -2948,7 +2950,7 @@ const es = translateDictionary(en, "es", {
         toolSlug: "bio-generator",
         toolName: "Bio Generator",
         inputLabel: "Configuración",
-        input: "Plataforma: Instagram\nTono: Cool\nLongitud: Balanced\nCTA: On",
+        input: "Plataforma: Instagram\nTono: Fresco\nLongitud: Equilibrada\nCTA: Sí",
         outputLabel: "Salida útil",
         output:
           "visual limpio, presencia constante\ncontenido simple, identidad fuerte\nabierto a colaboraciones",
@@ -2960,7 +2962,7 @@ const es = translateDictionary(en, "es", {
         toolSlug: "nickname-generator",
         toolName: "Nickname Generator",
         inputLabel: "Configuración",
-        input: "Keyword: orbit\nStyle: Cool\nLength: Short\nPronounceable: On",
+        input: "Palabra: orbit\nEstilo: Fresco\nLongitud: Corta\nPronunciable: Sí",
         outputLabel: "Salida útil",
         output: "orbitlane\nvexaflow\nsorashift",
       },
@@ -3321,7 +3323,7 @@ const es = translateDictionary(en, "es", {
           {
             title: "Bio para Instagram",
             inputLabel: "Configuración",
-            input: "Plataforma: Instagram\nTono: Cool\nLongitud: Balanced\nEmoji: Off\nCTA: On",
+            input: "Plataforma: Instagram\nTono: Fresco\nLongitud: Equilibrada\nEmoji: No\nCTA: Sí",
             outputLabel: "Salida",
             output:
               "visual limpio, presencia constante\ncontenido simple, identidad fuerte\nabierto a colaboraciones",
@@ -3330,7 +3332,7 @@ const es = translateDictionary(en, "es", {
           {
             title: "Bio para canal de YouTube",
             inputLabel: "Configuración",
-            input: "Plataforma: YouTube\nTono: Professional\nLongitud: Short\nEmoji: Off\nCTA: Off",
+            input: "Plataforma: YouTube\nTono: Profesional\nLongitud: Corta\nEmoji: No\nCTA: No",
             outputLabel: "Salida",
             output:
               "voz clara, publicaciones constantes\ncreando videos útiles con regularidad",
@@ -3425,7 +3427,7 @@ const es = translateDictionary(en, "es", {
           {
             title: "Handle cool para perfil",
             inputLabel: "Configuración",
-            input: "Keyword: orbit\nStyle: Cool\nLength: Short\nSymbols: Clean\nPronounceable: On",
+            input: "Palabra: orbit\nEstilo: Fresco\nLongitud: Corta\nSímbolos: Limpios\nPronunciable: Sí",
             outputLabel: "Salida",
             output: "orbitlane\nvexaflow\nsorashift",
             note: "Se sienten más cerca de handles reales que de sílabas rotas al azar.",
@@ -3433,7 +3435,7 @@ const es = translateDictionary(en, "es", {
           {
             title: "Nickname dark para gaming",
             inputLabel: "Configuración",
-            input: "Keyword: raven\nStyle: Dark\nLength: Balanced\nSymbols: Light\nPronounceable: Off",
+            input: "Palabra: raven\nEstilo: Oscuro\nLongitud: Equilibrada\nSímbolos: Ligeros\nPronunciable: No",
             outputLabel: "Salida",
             output: "ravenveil\nnoxdrift\nonyxmark",
             note: "Útil cuando quieres algo más oscuro sin perder legibilidad.",
@@ -3535,7 +3537,7 @@ const es = translateDictionary(en, "es", {
           {
             title: "QR para WiFi invitado",
             inputLabel: "Configuración",
-            input: "Tipo: WiFi\nSSID: StudioGuest\nPassword: CreateFast24\nSecurity: WPA",
+            input: "Tipo: Wi‑Fi\nSSID: StudioGuest\nContraseña: CreateFast24\nSeguridad: WPA",
             outputLabel: "Resultado",
             output: "Un QR que permite entrar a la red sin escribir la contraseña manualmente.",
             note: "Caso práctico para cafeterías, estudios, oficinas y eventos.",
@@ -3632,7 +3634,7 @@ const es = translateDictionary(en, "es", {
             input: "build fast tools without extra friction",
             outputLabel: "Salida",
             output:
-              "Title Case: Build Fast Tools Without Extra Friction\nSentence case: Build fast tools without extra friction",
+              "Formato título: Build Fast Tools Without Extra Friction\nFormato oración: Build fast tools without extra friction",
             note: "Útil cuando necesitas decidir rápido entre estilos editoriales.",
           },
           {
@@ -3782,9 +3784,9 @@ const es = translateDictionary(en, "es", {
     toggleOn: "Sí",
     toggleOff: "No",
     styles: {
-      cool: "Cool",
+      cool: "Fresco",
       dark: "Oscuro",
-      gaming: "Gaming",
+      gaming: "Gamer",
       aesthetic: "Estético",
     },
     lengthModes: {
@@ -3838,14 +3840,14 @@ const es = translateDictionary(en, "es", {
       twitch: "Twitch",
     },
     tones: {
-      cool: "Cool",
+      cool: "Fresco",
       mysterious: "Misterioso",
       personal: "Personal",
       professional: "Profesional",
-      minimal: "Minimal",
-      bold: "Fuerte",
-      playful: "Divertido",
-      sharp: "Afilado",
+      minimal: "Minimalista",
+      bold: "Atrevido",
+      playful: "Juguetón",
+      sharp: "Preciso",
     },
     lengths: {
       short: "Corta",
@@ -3975,6 +3977,8 @@ const es = translateDictionary(en, "es", {
   caseConverter: {
     inputLabel: "Pega tu texto",
     placeholder: "Escribe o pega texto para convertir.",
+    initialText:
+      "Con Toolyflow puedes ordenar tu texto en segundos.\nUsa una sola entrada y copia la salida que necesites.",
     characters: "Caracteres",
     words: "Palabras",
     lines: "Líneas",
@@ -3982,8 +3986,8 @@ const es = translateDictionary(en, "es", {
     clearText: "Limpiar texto",
     uppercase: "Mayúsculas",
     lowercase: "Minúsculas",
-    sentenceCase: "Sentence case",
-    titleCase: "Title Case",
+    sentenceCase: "Formato oración",
+    titleCase: "Formato título",
     camelCase: "camelCase",
     pascalCase: "PascalCase",
     snakeCase: "snake_case",
@@ -4009,14 +4013,14 @@ const es = translateDictionary(en, "es", {
     backgroundLabel: "Fondo",
     urlMode: "URL",
     textMode: "Texto",
-    emailMode: "Email",
+    emailMode: "Correo",
     phoneMode: "Teléfono",
-    wifiMode: "WiFi",
-    emailLabel: "Correo",
+    wifiMode: "Wi‑Fi",
+    emailLabel: "Correo electrónico",
     subjectLabel: "Asunto",
     bodyLabel: "Mensaje",
     phoneLabel: "Número",
-    ssidLabel: "Nombre de WiFi",
+    ssidLabel: "Nombre de la red Wi‑Fi",
     passwordLabel: "Contraseña",
     securityLabel: "Seguridad",
     securityWpa: "WPA",
@@ -4101,7 +4105,7 @@ const de = translateDictionary(en, "de", {
         input: "launch your next creator page with cleaner text",
         outputLabel: "Nützliche Ausgabe",
         output:
-          "Title Case: Launch Your Next Creator Page With Cleaner Text\nkebab-case: launch-your-next-creator-page-with-cleaner-text",
+          "Titelformat: Launch Your Next Creator Page With Cleaner Text\nkebab-case: launch-your-next-creator-page-with-cleaner-text",
       },
       {
         title: "Eine brauchbare Bio erzeugen",
@@ -4110,7 +4114,7 @@ const de = translateDictionary(en, "de", {
         toolSlug: "bio-generator",
         toolName: "Bio Generator",
         inputLabel: "Beispiel-Setup",
-        input: "Plattform: Instagram\nTon: Cool\nLänge: Balanced\nCTA: On",
+        input: "Plattform: Instagram\nTon: Locker\nLänge: Ausgewogen\nCTA: An",
         outputLabel: "Nützliche Ausgabe",
         output:
           "klare Optik, ruhige Präsenz\neinfache Inhalte, starke Identität\noffen für Collabs",
@@ -4122,7 +4126,7 @@ const de = translateDictionary(en, "de", {
         toolSlug: "nickname-generator",
         toolName: "Nickname Generator",
         inputLabel: "Beispiel-Setup",
-        input: "Keyword: orbit\nStyle: Cool\nLength: Short\nPronounceable: On",
+        input: "Keyword: orbit\nStil: Locker\nLänge: Kurz\nAussprechbar: An",
         outputLabel: "Nützliche Ausgabe",
         output: "orbitlane\nvexaflow\nsorashift",
       },
@@ -4483,7 +4487,7 @@ const de = translateDictionary(en, "de", {
           {
             title: "Instagram-Bio",
             inputLabel: "Setup",
-            input: "Plattform: Instagram\nTon: Cool\nLänge: Balanced\nEmoji: Off\nCTA: On",
+            input: "Plattform: Instagram\nTon: Locker\nLänge: Ausgewogen\nEmoji: Aus\nCTA: An",
             outputLabel: "Ausgabe",
             output:
               "klare Optik, ruhige Präsenz\neinfache Inhalte, starke Identität\noffen für Collabs",
@@ -4492,7 +4496,7 @@ const de = translateDictionary(en, "de", {
           {
             title: "YouTube-Channel-Bio",
             inputLabel: "Setup",
-            input: "Plattform: YouTube\nTon: Professional\nLänge: Short\nEmoji: Off\nCTA: Off",
+            input: "Plattform: YouTube\nTon: Professionell\nLänge: Kurz\nEmoji: Aus\nCTA: Aus",
             outputLabel: "Ausgabe",
             output: "klare Stimme, stabile Uploads\nnützliche Videos mit Konstanz",
             note: "Passt für Channel-Seiten, die glaubwürdig und strukturiert wirken sollen.",
@@ -4522,7 +4526,7 @@ const de = translateDictionary(en, "de", {
       shortDescription:
         "Erzeuge Nickname-Ideen in coolen, dunklen, Gaming- und ästhetischen Stilen.",
       description:
-        "Generiere einprägsame Nicknames mit optionalem Keyword und schnellem Copy-Flow fürs Brainstorming.",
+        "Generiere einprägsame Nicknames mit optionalem Keyword und schnellem Kopierfluss fürs Brainstorming.",
       eyebrow: "Namensidee-Tool",
       metaTitle: "Benutzernamen-Generator — Kostenlos | Toolyflow",
       metaDescription:
@@ -4584,9 +4588,9 @@ const de = translateDictionary(en, "de", {
           "Starke Ausgaben sollten kurz genug zum Nutzen, leicht genug zum Merken und eigen genug zum Besitzen sein.",
         examples: [
           {
-            title: "Cooles Profil-Handle",
+            title: "Profil-Handle mit Stil",
             inputLabel: "Setup",
-            input: "Keyword: orbit\nStyle: Cool\nLength: Short\nSymbols: Clean\nPronounceable: On",
+            input: "Keyword: orbit\nStil: Locker\nLänge: Kurz\nSymbole: Klar\nAussprechbar: An",
             outputLabel: "Ausgabe",
             output: "orbitlane\nvexaflow\nsorashift",
             note: "Wirkt deutlich eher wie ein brauchbares Handle als wie zufällige Silbenreste.",
@@ -4594,7 +4598,7 @@ const de = translateDictionary(en, "de", {
           {
             title: "Dunkler Gaming-Nickname",
             inputLabel: "Setup",
-            input: "Keyword: raven\nStyle: Dark\nLength: Balanced\nSymbols: Light\nPronounceable: Off",
+            input: "Keyword: raven\nStil: Dunkel\nLänge: Ausgewogen\nSymbole: Leicht\nAussprechbar: Aus",
             outputLabel: "Ausgabe",
             output: "ravenveil\nnoxdrift\nonyxmark",
             note: "Hilfreich, wenn es düsterer wirken soll, ohne unlesbar zu werden.",
@@ -4696,7 +4700,7 @@ const de = translateDictionary(en, "de", {
           {
             title: "QR für Gast-WiFi",
             inputLabel: "Setup",
-            input: "Typ: WiFi\nSSID: StudioGuest\nPassword: CreateFast24\nSecurity: WPA",
+            input: "Typ: WLAN\nSSID: StudioGuest\nPasswort: CreateFast24\nSicherheit: WPA",
             outputLabel: "Ergebnis",
             output: "Ein QR, mit dem Besucher dem Netzwerk beitreten können, ohne das Passwort zu tippen.",
             note: "Praktisch für Cafés, Studios, Büros und Events.",
@@ -4730,7 +4734,7 @@ const de = translateDictionary(en, "de", {
       eyebrow: "Textformatierungs-Tool",
       metaTitle: "Text-Konverter — Groß- und Kleinschreibung | Toolyflow",
       metaDescription:
-        "Wandle Text in Großbuchstaben, Kleinbuchstaben, Title Case, camelCase und mehr mit einem kostenlosen Tool um.",
+        "Wandle Text in Großbuchstaben, Kleinbuchstaben, Titelformat, camelCase und mehr mit einem kostenlosen Tool um.",
       keywords: [
         "text-konverter",
         "groß und kleinschreibung umwandeln",
@@ -4747,7 +4751,7 @@ const de = translateDictionary(en, "de", {
         "Kostenloser Online-Case-Converter für uppercase, lowercase, sentence case, title case, camelCase, snake_case und kebab-case.",
       content: {
         howToUseDescription:
-          "Die Seite ist für schnelle Compare-and-Copy-Workflows gebaut: einmal einfügen, mehrere Formate prüfen und sofort die passende Ausgabe kopieren.",
+          "Die Seite ist für schnelle Vergleich-und-Kopieren-Workflows gebaut: einmal einfügen, mehrere Formate prüfen und sofort die passende Ausgabe kopieren.",
         howToUseSteps: [
           {
             title: "Quelltext einfügen",
@@ -4762,7 +4766,7 @@ const de = translateDictionary(en, "de", {
           {
             title: "Genau das richtige Ergebnis kopieren",
             body:
-              "Nutze den Copy-Button auf der Karte, die zu deinem Workflow passt, egal ob für Content, Variablen, Slugs oder Titel.",
+              "Nutze den Kopieren-Button auf der Karte, die zu deinem Workflow passt, egal ob für Content, Variablen, Slugs oder Titel.",
           },
         ],
         useCasesDescription:
@@ -4793,7 +4797,7 @@ const de = translateDictionary(en, "de", {
             input: "build fast tools without extra friction",
             outputLabel: "Ausgabe",
             output:
-              "Title Case: Build Fast Tools Without Extra Friction\nSentence case: Build fast tools without extra friction",
+              "Titelformat: Build Fast Tools Without Extra Friction\nSatzformat: Build fast tools without extra friction",
             note: "Praktisch, wenn du schnell zwischen redaktionellen Stilen entscheiden musst.",
           },
           {
@@ -4943,7 +4947,7 @@ const de = translateDictionary(en, "de", {
     toggleOn: "An",
     toggleOff: "Aus",
     styles: {
-      cool: "Cool",
+      cool: "Locker",
       dark: "Dunkel",
       gaming: "Gaming",
       aesthetic: "Ästhetisch",
@@ -4999,7 +5003,7 @@ const de = translateDictionary(en, "de", {
       twitch: "Twitch",
     },
     tones: {
-      cool: "Cool",
+      cool: "Locker",
       mysterious: "Geheimnisvoll",
       personal: "Persönlich",
       professional: "Professionell",
@@ -5136,6 +5140,8 @@ const de = translateDictionary(en, "de", {
   caseConverter: {
     inputLabel: "Text einfügen",
     placeholder: "Text eingeben oder einfügen, um ihn umzuwandeln.",
+    initialText:
+      "Mit Toolyflow bringst du Text in Sekunden in Form.\nNutze eine Eingabe und kopiere genau die Ausgabe, die du brauchst.",
     characters: "Zeichen",
     words: "Wörter",
     lines: "Zeilen",
@@ -5143,8 +5149,8 @@ const de = translateDictionary(en, "de", {
     clearText: "Text leeren",
     uppercase: "Großbuchstaben",
     lowercase: "Kleinbuchstaben",
-    sentenceCase: "Sentence case",
-    titleCase: "Title Case",
+    sentenceCase: "Satzformat",
+    titleCase: "Titelformat",
     camelCase: "camelCase",
     pascalCase: "PascalCase",
     snakeCase: "snake_case",
@@ -5172,12 +5178,12 @@ const de = translateDictionary(en, "de", {
     textMode: "Text",
     emailMode: "E-Mail",
     phoneMode: "Telefon",
-    wifiMode: "WiFi",
+    wifiMode: "WLAN",
     emailLabel: "E-Mail-Adresse",
     subjectLabel: "Betreff",
     bodyLabel: "Nachricht",
     phoneLabel: "Telefonnummer",
-    ssidLabel: "WiFi-Name",
+    ssidLabel: "WLAN-Name",
     passwordLabel: "Passwort",
     securityLabel: "Sicherheit",
     securityWpa: "WPA",
@@ -5262,7 +5268,7 @@ const fr = translateDictionary(en, "fr", {
         input: "launch your next creator page with cleaner text",
         outputLabel: "Sortie utile",
         output:
-          "Title Case: Launch Your Next Creator Page With Cleaner Text\nkebab-case: launch-your-next-creator-page-with-cleaner-text",
+          "Casse titre: Launch Your Next Creator Page With Cleaner Text\nkebab-case: launch-your-next-creator-page-with-cleaner-text",
       },
       {
         title: "Générer une bio publiable",
@@ -5271,7 +5277,7 @@ const fr = translateDictionary(en, "fr", {
         toolSlug: "bio-generator",
         toolName: "Bio Generator",
         inputLabel: "Exemple de réglage",
-        input: "Plateforme: Instagram\nTon: Cool\nLongueur: Balanced\nCTA: On",
+        input: "Plateforme: Instagram\nTon: Stylé\nLongueur: Équilibrée\nCTA: Oui",
         outputLabel: "Sortie utile",
         output:
           "visuel propre, présence régulière\ncontenu simple, identité forte\nouvert aux collabs",
@@ -5283,7 +5289,7 @@ const fr = translateDictionary(en, "fr", {
         toolSlug: "nickname-generator",
         toolName: "Nickname Generator",
         inputLabel: "Exemple de réglage",
-        input: "Keyword: orbit\nStyle: Cool\nLength: Short\nPronounceable: On",
+        input: "Mot-clé: orbit\nStyle: Stylé\nLongueur: Courte\nPrononçable: Oui",
         outputLabel: "Sortie utile",
         output: "orbitlane\nvexaflow\nsorashift",
       },
@@ -5447,7 +5453,7 @@ const fr = translateDictionary(en, "fr", {
             "Idéal pour les retours sur la qualité ou l'usage des outils.",
             "Idéal pour les questions générales sur le fonctionnement du site.",
           ],
-          emailLabel: "Email support",
+          emailLabel: "E-mail support",
           email: "info@toolyflow.com",
         },
         {
@@ -5459,7 +5465,7 @@ const fr = translateDictionary(en, "fr", {
             "Expliquez le type de collaboration souhaité.",
             "Ajoutez calendrier, budget ou détails de campagne si utile.",
           ],
-          emailLabel: "Email business",
+          emailLabel: "E-mail business",
           email: "hello@toolyflow.com",
         },
         {
@@ -5644,7 +5650,7 @@ const fr = translateDictionary(en, "fr", {
           {
             title: "Bio Instagram",
             inputLabel: "Réglage",
-            input: "Plateforme: Instagram\nTon: Cool\nLongueur: Balanced\nEmoji: Off\nCTA: On",
+            input: "Plateforme: Instagram\nTon: Stylé\nLongueur: Équilibrée\nEmoji: Non\nCTA: Oui",
             outputLabel: "Sortie",
             output:
               "visuel propre, présence régulière\ncontenu simple, identité forte\nouvert aux collabs",
@@ -5653,7 +5659,7 @@ const fr = translateDictionary(en, "fr", {
           {
             title: "Bio de chaîne YouTube",
             inputLabel: "Réglage",
-            input: "Plateforme: YouTube\nTon: Professional\nLongueur: Short\nEmoji: Off\nCTA: Off",
+            input: "Plateforme: YouTube\nTon: Professionnel\nLongueur: Courte\nEmoji: Non\nCTA: Non",
             outputLabel: "Sortie",
             output: "voix claire, uploads réguliers\nvidéos utiles publiées avec constance",
             note: "Adapté aux pages de chaîne qui doivent sembler crédibles et structurées.",
@@ -5747,7 +5753,7 @@ const fr = translateDictionary(en, "fr", {
           {
             title: "Handle cool pour profil",
             inputLabel: "Réglage",
-            input: "Keyword: orbit\nStyle: Cool\nLength: Short\nSymbols: Clean\nPronounceable: On",
+            input: "Mot-clé: orbit\nStyle: Stylé\nLongueur: Courte\nSymboles: Propres\nPrononçable: Oui",
             outputLabel: "Sortie",
             output: "orbitlane\nvexaflow\nsorashift",
             note: "On est plus proche de vrais handles que de syllabes cassées aléatoires.",
@@ -5755,7 +5761,7 @@ const fr = translateDictionary(en, "fr", {
           {
             title: "Pseudo gaming sombre",
             inputLabel: "Réglage",
-            input: "Keyword: raven\nStyle: Dark\nLength: Balanced\nSymbols: Light\nPronounceable: Off",
+            input: "Mot-clé: raven\nStyle: Sombre\nLongueur: Équilibrée\nSymboles: Légers\nPrononçable: Non",
             outputLabel: "Sortie",
             output: "ravenveil\nnoxdrift\nonyxmark",
             note: "Utile quand on veut quelque chose de plus sombre sans le rendre illisible.",
@@ -5857,7 +5863,7 @@ const fr = translateDictionary(en, "fr", {
           {
             title: "QR pour WiFi invité",
             inputLabel: "Réglage",
-            input: "Type: WiFi\nSSID: StudioGuest\nPassword: CreateFast24\nSecurity: WPA",
+            input: "Type: Wi‑Fi\nSSID: StudioGuest\nMot de passe: CreateFast24\nSécurité: WPA",
             outputLabel: "Résultat",
             output: "Un QR qui permet de rejoindre le réseau sans saisir le mot de passe à la main.",
             note: "Pratique pour cafés, studios, bureaux et événements.",
@@ -5954,7 +5960,7 @@ const fr = translateDictionary(en, "fr", {
             input: "build fast tools without extra friction",
             outputLabel: "Sortie",
             output:
-              "Title Case: Build Fast Tools Without Extra Friction\nSentence case: Build fast tools without extra friction",
+              "Casse titre: Build Fast Tools Without Extra Friction\nCasse phrase: Build fast tools without extra friction",
             note: "Utile quand il faut choisir rapidement entre plusieurs styles éditoriaux.",
           },
           {
@@ -6104,7 +6110,7 @@ const fr = translateDictionary(en, "fr", {
     toggleOn: "Oui",
     toggleOff: "Non",
     styles: {
-      cool: "Cool",
+      cool: "Stylé",
       dark: "Sombre",
       gaming: "Gaming",
       aesthetic: "Esthétique",
@@ -6160,7 +6166,7 @@ const fr = translateDictionary(en, "fr", {
       twitch: "Twitch",
     },
     tones: {
-      cool: "Cool",
+      cool: "Stylé",
       mysterious: "Mystérieux",
       personal: "Personnel",
       professional: "Professionnel",
@@ -6297,6 +6303,8 @@ const fr = translateDictionary(en, "fr", {
   caseConverter: {
     inputLabel: "Collez votre texte",
     placeholder: "Saisissez ou collez du texte à convertir.",
+    initialText:
+      "Avec Toolyflow, remettez votre texte en forme en quelques secondes.\nUtilisez une seule entrée puis copiez la sortie qu'il vous faut.",
     characters: "Caractères",
     words: "Mots",
     lines: "Lignes",
@@ -6304,8 +6312,8 @@ const fr = translateDictionary(en, "fr", {
     clearText: "Effacer le texte",
     uppercase: "Majuscules",
     lowercase: "Minuscules",
-    sentenceCase: "Sentence case",
-    titleCase: "Title Case",
+    sentenceCase: "Casse phrase",
+    titleCase: "Casse titre",
     camelCase: "camelCase",
     pascalCase: "PascalCase",
     snakeCase: "snake_case",
@@ -6331,14 +6339,14 @@ const fr = translateDictionary(en, "fr", {
     backgroundLabel: "Arrière-plan",
     urlMode: "URL",
     textMode: "Texte",
-    emailMode: "Email",
+    emailMode: "E-mail",
     phoneMode: "Téléphone",
-    wifiMode: "WiFi",
-    emailLabel: "Adresse email",
+    wifiMode: "Wi‑Fi",
+    emailLabel: "Adresse e-mail",
     subjectLabel: "Sujet",
     bodyLabel: "Message",
     phoneLabel: "Numéro",
-    ssidLabel: "Nom du WiFi",
+    ssidLabel: "Nom du Wi‑Fi",
     passwordLabel: "Mot de passe",
     securityLabel: "Sécurité",
     securityWpa: "WPA",
@@ -6423,7 +6431,7 @@ const pt = translateDictionary(en, "pt", {
         input: "launch your next creator page with cleaner text",
         outputLabel: "Saída útil",
         output:
-          "Title Case: Launch Your Next Creator Page With Cleaner Text\nkebab-case: launch-your-next-creator-page-with-cleaner-text",
+          "Formato título: Launch Your Next Creator Page With Cleaner Text\nkebab-case: launch-your-next-creator-page-with-cleaner-text",
       },
       {
         title: "Gerar uma bio publicável",
@@ -6432,7 +6440,7 @@ const pt = translateDictionary(en, "pt", {
         toolSlug: "bio-generator",
         toolName: "Bio Generator",
         inputLabel: "Exemplo de configuração",
-        input: "Plataforma: Instagram\nTom: Cool\nTamanho: Balanced\nCTA: On",
+        input: "Plataforma: Instagram\nTom: Descolado\nTamanho: Equilibrada\nCTA: Sim",
         outputLabel: "Saída útil",
         output:
           "visual limpo, presença constante\nconteúdo simples, identidade forte\naberto para collabs",
@@ -6444,7 +6452,7 @@ const pt = translateDictionary(en, "pt", {
         toolSlug: "nickname-generator",
         toolName: "Nickname Generator",
         inputLabel: "Exemplo de configuração",
-        input: "Keyword: orbit\nStyle: Cool\nLength: Short\nPronounceable: On",
+        input: "Palavra: orbit\nEstilo: Descolado\nTamanho: Curta\nPronunciável: Sim",
         outputLabel: "Saída útil",
         output: "orbitlane\nvexaflow\nsorashift",
       },
@@ -6805,7 +6813,7 @@ const pt = translateDictionary(en, "pt", {
           {
             title: "Bio para Instagram",
             inputLabel: "Configuração",
-            input: "Plataforma: Instagram\nTom: Cool\nTamanho: Balanced\nEmoji: Off\nCTA: On",
+            input: "Plataforma: Instagram\nTom: Descolado\nTamanho: Equilibrada\nEmoji: Não\nCTA: Sim",
             outputLabel: "Saída",
             output:
               "visual limpo, presença constante\nconteúdo simples, identidade forte\naberto para collabs",
@@ -6814,7 +6822,7 @@ const pt = translateDictionary(en, "pt", {
           {
             title: "Bio para canal do YouTube",
             inputLabel: "Configuração",
-            input: "Plataforma: YouTube\nTom: Professional\nTamanho: Short\nEmoji: Off\nCTA: Off",
+            input: "Plataforma: YouTube\nTom: Profissional\nTamanho: Curta\nEmoji: Não\nCTA: Não",
             outputLabel: "Saída",
             output:
               "voz clara, uploads consistentes\nvídeos úteis publicados com regularidade",
@@ -6909,7 +6917,7 @@ const pt = translateDictionary(en, "pt", {
           {
             title: "Handle cool para perfil",
             inputLabel: "Configuração",
-            input: "Keyword: orbit\nStyle: Cool\nLength: Short\nSymbols: Clean\nPronounceable: On",
+            input: "Palavra: orbit\nEstilo: Descolado\nTamanho: Curta\nSímbolos: Limpos\nPronunciável: Sim",
             outputLabel: "Saída",
             output: "orbitlane\nvexaflow\nsorashift",
             note: "Parece mais um handle de verdade do que um conjunto aleatório de sílabas.",
@@ -6917,7 +6925,7 @@ const pt = translateDictionary(en, "pt", {
           {
             title: "Nickname dark para gaming",
             inputLabel: "Configuração",
-            input: "Keyword: raven\nStyle: Dark\nLength: Balanced\nSymbols: Light\nPronounceable: Off",
+            input: "Palavra: raven\nEstilo: Sombrio\nTamanho: Equilibrada\nSímbolos: Leves\nPronunciável: Não",
             outputLabel: "Saída",
             output: "ravenveil\nnoxdrift\nonyxmark",
             note: "Útil quando você quer algo mais sombrio sem perder legibilidade.",
@@ -7019,7 +7027,7 @@ const pt = translateDictionary(en, "pt", {
           {
             title: "QR para WiFi de visitante",
             inputLabel: "Configuração",
-            input: "Tipo: WiFi\nSSID: StudioGuest\nPassword: CreateFast24\nSecurity: WPA",
+            input: "Tipo: Wi‑Fi\nSSID: StudioGuest\nSenha: CreateFast24\nSegurança: WPA",
             outputLabel: "Resultado",
             output: "Um QR que permite entrar na rede sem digitar a senha manualmente.",
             note: "Prático para cafés, estúdios, escritórios e eventos.",
@@ -7116,7 +7124,7 @@ const pt = translateDictionary(en, "pt", {
             input: "build fast tools without extra friction",
             outputLabel: "Saída",
             output:
-              "Title Case: Build Fast Tools Without Extra Friction\nSentence case: Build fast tools without extra friction",
+              "Formato título: Build Fast Tools Without Extra Friction\nFormato frase: Build fast tools without extra friction",
             note: "Útil quando você precisa decidir rapidamente entre estilos editoriais.",
           },
           {
@@ -7266,10 +7274,10 @@ const pt = translateDictionary(en, "pt", {
     toggleOn: "Sim",
     toggleOff: "Não",
     styles: {
-      cool: "Cool",
-      dark: "Dark",
-      gaming: "Gaming",
-      aesthetic: "Aesthetic",
+      cool: "Descolado",
+      dark: "Sombrio",
+      gaming: "Gamer",
+      aesthetic: "Estético",
     },
     lengthModes: {
       short: "Curto",
@@ -7322,7 +7330,7 @@ const pt = translateDictionary(en, "pt", {
       twitch: "Twitch",
     },
     tones: {
-      cool: "Cool",
+      cool: "Descolado",
       mysterious: "Misterioso",
       personal: "Pessoal",
       professional: "Profissional",
@@ -7459,6 +7467,8 @@ const pt = translateDictionary(en, "pt", {
   caseConverter: {
     inputLabel: "Cole seu texto",
     placeholder: "Digite ou cole texto para converter.",
+    initialText:
+      "Com a Toolyflow, organize seus textos em segundos.\nUse uma única entrada e copie a saída de que você precisa.",
     characters: "Caracteres",
     words: "Palavras",
     lines: "Linhas",
@@ -7466,8 +7476,8 @@ const pt = translateDictionary(en, "pt", {
     clearText: "Limpar texto",
     uppercase: "Maiúsculas",
     lowercase: "Minúsculas",
-    sentenceCase: "Sentence case",
-    titleCase: "Title Case",
+    sentenceCase: "Formato frase",
+    titleCase: "Formato título",
     camelCase: "camelCase",
     pascalCase: "PascalCase",
     snakeCase: "snake_case",
@@ -7493,14 +7503,14 @@ const pt = translateDictionary(en, "pt", {
     backgroundLabel: "Fundo",
     urlMode: "URL",
     textMode: "Texto",
-    emailMode: "Email",
+    emailMode: "E-mail",
     phoneMode: "Telefone",
-    wifiMode: "WiFi",
-    emailLabel: "Endereço de email",
+    wifiMode: "Wi‑Fi",
+    emailLabel: "Endereço de e-mail",
     subjectLabel: "Assunto",
     bodyLabel: "Mensagem",
     phoneLabel: "Número de telefone",
-    ssidLabel: "Nome do WiFi",
+    ssidLabel: "Nome do Wi‑Fi",
     passwordLabel: "Senha",
     securityLabel: "Segurança",
     securityWpa: "WPA",
