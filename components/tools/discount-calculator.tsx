@@ -79,7 +79,7 @@ export function DiscountCalculator({ labels }: Props) {
               value={price}
               onChange={(event) => setPrice(event.target.value)}
               inputMode="decimal"
-              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
             />
           </label>
 
@@ -89,7 +89,7 @@ export function DiscountCalculator({ labels }: Props) {
               value={discount}
               onChange={(event) => setDiscount(event.target.value)}
               inputMode="decimal"
-              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
             />
           </label>
 
@@ -99,7 +99,7 @@ export function DiscountCalculator({ labels }: Props) {
               value={extraDiscount}
               onChange={(event) => setExtraDiscount(event.target.value)}
               inputMode="decimal"
-              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
             />
           </label>
 
@@ -107,7 +107,7 @@ export function DiscountCalculator({ labels }: Props) {
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+              className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
             >
               {copied ? labels.copied : labels.copy}
             </button>

@@ -461,7 +461,7 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
             <input
               value={keyword}
               onChange={(event) => setKeyword(event.target.value)}
-              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
               placeholder={labels.keywordPlaceholder}
             />
           </label>
@@ -478,7 +478,7 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
                   onClick={() => setStyle(item)}
                   className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
                     style === item
-                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                       : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
@@ -500,7 +500,7 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
                   onClick={() => setLength(item)}
                   className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
                     length === item
-                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                       : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
@@ -522,7 +522,7 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
                   onClick={() => setSymbolMode(item)}
                   className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
                     symbolMode === item
-                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                       : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
@@ -537,7 +537,7 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
             onClick={() => setPronounceable((value) => !value)}
             className={`w-full rounded-[20px] px-4 py-3 text-left text-sm font-medium transition ${
               pronounceable
-                ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                 : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
             }`}
           >
@@ -557,7 +557,7 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
                 count: current.signature === currentSignature ? current.count + 1 : 1,
               }))
             }
-            className="rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+            className="rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
           >
             {labels.generateMore}
           </button>
@@ -581,7 +581,7 @@ export function NicknameGenerator({ labels }: NicknameGeneratorProps) {
                 <button
                   type="button"
                   onClick={() => copyNickname(nickname)}
-                  className="inline-flex min-h-11 w-fit items-center justify-center rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+                  className="inline-flex min-h-11 w-fit items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
                 >
                   {copiedValue === nickname ? labels.copied : labels.copyButton}
                 </button>

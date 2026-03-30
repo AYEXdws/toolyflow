@@ -435,7 +435,7 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
             <input
               value={name}
               onChange={(event) => setName(event.target.value)}
-              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
               placeholder={labels.namePlaceholder}
             />
           </label>
@@ -452,7 +452,7 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
                     onClick={() => setPlatform(item)}
                     className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
                       platform === item
-                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                       : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
@@ -474,7 +474,7 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
                     onClick={() => setTone(item)}
                     className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
                       tone === item
-                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                       : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
@@ -496,7 +496,7 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
                     onClick={() => setLength(item)}
                     className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
                       length === item
-                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                       : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
@@ -512,7 +512,7 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
             onClick={() => setEmojiEnabled((value) => !value)}
             className={`rounded-[20px] px-4 py-3 text-left text-sm font-medium transition ${
                 emojiEnabled
-                  ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                  ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                   : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
               }`}
             >
@@ -527,7 +527,7 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
             onClick={() => setCtaEnabled((value) => !value)}
             className={`rounded-[20px] px-4 py-3 text-left text-sm font-medium transition ${
                 ctaEnabled
-                  ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                  ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                   : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
               }`}
             >
@@ -541,7 +541,7 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
           <button
             type="button"
             onClick={handleGenerate}
-            className="rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+            className="rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
           >
             {labels.generate}
           </button>
@@ -569,7 +569,7 @@ export function BioGenerator({ labels }: BioGeneratorProps) {
                   <button
                     type="button"
                     onClick={() => handleCopy(bio.text)}
-                    className="inline-flex min-h-11 w-fit shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+                    className="inline-flex min-h-11 w-fit shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
                   >
                     {copiedValue === bio.text ? labels.copied : labels.copy}
                   </button>

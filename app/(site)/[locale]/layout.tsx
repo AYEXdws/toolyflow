@@ -5,7 +5,7 @@ import Script from "next/script";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { getDictionary, getToolEntries } from "@/lib/dictionaries";
+import { getDictionary } from "@/lib/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n";
 import { getCategories, getCategoryLabels } from "@/lib/tool-categories";
 import { siteConfig } from "@/lib/site-config";
@@ -113,10 +113,6 @@ export default async function LocaleRootLayout({
     slug: category.slug,
     name: category.navLabel,
   }));
-  const tools = getToolEntries(typedLocale).map((tool) => ({
-    slug: tool.slug,
-    name: tool.name,
-  }));
 
   return (
     <html
@@ -130,24 +126,27 @@ export default async function LocaleRootLayout({
             labels={{
               tools: dictionary.header.tools,
               categories: categoryLabels.categoriesHeading,
-              textTools: categories[0].name,
-              creatorTools: categories[1].name,
               about: dictionary.header.about,
               contact: dictionary.header.contact,
               language: dictionary.shared.language,
               menu: dictionary.header.menu,
-              go: dictionary.shared.go,
             }}
           />
           <div className="flex-1">{children}</div>
           <SiteFooter
             locale={typedLocale}
             labels={{
-              ...dictionary.footer,
               categoriesHeading: categoryLabels.categoriesHeading,
+              companyHeading: dictionary.footer.companyHeading,
+              slogan: dictionary.footer.slogan,
+              madeIn: dictionary.footer.madeIn,
+              about: dictionary.footer.about,
+              contact: dictionary.footer.contact,
+              privacy: dictionary.footer.privacy,
+              terms: dictionary.footer.terms,
+              copyright: dictionary.footer.copyright,
             }}
             categories={categories}
-            tools={tools}
           />
         </div>
         <Script

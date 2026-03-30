@@ -1,28 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0f;
+  --background: #0b1120;
   --foreground: #f8fafc;
-  --surface: #13131a;
-  --surface-strong: #1c1c27;
-  --muted: #94a3b8;
-  --line: #2d2d3f;
-  --accent: #7c3aed;
-  --accent-strong: #06b6d4;
-  --accent-soft: rgba(168, 85, 247, 0.15);
-  --brand-bg: #0a0a0f;
-  --brand-surface: #13131a;
-  --brand-card: #1c1c27;
-  --brand-border: #2d2d3f;
-  --brand-border-hover: #7c3aed;
-  --brand-primary: #7c3aed;
-  --brand-secondary: #06b6d4;
+  --surface: #0f172a;
+  --surface-strong: #111827;
+  --muted: #cbd5e1;
+  --line: #1f2a44;
+  --accent: #1d4ed8;
+  --accent-strong: #3b82f6;
+  --accent-soft: rgba(59, 130, 246, 0.14);
+  --brand-bg: #0b1120;
+  --brand-surface: #0f172a;
+  --brand-card: #111827;
+  --brand-border: #1f2a44;
+  --brand-border-hover: #3b82f6;
+  --brand-primary: #1d4ed8;
+  --brand-secondary: #3b82f6;
   --brand-text-primary: #f8fafc;
-  --brand-text-secondary: #94a3b8;
-  --brand-text-tertiary: #475569;
+  --brand-text-secondary: #cbd5e1;
+  --brand-text-tertiary: #64748b;
   --brand-success: #10b981;
-  --brand-badge-bg: rgba(168, 85, 247, 0.15);
-  --brand-badge-text: #c084fc;
+  --brand-badge-bg: rgba(59, 130, 246, 0.14);
+  --brand-badge-text: #93c5fd;
+  --brand-gradient: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%);
+  --brand-gradient-soft: linear-gradient(135deg, rgba(29, 78, 216, 0.2) 0%, rgba(59, 130, 246, 0.08) 100%);
+  --brand-ring: 0 0 0 3px rgba(59, 130, 246, 0.16);
+  --brand-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
 }
 
 @theme inline {
@@ -37,6 +41,18 @@
   --color-accent-soft: var(--accent-soft);
   --font-sans: var(--font-inter);
   --font-display: var(--font-inter);
+  --color-brand-bg: var(--brand-bg);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-card: var(--brand-card);
+  --color-brand-border: var(--brand-border);
+  --color-brand-border-hover: var(--brand-border-hover);
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-text-primary: var(--brand-text-primary);
+  --color-brand-text-secondary: var(--brand-text-secondary);
+  --color-brand-text-tertiary: var(--brand-text-tertiary);
+  --color-brand-badge-bg: var(--brand-badge-bg);
+  --color-brand-badge-text: var(--brand-badge-text);
 }
 
 * {
@@ -45,9 +61,9 @@
 
 body {
   background:
-    radial-gradient(circle at top center, rgba(124, 58, 237, 0.16), transparent 26%),
-    radial-gradient(circle at 82% 10%, rgba(6, 182, 212, 0.12), transparent 18%),
-    linear-gradient(180deg, #0a0a0f 0%, #101019 100%);
+    radial-gradient(circle at top center, rgba(59, 130, 246, 0.16), transparent 24%),
+    radial-gradient(circle at 82% 12%, rgba(37, 99, 235, 0.08), transparent 18%),
+    linear-gradient(180deg, #0b1120 0%, #0f172a 100%);
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
 }
@@ -58,7 +74,7 @@ a {
 }
 
 ::selection {
-  background: rgba(124, 58, 237, 0.28);
+  background: rgba(59, 130, 246, 0.28);
 }
 
 .prose h2 {
@@ -72,4 +88,8 @@ a {
 .prose li {
   color: var(--muted);
   line-height: 1.9;
+}
+
+.brand-gradient {
+  background: var(--brand-gradient);
 }

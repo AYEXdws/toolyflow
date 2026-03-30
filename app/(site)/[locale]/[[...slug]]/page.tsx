@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 
 import { CategoryPage } from "@/components/category-page";
+import { AgeCalculatorTool } from "@/components/calculators/age-calculator";
+import { BmiCalculatorTool } from "@/components/calculators/bmi-calculator";
+import { CreditCalculatorTool } from "@/components/calculators/credit-calculator";
+import { PercentageCalcTool } from "@/components/calculators/percentage-calc-tool";
+import { RentIncreaseCalculatorTool } from "@/components/calculators/rent-increase-calculator";
 import { ContentPage } from "@/components/content-page";
+import { DictionarySearch } from "@/components/dictionary/dictionary-search";
 import { StructuredData } from "@/components/structured-data";
 import { ToolPageShell } from "@/components/tool-page-shell";
 import { BioGenerator } from "@/components/tools/bio-generator";
@@ -18,8 +25,24 @@ import { QrGenerator } from "@/components/tools/qr-generator";
 import { TextCleaner } from "@/components/tools/text-cleaner";
 import { WordCounter } from "@/components/tools/word-counter";
 import { getDictionary, getToolEntries, getToolEntry } from "@/lib/dictionaries";
-import { isLocale, localizePath, type Locale } from "@/lib/i18n";
+import {
+  getDictionaryCategoryCounts,
+  getDictionaryWordBySlug,
+  getPopularDictionaryWords,
+  getRelatedDictionaryWords,
+} from "@/lib/dictionary";
+import { getDictionaryCategoryLabel } from "@/lib/dictionary-shared";
+import { isLocale, type Locale } from "@/lib/i18n";
 import { createLocalizedMetadata } from "@/lib/metadata";
+import {
+  getCategoryPath,
+  getCategoryStaticParams,
+  getHomePath,
+  getStaticPageParams,
+  getToolPath,
+  getToolStaticParams,
+  resolveLocalizedRoute,
+} from "@/lib/paths";
 import {
   getCategories,
   getCategory,
@@ -27,15 +50,18 @@ import {
   getCategoryLabels,
   getToolSlugsForCategory,
 } from "@/lib/tool-categories";
-import {
-  categorySlugs,
-  isCategorySlug,
-  isStaticSlug,
-  isToolSlug,
-  staticSlugs,
-  toolSlugs,
-} from "@/lib/routes";
+import { isCategorySlug, isStaticSlug, isToolSlug } from "@/lib/routes";
 import { siteConfig } from "@/lib/site-config";
+import {
+  getTrCalculatorCategoryPath,
+  getTrCalculatorEntries,
+  getTrCalculatorEntry,
+  getTrCalculatorPath,
+  trCalculatorCategory,
+  trCalculatorCategorySegment,
+  trCalculatorPrefix,
+  trCalculatorSlugs,
+} from "@/lib/tr-calculators";
 
 type RouteParams = {
   locale: string;
@@ -47,13 +73,23 @@ type PageProps = {
 };
 
 export function generateStaticParams() {
-  return ["en", "tr", "es", "de", "fr", "pt"].flatMap((locale) => [
-    { locale },
-    ...[...categorySlugs, ...toolSlugs, ...staticSlugs].map((slug) => ({
-      locale,
-      slug: [slug],
+  return [
+    { locale: "tr" },
+    { locale: "en" },
+    { locale: "es" },
+    { locale: "de" },
+    { locale: "fr" },
+    { locale: "pt" },
+    ...getCategoryStaticParams(),
+    ...getToolStaticParams(),
+    ...getStaticPageParams(),
+    { locale: "tr", slug: ["sozluk"] },
+    { locale: "tr", slug: [trCalculatorCategorySegment] },
+    ...trCalculatorSlugs.map((calculatorSlug) => ({
+      locale: "tr",
+      slug: [trCalculatorPrefix, calculatorSlug],
     })),
-  ]);
+  ];
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -64,20 +100,166 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const dictionary = getDictionary(locale as Locale);
-  const pageSlug = slug?.[0];
+  const pathSegments = slug?.filter(Boolean) ?? [];
 
-  if (!pageSlug) {
+  if (locale === "tr" && pathSegments.length === 1 && pathSegments[0] === "sozluk") {
+    return {
+      metadataBase: new URL(siteConfig.url),
+      title: { absolute: "Türkçe Sözlük | Toolyflow" },
+      description:
+        "Argo, deyim ve genel kullanımdaki kelimeleri ara. Anlam, örnek cümle ve ilgili kelimeleri Toolyflow Türkçe Sözlük'te keşfet.",
+      keywords: [
+        "türkçe sözlük",
+        "kelime anlamı",
+        "argo sözlük",
+        "deyim anlamı",
+        "örnek cümle",
+      ],
+      alternates: {
+        canonical: "/tr/sozluk",
+      },
+      openGraph: {
+        title: "Türkçe Sözlük | Toolyflow",
+        description:
+          "Argo, deyim ve genel kullanımdaki kelimeleri ara. Anlam, örnek cümle ve ilgili kelimeleri Toolyflow Türkçe Sözlük'te keşfet.",
+        url: `${siteConfig.url}/tr/sozluk`,
+        siteName: siteConfig.name,
+        locale: dictionary.localeCode,
+        type: "website",
+        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "Türkçe Sözlük | Toolyflow",
+        description:
+          "Argo, deyim ve genel kullanımdaki kelimeleri ara. Anlam, örnek cümle ve ilgili kelimeleri Toolyflow Türkçe Sözlük'te keşfet.",
+        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
+      },
+    };
+  }
+
+  if (locale === "tr" && pathSegments.length === 2 && pathSegments[0] === "sozluk") {
+    const word = await getDictionaryWordBySlug(pathSegments[1]);
+
+    if (!word) {
+      return {};
+    }
+
+    const description = `${word.kelime} ne demek? ${word.anlam.slice(0, 120).trim()}${
+      word.anlam.length > 120 ? "..." : ""
+    }`;
+
+    return {
+      metadataBase: new URL(siteConfig.url),
+      title: { absolute: `${word.kelime} anlamı — Türkçe Sözlük | Toolyflow` },
+      description,
+      keywords: [
+        word.kelime,
+        `${word.kelime} anlamı`,
+        `${word.kelime} ne demek`,
+        "türkçe sözlük",
+        word.kategori,
+      ],
+      alternates: {
+        canonical: `/tr/sozluk/${word.slug}`,
+      },
+      openGraph: {
+        title: `${word.kelime} anlamı — Türkçe Sözlük | Toolyflow`,
+        description,
+        url: `${siteConfig.url}/tr/sozluk/${word.slug}`,
+        siteName: siteConfig.name,
+        locale: dictionary.localeCode,
+        type: "article",
+        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${word.kelime} anlamı — Türkçe Sözlük | Toolyflow`,
+        description,
+        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
+      },
+    };
+  }
+
+  if (locale === "tr" && pathSegments.length === 1 && pathSegments[0] === trCalculatorCategorySegment) {
+    return {
+      metadataBase: new URL(siteConfig.url),
+      title: { absolute: trCalculatorCategory.metaTitle },
+      description: trCalculatorCategory.metaDescription,
+      keywords: [...trCalculatorCategory.keywords],
+      alternates: {
+        canonical: getTrCalculatorCategoryPath(),
+      },
+      openGraph: {
+        title: trCalculatorCategory.metaTitle,
+        description: trCalculatorCategory.metaDescription,
+        url: `${siteConfig.url}${getTrCalculatorCategoryPath()}`,
+        siteName: siteConfig.name,
+        locale: dictionary.localeCode,
+        type: "website",
+        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: trCalculatorCategory.metaTitle,
+        description: trCalculatorCategory.metaDescription,
+        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
+      },
+    };
+  }
+
+  if (locale === "tr" && pathSegments.length === 2 && pathSegments[0] === trCalculatorPrefix) {
+    const calculator = getTrCalculatorEntry(pathSegments[1]);
+
+    if (!calculator) {
+      return {};
+    }
+
+    return {
+      metadataBase: new URL(siteConfig.url),
+      title: { absolute: calculator.metaTitle },
+      description: calculator.metaDescription,
+      keywords: [...calculator.keywords],
+      alternates: {
+        canonical: getTrCalculatorPath(calculator.slug),
+      },
+      openGraph: {
+        title: calculator.metaTitle,
+        description: calculator.metaDescription,
+        url: `${siteConfig.url}${getTrCalculatorPath(calculator.slug)}`,
+        siteName: siteConfig.name,
+        locale: dictionary.localeCode,
+        type: "website",
+        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: calculator.metaTitle,
+        description: calculator.metaDescription,
+        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
+      },
+    };
+  }
+
+  const resolved = resolveLocalizedRoute(locale as Locale, slug);
+
+  if (!resolved) {
+    return {};
+  }
+
+  if (resolved.kind === "home") {
     return createLocalizedMetadata({
       locale,
       localeCode: dictionary.localeCode,
       title: dictionary.home.metaTitle,
       description: dictionary.home.metaDescription,
       keywords: dictionary.home.keywords,
+      route: { kind: "home" },
     });
   }
 
-  if (isToolSlug(pageSlug)) {
-    const tool = getToolEntry(locale, pageSlug);
+  if (resolved.kind === "tool") {
+    const tool = getToolEntry(locale, resolved.slug);
 
     if (!tool) {
       return {};
@@ -88,34 +270,34 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       localeCode: dictionary.localeCode,
       title: tool.metaTitle,
       description: tool.metaDescription,
-      slug: pageSlug,
       keywords: tool.keywords,
+      route: { kind: "tool", slug: resolved.slug },
     });
   }
 
-  if (isCategorySlug(pageSlug)) {
-    const category = getCategory(locale, pageSlug);
+  if (resolved.kind === "category") {
+    const category = getCategory(locale, resolved.slug);
 
     return createLocalizedMetadata({
       locale,
       localeCode: dictionary.localeCode,
       title: category.metaTitle,
       description: category.metaDescription,
-      slug: pageSlug,
       keywords: category.keywords,
+      route: { kind: "category", slug: resolved.slug },
     });
   }
 
-  if (isStaticSlug(pageSlug)) {
-    const page = dictionary.staticPages[pageSlug];
+  if (resolved.kind === "static") {
+    const page = dictionary.staticPages[resolved.slug];
 
     return createLocalizedMetadata({
       locale,
       localeCode: dictionary.localeCode,
       title: page.metaTitle,
       description: page.metaDescription,
-      slug: pageSlug,
       keywords: page.keywords,
+      route: { kind: "static", slug: resolved.slug },
     });
   }
 
@@ -127,35 +309,93 @@ function renderUnifiedHome(locale: Locale) {
   const categories = getCategories(locale);
   const categoryLabels = getCategoryLabels(locale);
   const emojiByCategory = {
-    "creator-tools": "🎨",
-    "text-tools": "✍️",
+    "creator-tools": "✍️",
+    "text-tools": "📝",
     "quick-tools": "⚡",
   } as const;
-  const categoryPills = categories.map((category) => ({
-    label: category.navLabel,
-    emoji: emojiByCategory[category.slug],
-    href: localizePath(locale, category.slug),
-  }));
   const iconMap: Record<string, string> = {
-    "word-counter": "📏",
-    "text-cleaner": "🧹",
-    "color-code-converter": "🎨",
-    "percentage-calculator": "％",
-    "discount-calculator": "💸",
     "bio-generator": "✨",
     "nickname-generator": "🎯",
     "hashtag-generator": "#",
+    "case-converter": "📝",
     "qr-generator": "⚡",
-    "case-converter": "✍️",
     "decision-wheel": "🎡",
+    "color-code-converter": "🎨",
+    "percentage-calculator": "％",
+    "discount-calculator": "💸",
+    "word-counter": "📏",
+    "text-cleaner": "🧹",
   };
-  const tools = getToolEntries(locale).map((tool) => ({
-    ...tool,
-    icon: iconMap[tool.slug] ?? "✦",
-    badge:
-      categories.find((category) => category.slug === getCategoryForTool(tool.slug))?.navLabel ??
-      tool.accentLabel,
+  const categoryDescriptions: Record<Locale, Record<(typeof categories)[number]["slug"], string>> = {
+    tr: {
+      "creator-tools": "Bio, hashtag, kullanıcı adı ve daha fazlası",
+      "text-tools": "Metni dönüştür, düzenle, temizle",
+      "quick-tools": "QR kod, karar çarkı, hesaplayıcılar",
+    },
+    en: {
+      "creator-tools": "Bios, hashtags, usernames, and more",
+      "text-tools": "Convert, clean, and tighten text fast",
+      "quick-tools": "QR codes, decision wheels, and calculators",
+    },
+    es: {
+      "creator-tools": "Bios, hashtags, nombres de usuario y más",
+      "text-tools": "Convierte, limpia y ajusta texto rápido",
+      "quick-tools": "Códigos QR, rueda de decisión y calculadoras",
+    },
+    de: {
+      "creator-tools": "Bios, Hashtags, Usernames und mehr",
+      "text-tools": "Text umwandeln, bereinigen und glätten",
+      "quick-tools": "QR-Codes, Entscheidungsrad und Rechner",
+    },
+    fr: {
+      "creator-tools": "Bios, hashtags, pseudos et plus",
+      "text-tools": "Convertir, nettoyer et corriger un texte",
+      "quick-tools": "QR codes, roue de décision et calculateurs",
+    },
+    pt: {
+      "creator-tools": "Bios, hashtags, nomes de usuário e mais",
+      "text-tools": "Converta, limpe e ajuste texto rápido",
+      "quick-tools": "QR codes, roda de decisão e calculadoras",
+    },
+  };
+  const groupedCategories = categories.map((category) => ({
+    ...category,
+    emoji: emojiByCategory[category.slug],
+    href: getCategoryPath(locale, category.slug),
+    summary: categoryDescriptions[locale][category.slug],
+    tools: getToolEntries(locale)
+      .filter((tool) => category.toolSlugs.includes(tool.slug))
+      .map((tool) => ({
+        ...tool,
+        icon: iconMap[tool.slug] ?? "✦",
+      })),
   }));
+  const calculatorCategory =
+    locale === "tr"
+      ? {
+          slug: "calculators",
+          navLabel: trCalculatorCategory.title,
+          emoji: "🧮",
+          href: getTrCalculatorCategoryPath(),
+          summary: "Kredi, BMI, yaş, yüzde ve kira artışı hesaplarını tek yerde çöz.",
+          toolSlugs: [...trCalculatorSlugs],
+          tools: getTrCalculatorEntries().map((tool) => ({
+            ...tool,
+            icon: tool.icon,
+          })),
+        }
+      : null;
+  const homeGroups = calculatorCategory ? [...groupedCategories, calculatorCategory] : groupedCategories;
+  const dictionaryPromo =
+    locale === "tr"
+      ? {
+          href: "/tr/sozluk",
+          eyebrow: "Yeni bölüm",
+          title: "Türkçe Sözlük",
+          description:
+            "Argo, deyim ve genel kullanımdaki kelimeleri ara. Anlam, örnek cümle ve benzer kelimeleri tek yerde keşfet.",
+        }
+      : null;
 
   return (
     <main className="bg-[color:var(--brand-bg)] pb-20 font-[family:var(--font-inter)] text-[color:var(--brand-text-primary)]">
@@ -164,42 +404,64 @@ function renderUnifiedHome(locale: Locale) {
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: siteConfig.name,
-          url: `${siteConfig.url}${localizePath(locale)}`,
-          description:
-            "Instagram, TikTok ve YouTube için ihtiyacın olan tüm araçlar ücretsiz, hızlı ve Türkçe.",
+          url: `${siteConfig.url}${getHomePath(locale)}`,
+          description: dictionary.home.metaDescription,
           inLanguage: locale,
         }}
       />
 
       <section className="relative overflow-hidden">
-        <div className="absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.22),transparent_55%)]" />
-        <div className="mx-auto max-w-6xl px-4 pb-8 pt-14 sm:px-6 lg:px-8 lg:pb-12 lg:pt-20">
-          <div className="relative z-10 max-w-4xl">
-            <p className="mb-4 inline-flex rounded-full border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+        <div className="absolute inset-x-0 top-0 h-[440px] bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.14),transparent_58%)]" />
+        <div className="mx-auto max-w-6xl px-4 pb-10 pt-14 sm:px-6 lg:px-8 lg:pb-14 lg:pt-20">
+          <div className="relative z-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-center">
+            <div>
+              <p className="mb-4 inline-flex rounded-full border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
               {dictionary.home.eyebrow}
-            </p>
-            <h1 className="max-w-3xl text-5xl font-extrabold leading-[0.95] tracking-[-0.04em] sm:text-6xl lg:text-7xl">
-              <span className="block bg-[linear-gradient(135deg,#A855F7,#06B6D4)] bg-clip-text text-transparent">
-                {dictionary.home.title}
-              </span>
-              <span className="mt-2 block">{dictionary.home.tagline}</span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-7 text-[color:var(--brand-text-secondary)] sm:text-lg sm:leading-8">
-              {dictionary.home.description}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="#tools"
-                className="inline-flex min-h-11 items-center rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 active:translate-y-px"
-              >
-                {dictionary.home.primaryCta}
-              </Link>
-              <Link
-                href={localizePath(locale, "creator-tools")}
-                className="inline-flex min-h-11 items-center rounded-xl border border-[color:var(--brand-border)] px-6 py-3 text-sm font-semibold text-[color:var(--brand-text-primary)] transition hover:border-[color:var(--brand-border-hover)]"
-              >
-                {categories.find((category) => category.slug === "creator-tools")?.navLabel}
-              </Link>
+              </p>
+              <h1 className="max-w-4xl text-5xl font-extrabold leading-[0.95] tracking-[-0.05em] sm:text-6xl lg:text-7xl">
+                <span className="block text-[color:var(--brand-text-primary)]">{dictionary.home.title}</span>
+                <span className="mt-2 block text-[color:var(--brand-secondary)]">{dictionary.home.tagline}</span>
+              </h1>
+              <p className="mt-6 max-w-2xl text-base leading-7 text-[color:var(--brand-text-secondary)] sm:text-lg sm:leading-8">
+                {dictionary.home.description}
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  href="#tools"
+                  className="inline-flex min-h-11 items-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-6 py-3 text-sm font-semibold text-white transition hover:translate-y-[-1px] hover:opacity-95 active:translate-y-px"
+                >
+                  {dictionary.home.primaryCta}
+                </Link>
+                <Link
+                  href="#categories"
+                  className="inline-flex min-h-11 items-center rounded-xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-3 text-sm font-semibold text-[color:var(--brand-text-primary)] transition hover:border-[color:var(--brand-border-hover)]"
+                >
+                  {dictionary.home.secondaryCta}
+                </Link>
+              </div>
+            </div>
+
+            <div className="hidden rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[var(--brand-shadow)] lg:block">
+              <div className="relative aspect-square overflow-hidden rounded-[22px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)]">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.18),transparent_40%)]" />
+                <div className="absolute inset-0 flex items-center justify-center p-10">
+                  <div className="w-full rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-8 text-center shadow-[var(--brand-shadow)]">
+                    <Image
+                      src="/images/toolyflow-mark.png"
+                      alt="Toolyflow mark"
+                      width={112}
+                      height={112}
+                      className="mx-auto h-28 w-28 object-contain"
+                    />
+                    <p className="mt-6 text-2xl font-extrabold tracking-[-0.04em] text-[color:var(--brand-text-primary)]">
+                      Tooly<span className="text-[color:var(--brand-secondary)]">flow</span>
+                    </p>
+                    <p className="mt-3 text-sm text-[color:var(--brand-text-secondary)]">
+                      {dictionary.footer.slogan}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -209,64 +471,62 @@ function renderUnifiedHome(locale: Locale) {
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-              {categoryLabels.browseEyebrow}
+              {categoryLabels.categoriesHeading}
             </p>
             <h2 className="mt-3 text-2xl font-bold text-[color:var(--brand-text-primary)]">
-              {categoryLabels.browseTitle}
+              {categoryLabels.categoriesHeading}
             </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-7 text-[color:var(--brand-text-secondary)]">
-              {categoryLabels.browseDescription}
-            </p>
           </div>
         </div>
 
-        <div className="mt-6 flex gap-3 overflow-x-auto pb-2">
-          {categoryPills.map((category) => (
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {homeGroups.map((category) => (
             <Link
-              key={category.label}
+              key={category.slug}
               href={category.href}
-              className="inline-flex min-h-11 shrink-0 items-center gap-3 rounded-full border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-5 py-3 text-sm font-semibold text-[color:var(--brand-text-primary)] transition hover:border-[color:var(--brand-border-hover)]"
+              className="group rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 shadow-[var(--brand-shadow)] transition duration-200 hover:scale-[1.02] hover:border-[color:var(--brand-border-hover)]"
             >
-              <span className="text-lg">{category.emoji}</span>
-              <span>{category.label}</span>
+              <div className="flex items-start justify-between gap-4">
+                <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-xl text-white">
+                  {category.emoji}
+                </span>
+                <span className="text-sm font-semibold text-[color:var(--brand-secondary)]">
+                  {category.toolSlugs.length}
+                </span>
+              </div>
+              <h3 className="mt-5 text-xl font-bold text-[color:var(--brand-text-primary)]">
+                {category.navLabel}
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
+                {category.summary}
+              </p>
             </Link>
           ))}
         </div>
-      </section>
 
-      <section className="mx-auto max-w-6xl px-4 pt-12 sm:px-6 lg:px-8">
-        <div className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.2)] sm:p-8">
-          <div className="max-w-3xl">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-              {dictionary.home.whyEyebrow}
-            </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-[color:var(--brand-text-primary)] sm:text-4xl">
-              {dictionary.home.whyTitle}
-            </h2>
-            <p className="mt-4 text-sm leading-7 text-[color:var(--brand-text-secondary)] sm:text-base">
-              {dictionary.home.whyDescription}
-            </p>
-          </div>
-
-          <div className="mt-8 grid gap-4 lg:grid-cols-3">
-            {dictionary.home.brandPoints.slice(0, 3).map((item, index) => (
-              <article
-                key={item.title}
-                className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-5"
-              >
-                <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-4 text-xl font-bold text-[color:var(--brand-text-primary)]">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
-                  {item.description}
+        {dictionaryPromo ? (
+          <div className="mt-6">
+            <Link
+              href={dictionaryPromo.href}
+              className="group flex flex-col gap-4 rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 shadow-[var(--brand-shadow)] transition duration-200 hover:scale-[1.01] hover:border-[color:var(--brand-border-hover)] md:flex-row md:items-center md:justify-between"
+            >
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+                  {dictionaryPromo.eyebrow}
                 </p>
-              </article>
-            ))}
+                <h3 className="mt-2 text-2xl font-bold text-[color:var(--brand-text-primary)]">
+                  {dictionaryPromo.title}
+                </h3>
+                <p className="mt-3 max-w-2xl text-sm leading-7 text-[color:var(--brand-text-secondary)]">
+                  {dictionaryPromo.description}
+                </p>
+              </div>
+              <span className="inline-flex min-h-11 items-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-5 py-3 text-sm font-semibold text-white transition group-hover:opacity-95">
+                Keşfet
+              </span>
+            </Link>
           </div>
-        </div>
+        ) : null}
       </section>
 
       <section id="tools" className="mx-auto max-w-6xl px-4 pt-12 sm:px-6 lg:px-8">
@@ -276,7 +536,7 @@ function renderUnifiedHome(locale: Locale) {
               {dictionary.header.tools}
             </p>
             <h2 className="mt-3 text-2xl font-bold text-[color:var(--brand-text-primary)]">
-              {dictionary.home.toolsTitle}
+              {dictionary.header.tools}
             </h2>
           </div>
           <p className="max-w-2xl text-sm leading-7 text-[color:var(--brand-text-secondary)]">
@@ -284,38 +544,198 @@ function renderUnifiedHome(locale: Locale) {
           </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {tools.map((tool) => (
-            <Link
-              key={tool.slug}
-              href={localizePath(locale, tool.slug)}
-              className="group rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 transition duration-200 hover:scale-[1.02] hover:border-[color:var(--brand-border-hover)] hover:shadow-[0_18px_50px_rgba(124,58,237,0.18)]"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-[10px] bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-xl text-white">
-                  {tool.icon}
-                </span>
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-[color:var(--brand-border)] text-lg text-[color:var(--brand-text-secondary)] transition group-hover:border-[color:var(--brand-border-hover)] group-hover:text-[color:var(--brand-text-primary)]">
-                  ↗
-                </span>
+        <div className="space-y-10">
+          {homeGroups.map((category) => (
+            <section key={category.slug} className="space-y-5">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+                    {category.navLabel}
+                  </p>
+                  <h3 className="mt-2 text-2xl font-bold text-[color:var(--brand-text-primary)]">
+                    {category.summary}
+                  </h3>
+                </div>
+                <Link
+                  href={category.href}
+                  className="hidden rounded-xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-4 py-2 text-sm font-semibold text-[color:var(--brand-text-primary)] transition hover:border-[color:var(--brand-border-hover)] sm:inline-flex"
+                >
+                  {dictionary.shared.go}
+                </Link>
               </div>
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                {category.tools.map((tool) => (
+                  <Link
+                    key={tool.slug}
+                    href={locale === "tr" && trCalculatorSlugs.includes(tool.slug as (typeof trCalculatorSlugs)[number]) ? getTrCalculatorPath(tool.slug as (typeof trCalculatorSlugs)[number]) : getToolPath(locale, tool.slug as Parameters<typeof getToolPath>[1])}
+                    className="group rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 transition duration-200 hover:scale-[1.02] hover:border-[color:var(--brand-border-hover)] hover:shadow-[0_18px_50px_rgba(29,78,216,0.18)]"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <span className="inline-flex h-11 w-11 items-center justify-center rounded-[10px] bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-xl text-white">
+                        {tool.icon}
+                      </span>
+                      <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-[color:var(--brand-border)] text-lg text-[color:var(--brand-text-secondary)] transition group-hover:border-[color:var(--brand-border-hover)] group-hover:text-[color:var(--brand-text-primary)]">
+                        ↗
+                      </span>
+                    </div>
 
-              <div className="mt-5">
-                <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-                  {tool.badge}
-                </span>
-                <h3 className="mt-4 text-xl font-bold text-[color:var(--brand-text-primary)]">
-                  {tool.name}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
-                  {tool.description}
-                </p>
+                    <div className="mt-5">
+                      <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+                        {category.navLabel}
+                      </span>
+                      <h4 className="mt-4 text-xl font-bold text-[color:var(--brand-text-primary)]">
+                        {tool.name}
+                      </h4>
+                      <p className="mt-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
+                        {tool.shortDescription}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
               </div>
-            </Link>
+            </section>
           ))}
         </div>
       </section>
     </main>
+  );
+}
+
+async function renderDictionaryHome() {
+  const [popularWords, categoryCounts] = await Promise.all([
+    getPopularDictionaryWords(12),
+    getDictionaryCategoryCounts(),
+  ]);
+  const totalWords = Object.values(categoryCounts).reduce((sum, count) => sum + count, 0);
+
+  const categoryCards = [
+    {
+      slug: "argo",
+      title: "Argo",
+      description: "Günlük dilde ve internet kültüründe sık kullanılan argo ifadeleri hızlıca bul.",
+    },
+    {
+      slug: "deyim",
+      title: "Deyim",
+      description: "Kalıplaşmış ifadelerin anlamını ve örnek kullanımını tek yerde gör.",
+    },
+    {
+      slug: "genel",
+      title: "Genel",
+      description: "Sık aranan kelimeler, modern kullanım örnekleri ve açıklamalar.",
+    },
+  ] as const;
+
+  return (
+    <>
+      <StructuredData
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Türkçe Sözlük",
+          description:
+            "Argo, deyim ve genel kullanımdaki kelimeleri arayabileceğin Toolyflow Türkçe Sözlük.",
+          url: `${siteConfig.url}/tr/sozluk`,
+          inLanguage: "tr",
+        }}
+      />
+      <main className="pb-16">
+        <section className="mx-auto max-w-6xl px-4 pt-14 sm:px-6 lg:px-8">
+          <div className="space-y-5 rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-8 shadow-[0_24px_70px_rgba(0,0,0,0.22)] sm:px-8">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+              Türkçe sözlük modülü
+            </p>
+            <h1 className="text-4xl font-extrabold tracking-tight text-[color:var(--brand-text-primary)] sm:text-5xl">
+              Türkçe Sözlük
+            </h1>
+            <p className="max-w-3xl text-base leading-8 text-[color:var(--brand-text-secondary)]">
+              Kelime, ifade ve internet jargonunu tek yerde ara. Anlamı, örnek cümleyi ve ilgili
+              kelimeleri aynı sayfada gör.
+            </p>
+            <div className="flex flex-wrap gap-3 pt-1">
+              <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-4 py-2 text-sm font-semibold text-[color:var(--brand-badge-text)]">
+                Toplam {totalWords} kelime
+              </span>
+              <span className="inline-flex rounded-full border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-2 text-sm text-[color:var(--brand-text-secondary)]">
+                3 kategori: argo, deyim, genel
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-4 pt-8 sm:px-6 lg:px-8">
+          <div className="grid gap-4 md:grid-cols-3">
+            {categoryCards.map((card) => (
+              <div
+                key={card.slug}
+                className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 shadow-[var(--brand-shadow)]"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+                    {card.title}
+                  </span>
+                  <span className="text-sm font-semibold text-[color:var(--brand-secondary)]">
+                    {categoryCounts[card.slug]}
+                  </span>
+                </div>
+                <p className="mt-4 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
+                  {card.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-4 pt-8 sm:px-6 lg:px-8">
+          <DictionarySearch
+            initialWords={popularWords}
+            categoryCounts={categoryCounts}
+            totalWords={totalWords}
+          />
+        </section>
+      </main>
+    </>
+  );
+}
+
+function renderTrCalculatorCategoryPage() {
+  const dictionary = getDictionary("tr");
+  const tools = getTrCalculatorEntries().map((tool) => ({
+    slug: tool.slug,
+    name: tool.name,
+    shortDescription: tool.shortDescription,
+    eyebrow: tool.eyebrow,
+    accentLabel: tool.accentLabel,
+    href: getTrCalculatorPath(tool.slug),
+  }));
+
+  return (
+    <>
+      <StructuredData
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: `${siteConfig.name} ${trCalculatorCategory.title}`,
+          description: trCalculatorCategory.metaDescription,
+          url: `${siteConfig.url}${getTrCalculatorCategoryPath()}`,
+          inLanguage: "tr",
+        }}
+      />
+      <CategoryPage
+        category={{
+          eyebrow: trCalculatorCategory.eyebrow,
+          title: trCalculatorCategory.title,
+          description: trCalculatorCategory.description,
+          highlights: [...trCalculatorCategory.highlights],
+        }}
+        labels={{
+          toolListHeading: trCalculatorCategory.title,
+          toolListDescription: "Günlük finans, sağlık ve oran hesaplarında en sık açılan araçları tek yerde bul.",
+          go: dictionary.shared.go,
+        }}
+        tools={tools}
+      />
+    </>
   );
 }
 
@@ -335,7 +755,7 @@ function renderCategoryPage(locale: Locale, slug: string) {
     .filter((tool) => category.toolSlugs.includes(tool.slug))
     .map((tool) => ({
       ...tool,
-      href: localizePath(locale, tool.slug),
+      href: getToolPath(locale, tool.slug),
     }));
 
   return (
@@ -346,7 +766,7 @@ function renderCategoryPage(locale: Locale, slug: string) {
           "@type": "CollectionPage",
           name: `${siteConfig.name} ${category.title}`,
           description: category.metaDescription,
-          url: `${siteConfig.url}${localizePath(locale, slug)}`,
+          url: `${siteConfig.url}${getCategoryPath(locale, slug as Parameters<typeof getCategoryPath>[1])}`,
           inLanguage: locale,
         }}
       />
@@ -413,7 +833,7 @@ function renderToolPage(locale: Locale, slug: string) {
       slug: item.slug,
       name: item.name,
       shortDescription: item.shortDescription,
-      href: localizePath(locale, item.slug),
+      href: getToolPath(locale, item.slug),
     }));
 
   const shell = (
@@ -470,7 +890,7 @@ function renderToolPage(locale: Locale, slug: string) {
           applicationCategory: "UtilitiesApplication",
           operatingSystem: "Any",
           description: tool.structuredDescription,
-          url: `${siteConfig.url}${localizePath(locale, slug)}`,
+          url: `${siteConfig.url}${getToolPath(locale, slug)}`,
           inLanguage: locale,
         }}
       />
@@ -493,6 +913,203 @@ function renderToolPage(locale: Locale, slug: string) {
   );
 }
 
+function renderTrCalculatorPage(slug: string) {
+  const calculator = getTrCalculatorEntry(slug);
+
+  if (!calculator) {
+    return notFound();
+  }
+
+  const dictionary = getDictionary("tr");
+  const relatedTools = calculator.relatedEntries.map((entry) => ({
+    slug: entry.slug,
+    name: entry.name,
+    shortDescription: entry.shortDescription,
+    href: getTrCalculatorPath(entry.slug),
+  }));
+
+  return (
+    <>
+      <StructuredData
+        data={{
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          name: `${siteConfig.name} ${calculator.name}`,
+          applicationCategory: "UtilitiesApplication",
+          operatingSystem: "Any",
+          description: calculator.structuredDescription,
+          url: `${siteConfig.url}${getTrCalculatorPath(calculator.slug)}`,
+          inLanguage: "tr",
+        }}
+      />
+      <StructuredData
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: calculator.content.faqs.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.answer,
+            },
+          })),
+        }}
+      />
+      <ToolPageShell
+        eyebrow={calculator.eyebrow}
+        title={calculator.name}
+        description={calculator.description}
+        highlights={calculator.highlights}
+        content={calculator.content}
+        labels={{
+          whyUseIt: dictionary.shared.whyUseIt,
+          exploreMore: dictionary.shared.exploreMore,
+        }}
+        relatedTools={relatedTools}
+      >
+        {calculator.slug === "kredi-hesaplayici" ? (
+          <CreditCalculatorTool />
+        ) : calculator.slug === "bmi-hesaplayici" ? (
+          <BmiCalculatorTool />
+        ) : calculator.slug === "yas-hesaplayici" ? (
+          <AgeCalculatorTool />
+        ) : calculator.slug === "yuzde-hesaplayici" ? (
+          <PercentageCalcTool />
+        ) : (
+          <RentIncreaseCalculatorTool />
+        )}
+      </ToolPageShell>
+    </>
+  );
+}
+
+async function renderDictionaryWordPage(slug: string) {
+  const word = await getDictionaryWordBySlug(slug);
+
+  if (!word) {
+    return notFound();
+  }
+
+  const relatedWords = await getRelatedDictionaryWords(word.kategori, word.slug, 4);
+
+  return (
+    <>
+      <StructuredData
+        data={{
+          "@context": "https://schema.org",
+          "@type": "DefinedTerm",
+          name: word.kelime,
+          description: word.anlam,
+          inDefinedTermSet: `${siteConfig.url}/tr/sozluk`,
+          url: `${siteConfig.url}/tr/sozluk/${word.slug}`,
+          inLanguage: "tr",
+        }}
+      />
+      <main className="pb-16">
+        <section className="mx-auto max-w-4xl px-4 pt-14 sm:px-6 lg:px-8">
+          <div className="space-y-5 rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-8 shadow-[0_24px_70px_rgba(0,0,0,0.22)] sm:px-8">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+                {getDictionaryCategoryLabel(word.kategori)}
+              </span>
+              <span className="text-sm text-[color:var(--brand-text-secondary)]">
+                {word.goruntulenme.toLocaleString("tr-TR")} görüntülenme
+              </span>
+            </div>
+            <h1 className="text-4xl font-extrabold tracking-tight text-[color:var(--brand-text-primary)] sm:text-5xl">
+              {word.kelime}
+            </h1>
+            <p className="max-w-3xl text-base leading-8 text-[color:var(--brand-text-secondary)]">
+              {word.anlam}
+            </p>
+            {word.etiketler.length ? (
+              <div className="flex flex-wrap gap-2 pt-1">
+                {word.etiketler.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex rounded-full border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-3 py-1 text-[11px] font-medium text-[color:var(--brand-text-secondary)]"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-4xl px-4 pt-8 sm:px-6 lg:px-8">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
+            <div className="space-y-6">
+              <article className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[var(--brand-shadow)]">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+                  Anlam
+                </p>
+                <p className="mt-4 text-base leading-8 text-[color:var(--brand-text-secondary)]">
+                  {word.anlam}
+                </p>
+              </article>
+
+              <article className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[var(--brand-shadow)]">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+                  Örnek cümle
+                </p>
+                <p className="mt-4 text-base leading-8 text-[color:var(--brand-text-secondary)]">
+                  {word.ornek_cumle ?? "Bu kelime için örnek cümle henüz eklenmemiş."}
+                </p>
+              </article>
+            </div>
+
+            <aside className="space-y-4">
+              <div className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[var(--brand-shadow)]">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+                  Kategori
+                </p>
+                <p className="mt-3 text-lg font-bold text-[color:var(--brand-text-primary)]">
+                  {getDictionaryCategoryLabel(word.kategori)}
+                </p>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-4xl px-4 pt-8 sm:px-6 lg:px-8">
+          <div className="mb-5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+              İlgili kelimeler
+            </p>
+            <h2 className="mt-2 text-3xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
+              Aynı kategoriden başka kelimeler
+            </h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {relatedWords.map((item) => (
+              <Link
+                key={item.slug}
+                href={`/tr/sozluk/${item.slug}`}
+                className="group rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 shadow-[var(--brand-shadow)] transition duration-200 hover:scale-[1.02] hover:border-[color:var(--brand-border-hover)]"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+                    {getDictionaryCategoryLabel(item.kategori)}
+                  </span>
+                  <span className="text-lg text-[color:var(--brand-secondary)]">↗</span>
+                </div>
+                <h3 className="mt-4 text-2xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
+                  {item.kelime}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
+                  {item.anlam}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
+
 export default async function LocalizedPage({ params }: PageProps) {
   const { locale, slug } = await params;
 
@@ -500,22 +1117,48 @@ export default async function LocalizedPage({ params }: PageProps) {
     notFound();
   }
 
-  const pageSlug = slug?.[0];
+  const pathSegments = slug?.filter(Boolean) ?? [];
 
-  if (!pageSlug) {
+  if (locale === "tr" && pathSegments.length === 1 && pathSegments[0] === "sozluk") {
+    return renderDictionaryHome();
+  }
+
+  if (locale === "tr" && pathSegments.length === 2 && pathSegments[0] === "sozluk") {
+    return renderDictionaryWordPage(pathSegments[1]);
+  }
+
+  if (locale === "tr" && pathSegments.length === 1 && pathSegments[0] === trCalculatorCategorySegment) {
+    return renderTrCalculatorCategoryPage();
+  }
+
+  if (locale === "tr" && pathSegments.length === 2 && pathSegments[0] === trCalculatorPrefix) {
+    return renderTrCalculatorPage(pathSegments[1]);
+  }
+
+  const resolved = resolveLocalizedRoute(locale, slug);
+
+  if (!resolved) {
+    notFound();
+  }
+
+  if (resolved.redirectTo) {
+    permanentRedirect(resolved.redirectTo);
+  }
+
+  if (resolved.kind === "home") {
     return renderHome(locale);
   }
 
-  if (isToolSlug(pageSlug)) {
-    return renderToolPage(locale, pageSlug);
+  if (resolved.kind === "tool") {
+    return renderToolPage(locale, resolved.slug);
   }
 
-  if (isCategorySlug(pageSlug)) {
-    return renderCategoryPage(locale, pageSlug);
+  if (resolved.kind === "category") {
+    return renderCategoryPage(locale, resolved.slug);
   }
 
-  if (isStaticSlug(pageSlug)) {
-    return renderStaticPage(locale, pageSlug);
+  if (resolved.kind === "static") {
+    return renderStaticPage(locale, resolved.slug);
   }
 
   notFound();

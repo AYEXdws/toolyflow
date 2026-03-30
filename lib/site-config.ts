@@ -25,8 +25,8 @@ function resolveSiteUrl() {
 
 export const siteConfig = {
   name: "Toolyflow",
-  description: "Fast, simple, free online tools.",
+  description: "One platform, every tool.",
   url: resolveSiteUrl(),
   email: "hello@toolyflow.com",
-  ogImagePath: "/images/logo-og.svg",
+  ogImagePath: "/images/toolyflow-logo.png",
 };

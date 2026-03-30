@@ -6,37 +6,32 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { LanguageSwitcher } from "@/components/language-switcher";
-import {
-  localeLabels,
-  locales,
-  localizePath,
-  replaceLocaleInPath,
-  type Locale,
-} from "@/lib/i18n";
+import { localeLabels, locales, type Locale } from "@/lib/i18n";
+import { getHomePath, getStaticPath, translatePathname } from "@/lib/paths";
 
 type SiteHeaderProps = {
   locale: Locale;
   labels: {
     tools: string;
     categories: string;
-    textTools: string;
-    creatorTools: string;
     about: string;
     contact: string;
     language: string;
     menu: string;
-    go: string;
   };
 };
 
 export function SiteHeader({ locale, labels }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-  const homeHref = localizePath(locale);
+  const homeHref = getHomePath(locale);
   const navigation = [
+    ...(locale === "tr"
+      ? [{ href: "/tr/sozluk", label: "Sözlük" }]
+      : []),
     { href: `${homeHref}#tools`, label: labels.tools },
     { href: `${homeHref}#categories`, label: labels.categories },
-    { href: localizePath(locale, "about"), label: labels.about },
+    { href: getStaticPath(locale, "about"), label: labels.about },
   ];
 
   useEffect(() => {
@@ -59,13 +54,13 @@ export function SiteHeader({ locale, labels }: SiteHeaderProps) {
         <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4">
             <Link
-              href={localizePath(locale)}
+              href={homeHref}
               className="flex min-h-11 items-center gap-3"
               onClick={() => setIsMenuOpen(false)}
             >
-              <span className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)]">
+              <span className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] shadow-[var(--brand-shadow)]">
                 <Image
-                  src="/images/logo.svg"
+                  src="/images/toolyflow-mark.png"
                   alt="Toolyflow logo"
                   width={40}
                   height={40}
@@ -73,8 +68,8 @@ export function SiteHeader({ locale, labels }: SiteHeaderProps) {
                   priority
                 />
               </span>
-              <span className="bg-[linear-gradient(135deg,#A855F7,#06B6D4)] bg-clip-text font-[family:var(--font-inter)] text-xl font-semibold tracking-tight text-transparent">
-                Toolyflow
+              <span className="text-2xl font-extrabold tracking-[-0.04em] text-[color:var(--brand-text-primary)]">
+                Tooly<span className="text-[color:var(--brand-secondary)]">flow</span>
               </span>
             </Link>
 
@@ -104,8 +99,9 @@ export function SiteHeader({ locale, labels }: SiteHeaderProps) {
               </span>
             </button>
 
-            <div className="hidden items-end gap-4 lg:flex lg:flex-col">
-              <nav aria-label="Primary">
+            <div className="hidden flex-1 items-center justify-between gap-8 lg:flex">
+              <div />
+              <nav aria-label="Primary" className="flex-1">
                 <ul className="flex flex-wrap items-center justify-end gap-2 text-sm text-[color:var(--brand-text-secondary)]">
                   {navigation.map((item) => (
                     <li key={item.href}>
@@ -158,7 +154,7 @@ export function SiteHeader({ locale, labels }: SiteHeaderProps) {
                 <ul className="grid gap-2">
                   {[
                     ...navigation,
-                    { href: localizePath(locale, "contact"), label: labels.contact },
+                    { href: getStaticPath(locale, "contact"), label: labels.contact },
                   ].map((item) => (
                     <li key={item.href}>
                       <Link
@@ -185,12 +181,12 @@ export function SiteHeader({ locale, labels }: SiteHeaderProps) {
                     return (
                       <Link
                         key={targetLocale}
-                        href={replaceLocaleInPath(pathname, targetLocale)}
+                        href={translatePathname(pathname, targetLocale)}
                         hrefLang={targetLocale}
                         onClick={() => setIsMenuOpen(false)}
                         className={`flex min-h-12 items-center justify-between rounded-2xl border px-4 py-3 text-sm font-medium transition ${
                           isActive
-                            ? "border-transparent bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                            ? "border-transparent bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                             : "border-[color:var(--brand-border)] bg-[color:var(--brand-card)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                         }`}
                       >

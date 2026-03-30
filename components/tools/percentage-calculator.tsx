@@ -98,7 +98,7 @@ export function PercentageCalculator({ labels }: Props) {
                   onClick={() => setMode(item)}
                   className={`rounded-[20px] px-4 py-3 text-left text-sm font-medium transition ${
                     mode === item
-                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                       : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
@@ -115,7 +115,7 @@ export function PercentageCalculator({ labels }: Props) {
                 value={percentage}
                 onChange={(event) => setPercentage(event.target.value)}
                 inputMode="decimal"
-                className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+                className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
               />
             </label>
           )}
@@ -126,7 +126,7 @@ export function PercentageCalculator({ labels }: Props) {
               value={first}
               onChange={(event) => setFirst(event.target.value)}
               inputMode="decimal"
-              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
             />
           </label>
 
@@ -139,7 +139,7 @@ export function PercentageCalculator({ labels }: Props) {
                 value={second}
                 onChange={(event) => setSecond(event.target.value)}
                 inputMode="decimal"
-                className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+                className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
               />
             </label>
           )}
@@ -148,7 +148,7 @@ export function PercentageCalculator({ labels }: Props) {
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+              className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
             >
               {copied ? labels.copied : labels.copy}
             </button>

@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
-import { isLocale, localizePath, type Locale } from "@/lib/i18n";
+import { isLocale, type Locale } from "@/lib/i18n";
+import { getHomePath } from "@/lib/paths";
 
 const copy: Record<
   Locale,
@@ -69,7 +70,7 @@ export default function LocalizedNotFound() {
           {labels.description}
         </p>
         <Link
-          href={`${localizePath(locale)}#tools`}
+          href={`${getHomePath(locale)}#tools`}
           className="mt-8 inline-flex rounded-full bg-[color:var(--color-accent)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[color:var(--color-accent-strong)]"
         >
           {labels.cta}

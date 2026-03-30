@@ -302,7 +302,7 @@ export function HashtagGenerator({ labels }: HashtagGeneratorProps) {
             <input
               value={topic}
               onChange={(event) => setTopic(event.target.value)}
-              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
               placeholder={labels.nichePlaceholder}
             />
           </label>
@@ -319,7 +319,7 @@ export function HashtagGenerator({ labels }: HashtagGeneratorProps) {
                   onClick={() => setPlatform(item)}
                   className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
                     platform === item
-                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                       : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
@@ -341,7 +341,7 @@ export function HashtagGenerator({ labels }: HashtagGeneratorProps) {
                   onClick={() => setPopularity(item)}
                   className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
                     popularity === item
-                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                       : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
@@ -358,7 +358,7 @@ export function HashtagGenerator({ labels }: HashtagGeneratorProps) {
           <button
             type="button"
             onClick={() => setGenerationCount((value) => value + 1)}
-            className="rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+            className="rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
           >
             {labels.generate}
           </button>
@@ -377,7 +377,7 @@ export function HashtagGenerator({ labels }: HashtagGeneratorProps) {
             <button
               type="button"
               onClick={handleCopyAll}
-              className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+              className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
             >
               {allCopied ? labels.allCopied : labels.copyAll}
             </button>

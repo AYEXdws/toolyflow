@@ -215,7 +215,7 @@ export function QrGenerator({ labels }: QrGeneratorProps) {
                   onClick={() => setMode(item.key)}
                   className={`rounded-[20px] px-3 py-3 text-center text-sm font-medium transition sm:px-4 ${
                     mode === item.key
-                      ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                      ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                       : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                   }`}
                 >
@@ -234,7 +234,7 @@ export function QrGenerator({ labels }: QrGeneratorProps) {
                 value={textValue}
                 onChange={(event) => setTextValue(event.target.value)}
                 rows={7}
-                className="w-full rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-4 text-sm leading-7 text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+                className="w-full rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-4 text-sm leading-7 text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
                 placeholder={labels.placeholder}
               />
             </label>
@@ -249,7 +249,7 @@ export function QrGenerator({ labels }: QrGeneratorProps) {
                 <input
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+                  className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
                   placeholder="hello@example.com"
                 />
               </label>
@@ -260,7 +260,7 @@ export function QrGenerator({ labels }: QrGeneratorProps) {
                 <input
                   value={subject}
                   onChange={(event) => setSubject(event.target.value)}
-                  className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+                  className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
                 />
               </label>
               <label className="space-y-3">
@@ -270,7 +270,7 @@ export function QrGenerator({ labels }: QrGeneratorProps) {
                 <input
                   value={body}
                   onChange={(event) => setBody(event.target.value)}
-                  className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+                  className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
                 />
               </label>
             </div>
@@ -284,7 +284,7 @@ export function QrGenerator({ labels }: QrGeneratorProps) {
               <input
                 value={phone}
                 onChange={(event) => setPhone(event.target.value)}
-                className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+                className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
                 placeholder="+90 555 000 0000"
               />
             </label>
@@ -299,7 +299,7 @@ export function QrGenerator({ labels }: QrGeneratorProps) {
                 <input
                   value={ssid}
                   onChange={(event) => setSsid(event.target.value)}
-                  className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+                  className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
                 />
               </label>
               <label className="space-y-3">
@@ -309,7 +309,7 @@ export function QrGenerator({ labels }: QrGeneratorProps) {
                 <input
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
-                  className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+                  className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
                 />
               </label>
               <div className="space-y-3 md:col-span-2">
@@ -324,7 +324,7 @@ export function QrGenerator({ labels }: QrGeneratorProps) {
                       onClick={() => setSecurity(item)}
                       className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
                         security === item
-                          ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                          ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                           : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                       }`}
                     >
@@ -349,7 +349,7 @@ export function QrGenerator({ labels }: QrGeneratorProps) {
                     onClick={() => setSize(option)}
                     className={`min-h-11 rounded-full px-4 py-2.5 text-sm font-medium transition ${
                       size === option
-                        ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                        ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                         : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                     }`}
                   >
@@ -389,7 +389,7 @@ export function QrGenerator({ labels }: QrGeneratorProps) {
               type="button"
               onClick={downloadPng}
               disabled={!pngUrl}
-              className="rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+              className="rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {labels.download}
             </button>

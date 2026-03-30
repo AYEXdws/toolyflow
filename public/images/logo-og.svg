@@ -1,65 +1,28 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="panel" x1="112" y1="92" x2="1088" y2="560" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#151723"/>
-      <stop offset="1" stop-color="#0A0A0F"/>
+    <linearGradient id="line-a" x1="244" y1="132" x2="1028" y2="148" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E3A5F"/>
+      <stop offset="1" stop-color="#315889"/>
     </linearGradient>
-    <linearGradient id="accent" x1="256" y1="148" x2="404" y2="388" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#A855F7"/>
-      <stop offset="1" stop-color="#06B6D4"/>
+    <linearGradient id="line-b" x1="214" y1="214" x2="1042" y2="226" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#3B82F6"/>
     </linearGradient>
-    <linearGradient id="title" x1="470" y1="190" x2="835" y2="350" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#A855F7"/>
-      <stop offset="1" stop-color="#06B6D4"/>
+    <linearGradient id="line-c" x1="188" y1="298" x2="1076" y2="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#60A5FA"/>
     </linearGradient>
-    <linearGradient id="frame" x1="142" y1="120" x2="420" y2="408" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#7C3AED" stop-opacity="0.9"/>
-      <stop offset="1" stop-color="#06B6D4" stop-opacity="0.75"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(210 170) rotate(52) scale(132 118)">
-      <stop stop-color="#7C3AED" stop-opacity="0.3"/>
-      <stop offset="1" stop-color="#7C3AED" stop-opacity="0"/>
-    </radialGradient>
   </defs>
 
-  <rect width="1200" height="630" fill="#0A0A0F"/>
-  <circle cx="986" cy="562" r="276" fill="#06B6D4" fill-opacity="0.07"/>
-  <circle cx="160" cy="54" r="252" fill="#7C3AED" fill-opacity="0.14"/>
-  <rect x="72" y="72" width="1056" height="486" rx="40" fill="url(#panel)"/>
-  <rect x="72.5" y="72.5" width="1055" height="485" rx="39.5" stroke="#232334"/>
+  <rect width="1200" height="630" fill="#0B1120"/>
+  <circle cx="930" cy="520" r="280" fill="#1D4ED8" fill-opacity="0.08"/>
+  <circle cx="280" cy="120" r="220" fill="#3B82F6" fill-opacity="0.06"/>
 
-  <g>
-    <rect x="132" y="132" width="256" height="256" rx="64" fill="#0F1118"/>
-    <rect x="132.5" y="132.5" width="255" height="255" rx="63.5" stroke="#232334"/>
-    <rect x="144" y="144" width="232" height="232" rx="56" stroke="url(#frame)" stroke-opacity="0.3"/>
-    <circle cx="210" cy="178" r="82" fill="url(#glow)"/>
+  <path d="M265 158C352 194 454 193 569 167C709 135 839 135 1088 162" stroke="url(#line-a)" stroke-width="14" stroke-linecap="round"/>
+  <path d="M227 244C334 295 458 294 605 250C769 201 911 200 1108 242" stroke="url(#line-b)" stroke-width="20" stroke-linecap="round"/>
+  <path d="M195 328C325 403 477 403 653 336C832 270 978 270 1137 325" stroke="url(#line-c)" stroke-width="24" stroke-linecap="round"/>
 
-    <rect x="176" y="182" width="100" height="28" rx="14" fill="#F8FAFC"/>
-    <rect x="212" y="182" width="28" height="130" rx="14" fill="#F8FAFC"/>
-
-    <rect x="284" y="182" width="28" height="130" rx="14" fill="url(#accent)"/>
-    <rect x="284" y="182" width="72" height="28" rx="14" fill="url(#accent)"/>
-    <rect x="284" y="236" width="58" height="28" rx="14" fill="url(#accent)"/>
-
-    <circle cx="340" cy="312" r="11" fill="#06B6D4"/>
-  </g>
-
-  <text x="458" y="242" fill="url(#title)" font-family="Inter, Arial, sans-serif" font-size="92" font-weight="800" letter-spacing="-3">
-    Toolyflow
-  </text>
-  <text x="458" y="310" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700">
-    Creator tools ve hızlı utility iş akışları
-  </text>
-  <text x="458" y="366" fill="#94A3B8" font-family="Inter, Arial, sans-serif" font-size="26">
-    Bio, kullanıcı adı, QR ve metin araçlarını tek yerde hızlıca kullan.
-  </text>
-
-  <rect x="458" y="420" width="184" height="54" rx="27" fill="#A855F7" fill-opacity="0.15"/>
-  <rect x="660" y="420" width="170" height="54" rx="27" fill="#06B6D4" fill-opacity="0.14"/>
-  <text x="495" y="454" fill="#C084FC" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" letter-spacing="1.1">
-    CREATOR TOOLS
-  </text>
-  <text x="700" y="454" fill="#67E8F9" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" letter-spacing="1.1">
-    QUICK TOOLS
-  </text>
+  <text x="226" y="470" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="104" font-weight="800" letter-spacing="-4">Tooly</text>
+  <text x="522" y="470" fill="#3B82F6" font-family="Inter, Arial, sans-serif" font-size="104" font-weight="800" letter-spacing="-4">flow</text>
+  <text x="360" y="548" fill="#64748B" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="500" letter-spacing="-0.6">Tek platform, her araç</text>
 </svg>

@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-import { localeLabels, locales, replaceLocaleInPath, type Locale } from "@/lib/i18n";
+import { localeLabels, locales, type Locale } from "@/lib/i18n";
+import { translatePathname } from "@/lib/paths";
 
 type LanguageSwitcherProps = {
   currentLocale: Locale;
@@ -51,7 +52,7 @@ export function LanguageSwitcher({ currentLocale, label }: LanguageSwitcherProps
               return (
                 <Link
                   key={locale}
-                  href={replaceLocaleInPath(pathname, locale)}
+                  href={translatePathname(pathname, locale)}
                   hrefLang={locale}
                   onClick={() => setIsOpen(false)}
                   className={`flex items-center justify-between rounded-2xl px-4 py-3 text-sm transition ${
@@ -82,11 +83,11 @@ export function LanguageSwitcher({ currentLocale, label }: LanguageSwitcherProps
             return (
               <Link
                 key={locale}
-                href={replaceLocaleInPath(pathname, locale)}
+                href={translatePathname(pathname, locale)}
                 hrefLang={locale}
                 className={`rounded-full px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition ${
                   isActive
-                    ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                    ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                     : "border border-[color:var(--brand-border)] text-[color:var(--brand-text-secondary)] hover:border-[color:var(--brand-border-hover)] hover:text-[color:var(--brand-text-primary)]"
                 }`}
               >
@@ -102,7 +103,7 @@ export function LanguageSwitcher({ currentLocale, label }: LanguageSwitcherProps
             onClick={() => setIsOpen((value) => !value)}
             className={`rounded-full px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition ${
               isSecondaryActive
-                ? "bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] text-white"
+                ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
                 : "border border-[color:var(--brand-border)] text-[color:var(--brand-text-secondary)] hover:border-[color:var(--brand-border-hover)] hover:text-[color:var(--brand-text-primary)]"
             }`}
           >
@@ -118,7 +119,7 @@ export function LanguageSwitcher({ currentLocale, label }: LanguageSwitcherProps
               return (
                 <Link
                   key={locale}
-                  href={replaceLocaleInPath(pathname, locale)}
+                  href={translatePathname(pathname, locale)}
                   hrefLang={locale}
                   onClick={() => setIsOpen(false)}
                   className={`flex items-center justify-between rounded-2xl px-4 py-3 text-sm transition ${

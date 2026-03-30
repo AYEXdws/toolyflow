@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-const palette = ["#7c3aed", "#06b6d4", "#8b5cf6", "#4f46e5", "#9333ea", "#0ea5e9"];
+const palette = ["#1d4ed8", "#2563eb", "#3b82f6", "#60a5fa", "#1e40af", "#93c5fd"];
 
 type DecisionWheelLabels = {
   inputLabel: string;
@@ -101,14 +101,14 @@ export function DecisionWheel({ labels }: DecisionWheelProps) {
               value={rawOptions}
               onChange={(event) => setRawOptions(event.target.value)}
               rows={10}
-              className="w-full rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-4 text-sm leading-7 text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+              className="w-full rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-4 text-sm leading-7 text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
             />
           </label>
           <button
             type="button"
             onClick={spinWheel}
             disabled={spinning || options.length < 2}
-            className="rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {spinning ? labels.spinning : labels.button}
           </button>

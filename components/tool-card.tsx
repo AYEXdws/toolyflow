@@ -14,7 +14,7 @@ type ToolCardProps = {
 
 export function ToolCard({ tool, href, goLabel }: ToolCardProps) {
   return (
-    <article className="group flex h-full flex-col rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 transition duration-200 hover:scale-[1.02] hover:border-[color:var(--brand-border-hover)] hover:shadow-[0_18px_50px_rgba(124,58,237,0.16)]">
+    <article className="group flex h-full flex-col rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 transition duration-200 hover:scale-[1.02] hover:border-[color:var(--brand-border-hover)] hover:shadow-[0_18px_50px_rgba(29,78,216,0.18)]">
       <div className="mb-5 flex items-center justify-between gap-4">
         <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
           {tool.accentLabel}
@@ -36,7 +36,7 @@ export function ToolCard({ tool, href, goLabel }: ToolCardProps) {
       <div className="mt-8 flex justify-end">
         <Link
           href={href}
-          className="inline-flex min-h-11 items-center rounded-xl border border-[color:var(--brand-border)] px-4 py-2.5 text-sm font-semibold text-[color:var(--brand-text-primary)] transition group-hover:border-[color:var(--brand-border-hover)] group-hover:bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] group-hover:text-white"
+          className="inline-flex min-h-11 items-center rounded-xl border border-[color:var(--brand-border)] px-4 py-2.5 text-sm font-semibold text-[color:var(--brand-text-primary)] transition group-hover:border-[color:var(--brand-border-hover)] group-hover:bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] group-hover:text-white"
         >
           {goLabel}
         </Link>

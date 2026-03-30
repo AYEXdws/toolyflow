@@ -117,46 +117,46 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
     "text-tools": {
       navLabel: "Text tools",
       eyebrow: "Text workflow category",
-      title: "Text tools for formatting and cleanup",
+      title: "Text tools",
       description:
-        "This category is where Toolyflow will build its strongest utility layer: formatting, cleanup, conversion, and writing helpers that solve repeat problems fast.",
+        "Convert, clean, and tighten text in one place without bouncing between separate pages.",
       metaTitle: "Text Tools",
       metaDescription:
         "Browse Toolyflow text tools for formatting, cleanup, and fast writing workflows with focused pages and clean outputs.",
       keywords: ["text tools", "online text tools", "formatting tools", "text cleanup tools"],
       highlights: [
-        "Focused on repeat workflows like formatting, cleanup, and conversion.",
-        "Built for quick input, quick output, and easy copying across devices.",
+        "Built for repeat formatting, cleanup, and conversion tasks.",
+        "Made for quick input, clean output, and easy copying across devices.",
       ],
     },
     "creator-tools": {
       navLabel: "Creator tools",
       eyebrow: "Creator workflow category",
-      title: "Creator tools for bios, names, and profile workflows",
+      title: "Creator tools",
       description:
-        "This category groups profile-facing tools for creators who need clean bios, usable nickname ideas, and fast utility pages that support publishing workflows.",
+        "Profile-focused tools for bios, usernames, hashtags, and quick publishing prep.",
       metaTitle: "Creator Tools",
       metaDescription:
         "Browse Toolyflow creator tools for bios, nicknames, profile ideas, and quick creator-focused online workflows.",
       keywords: ["creator tools", "bio generator", "nickname generator", "profile tools"],
       highlights: [
-        "Designed for creators, handles, bios, and profile-first publishing flows.",
-        "Keeps name and identity tools in one place instead of scattering them across the site.",
+        "Made for social profiles, creator handles, bios, and post-ready setup.",
+        "Keeps identity tools together instead of scattering them across the site.",
       ],
     },
     "quick-tools": {
       navLabel: "Quick tools",
       eyebrow: "Quick utility category",
-      title: "Quick tools for colors, pricing, and fast utility work",
+      title: "Quick tools",
       description:
-        "This category groups fast utility pages for color conversion, percentage math, discount checks, QR codes, and lightweight decision flows.",
+        "Fast pages for QR codes, quick calculations, color conversion, and small everyday tasks.",
       metaTitle: "Quick Tools",
       metaDescription:
         "Browse Toolyflow quick tools for color conversion, percentage math, discount checks, QR codes, and more.",
       keywords: ["quick tools", "color converter", "discount calculator", "percentage calculator"],
       highlights: [
-        "Built for fast answers and small tasks that should not need a heavy app.",
-        "Useful for creator workflows, pricing checks, and lightweight utility actions.",
+        "Useful when you need a quick answer without opening a heavy app.",
+        "Covers pricing checks, QR sharing, and other lightweight utility tasks.",
       ],
     },
   },
@@ -164,46 +164,46 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
     "text-tools": {
       navLabel: "Metin Araçları",
       eyebrow: "Metin iş akışı kategorisi",
-      title: "Biçimlendirme ve temizlik için metin araçları",
+      title: "Metin Araçları",
       description:
-        "Bu kategori, Toolyflow’un en güçlü utility katmanını kuracağı yer: biçimlendirme, temizlik, dönüştürme ve yazma yardımcıları tekrar eden ihtiyaçları hızlıca çözmelidir.",
+        "Metni dönüştürmek, temizlemek ve daha okunur hale getirmek için bir arada duran araçlar.",
       metaTitle: "Metin Araçları",
       metaDescription:
         "Biçimlendirme, temizlik ve hızlı yazı iş akışları için Toolyflow metin araçlarını keşfedin.",
       keywords: ["metin araçları", "online metin araçları", "biçimlendirme araçları", "metin temizleme"],
       highlights: [
-        "Biçimlendirme, temizlik ve dönüştürme gibi tekrar eden iş akışlarına odaklanır.",
-        "Hızlı giriş, hızlı çıktı ve cihazlar arası kolay kopyalama için tasarlanır.",
+        "Biçimlendirme, temizlik ve dönüştürme gibi tekrar eden işlerde hız kazandırır.",
+        "Telefonda da masaüstünde de hızlı giriş ve temiz çıktı için tasarlanır.",
       ],
     },
     "creator-tools": {
       navLabel: "Creator Araçları",
       eyebrow: "İçerik üretici iş akışı kategorisi",
-      title: "Bio, isim ve profil iş akışları için creator araçları",
+      title: "Creator Araçları",
       description:
-        "Bu kategori; içerik üreticilerin bio, kullanıcı adı, hashtag ve profil odaklı işlerinde kullanacağı araçları aynı çatı altında toplar ve yayınlama akışlarını destekler.",
+        "Bio, kullanıcı adı ve hashtag gibi creator işlerini tek yerde hızlandıran araçlar.",
       metaTitle: "İçerik Üretici Araçları",
       metaDescription:
         "Bio, nickname, profil fikirleri ve creator odaklı hızlı iş akışları için Toolyflow içerik üretici araçlarını keşfedin.",
       keywords: ["içerik üretici araçları", "bio generator", "nickname generator", "profil araçları"],
       highlights: [
-        "İçerik üreticiler, handle’lar, bio’lar ve profil odaklı yayın akışları için tasarlandı.",
-        "Kimlik ve isim araçlarını sitede dağınık tutmak yerine tek yerde toplar.",
+        "Profil, handle ve paylaşım hazırlığı gibi işler için daha net bir akış kurar.",
+        "Creator tarafındaki isim, bio ve hashtag araçlarını tek yerde toplar.",
       ],
     },
     "quick-tools": {
       navLabel: "Hızlı Araçlar",
       eyebrow: "Hızlı utility kategorisi",
-      title: "Renk, fiyat ve pratik işler için hızlı araçlar",
+      title: "Hızlı Araçlar",
       description:
-        "Bu kategori; renk dönüştürme, yüzde hesabı, indirim kontrolü, QR üretimi ve hafif karar akışları gibi hızlı utility araçlarını bir arada toplar.",
+        "QR kod, karar çarkı, renk dönüştürme ve hesaplayıcılar gibi pratik işleri hızlandıran sayfalar.",
       metaTitle: "Hızlı Araçlar",
       metaDescription:
         "Renk dönüştürme, yüzde hesabı, indirim kontrolü, QR üretimi ve daha fazlası için Toolyflow hızlı araçlarını keşfedin.",
       keywords: ["hızlı araçlar", "renk dönüştürücü", "indirim hesaplayıcı", "yüzde hesaplayıcı"],
       highlights: [
         "Küçük ama sık tekrar eden işler için hızlı sonuç verir.",
-        "Creator iş akışları, fiyat kontrolü ve pratik utility ihtiyaçları için uygundur.",
+        "Creator akışlarını destekleyen pratik utility ihtiyaçları için uygundur.",
       ],
     },
   },
@@ -211,46 +211,46 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
     "text-tools": {
       navLabel: "Herramientas de texto",
       eyebrow: "Categoría de texto",
-      title: "Herramientas de texto para formato y limpieza",
+      title: "Herramientas de texto",
       description:
-        "Esta categoría es donde Toolyflow construirá su capa más fuerte: formato, limpieza, conversión y ayudas de escritura para resolver tareas repetidas.",
+        "Herramientas para convertir, limpiar y pulir texto sin salir del flujo.",
       metaTitle: "Text Tools",
       metaDescription:
         "Explora las herramientas de texto de Toolyflow para formato, limpieza y flujos de escritura rápidos.",
       keywords: ["text tools", "herramientas de texto", "limpieza de texto", "formato de texto"],
       highlights: [
-        "Se centra en flujos repetidos como formato, limpieza y conversión.",
-        "Pensado para entrada rápida, salida rápida y copia fácil.",
+        "Resuelve tareas repetidas de formato, limpieza y conversión.",
+        "Pensado para entrada rápida, salida clara y copia fácil.",
       ],
     },
     "creator-tools": {
       navLabel: "Herramientas para creadores",
       eyebrow: "Categoría para creadores",
-      title: "Herramientas para bios, nombres y perfiles",
+      title: "Herramientas para creadores",
       description:
-        "Esta categoría reúne herramientas pensadas para creadores que necesitan bios limpias, ideas de nombres y páginas rápidas para apoyar su flujo de publicación.",
+        "Herramientas pensadas para bios, nombres de usuario, hashtags y preparación de perfil.",
       metaTitle: "Creator Tools",
       metaDescription:
         "Explora las herramientas para creadores de Toolyflow para bios, nicknames, perfiles y flujos rápidos.",
       keywords: ["creator tools", "bio generator", "nickname generator", "herramientas para creadores"],
       highlights: [
-        "Pensadas para creadores, handles y flujos centrados en perfiles.",
+        "Hechas para perfiles, handles y tareas rápidas de publicación.",
         "Mantiene juntas las herramientas de identidad y nombre.",
       ],
     },
     "quick-tools": {
       navLabel: "Herramientas rápidas",
       eyebrow: "Categoría rápida",
-      title: "Herramientas rápidas para color, precio y utilidades",
+      title: "Herramientas rápidas",
       description:
-        "Esta categoría reúne conversiones de color, cálculos porcentuales, descuentos, QR y otras utilidades ligeras.",
+        "QR, ruedas de decisión, convertidores de color y calculadoras para resolver tareas rápidas.",
       metaTitle: "Quick Tools",
       metaDescription:
         "Explora herramientas rápidas para color, porcentajes, descuentos, QR y utilidades ligeras.",
       keywords: ["herramientas rápidas", "conversor de color", "calculadora de descuentos", "calculadora de porcentajes"],
       highlights: [
         "Pensada para respuestas rápidas y tareas pequeñas.",
-        "Útil para creadores, precios y utilidades cotidianas.",
+        "Útil para precios, QR y utilidades del día a día.",
       ],
     },
   },
@@ -258,46 +258,46 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
     "text-tools": {
       navLabel: "Text-Tools",
       eyebrow: "Text-Workflow-Kategorie",
-      title: "Text-Tools für Formatierung und Bereinigung",
+      title: "Text-Tools",
       description:
-        "In dieser Kategorie baut Toolyflow seine stärkste Utility-Ebene auf: Formatierung, Bereinigung, Umwandlung und Schreibhelfer für wiederkehrende Aufgaben.",
+        "Text-Tools zum Umwandeln, Bereinigen und Glätten von Copy in wenigen Sekunden.",
       metaTitle: "Text-Tools",
       metaDescription:
         "Entdecke Toolyflow Text-Tools für Formatierung, Bereinigung und schnelle Schreib-Workflows.",
       keywords: ["text-tools", "online text-tools", "text bereinigen", "formatierung tools"],
       highlights: [
-        "Konzentriert sich auf wiederkehrende Workflows wie Formatierung, Bereinigung und Umwandlung.",
-        "Für schnelle Eingabe, schnelle Ausgabe und einfaches Kopieren aufgebaut.",
+        "Hilft bei wiederkehrenden Aufgaben wie Formatierung, Bereinigung und Umwandlung.",
+        "Für schnelle Eingabe, saubere Ausgabe und einfaches Kopieren gebaut.",
       ],
     },
     "creator-tools": {
       navLabel: "Creator-Tools",
       eyebrow: "Creator-Workflow-Kategorie",
-      title: "Creator-Tools für Bios, Namen und Profile",
+      title: "Creator-Tools",
       description:
-        "Diese Kategorie bündelt Tools für Creator, die saubere Bios, brauchbare Nickname-Ideen und schnelle Profil-Workflows brauchen.",
+        "Tools für Bios, Usernames, Hashtags und schnelle Profil-Workflows.",
       metaTitle: "Creator-Tools",
       metaDescription:
         "Entdecke Toolyflow Creator-Tools für Bios, Nicknames, Profile und schnelle Creator-Workflows.",
       keywords: ["creator-tools", "bio generator", "nickname generator", "profil tools"],
       highlights: [
-        "Gedacht für Creator, Handles und profilorientierte Publishing-Workflows.",
+        "Gedacht für Creator-Profile, Handles und schnelle Publishing-Aufgaben.",
         "Hält Identitäts- und Namenstools an einem Ort zusammen.",
       ],
     },
     "quick-tools": {
       navLabel: "Schnelle Tools",
       eyebrow: "Schnelle Utility-Kategorie",
-      title: "Schnelle Tools für Farbe, Preise und kleine Aufgaben",
+      title: "Schnelle Tools",
       description:
-        "Diese Kategorie bündelt Farbkonvertierung, Prozentrechnung, Rabattprüfung, QR-Codes und leichte Utility-Workflows.",
+        "QR-Codes, Entscheidungsrad, Farbkonvertierung und Rechner für kleine schnelle Aufgaben.",
       metaTitle: "Quick Tools",
       metaDescription:
         "Entdecke schnelle Tools für Farbe, Prozentrechnung, Rabatte, QR-Codes und weitere Utilities.",
       keywords: ["schnelle tools", "farbkonverter", "rabattrechner", "prozentrechner"],
       highlights: [
         "Für schnelle Antworten und kleine wiederkehrende Aufgaben gebaut.",
-        "Nützlich für Creator-Workflows, Preisprüfungen und leichte Utilities.",
+        "Nützlich für Preisprüfungen, QR-Sharing und leichte Utilities.",
       ],
     },
   },
@@ -305,46 +305,46 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
     "text-tools": {
       navLabel: "Outils de texte",
       eyebrow: "Catégorie texte",
-      title: "Outils de texte pour formatage et nettoyage",
+      title: "Outils de texte",
       description:
-        "Cette catégorie est l'endroit où Toolyflow doit construire sa couche la plus forte: formatage, nettoyage, conversion et aides d'écriture pour des besoins répétés.",
+        "Des outils de texte pour convertir, nettoyer et resserrer un texte rapidement.",
       metaTitle: "Text Tools",
       metaDescription:
         "Parcourez les outils de texte de Toolyflow pour le formatage, le nettoyage et les flux d'écriture rapides.",
       keywords: ["text tools", "outils de texte", "nettoyage texte", "formatage texte"],
       highlights: [
-        "Centrée sur des workflows répétés comme le formatage, le nettoyage et la conversion.",
-        "Pensée pour une saisie rapide, une sortie rapide et une copie simple.",
+        "Conçue pour les tâches répétées de formatage, nettoyage et conversion.",
+        "Pensée pour une saisie rapide, un résultat clair et une copie simple.",
       ],
     },
     "creator-tools": {
       navLabel: "Outils créateur",
       eyebrow: "Catégorie créateur",
-      title: "Outils pour bios, noms et profils créateur",
+      title: "Outils créateur",
       description:
-        "Cette catégorie regroupe les outils destinés aux créateurs qui ont besoin de bios propres, d'idées de pseudos et de pages rapides pour leurs profils.",
+        "Des outils pensés pour les bios, pseudos, hashtags et tâches rapides de profil.",
       metaTitle: "Creator Tools",
       metaDescription:
         "Parcourez les outils créateur de Toolyflow pour bios, pseudos, profils et workflows rapides.",
       keywords: ["creator tools", "bio generator", "nickname generator", "outils créateur"],
       highlights: [
-        "Pensés pour les créateurs, les handles et les flux centrés sur le profil.",
+        "Pensés pour les profils créateur, les handles et la préparation de publication.",
         "Regroupe les outils d'identité et de nom au même endroit.",
       ],
     },
     "quick-tools": {
       navLabel: "Outils rapides",
       eyebrow: "Catégorie utilitaire rapide",
-      title: "Outils rapides pour couleur, prix et tâches légères",
+      title: "Outils rapides",
       description:
-        "Cette catégorie réunit conversion de couleurs, calculs de pourcentage, remises, QR et autres utilitaires rapides.",
+        "QR codes, roue de décision, conversion de couleur et calculateurs pour régler vite les petites tâches.",
       metaTitle: "Quick Tools",
       metaDescription:
         "Parcourez des outils rapides pour couleur, pourcentages, remises, QR et autres utilitaires légers.",
       keywords: ["outils rapides", "convertisseur couleur", "calculateur remise", "calculateur pourcentage"],
       highlights: [
-        "Conçue pour des réponses rapides et des petites tâches récurrentes.",
-        "Pratique pour créateurs, prix et utilitaires du quotidien.",
+        "Conçus pour les réponses rapides et les petits besoins répétés.",
+        "Utile pour les prix, les QR et les besoins du quotidien.",
       ],
     },
   },
@@ -352,46 +352,46 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
     "text-tools": {
       navLabel: "Ferramentas de texto",
       eyebrow: "Categoria de texto",
-      title: "Ferramentas de texto para formatação e limpeza",
+      title: "Ferramentas de texto",
       description:
-        "Esta categoria é onde a Toolyflow deve construir sua camada mais forte: formatação, limpeza, conversão e ajudas de escrita para tarefas repetidas.",
+        "Ferramentas para converter, limpar e ajustar texto sem sair do fluxo.",
       metaTitle: "Text Tools",
       metaDescription:
         "Explore as text tools da Toolyflow para formatação, limpeza e fluxos rápidos de escrita.",
       keywords: ["text tools", "ferramentas de texto", "limpeza de texto", "formatação de texto"],
       highlights: [
-        "Focada em fluxos repetidos como formatação, limpeza e conversão.",
-        "Feita para entrada rápida, saída rápida e cópia simples.",
+        "Resolvem fluxos repetidos como formatação, limpeza e conversão.",
+        "Pensadas para entrada rápida, saída clara e cópia fácil.",
       ],
     },
     "creator-tools": {
       navLabel: "Ferramentas para criadores",
       eyebrow: "Categoria creator",
-      title: "Ferramentas para bios, nomes e perfis",
+      title: "Ferramentas para criadores",
       description:
-        "Esta categoria reúne ferramentas para creators que precisam de bios limpas, ideias de nicknames e páginas rápidas para apoiar seus fluxos de publicação.",
+        "Ferramentas para bios, nomes de usuário, hashtags e tarefas rápidas de perfil.",
       metaTitle: "Creator Tools",
       metaDescription:
         "Explore as creator tools da Toolyflow para bios, nicknames, perfis e fluxos rápidos.",
       keywords: ["creator tools", "bio generator", "nickname generator", "ferramentas para creators"],
       highlights: [
-        "Pensadas para creators, handles e fluxos centrados em perfil.",
+        "Feitas para perfis creator, handles e tarefas rápidas de publicação.",
         "Mantém juntas as ferramentas de identidade e nome.",
       ],
     },
     "quick-tools": {
       navLabel: "Ferramentas rápidas",
       eyebrow: "Categoria de utilidades rápidas",
-      title: "Ferramentas rápidas para cor, preço e tarefas leves",
+      title: "Ferramentas rápidas",
       description:
-        "Esta categoria reúne conversão de cor, cálculos de porcentagem, descontos, QR e outras utilidades leves.",
+        "QR codes, roda de decisão, conversão de cor e calculadoras para resolver tarefas rápidas.",
       metaTitle: "Quick Tools",
       metaDescription:
         "Explore ferramentas rápidas para cor, porcentagem, descontos, QR e outras utilidades.",
       keywords: ["ferramentas rápidas", "conversor de cores", "calculadora de desconto", "calculadora de porcentagem"],
       highlights: [
-        "Feita para respostas rápidas e tarefas pequenas recorrentes.",
-        "Útil para creators, preços e utilidades leves.",
+        "Criadas para respostas rápidas e tarefas pequenas recorrentes.",
+        "Úteis para preços, QR e utilidades leves do dia a dia.",
       ],
     },
   },

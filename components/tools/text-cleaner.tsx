@@ -101,7 +101,7 @@ export function TextCleaner({ labels }: TextCleanerProps) {
             value={input}
             onChange={(event) => setInput(event.target.value)}
             rows={10}
-            className="min-h-[220px] w-full rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-4 text-sm leading-7 text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+            className="min-h-[220px] w-full rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-4 text-sm leading-7 text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
             placeholder={labels.placeholder}
           />
         </label>
@@ -134,7 +134,7 @@ export function TextCleaner({ labels }: TextCleanerProps) {
               <button
                 type="button"
                 onClick={() => handleCopy(item.key, item.value)}
-                className="w-full min-h-11 shrink-0 rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-4 py-2.5 text-sm font-semibold text-white sm:w-auto"
+                className="w-full min-h-11 shrink-0 rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-4 py-2.5 text-sm font-semibold text-white sm:w-auto"
               >
                 {copiedKey === item.key ? labels.copied : labels.copy}
               </button>

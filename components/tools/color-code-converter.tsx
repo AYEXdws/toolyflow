@@ -151,7 +151,7 @@ function parseColor(value: string): Rgb | null {
 }
 
 export function ColorCodeConverter({ labels }: Props) {
-  const [input, setInput] = useState("#7C3AED");
+  const [input, setInput] = useState("#3B82F6");
   const [copied, setCopied] = useState("");
   const parsed = useMemo(() => parseColor(input), [input]);
 
@@ -192,7 +192,7 @@ export function ColorCodeConverter({ labels }: Props) {
             <input
               value={input}
               onChange={(event) => setInput(event.target.value)}
-              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
               placeholder={labels.placeholder}
             />
           </label>
@@ -200,7 +200,7 @@ export function ColorCodeConverter({ labels }: Props) {
           <div className="flex gap-3">
             <input
               type="color"
-              value={output?.hex ?? "#7C3AED"}
+              value={output?.hex ?? "#3B82F6"}
               onChange={(event) => setInput(event.target.value.toUpperCase())}
               className="h-12 w-16 rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-1"
             />
@@ -251,7 +251,7 @@ export function ColorCodeConverter({ labels }: Props) {
                     <button
                       type="button"
                       onClick={() => handleCopy(item.key, item.value)}
-                      className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+                      className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
                     >
                       {copied === item.key ? labels.copied : labels.copy}
                     </button>

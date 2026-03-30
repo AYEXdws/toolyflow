@@ -13,7 +13,7 @@ type RedirectLayoutProps = {
 
 export default function RedirectLayout({ children }: RedirectLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="tr">
       <body>{children}</body>
     </html>
   );

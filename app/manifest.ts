@@ -9,16 +9,16 @@ export default function manifest(): MetadataRoute.Manifest {
     description: siteConfig.description,
     start_url: "/tr",
     display: "standalone",
-    background_color: "#0A0A0F",
-    theme_color: "#0A0A0F",
+    background_color: "#0B1120",
+    theme_color: "#0B1120",
     icons: [
       {
-        src: "/images/logo.svg",
-        sizes: "any",
-        type: "image/svg+xml",
+        src: "/images/toolyflow-mark.png",
+        sizes: "512x512",
+        type: "image/png",
       },
       {
-        src: "/images/logo-512.png",
+        src: "/images/toolyflow-logo.png",
         sizes: "512x512",
         type: "image/png",
       },

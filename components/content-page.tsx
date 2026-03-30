@@ -62,7 +62,7 @@ export function ContentPage({
                   <div className="pt-1">
                     <Link
                       href={`mailto:${section.email}`}
-                      className="inline-flex min-h-11 flex-wrap items-center gap-2 rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+                      className="inline-flex min-h-11 flex-wrap items-center gap-2 rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
                     >
                       <span>{section.emailLabel ?? "Email"}</span>
                       <span>{section.email}</span>

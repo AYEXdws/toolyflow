@@ -91,7 +91,7 @@ export function WordCounter({ labels }: WordCounterProps) {
               value={input}
               onChange={(event) => setInput(event.target.value)}
               rows={11}
-              className="min-h-[260px] w-full rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-4 text-sm leading-7 text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)]"
+              className="min-h-[260px] w-full rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-4 text-sm leading-7 text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
               placeholder={labels.placeholder}
             />
           </label>
@@ -104,7 +104,7 @@ export function WordCounter({ labels }: WordCounterProps) {
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#7C3AED,#06B6D4)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+              className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
             >
               {copied ? labels.copied : labels.copyText}
             </button>

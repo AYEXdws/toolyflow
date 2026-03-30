@@ -91,10 +91,13 @@ export type Dictionary = {
     description: string;
     toolsHeading: string;
     companyHeading: string;
+    slogan: string;
+    madeIn: string;
     about: string;
     contact: string;
     privacy: string;
     terms: string;
+    copyright: string;
   };
   shared: {
     language: string;
@@ -1020,23 +1023,26 @@ function createEnglishDictionary(): Dictionary {
         "Fast, simple, free online tools for quick daily tasks. Every tool is designed to work cleanly on mobile, tablet, and desktop.",
       toolsHeading: "Tools",
       companyHeading: "Company",
+      slogan: "One platform, every tool",
+      madeIn: "Made with ❤️ in Türkiye",
       about: "About",
       contact: "Contact",
       privacy: "Privacy Policy",
       terms: "Terms of Service",
+      copyright: "© 2026 Toolyflow. All rights reserved.",
     },
     shared: {
       language: "Language",
       openTool: "Open tool",
-      go: "Go",
+      go: "Use",
       whyUseIt: "Why use it",
       exploreMore: "Explore more",
       noText: "No text yet.",
     },
   home: {
-    metaTitle: "Toolyflow — Creator Toolbox",
+    metaTitle: "Toolyflow — One platform, every tool",
     metaDescription:
-      "Free online tools for Instagram, TikTok, and YouTube creators. Fast, mobile-friendly, and easy to use.",
+      "All the tools you need online — free, fast, and in your language.",
       keywords: [
         "online tools",
         "free online tools",
@@ -1046,13 +1052,13 @@ function createEnglishDictionary(): Dictionary {
         "case converter",
         "bio generator",
       ],
-    eyebrow: "Creator toolbox",
-    title: "Toolyflow",
-    tagline: "The toolbox for content creators.",
+    eyebrow: "TRUSTED BY CREATORS",
+    title: "One platform,",
+    tagline: "every tool.",
     description:
-      "Everything you need for Instagram, TikTok, and YouTube in one place. Toolyflow brings creator tools, text tools, and lightweight utilities together in a mobile-first experience.",
-      primaryCta: "Browse tools",
-      secondaryCta: "Learn more",
+      "All the tools you need online — free, fast, and in your language.",
+      primaryCta: "Explore Tools",
+      secondaryCta: "Browse Categories",
       stats: [
       { label: "Focus", value: "Creator tools" },
       { label: "Experience", value: "Mobile first" },
@@ -1061,7 +1067,7 @@ function createEnglishDictionary(): Dictionary {
     toolsEyebrow: "Popular tools",
     toolsTitle: "Built for creator tasks and fast production flows",
     toolsDescription:
-      "The main tool library highlights repeat workflows such as bios, usernames, QR codes, and text cleanup. Lighter utilities stay in the product as support tools.",
+      "Browse creator, text, and quick tools from one clean library without guessing where each task lives.",
       features: [
         {
           title: "Text tools",
@@ -2504,23 +2510,26 @@ const tr = translateDictionary(en, "tr", {
         "Günlük işler için hızlı, sade ve ücretsiz online araçlar. Her araç telefonda, tablette ve bilgisayarda temiz çalışacak şekilde tasarlandı.",
       toolsHeading: "Araçlar",
       companyHeading: "Site",
+      slogan: "Tek platform, her araç",
+      madeIn: "Türkiye'de ❤️ ile yapıldı",
       about: "Hakkımızda",
       contact: "İletişim",
       privacy: "Gizlilik Politikası",
       terms: "Kullanım Koşulları",
+      copyright: "© 2026 Toolyflow. Tüm hakları saklıdır.",
     },
   shared: {
     language: "Dil",
     openTool: "Aracı aç",
-    go: "Git",
+    go: "Kullan",
     whyUseIt: "Neden kullanılır",
     exploreMore: "Diğer araçlar",
     noText: "Henüz metin yok.",
   },
   home: {
-    metaTitle: "Toolyflow — Türk Creator'ların Araç Kutusu",
+    metaTitle: "Toolyflow — Tek platform, her araç",
     metaDescription:
-      "Instagram, TikTok ve YouTube içerik üreticileri için ücretsiz online araçlar. Türkçe, hızlı, mobil uyumlu.",
+      "İnternet'te işini kolaylaştıracak tüm araçlar — ücretsiz, hızlı ve Türkçe.",
     keywords: [
       "online araçlar",
       "ücretsiz online araçlar",
@@ -2530,12 +2539,13 @@ const tr = translateDictionary(en, "tr", {
       "case converter",
       "bio generator",
     ],
-    eyebrow: "TR-first creator hub",
-    tagline: "İçerik üreticilerin araç kutusu",
+    eyebrow: "TÜRK CREATOR'LARIN TERCİHİ",
+    title: "Tek platform,",
+    tagline: "her araç.",
     description:
-      "Sosyal medya için ihtiyacın olan tüm araçlar — ücretsiz, hızlı, Türkçe. Toolyflow; creator araçları, metin araçları ve hafif yardımcı utility’leri mobil öncelikli bir deneyimde bir araya getirir.",
-    primaryCta: "Araçları keşfet",
-    secondaryCta: "Daha fazla bilgi",
+      "İnternet'te işini kolaylaştıracak tüm araçlar — ücretsiz, hızlı ve Türkçe.",
+    primaryCta: "Araçları Keşfet",
+    secondaryCta: "Kategorilere Bak",
     stats: [
       { label: "Odak", value: "Creator araçları" },
       { label: "Deneyim", value: "Mobil öncelikli" },
@@ -2544,7 +2554,7 @@ const tr = translateDictionary(en, "tr", {
     toolsEyebrow: "Popüler araçlar",
     toolsTitle: "Creator işleri ve hızlı üretim akışları için kuruldu",
     toolsDescription:
-      "Ana araç kütüphanesi; bio, nickname, QR ve metin düzenleme gibi tekrar ziyaret getiren akışları öne çıkarır. Daha hafif utility araçları ise destekleyici katmanda kalır.",
+      "Creator, metin ve hızlı araçları tek bir temiz kütüphanede gör ve işine göre doğru sayfaya hızlıca geç.",
     features: [
       {
         title: "İçerik üretici araçları",
@@ -3767,29 +3777,33 @@ const es = translateDictionary(en, "es", {
       "Herramientas online rápidas, simples y gratis para tareas diarias. Cada herramienta funciona bien en móvil, tablet y escritorio.",
     toolsHeading: "Herramientas",
     companyHeading: "Sitio",
+    slogan: "Una plataforma, todas las herramientas",
+    madeIn: "Hecho con ❤️ en Turquía",
     about: "Acerca de",
     contact: "Contacto",
     privacy: "Política de privacidad",
     terms: "Términos del servicio",
+    copyright: "© 2026 Toolyflow. Todos los derechos reservados.",
   },
   shared: {
     language: "Idioma",
     openTool: "Abrir herramienta",
-    go: "Ir",
+    go: "Usar",
     whyUseIt: "Por qué usarla",
     exploreMore: "Más herramientas",
     noText: "Aún no hay texto.",
   },
   home: {
-    metaTitle: "Toolyflow — Caja de herramientas para creadores",
+    metaTitle: "Toolyflow — Una plataforma, todas las herramientas",
     metaDescription:
-      "Herramientas online gratis para creadores de Instagram, TikTok y YouTube. Rápidas, mobile-first y fáciles de usar.",
-    eyebrow: "Caja de herramientas para creadores",
-    tagline: "La caja de herramientas para creadores.",
+      "Todas las herramientas que necesitas online: gratis, rápidas y en tu idioma.",
+    eyebrow: "LA ELECCIÓN DE LOS CREADORES",
+    title: "Una plataforma,",
+    tagline: "todas las herramientas.",
     description:
-      "Todo lo que necesitas para Instagram, TikTok y YouTube en un solo lugar. Toolyflow reúne herramientas para creadores, herramientas de texto y utilidades ligeras en una experiencia mobile-first.",
-    primaryCta: "Ver herramientas",
-    secondaryCta: "Saber más",
+      "Todas las herramientas que necesitas online: gratis, rápidas y en tu idioma.",
+    primaryCta: "Explorar herramientas",
+    secondaryCta: "Ver categorías",
     stats: [
       { label: "Enfoque", value: "Herramientas para creadores" },
       { label: "Experiencia", value: "Primero móvil" },
@@ -3798,7 +3812,7 @@ const es = translateDictionary(en, "es", {
     toolsEyebrow: "Herramientas populares",
     toolsTitle: "Construido para tareas de creador y flujos rápidos de producción",
     toolsDescription:
-      "La biblioteca principal destaca flujos repetidos como bios, nombres de usuario, QR y limpieza de texto. Las utilidades ligeras siguen dentro del producto como apoyo.",
+      "Explora herramientas para creadores, texto y tareas rápidas desde una sola biblioteca clara y fácil de recorrer.",
     features: [
       {
         title: "Herramientas de texto",
@@ -4957,29 +4971,33 @@ const de = translateDictionary(en, "de", {
       "Schnelle, einfache und kostenlose Online-Tools für tägliche Aufgaben. Jedes Tool funktioniert sauber auf Smartphone, Tablet und Desktop.",
     toolsHeading: "Tools",
     companyHeading: "Website",
+    slogan: "Eine Plattform, jedes Tool",
+    madeIn: "Mit ❤️ in der Türkei gemacht",
     about: "Über uns",
     contact: "Kontakt",
     privacy: "Datenschutz",
     terms: "Nutzungsbedingungen",
+    copyright: "© 2026 Toolyflow. Alle Rechte vorbehalten.",
   },
   shared: {
     language: "Sprache",
     openTool: "Tool öffnen",
-    go: "Öffnen",
+    go: "Nutzen",
     whyUseIt: "Warum nutzen",
     exploreMore: "Mehr Tools",
     noText: "Noch kein Text.",
   },
   home: {
-    metaTitle: "Toolyflow — Creator-Toolbox",
+    metaTitle: "Toolyflow — Eine Plattform, jedes Tool",
     metaDescription:
-      "Kostenlose Online-Tools für Instagram-, TikTok- und YouTube-Creator. Schnell, mobilfreundlich und leicht zu nutzen.",
-    eyebrow: "Creator-Toolbox",
-    tagline: "Die Toolbox für Content Creator.",
+      "Alle Tools, die du online brauchst – kostenlos, schnell und in deiner Sprache.",
+    eyebrow: "DIE WAHL FÜR CREATOR",
+    title: "Eine Plattform,",
+    tagline: "jedes Tool.",
     description:
-      "Alles, was du für Instagram, TikTok und YouTube brauchst, an einem Ort. Toolyflow bringt Creator-Tools, Text-Tools und leichte Utilities in einer mobile-first Erfahrung zusammen.",
-    primaryCta: "Tools ansehen",
-    secondaryCta: "Mehr erfahren",
+      "Alle Tools, die du online brauchst – kostenlos, schnell und in deiner Sprache.",
+    primaryCta: "Tools entdecken",
+    secondaryCta: "Kategorien ansehen",
     stats: [
       { label: "Fokus", value: "Creator-Tools" },
       { label: "Erlebnis", value: "Mobile first" },
@@ -4988,7 +5006,7 @@ const de = translateDictionary(en, "de", {
     toolsEyebrow: "Beliebte Tools",
     toolsTitle: "Gebaut für Creator-Aufgaben und schnelle Produktionsflows",
     toolsDescription:
-      "Die Hauptbibliothek hebt wiederkehrende Workflows wie Bios, Usernames, QR-Codes und Textbereinigung hervor. Leichte Utilities bleiben als Support im Produkt.",
+      "Entdecke Creator-, Text- und Schnell-Tools in einer klaren Bibliothek, ohne erst nach der richtigen Seite suchen zu müssen.",
     searchLabel: "Seite schnell finden",
     searchPlaceholder: "Nach Tools und Kategorien suchen",
     searchEmpty: "Dafür gibt es noch keine Treffer.",
@@ -6129,29 +6147,33 @@ const fr = translateDictionary(en, "fr", {
       "Des outils en ligne rapides, simples et gratuits pour les tâches quotidiennes. Chaque outil fonctionne proprement sur mobile, tablette et ordinateur.",
     toolsHeading: "Outils",
     companyHeading: "Site",
+    slogan: "Une plateforme, tous les outils",
+    madeIn: "Fait avec ❤️ en Turquie",
     about: "À propos",
     contact: "Contact",
     privacy: "Politique de confidentialité",
     terms: "Conditions d'utilisation",
+    copyright: "© 2026 Toolyflow. Tous droits réservés.",
   },
   shared: {
     language: "Langue",
     openTool: "Ouvrir l'outil",
-    go: "Ouvrir",
+    go: "Utiliser",
     whyUseIt: "Pourquoi l'utiliser",
     exploreMore: "Plus d'outils",
     noText: "Pas encore de texte.",
   },
   home: {
-    metaTitle: "Toolyflow — Boîte à outils pour créateurs",
+    metaTitle: "Toolyflow — Une plateforme, tous les outils",
     metaDescription:
-      "Des outils en ligne gratuits pour les créateurs Instagram, TikTok et YouTube. Rapides, pensés mobile et faciles à utiliser.",
-    eyebrow: "Boîte à outils pour créateurs",
-    tagline: "La boîte à outils des créateurs.",
+      "Tous les outils qu'il te faut en ligne, gratuitement, rapidement et dans ta langue.",
+    eyebrow: "ADOPTÉ PAR LES CRÉATEURS",
+    title: "Une plateforme,",
+    tagline: "tous les outils.",
     description:
-      "Tout ce qu'il te faut pour Instagram, TikTok et YouTube au même endroit. Toolyflow réunit outils créateur, outils de texte et utilitaires légers dans une expérience mobile-first.",
-    primaryCta: "Voir les outils",
-    secondaryCta: "En savoir plus",
+      "Tous les outils qu'il te faut en ligne, gratuitement, rapidement et dans ta langue.",
+    primaryCta: "Explorer les outils",
+    secondaryCta: "Voir les catégories",
     stats: [
       { label: "Focus", value: "Outils créateur" },
       { label: "Expérience", value: "Mobile first" },
@@ -6160,7 +6182,7 @@ const fr = translateDictionary(en, "fr", {
     toolsEyebrow: "Outils populaires",
     toolsTitle: "Construit pour les tâches créateur et les flux rapides",
     toolsDescription:
-      "La bibliothèque principale met en avant des workflows répétés comme les bios, noms d'utilisateur, QR et nettoyage de texte. Les utilitaires légers restent là comme couche de support.",
+      "Parcourez les outils créateur, texte et rapides dans une seule bibliothèque claire et simple à explorer.",
     searchLabel: "Trouver une page rapidement",
     searchPlaceholder: "Rechercher des outils et catégories",
     searchEmpty: "Aucun résultat pour cette recherche pour l'instant.",
@@ -7301,29 +7323,33 @@ const pt = translateDictionary(en, "pt", {
       "Ferramentas online rápidas, simples e grátis para tarefas do dia a dia. Cada ferramenta funciona bem no celular, tablet e desktop.",
     toolsHeading: "Ferramentas",
     companyHeading: "Site",
+    slogan: "Uma plataforma, todas as ferramentas",
+    madeIn: "Feito com ❤️ na Turquia",
     about: "Sobre",
     contact: "Contato",
     privacy: "Política de privacidade",
     terms: "Termos de serviço",
+    copyright: "© 2026 Toolyflow. Todos os direitos reservados.",
   },
   shared: {
     language: "Idioma",
     openTool: "Abrir ferramenta",
-    go: "Abrir",
+    go: "Usar",
     whyUseIt: "Por que usar",
     exploreMore: "Mais ferramentas",
     noText: "Ainda sem texto.",
   },
   home: {
-    metaTitle: "Toolyflow — Caixa de ferramentas para creators",
+    metaTitle: "Toolyflow — Uma plataforma, todas as ferramentas",
     metaDescription:
-      "Ferramentas online grátis para creators de Instagram, TikTok e YouTube. Rápidas, mobile-first e fáceis de usar.",
-    eyebrow: "Caixa de ferramentas para creators",
-    tagline: "A caixa de ferramentas dos creators.",
+      "Todas as ferramentas que você precisa online — grátis, rápidas e no seu idioma.",
+    eyebrow: "A ESCOLHA DOS CREATORS",
+    title: "Uma plataforma,",
+    tagline: "todas as ferramentas.",
     description:
-      "Tudo o que você precisa para Instagram, TikTok e YouTube em um só lugar. Toolyflow reúne ferramentas para creators, ferramentas de texto e utilidades leves em uma experiência mobile-first.",
-    primaryCta: "Ver ferramentas",
-    secondaryCta: "Saiba mais",
+      "Todas as ferramentas que você precisa online — grátis, rápidas e no seu idioma.",
+    primaryCta: "Explorar ferramentas",
+    secondaryCta: "Ver categorias",
     stats: [
       { label: "Foco", value: "Ferramentas para creators" },
       { label: "Experiência", value: "Mobile first" },
@@ -7332,7 +7358,7 @@ const pt = translateDictionary(en, "pt", {
     toolsEyebrow: "Ferramentas populares",
     toolsTitle: "Construído para tarefas de creator e fluxos rápidos",
     toolsDescription:
-      "A biblioteca principal destaca fluxos repetidos como bios, nomes de usuário, QR e limpeza de texto. As utilidades leves continuam no produto como apoio.",
+      "Explore ferramentas para creators, texto e tarefas rápidas em uma biblioteca só, clara e fácil de navegar.",
     searchLabel: "Encontre uma página rápido",
     searchPlaceholder: "Busque ferramentas e categorias",
     searchEmpty: "Ainda não há resultados para essa busca.",

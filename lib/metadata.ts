@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 
-import { defaultLocale, locales, localizePath, type Locale } from "@/lib/i18n";
+import { type Locale } from "@/lib/i18n";
+import {
+  getAllLocalizedPaths,
+  getPathForRoute,
+  getXDefaultPath,
+} from "@/lib/paths";
+import type { CategorySlug, StaticSlug, ToolSlug } from "@/lib/routes";
 import { siteConfig } from "@/lib/site-config";
 
 type MetadataInput = {
@@ -8,8 +14,12 @@ type MetadataInput = {
   localeCode: string;
   title: string;
   description: string;
-  slug?: string;
   keywords?: string[];
+  route:
+    | { kind: "home" }
+    | { kind: "tool"; slug: ToolSlug }
+    | { kind: "category"; slug: CategorySlug }
+    | { kind: "static"; slug: StaticSlug };
 };
 
 export function createLocalizedMetadata({
@@ -17,15 +27,15 @@ export function createLocalizedMetadata({
   localeCode,
   title,
   description,
-  slug,
   keywords = [],
+  route,
 }: MetadataInput): Metadata {
-  const path = slug ? `/${slug}` : "";
-  const canonicalPath = localizePath(locale, slug);
+  const canonicalPath = getPathForRoute(locale, route);
   const hasBrandSuffix = title.endsWith(`| ${siteConfig.name}`);
   const fullTitle = hasBrandSuffix ? title : `${title} | ${siteConfig.name}`;
   const absoluteUrl = new URL(canonicalPath, siteConfig.url);
   const socialImage = new URL(siteConfig.ogImagePath, siteConfig.url);
+  const languages = getAllLocalizedPaths(route);
 
   return {
     metadataBase: new URL(siteConfig.url),
@@ -34,9 +44,10 @@ export function createLocalizedMetadata({
     keywords,
     alternates: {
       canonical: canonicalPath,
-      languages: Object.fromEntries(
-        locales.map((item) => [item, localizePath(item, slug)])
-      ),
+      languages: {
+        ...languages,
+        "x-default": getXDefaultPath(route),
+      },
     },
     openGraph: {
       title: fullTitle,
@@ -59,10 +70,6 @@ export function createLocalizedMetadata({
       title: fullTitle,
       description,
       images: [socialImage],
-    },
-    other: {
-      "x-default": localizePath(defaultLocale, slug),
-      "content-path": path,
     },
   };
 }

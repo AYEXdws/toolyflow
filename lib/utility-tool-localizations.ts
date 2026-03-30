@@ -127,9 +127,9 @@ const colorCodeContentEn: ToolContentBlock = {
     {
       title: "Brand accent color",
       inputLabel: "Input",
-      input: "#7C3AED",
+      input: "#3B82F6",
       outputLabel: "Output",
-      output: "HEX: #7C3AED\nRGB: rgb(124, 58, 237)\nHSL: hsl(262, 83%, 58%)",
+      output: "HEX: #3B82F6\nRGB: rgb(124, 58, 237)\nHSL: hsl(262, 83%, 58%)",
       note: "Useful when one brand color needs to move between CSS and design tools.",
     },
     {
@@ -346,9 +346,9 @@ const localizedColorCodeContent: Record<Locale, ToolContentBlock> = {
       {
         title: "Marka vurgu rengi",
         inputLabel: "Girdi",
-        input: "#7C3AED",
+        input: "#3B82F6",
         outputLabel: "Çıktı",
-        output: "HEX: #7C3AED\nRGB: rgb(124, 58, 237)\nHSL: hsl(262, 83%, 58%)",
+        output: "HEX: #3B82F6\nRGB: rgb(124, 58, 237)\nHSL: hsl(262, 83%, 58%)",
         note: "Aynı rengi CSS ve tasarım araçları arasında taşırken kullanışlıdır.",
       },
       {
@@ -395,7 +395,7 @@ const localizedColorCodeContent: Record<Locale, ToolContentBlock> = {
     examplesTitle: "Ejemplos",
     examplesDescription: "Un buen conversor de colores debe mantener vista previa y códigos comunes en el mismo lugar.",
     examples: [
-      { title: "Color de marca", inputLabel: "Entrada", input: "#7C3AED", outputLabel: "Salida", output: "HEX: #7C3AED\nRGB: rgb(124, 58, 237)\nHSL: hsl(262, 83%, 58%)", note: "Útil cuando un color de marca se mueve entre CSS y diseño." },
+      { title: "Color de marca", inputLabel: "Entrada", input: "#3B82F6", outputLabel: "Salida", output: "HEX: #3B82F6\nRGB: rgb(124, 58, 237)\nHSL: hsl(262, 83%, 58%)", note: "Útil cuando un color de marca se mueve entre CSS y diseño." },
       { title: "Fondo de tarjeta social", inputLabel: "Entrada", input: "rgb(10, 10, 15)", outputLabel: "Salida", output: "HEX: #0A0A0F\nHSL: hsl(240, 20%, 5%)", note: "Sirve para reconstruir el mismo fondo oscuro en varias pantallas." },
     ],
     faqTitle: "Preguntas frecuentes del conversor de colores",
@@ -424,7 +424,7 @@ const localizedColorCodeContent: Record<Locale, ToolContentBlock> = {
     examplesTitle: "Beispiele",
     examplesDescription: "Ein guter Farbkonverter sollte Vorschau und gebräuchliche Codes an einem Ort halten.",
     examples: [
-      { title: "Marken-Akzentfarbe", inputLabel: "Eingabe", input: "#7C3AED", outputLabel: "Ausgabe", output: "HEX: #7C3AED\nRGB: rgb(124, 58, 237)\nHSL: hsl(262, 83%, 58%)", note: "Hilfreich, wenn eine Markenfarbe zwischen CSS und Design-Tools wechselt." },
+      { title: "Marken-Akzentfarbe", inputLabel: "Eingabe", input: "#3B82F6", outputLabel: "Ausgabe", output: "HEX: #3B82F6\nRGB: rgb(124, 58, 237)\nHSL: hsl(262, 83%, 58%)", note: "Hilfreich, wenn eine Markenfarbe zwischen CSS und Design-Tools wechselt." },
       { title: "Social-Card-Hintergrund", inputLabel: "Eingabe", input: "rgb(10, 10, 15)", outputLabel: "Ausgabe", output: "HEX: #0A0A0F\nHSL: hsl(240, 20%, 5%)", note: "Gut, um dieselbe dunkle Fläche in mehreren Screens wieder aufzubauen." },
     ],
     faqTitle: "Farbcode-Konverter FAQ",
@@ -453,7 +453,7 @@ const localizedColorCodeContent: Record<Locale, ToolContentBlock> = {
     examplesTitle: "Exemples",
     examplesDescription: "Un bon convertisseur de couleurs doit garder aperçu et codes courants au même endroit.",
     examples: [
-      { title: "Couleur d’accent de marque", inputLabel: "Entrée", input: "#7C3AED", outputLabel: "Sortie", output: "HEX: #7C3AED\nRGB: rgb(124, 58, 237)\nHSL: hsl(262, 83%, 58%)", note: "Pratique quand une couleur de marque passe entre CSS et design." },
+      { title: "Couleur d’accent de marque", inputLabel: "Entrée", input: "#3B82F6", outputLabel: "Sortie", output: "HEX: #3B82F6\nRGB: rgb(124, 58, 237)\nHSL: hsl(262, 83%, 58%)", note: "Pratique quand une couleur de marque passe entre CSS et design." },
       { title: "Fond de carte sociale", inputLabel: "Entrée", input: "rgb(10, 10, 15)", outputLabel: "Sortie", output: "HEX: #0A0A0F\nHSL: hsl(240, 20%, 5%)", note: "Utile pour reconstruire le même fond sombre sur plusieurs écrans." },
     ],
     faqTitle: "FAQ du convertisseur de couleurs",
@@ -482,7 +482,7 @@ const localizedColorCodeContent: Record<Locale, ToolContentBlock> = {
     examplesTitle: "Exemplos",
     examplesDescription: "Um bom conversor de cores deve manter prévia e códigos comuns na mesma tela.",
     examples: [
-      { title: "Cor de destaque da marca", inputLabel: "Entrada", input: "#7C3AED", outputLabel: "Saída", output: "HEX: #7C3AED\nRGB: rgb(124, 58, 237)\nHSL: hsl(262, 83%, 58%)", note: "Útil quando uma cor de marca precisa circular entre CSS e ferramentas de design." },
+      { title: "Cor de destaque da marca", inputLabel: "Entrada", input: "#3B82F6", outputLabel: "Saída", output: "HEX: #3B82F6\nRGB: rgb(124, 58, 237)\nHSL: hsl(262, 83%, 58%)", note: "Útil quando uma cor de marca precisa circular entre CSS e ferramentas de design." },
       { title: "Fundo de card social", inputLabel: "Entrada", input: "rgb(10, 10, 15)", outputLabel: "Saída", output: "HEX: #0A0A0F\nHSL: hsl(240, 20%, 5%)", note: "Bom para reconstruir o mesmo fundo escuro em várias telas." },
     ],
     faqTitle: "Perguntas frequentes do conversor de cores",
