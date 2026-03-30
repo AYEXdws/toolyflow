@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 
-import { formatTrNumber } from "@/lib/calculator-formatters";
+import { formatLocalizedNumber } from "@/lib/calculator-formatters";
+import type { Locale } from "@/lib/i18n";
+import type { AgeCalculatorLabels } from "@/lib/tr-calculators";
 
 import { CalculatorShell } from "@/components/calculators/calculator-shell";
 
@@ -23,14 +25,19 @@ function diffInDays(start: Date, end: Date) {
   return Math.round((end.getTime() - start.getTime()) / 86400000);
 }
 
-export function AgeCalculatorTool() {
+type AgeCalculatorToolProps = {
+  locale: Locale;
+  labels: AgeCalculatorLabels;
+};
+
+export function AgeCalculatorTool({ locale, labels }: AgeCalculatorToolProps) {
   const [birthDate, setBirthDate] = useState("");
   const [error, setError] = useState("");
   const [result, setResult] = useState<AgeResult | null>(null);
 
   function handleCalculate() {
     if (!birthDate) {
-      setError("Lütfen geçerli bir doğum tarihi seç.");
+      setError(labels.invalidDate);
       setResult(null);
       return;
     }
@@ -40,7 +47,7 @@ export function AgeCalculatorTool() {
     const safeToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12);
 
     if (birth > safeToday) {
-      setError("Doğum tarihi bugünden büyük olamaz.");
+      setError(labels.futureDate);
       setResult(null);
       return;
     }
@@ -87,7 +94,7 @@ export function AgeCalculatorTool() {
       form={
         <div className="space-y-5">
           <label className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">Doğum tarihi</span>
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">{labels.birthDate}</span>
             <input
               type="date"
               value={birthDate}
@@ -98,10 +105,10 @@ export function AgeCalculatorTool() {
           {error ? <p className="text-sm font-medium text-rose-300">{error}</p> : null}
           <div className="flex flex-wrap gap-3">
             <button type="button" onClick={handleCalculate} className="inline-flex min-h-11 items-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90">
-              Hesapla
+              {labels.calculate}
             </button>
             <button type="button" onClick={handleClear} className="inline-flex min-h-11 items-center rounded-xl border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-5 py-3 text-sm font-semibold text-[color:var(--brand-text-primary)] transition hover:border-[color:var(--brand-border-hover)]">
-              Temizle
+              {labels.clear}
             </button>
           </div>
         </div>
@@ -111,26 +118,26 @@ export function AgeCalculatorTool() {
           <div className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-5">
             {result ? (
               <div className="space-y-4">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">Tam yaş</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">{labels.exactAge}</p>
                 <p className="text-4xl font-bold text-[color:var(--brand-text-primary)]">
-                  {formatTrNumber(result.years)} yıl, {formatTrNumber(result.months)} ay, {formatTrNumber(result.days)} gün
+                  {formatLocalizedNumber(locale, result.years)} {labels.years}, {formatLocalizedNumber(locale, result.months)} {labels.months}, {formatLocalizedNumber(locale, result.days)} {labels.days}
                 </p>
               </div>
             ) : (
               <p className="text-sm leading-7 text-[color:var(--brand-text-secondary)]">
-                Doğum tarihini seç. Tam yaşın ve detaylı sonuçlar burada görünecek.
+                {labels.empty}
               </p>
             )}
           </div>
           {result ? (
             <div className="grid gap-4 md:grid-cols-2">
               <div className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-5">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">Yaşanan gün</p>
-                <p className="mt-4 text-3xl font-bold text-[color:var(--brand-text-primary)]">{formatTrNumber(result.livedDays)}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">{labels.livedDays}</p>
+                <p className="mt-4 text-3xl font-bold text-[color:var(--brand-text-primary)]">{formatLocalizedNumber(locale, result.livedDays)}</p>
               </div>
               <div className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-5">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">Sonraki doğum gününe kalan gün</p>
-                <p className="mt-4 text-3xl font-bold text-[color:var(--brand-text-primary)]">{formatTrNumber(result.nextBirthdayDays)}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">{labels.nextBirthdayDays}</p>
+                <p className="mt-4 text-3xl font-bold text-[color:var(--brand-text-primary)]">{formatLocalizedNumber(locale, result.nextBirthdayDays)}</p>
               </div>
             </div>
           ) : null}

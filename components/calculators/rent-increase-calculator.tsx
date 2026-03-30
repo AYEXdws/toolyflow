@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 
-import { formatTrCurrency, formatTrNumber } from "@/lib/calculator-formatters";
+import { formatLocalizedCurrency, formatLocalizedNumber } from "@/lib/calculator-formatters";
+import type { Locale } from "@/lib/i18n";
+import type { RentIncreaseCalculatorLabels } from "@/lib/tr-calculators";
 
 import { CalculatorShell } from "@/components/calculators/calculator-shell";
 
@@ -13,7 +15,15 @@ type IncreaseRow = {
   newRent: number;
 };
 
-export function RentIncreaseCalculatorTool() {
+type RentIncreaseCalculatorToolProps = {
+  locale: Locale;
+  labels: RentIncreaseCalculatorLabels;
+};
+
+export function RentIncreaseCalculatorTool({
+  locale,
+  labels,
+}: RentIncreaseCalculatorToolProps) {
   const [currentRent, setCurrentRent] = useState("");
   const [increaseRate, setIncreaseRate] = useState("");
   const [increaseCount, setIncreaseCount] = useState("");
@@ -30,7 +40,7 @@ export function RentIncreaseCalculatorTool() {
     const count = Number(increaseCount);
 
     if (!Number.isFinite(rent) || !Number.isFinite(rate) || !Number.isFinite(count) || rent <= 0 || rate < 0 || count <= 0) {
-      setError("Lütfen geçerli kira, artış oranı ve artış sayısı gir.");
+      setError(labels.invalidInput);
       setResult(null);
       return;
     }
@@ -73,24 +83,24 @@ export function RentIncreaseCalculatorTool() {
       form={
         <div className="space-y-5">
           <label className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">Mevcut kira (TL)</span>
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">{labels.currentRent}</span>
             <input value={currentRent} onChange={(event) => setCurrentRent(event.target.value)} inputMode="decimal" placeholder="15000" className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[var(--brand-ring)]" />
           </label>
           <label className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">Artış oranı (%)</span>
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">{labels.increaseRate}</span>
             <input value={increaseRate} onChange={(event) => setIncreaseRate(event.target.value)} inputMode="decimal" placeholder="25" className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[var(--brand-ring)]" />
           </label>
           <label className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">Artış sayısı</span>
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">{labels.increaseCount}</span>
             <input value={increaseCount} onChange={(event) => setIncreaseCount(event.target.value)} inputMode="numeric" placeholder="2" className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[var(--brand-ring)]" />
           </label>
           {error ? <p className="text-sm font-medium text-rose-300">{error}</p> : null}
           <div className="flex flex-wrap gap-3">
             <button type="button" onClick={handleCalculate} className="inline-flex min-h-11 items-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90">
-              Hesapla
+              {labels.calculate}
             </button>
             <button type="button" onClick={handleClear} className="inline-flex min-h-11 items-center rounded-xl border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-5 py-3 text-sm font-semibold text-[color:var(--brand-text-primary)] transition hover:border-[color:var(--brand-border-hover)]">
-              Temizle
+              {labels.clear}
             </button>
           </div>
         </div>
@@ -101,42 +111,42 @@ export function RentIncreaseCalculatorTool() {
             {result ? (
               <div className="space-y-4">
                 <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">Yeni kira tutarı</p>
-                  <p className="mt-4 text-4xl font-bold text-[color:var(--brand-text-primary)]">{formatTrCurrency(result.newRent)}</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">{labels.newRent}</p>
+                  <p className="mt-4 text-4xl font-bold text-[color:var(--brand-text-primary)]">{formatLocalizedCurrency(locale, result.newRent)}</p>
                 </div>
                 <div className="rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-4">
-                  <p className="text-sm text-[color:var(--brand-text-secondary)]">Artış miktarı</p>
-                  <p className="mt-2 text-xl font-bold text-[color:var(--brand-text-primary)]">{formatTrCurrency(result.totalIncrease)}</p>
+                  <p className="text-sm text-[color:var(--brand-text-secondary)]">{labels.totalIncrease}</p>
+                  <p className="mt-2 text-xl font-bold text-[color:var(--brand-text-primary)]">{formatLocalizedCurrency(locale, result.totalIncrease)}</p>
                 </div>
               </div>
             ) : (
               <p className="text-sm leading-7 text-[color:var(--brand-text-secondary)]">
-                Mevcut kira ve artış oranını gir. Yeni kira tutarı ve artış tablosu burada oluşacak.
+                {labels.empty}
               </p>
             )}
           </div>
           {result ? (
             <div className="overflow-hidden rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)]">
               <div className="border-b border-[color:var(--brand-border)] px-4 py-3">
-                <h3 className="text-base font-bold text-[color:var(--brand-text-primary)]">Artış tablosu</h3>
+                <h3 className="text-base font-bold text-[color:var(--brand-text-primary)]">{labels.tableTitle}</h3>
               </div>
               <div className="overflow-x-auto">
                 <table className="min-w-full text-left text-sm text-[color:var(--brand-text-secondary)]">
                   <thead className="bg-[color:var(--brand-card)] text-[color:var(--brand-text-primary)]">
                     <tr>
-                      <th className="px-4 py-3 font-semibold">Dönem</th>
-                      <th className="px-4 py-3 font-semibold">Önceki kira</th>
-                      <th className="px-4 py-3 font-semibold">Artış</th>
-                      <th className="px-4 py-3 font-semibold">Yeni kira</th>
+                      <th className="px-4 py-3 font-semibold">{labels.tableColumns.period}</th>
+                      <th className="px-4 py-3 font-semibold">{labels.tableColumns.previousRent}</th>
+                      <th className="px-4 py-3 font-semibold">{labels.tableColumns.increase}</th>
+                      <th className="px-4 py-3 font-semibold">{labels.tableColumns.newRent}</th>
                     </tr>
                   </thead>
                   <tbody>
                     {result.table.map((row) => (
                       <tr key={row.period} className="border-t border-[color:var(--brand-border)]">
-                        <td className="px-4 py-3">{formatTrNumber(row.period)}</td>
-                        <td className="px-4 py-3">{formatTrCurrency(row.previousRent)}</td>
-                        <td className="px-4 py-3">{formatTrCurrency(row.increaseAmount)}</td>
-                        <td className="px-4 py-3">{formatTrCurrency(row.newRent)}</td>
+                        <td className="px-4 py-3">{formatLocalizedNumber(locale, row.period)}</td>
+                        <td className="px-4 py-3">{formatLocalizedCurrency(locale, row.previousRent)}</td>
+                        <td className="px-4 py-3">{formatLocalizedCurrency(locale, row.increaseAmount)}</td>
+                        <td className="px-4 py-3">{formatLocalizedCurrency(locale, row.newRent)}</td>
                       </tr>
                     ))}
                   </tbody>

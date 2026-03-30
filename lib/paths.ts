@@ -1,5 +1,12 @@
 import { isLocale, locales, type Locale } from "@/lib/i18n";
 import {
+  getCalculatorCategoryPath,
+  getCalculatorCategoryPathSegment,
+  getCalculatorPath,
+  resolveCalculatorRoute,
+  type CalculatorSlug,
+} from "@/lib/tr-calculators";
+import {
   categorySlugs,
   isStaticSlug,
   isToolSlug,
@@ -57,6 +64,8 @@ const categoryReverseMap: Record<Locale, Record<string, CategorySlug>> = Object.
 type RouteDescriptor =
   | { kind: "home" }
   | { kind: "tool"; slug: ToolSlug }
+  | { kind: "calculator"; slug: CalculatorSlug }
+  | { kind: "calculator-category" }
   | { kind: "category"; slug: CategorySlug }
   | { kind: "static"; slug: StaticSlug };
 
@@ -90,6 +99,10 @@ export function getPathForRoute(locale: Locale, route: RouteDescriptor) {
       return getHomePath(locale);
     case "tool":
       return getToolPath(locale, route.slug);
+    case "calculator":
+      return getCalculatorPath(locale, route.slug);
+    case "calculator-category":
+      return getCalculatorCategoryPath(locale);
     case "category":
       return getCategoryPath(locale, route.slug);
     case "static":
@@ -156,6 +169,10 @@ export function resolveLocalizedRoute(
       return { kind: "category", slug: localizedCategory };
     }
 
+    if (segment === getCalculatorCategoryPathSegment(locale)) {
+      return { kind: "calculator-category" };
+    }
+
     if (categorySlugs.includes(segment as CategorySlug)) {
       return {
         kind: "category",
@@ -171,6 +188,14 @@ export function resolveLocalizedRoute(
         redirectTo: getToolPath(locale, segment),
       };
     }
+  }
+
+  const calculatorRoute = resolveCalculatorRoute(locale, pathSegments);
+  if (calculatorRoute) {
+    if (calculatorRoute.kind === "calculator-category") {
+      return calculatorRoute;
+    }
+    return { kind: "calculator", slug: calculatorRoute.slug };
   }
 
   if (pathSegments.length === 2 && pathSegments[0] === toolPrefix && isToolSlug(pathSegments[1])) {

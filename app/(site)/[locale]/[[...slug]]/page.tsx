@@ -53,14 +53,19 @@ import {
 import { isCategorySlug, isStaticSlug, isToolSlug } from "@/lib/routes";
 import { siteConfig } from "@/lib/site-config";
 import {
-  getTrCalculatorCategoryPath,
-  getTrCalculatorEntries,
-  getTrCalculatorEntry,
-  getTrCalculatorPath,
-  trCalculatorCategory,
-  trCalculatorCategorySegment,
-  trCalculatorPrefix,
-  trCalculatorSlugs,
+  calculatorSlugs,
+  getAgeCalculatorLabels,
+  getBmiCalculatorLabels,
+  getCalculatorCategory,
+  getCalculatorCategoryPath,
+  getCalculatorEntries,
+  getCalculatorEntry,
+  getCalculatorPath,
+  getCalculatorRelatedEntries,
+  getCalculatorStaticParams,
+  getCreditCalculatorLabels,
+  getPercentageCalcLabels,
+  getRentIncreaseCalculatorLabels,
 } from "@/lib/tr-calculators";
 
 type RouteParams = {
@@ -82,13 +87,9 @@ export function generateStaticParams() {
     { locale: "pt" },
     ...getCategoryStaticParams(),
     ...getToolStaticParams(),
+    ...getCalculatorStaticParams(),
     ...getStaticPageParams(),
     { locale: "tr", slug: ["sozluk"] },
-    { locale: "tr", slug: [trCalculatorCategorySegment] },
-    ...trCalculatorSlugs.map((calculatorSlug) => ({
-      locale: "tr",
-      slug: [trCalculatorPrefix, calculatorSlug],
-    })),
   ];
 }
 
@@ -181,66 +182,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  if (locale === "tr" && pathSegments.length === 1 && pathSegments[0] === trCalculatorCategorySegment) {
-    return {
-      metadataBase: new URL(siteConfig.url),
-      title: { absolute: trCalculatorCategory.metaTitle },
-      description: trCalculatorCategory.metaDescription,
-      keywords: [...trCalculatorCategory.keywords],
-      alternates: {
-        canonical: getTrCalculatorCategoryPath(),
-      },
-      openGraph: {
-        title: trCalculatorCategory.metaTitle,
-        description: trCalculatorCategory.metaDescription,
-        url: `${siteConfig.url}${getTrCalculatorCategoryPath()}`,
-        siteName: siteConfig.name,
-        locale: dictionary.localeCode,
-        type: "website",
-        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: trCalculatorCategory.metaTitle,
-        description: trCalculatorCategory.metaDescription,
-        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
-      },
-    };
-  }
-
-  if (locale === "tr" && pathSegments.length === 2 && pathSegments[0] === trCalculatorPrefix) {
-    const calculator = getTrCalculatorEntry(pathSegments[1]);
-
-    if (!calculator) {
-      return {};
-    }
-
-    return {
-      metadataBase: new URL(siteConfig.url),
-      title: { absolute: calculator.metaTitle },
-      description: calculator.metaDescription,
-      keywords: [...calculator.keywords],
-      alternates: {
-        canonical: getTrCalculatorPath(calculator.slug),
-      },
-      openGraph: {
-        title: calculator.metaTitle,
-        description: calculator.metaDescription,
-        url: `${siteConfig.url}${getTrCalculatorPath(calculator.slug)}`,
-        siteName: siteConfig.name,
-        locale: dictionary.localeCode,
-        type: "website",
-        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: calculator.metaTitle,
-        description: calculator.metaDescription,
-        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
-      },
-    };
-  }
-
   const resolved = resolveLocalizedRoute(locale as Locale, slug);
 
   if (!resolved) {
@@ -272,6 +213,36 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: tool.metaDescription,
       keywords: tool.keywords,
       route: { kind: "tool", slug: resolved.slug },
+    });
+  }
+
+  if (resolved.kind === "calculator-category") {
+    const category = getCalculatorCategory(locale);
+
+    return createLocalizedMetadata({
+      locale,
+      localeCode: dictionary.localeCode,
+      title: category.metaTitle,
+      description: category.metaDescription,
+      keywords: category.keywords,
+      route: { kind: "calculator-category" },
+    });
+  }
+
+  if (resolved.kind === "calculator") {
+    const calculator = getCalculatorEntry(locale, resolved.slug);
+
+    if (!calculator) {
+      return {};
+    }
+
+    return createLocalizedMetadata({
+      locale,
+      localeCode: dictionary.localeCode,
+      title: calculator.metaTitle,
+      description: calculator.metaDescription,
+      keywords: calculator.keywords,
+      route: { kind: "calculator", slug: resolved.slug },
     });
   }
 
@@ -370,22 +341,20 @@ function renderUnifiedHome(locale: Locale) {
         icon: iconMap[tool.slug] ?? "✦",
       })),
   }));
-  const calculatorCategory =
-    locale === "tr"
-      ? {
-          slug: "calculators",
-          navLabel: trCalculatorCategory.title,
-          emoji: "🧮",
-          href: getTrCalculatorCategoryPath(),
-          summary: "Kredi, BMI, yaş, yüzde ve kira artışı hesaplarını tek yerde çöz.",
-          toolSlugs: [...trCalculatorSlugs],
-          tools: getTrCalculatorEntries().map((tool) => ({
-            ...tool,
-            icon: tool.icon,
-          })),
-        }
-      : null;
-  const homeGroups = calculatorCategory ? [...groupedCategories, calculatorCategory] : groupedCategories;
+  const calculatorCategoryContent = getCalculatorCategory(locale);
+  const calculatorCategory = {
+    slug: "calculators",
+    navLabel: calculatorCategoryContent.title,
+    emoji: "🧮",
+    href: getCalculatorCategoryPath(locale),
+    summary: calculatorCategoryContent.description,
+    toolSlugs: [...calculatorSlugs],
+    tools: getCalculatorEntries(locale).map((tool) => ({
+      ...tool,
+      icon: tool.icon,
+    })),
+  };
+  const homeGroups = [...groupedCategories, calculatorCategory];
   const dictionaryPromo =
     locale === "tr"
       ? {
@@ -567,7 +536,7 @@ function renderUnifiedHome(locale: Locale) {
                 {category.tools.map((tool) => (
                   <Link
                     key={tool.slug}
-                    href={locale === "tr" && trCalculatorSlugs.includes(tool.slug as (typeof trCalculatorSlugs)[number]) ? getTrCalculatorPath(tool.slug as (typeof trCalculatorSlugs)[number]) : getToolPath(locale, tool.slug as Parameters<typeof getToolPath>[1])}
+                    href={calculatorSlugs.includes(tool.slug as (typeof calculatorSlugs)[number]) ? getCalculatorPath(locale, tool.slug as (typeof calculatorSlugs)[number]) : getToolPath(locale, tool.slug as Parameters<typeof getToolPath>[1])}
                     className="group rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 transition duration-200 hover:scale-[1.02] hover:border-[color:var(--brand-border-hover)] hover:shadow-[0_18px_50px_rgba(29,78,216,0.18)]"
                   >
                     <div className="flex items-start justify-between gap-4">
@@ -698,15 +667,16 @@ async function renderDictionaryHome() {
   );
 }
 
-function renderTrCalculatorCategoryPage() {
-  const dictionary = getDictionary("tr");
-  const tools = getTrCalculatorEntries().map((tool) => ({
+function renderCalculatorCategoryPage(locale: Locale) {
+  const dictionary = getDictionary(locale);
+  const calculatorCategory = getCalculatorCategory(locale);
+  const tools = getCalculatorEntries(locale).map((tool) => ({
     slug: tool.slug,
     name: tool.name,
     shortDescription: tool.shortDescription,
     eyebrow: tool.eyebrow,
     accentLabel: tool.accentLabel,
-    href: getTrCalculatorPath(tool.slug),
+    href: getCalculatorPath(locale, tool.slug),
   }));
 
   return (
@@ -715,22 +685,33 @@ function renderTrCalculatorCategoryPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: `${siteConfig.name} ${trCalculatorCategory.title}`,
-          description: trCalculatorCategory.metaDescription,
-          url: `${siteConfig.url}${getTrCalculatorCategoryPath()}`,
-          inLanguage: "tr",
+          name: `${siteConfig.name} ${calculatorCategory.title}`,
+          description: calculatorCategory.metaDescription,
+          url: `${siteConfig.url}${getCalculatorCategoryPath(locale)}`,
+          inLanguage: locale,
         }}
       />
       <CategoryPage
         category={{
-          eyebrow: trCalculatorCategory.eyebrow,
-          title: trCalculatorCategory.title,
-          description: trCalculatorCategory.description,
-          highlights: [...trCalculatorCategory.highlights],
+          eyebrow: calculatorCategory.eyebrow,
+          title: calculatorCategory.title,
+          description: calculatorCategory.description,
+          highlights: [...calculatorCategory.highlights],
         }}
         labels={{
-          toolListHeading: trCalculatorCategory.title,
-          toolListDescription: "Günlük finans, sağlık ve oran hesaplarında en sık açılan araçları tek yerde bul.",
+          toolListHeading: calculatorCategory.title,
+          toolListDescription:
+            locale === "tr"
+              ? "Günlük finans, sağlık ve oran hesaplarında en sık açılan araçları tek yerde bul."
+              : locale === "en"
+                ? "Keep the most useful finance, health, and percentage calculators in one focused category."
+                : locale === "es"
+                  ? "Reúne calculadoras de finanzas, salud y porcentaje en una sola categoría."
+                  : locale === "de"
+                    ? "Bündle die wichtigsten Finanz-, Gesundheits- und Prozentrechner in einer Kategorie."
+                    : locale === "fr"
+                      ? "Retrouve les calculateurs de finance, santé et pourcentage dans une seule catégorie."
+                      : "Reúna calculadoras de finanças, saúde e percentagem em uma única categoria.",
           go: dictionary.shared.go,
         }}
         tools={tools}
@@ -913,19 +894,19 @@ function renderToolPage(locale: Locale, slug: string) {
   );
 }
 
-function renderTrCalculatorPage(slug: string) {
-  const calculator = getTrCalculatorEntry(slug);
+function renderCalculatorPage(locale: Locale, slug: string) {
+  const calculator = getCalculatorEntry(locale, slug);
 
   if (!calculator) {
     return notFound();
   }
 
-  const dictionary = getDictionary("tr");
-  const relatedTools = calculator.relatedEntries.map((entry) => ({
+  const dictionary = getDictionary(locale);
+  const relatedTools = getCalculatorRelatedEntries(locale, calculator.related).map((entry) => ({
     slug: entry.slug,
     name: entry.name,
     shortDescription: entry.shortDescription,
-    href: getTrCalculatorPath(entry.slug),
+    href: getCalculatorPath(locale, entry.slug),
   }));
 
   return (
@@ -938,8 +919,8 @@ function renderTrCalculatorPage(slug: string) {
           applicationCategory: "UtilitiesApplication",
           operatingSystem: "Any",
           description: calculator.structuredDescription,
-          url: `${siteConfig.url}${getTrCalculatorPath(calculator.slug)}`,
-          inLanguage: "tr",
+          url: `${siteConfig.url}${getCalculatorPath(locale, calculator.slug)}`,
+          inLanguage: locale,
         }}
       />
       <StructuredData
@@ -969,15 +950,15 @@ function renderTrCalculatorPage(slug: string) {
         relatedTools={relatedTools}
       >
         {calculator.slug === "kredi-hesaplayici" ? (
-          <CreditCalculatorTool />
+          <CreditCalculatorTool locale={locale} labels={getCreditCalculatorLabels(locale)} />
         ) : calculator.slug === "bmi-hesaplayici" ? (
-          <BmiCalculatorTool />
+          <BmiCalculatorTool locale={locale} labels={getBmiCalculatorLabels(locale)} />
         ) : calculator.slug === "yas-hesaplayici" ? (
-          <AgeCalculatorTool />
+          <AgeCalculatorTool locale={locale} labels={getAgeCalculatorLabels(locale)} />
         ) : calculator.slug === "yuzde-hesaplayici" ? (
-          <PercentageCalcTool />
+          <PercentageCalcTool locale={locale} labels={getPercentageCalcLabels(locale)} />
         ) : (
-          <RentIncreaseCalculatorTool />
+          <RentIncreaseCalculatorTool locale={locale} labels={getRentIncreaseCalculatorLabels(locale)} />
         )}
       </ToolPageShell>
     </>
@@ -1127,14 +1108,6 @@ export default async function LocalizedPage({ params }: PageProps) {
     return renderDictionaryWordPage(pathSegments[1]);
   }
 
-  if (locale === "tr" && pathSegments.length === 1 && pathSegments[0] === trCalculatorCategorySegment) {
-    return renderTrCalculatorCategoryPage();
-  }
-
-  if (locale === "tr" && pathSegments.length === 2 && pathSegments[0] === trCalculatorPrefix) {
-    return renderTrCalculatorPage(pathSegments[1]);
-  }
-
   const resolved = resolveLocalizedRoute(locale, slug);
 
   if (!resolved) {
@@ -1151,6 +1124,14 @@ export default async function LocalizedPage({ params }: PageProps) {
 
   if (resolved.kind === "tool") {
     return renderToolPage(locale, resolved.slug);
+  }
+
+  if (resolved.kind === "calculator-category") {
+    return renderCalculatorCategoryPage(locale);
+  }
+
+  if (resolved.kind === "calculator") {
+    return renderCalculatorPage(locale, resolved.slug);
   }
 
   if (resolved.kind === "category") {

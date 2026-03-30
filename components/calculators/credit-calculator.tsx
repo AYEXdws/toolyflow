@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 
-import { formatTrCurrency, formatTrNumber } from "@/lib/calculator-formatters";
+import { formatLocalizedCurrency, formatLocalizedNumber } from "@/lib/calculator-formatters";
+import type { Locale } from "@/lib/i18n";
+import type { CreditCalculatorLabels } from "@/lib/tr-calculators";
 
 import { CalculatorShell } from "@/components/calculators/calculator-shell";
 
@@ -14,7 +16,12 @@ type PaymentRow = {
   balance: number;
 };
 
-export function CreditCalculatorTool() {
+type CreditCalculatorToolProps = {
+  locale: Locale;
+  labels: CreditCalculatorLabels;
+};
+
+export function CreditCalculatorTool({ locale, labels }: CreditCalculatorToolProps) {
   const [amount, setAmount] = useState("");
   const [rate, setRate] = useState("");
   const [term, setTerm] = useState("");
@@ -39,7 +46,7 @@ export function CreditCalculatorTool() {
       monthlyRate < 0 ||
       months <= 0
     ) {
-      setError("Lütfen geçerli kredi tutarı, faiz oranı ve vade gir.");
+      setError(labels.invalidInput);
       setResult(null);
       return;
     }
@@ -96,7 +103,7 @@ export function CreditCalculatorTool() {
       form={
         <div className="space-y-5">
           <label className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">Kredi tutarı (TL)</span>
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">{labels.amount}</span>
             <input
               value={amount}
               onChange={(event) => setAmount(event.target.value)}
@@ -106,7 +113,7 @@ export function CreditCalculatorTool() {
             />
           </label>
           <label className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">Faiz oranı (aylık %)</span>
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">{labels.rate}</span>
             <input
               value={rate}
               onChange={(event) => setRate(event.target.value)}
@@ -116,7 +123,7 @@ export function CreditCalculatorTool() {
             />
           </label>
           <label className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">Vade (ay)</span>
+            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">{labels.term}</span>
             <input
               value={term}
               onChange={(event) => setTerm(event.target.value)}
@@ -132,14 +139,14 @@ export function CreditCalculatorTool() {
               onClick={handleCalculate}
               className="inline-flex min-h-11 items-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
             >
-              Hesapla
+              {labels.calculate}
             </button>
             <button
               type="button"
               onClick={handleClear}
               className="inline-flex min-h-11 items-center rounded-xl border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-5 py-3 text-sm font-semibold text-[color:var(--brand-text-primary)] transition hover:border-[color:var(--brand-border-hover)]"
             >
-              Temizle
+              {labels.clear}
             </button>
           </div>
         </div>
@@ -151,30 +158,30 @@ export function CreditCalculatorTool() {
               <div className="space-y-4">
                 <div>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-                    Aylık taksit
+                    {labels.monthlyPayment}
                   </p>
                   <p className="mt-4 text-4xl font-bold text-[color:var(--brand-text-primary)]">
-                    {formatTrCurrency(result.monthlyPayment)}
+                    {formatLocalizedCurrency(locale, result.monthlyPayment)}
                   </p>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
                   <div className="rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-4">
-                    <p className="text-sm text-[color:var(--brand-text-secondary)]">Toplam geri ödeme</p>
+                    <p className="text-sm text-[color:var(--brand-text-secondary)]">{labels.totalRepayment}</p>
                     <p className="mt-2 text-xl font-bold text-[color:var(--brand-text-primary)]">
-                      {formatTrCurrency(result.totalRepayment)}
+                      {formatLocalizedCurrency(locale, result.totalRepayment)}
                     </p>
                   </div>
                   <div className="rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-4">
-                    <p className="text-sm text-[color:var(--brand-text-secondary)]">Toplam faiz</p>
+                    <p className="text-sm text-[color:var(--brand-text-secondary)]">{labels.totalInterest}</p>
                     <p className="mt-2 text-xl font-bold text-[color:var(--brand-text-primary)]">
-                      {formatTrCurrency(result.totalInterest)}
+                      {formatLocalizedCurrency(locale, result.totalInterest)}
                     </p>
                   </div>
                 </div>
               </div>
             ) : (
               <p className="text-sm leading-7 text-[color:var(--brand-text-secondary)]">
-                Kredi tutarı, faiz oranı ve vadeyi gir. Aylık taksit ve toplam ödeme burada görünecek.
+                {labels.empty}
               </p>
             )}
           </div>
@@ -182,27 +189,27 @@ export function CreditCalculatorTool() {
           {result ? (
             <div className="overflow-hidden rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)]">
               <div className="border-b border-[color:var(--brand-border)] px-4 py-3">
-                <h3 className="text-base font-bold text-[color:var(--brand-text-primary)]">Ödeme tablosu</h3>
+                <h3 className="text-base font-bold text-[color:var(--brand-text-primary)]">{labels.scheduleTitle}</h3>
               </div>
               <div className="overflow-x-auto">
                 <table className="min-w-full text-left text-sm text-[color:var(--brand-text-secondary)]">
                   <thead className="bg-[color:var(--brand-card)] text-[color:var(--brand-text-primary)]">
                     <tr>
-                      <th className="px-4 py-3 font-semibold">Ay</th>
-                      <th className="px-4 py-3 font-semibold">Taksit</th>
-                      <th className="px-4 py-3 font-semibold">Anapara</th>
-                      <th className="px-4 py-3 font-semibold">Faiz</th>
-                      <th className="px-4 py-3 font-semibold">Kalan borç</th>
+                      <th className="px-4 py-3 font-semibold">{labels.scheduleColumns.month}</th>
+                      <th className="px-4 py-3 font-semibold">{labels.scheduleColumns.installment}</th>
+                      <th className="px-4 py-3 font-semibold">{labels.scheduleColumns.principal}</th>
+                      <th className="px-4 py-3 font-semibold">{labels.scheduleColumns.interest}</th>
+                      <th className="px-4 py-3 font-semibold">{labels.scheduleColumns.balance}</th>
                     </tr>
                   </thead>
                   <tbody>
                     {result.schedule.map((row) => (
                       <tr key={row.month} className="border-t border-[color:var(--brand-border)]">
-                        <td className="px-4 py-3">{formatTrNumber(row.month)}</td>
-                        <td className="px-4 py-3">{formatTrCurrency(row.installment)}</td>
-                        <td className="px-4 py-3">{formatTrCurrency(row.principal)}</td>
-                        <td className="px-4 py-3">{formatTrCurrency(row.interest)}</td>
-                        <td className="px-4 py-3">{formatTrCurrency(row.balance)}</td>
+                        <td className="px-4 py-3">{formatLocalizedNumber(locale, row.month)}</td>
+                        <td className="px-4 py-3">{formatLocalizedCurrency(locale, row.installment)}</td>
+                        <td className="px-4 py-3">{formatLocalizedCurrency(locale, row.principal)}</td>
+                        <td className="px-4 py-3">{formatLocalizedCurrency(locale, row.interest)}</td>
+                        <td className="px-4 py-3">{formatLocalizedCurrency(locale, row.balance)}</td>
                       </tr>
                     ))}
                   </tbody>

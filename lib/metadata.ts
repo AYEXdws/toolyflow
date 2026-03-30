@@ -7,6 +7,7 @@ import {
   getXDefaultPath,
 } from "@/lib/paths";
 import type { CategorySlug, StaticSlug, ToolSlug } from "@/lib/routes";
+import type { CalculatorSlug } from "@/lib/tr-calculators";
 import { siteConfig } from "@/lib/site-config";
 
 type MetadataInput = {
@@ -18,6 +19,8 @@ type MetadataInput = {
   route:
     | { kind: "home" }
     | { kind: "tool"; slug: ToolSlug }
+    | { kind: "calculator"; slug: CalculatorSlug }
+    | { kind: "calculator-category" }
     | { kind: "category"; slug: CategorySlug }
     | { kind: "static"; slug: StaticSlug };
 };
