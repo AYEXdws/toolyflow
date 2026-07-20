@@ -12,6 +12,8 @@ import {
   calculatorSlugs,
 } from "@/lib/tr-calculators";
 
+export const revalidate = 3600;
+
 const now = new Date();
 
 function buildAlternates(route: Parameters<typeof getAllLocalizedPaths>[0]) {

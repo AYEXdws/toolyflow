@@ -1,6 +1,7 @@
 import { cache } from "react";
 
 import {
+  createDictionarySearchFilter,
   dictionaryCategories,
   dictionarySelectColumns,
   normalizeDictionaryWord,
@@ -34,10 +35,10 @@ function buildSearchQuery({
   const normalizedQuery = query.trim();
 
   if (normalizedQuery) {
-    const escaped = normalizedQuery.replaceAll("%", "\\%").replaceAll("_", "\\_");
-    request = request.or(
-      `kelime.ilike.%${escaped}%,anlam.ilike.%${escaped}%,etiketler.cs.{${escaped}}`
-    );
+    const searchFilter = createDictionarySearchFilter(normalizedQuery);
+    if (searchFilter) {
+      request = request.or(searchFilter);
+    }
   }
 
   return request;
@@ -159,19 +160,32 @@ export const getAllDictionaryWordSlugs = cache(async () => {
   }
 
   try {
-    const { data, error } = await supabase
-      .from("kelimeler")
-      .select("slug")
-      .order("goruntulenme", { ascending: false, nullsFirst: false })
-      .limit(500);
+    const pageSize = 1000;
+    const slugs: string[] = [];
 
-    if (error || !data) {
-      return [] as string[];
+    for (let offset = 0; ; offset += pageSize) {
+      const { data, error } = await supabase
+        .from("kelimeler")
+        .select("slug")
+        .order("created_at", { ascending: true })
+        .range(offset, offset + pageSize - 1);
+
+      if (error || !data) {
+        return slugs;
+      }
+
+      slugs.push(
+        ...data
+          .map((item) => item.slug)
+          .filter((value): value is string => Boolean(value))
+      );
+
+      if (data.length < pageSize) {
+        break;
+      }
     }
 
-    return data
-      .map((item) => item.slug)
-      .filter((value): value is string => Boolean(value));
+    return slugs;
   } catch {
     return [] as string[];
   }

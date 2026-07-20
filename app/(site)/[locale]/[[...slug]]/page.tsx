@@ -10,7 +10,6 @@ import { CreditCalculatorTool } from "@/components/calculators/credit-calculator
 import { PercentageCalcTool } from "@/components/calculators/percentage-calc-tool";
 import { RentIncreaseCalculatorTool } from "@/components/calculators/rent-increase-calculator";
 import { ContentPage } from "@/components/content-page";
-import { DictionarySearch } from "@/components/dictionary/dictionary-search";
 import { StructuredData } from "@/components/structured-data";
 import { ToolPageShell } from "@/components/tool-page-shell";
 import { BioGenerator } from "@/components/tools/bio-generator";
@@ -25,13 +24,6 @@ import { QrGenerator } from "@/components/tools/qr-generator";
 import { TextCleaner } from "@/components/tools/text-cleaner";
 import { WordCounter } from "@/components/tools/word-counter";
 import { getDictionary, getToolEntries, getToolEntry } from "@/lib/dictionaries";
-import {
-  getDictionaryCategoryCounts,
-  getDictionaryWordBySlug,
-  getPopularDictionaryWords,
-  getRelatedDictionaryWords,
-} from "@/lib/dictionary";
-import { getDictionaryCategoryLabel } from "@/lib/dictionary-shared";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { createLocalizedMetadata } from "@/lib/metadata";
 import {
@@ -89,7 +81,6 @@ export function generateStaticParams() {
     ...getToolStaticParams(),
     ...getCalculatorStaticParams(),
     ...getStaticPageParams(),
-    { locale: "tr", slug: ["sozluk"] },
   ];
 }
 
@@ -101,86 +92,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const dictionary = getDictionary(locale as Locale);
-  const pathSegments = slug?.filter(Boolean) ?? [];
-
-  if (locale === "tr" && pathSegments.length === 1 && pathSegments[0] === "sozluk") {
-    return {
-      metadataBase: new URL(siteConfig.url),
-      title: { absolute: "Türkçe Sözlük | Toolyflow" },
-      description:
-        "Argo, deyim ve genel kullanımdaki kelimeleri ara. Anlam, örnek cümle ve ilgili kelimeleri Toolyflow Türkçe Sözlük'te keşfet.",
-      keywords: [
-        "türkçe sözlük",
-        "kelime anlamı",
-        "argo sözlük",
-        "deyim anlamı",
-        "örnek cümle",
-      ],
-      alternates: {
-        canonical: "/tr/sozluk",
-      },
-      openGraph: {
-        title: "Türkçe Sözlük | Toolyflow",
-        description:
-          "Argo, deyim ve genel kullanımdaki kelimeleri ara. Anlam, örnek cümle ve ilgili kelimeleri Toolyflow Türkçe Sözlük'te keşfet.",
-        url: `${siteConfig.url}/tr/sozluk`,
-        siteName: siteConfig.name,
-        locale: dictionary.localeCode,
-        type: "website",
-        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: "Türkçe Sözlük | Toolyflow",
-        description:
-          "Argo, deyim ve genel kullanımdaki kelimeleri ara. Anlam, örnek cümle ve ilgili kelimeleri Toolyflow Türkçe Sözlük'te keşfet.",
-        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
-      },
-    };
-  }
-
-  if (locale === "tr" && pathSegments.length === 2 && pathSegments[0] === "sozluk") {
-    const word = await getDictionaryWordBySlug(pathSegments[1]);
-
-    if (!word) {
-      return {};
-    }
-
-    const description = `${word.kelime} ne demek? ${word.anlam.slice(0, 120).trim()}${
-      word.anlam.length > 120 ? "..." : ""
-    }`;
-
-    return {
-      metadataBase: new URL(siteConfig.url),
-      title: { absolute: `${word.kelime} anlamı — Türkçe Sözlük | Toolyflow` },
-      description,
-      keywords: [
-        word.kelime,
-        `${word.kelime} anlamı`,
-        `${word.kelime} ne demek`,
-        "türkçe sözlük",
-        word.kategori,
-      ],
-      alternates: {
-        canonical: `/tr/sozluk/${word.slug}`,
-      },
-      openGraph: {
-        title: `${word.kelime} anlamı — Türkçe Sözlük | Toolyflow`,
-        description,
-        url: `${siteConfig.url}/tr/sozluk/${word.slug}`,
-        siteName: siteConfig.name,
-        locale: dictionary.localeCode,
-        type: "article",
-        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: `${word.kelime} anlamı — Türkçe Sözlük | Toolyflow`,
-        description,
-        images: [new URL(siteConfig.ogImagePath, siteConfig.url)],
-      },
-    };
-  }
 
   const resolved = resolveLocalizedRoute(locale as Locale, slug);
 
@@ -570,103 +481,6 @@ function renderUnifiedHome(locale: Locale) {
   );
 }
 
-async function renderDictionaryHome() {
-  const [popularWords, categoryCounts] = await Promise.all([
-    getPopularDictionaryWords(12),
-    getDictionaryCategoryCounts(),
-  ]);
-  const totalWords = Object.values(categoryCounts).reduce((sum, count) => sum + count, 0);
-
-  const categoryCards = [
-    {
-      slug: "argo",
-      title: "Argo",
-      description: "Günlük dilde ve internet kültüründe sık kullanılan argo ifadeleri hızlıca bul.",
-    },
-    {
-      slug: "deyim",
-      title: "Deyim",
-      description: "Kalıplaşmış ifadelerin anlamını ve örnek kullanımını tek yerde gör.",
-    },
-    {
-      slug: "genel",
-      title: "Genel",
-      description: "Sık aranan kelimeler, modern kullanım örnekleri ve açıklamalar.",
-    },
-  ] as const;
-
-  return (
-    <>
-      <StructuredData
-        data={{
-          "@context": "https://schema.org",
-          "@type": "CollectionPage",
-          name: "Türkçe Sözlük",
-          description:
-            "Argo, deyim ve genel kullanımdaki kelimeleri arayabileceğin Toolyflow Türkçe Sözlük.",
-          url: `${siteConfig.url}/tr/sozluk`,
-          inLanguage: "tr",
-        }}
-      />
-      <main className="pb-16">
-        <section className="mx-auto max-w-6xl px-4 pt-14 sm:px-6 lg:px-8">
-          <div className="space-y-5 rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-8 shadow-[0_24px_70px_rgba(0,0,0,0.22)] sm:px-8">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-              Türkçe sözlük modülü
-            </p>
-            <h1 className="text-4xl font-extrabold tracking-tight text-[color:var(--brand-text-primary)] sm:text-5xl">
-              Türkçe Sözlük
-            </h1>
-            <p className="max-w-3xl text-base leading-8 text-[color:var(--brand-text-secondary)]">
-              Kelime, ifade ve internet jargonunu tek yerde ara. Anlamı, örnek cümleyi ve ilgili
-              kelimeleri aynı sayfada gör.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-1">
-              <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-4 py-2 text-sm font-semibold text-[color:var(--brand-badge-text)]">
-                Toplam {totalWords} kelime
-              </span>
-              <span className="inline-flex rounded-full border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-2 text-sm text-[color:var(--brand-text-secondary)]">
-                3 kategori: argo, deyim, genel
-              </span>
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-6xl px-4 pt-8 sm:px-6 lg:px-8">
-          <div className="grid gap-4 md:grid-cols-3">
-            {categoryCards.map((card) => (
-              <div
-                key={card.slug}
-                className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 shadow-[var(--brand-shadow)]"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-                    {card.title}
-                  </span>
-                  <span className="text-sm font-semibold text-[color:var(--brand-secondary)]">
-                    {categoryCounts[card.slug]}
-                  </span>
-                </div>
-                <p className="mt-4 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
-                  {card.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-6xl px-4 pt-8 sm:px-6 lg:px-8">
-          <DictionarySearch
-            initialWords={popularWords}
-            categoryCounts={categoryCounts}
-            totalWords={totalWords}
-          />
-        </section>
-      </main>
-    </>
-  );
-}
-
 function renderCalculatorCategoryPage(locale: Locale) {
   const dictionary = getDictionary(locale);
   const calculatorCategory = getCalculatorCategory(locale);
@@ -965,147 +779,11 @@ function renderCalculatorPage(locale: Locale, slug: string) {
   );
 }
 
-async function renderDictionaryWordPage(slug: string) {
-  const word = await getDictionaryWordBySlug(slug);
-
-  if (!word) {
-    return notFound();
-  }
-
-  const relatedWords = await getRelatedDictionaryWords(word.kategori, word.slug, 4);
-
-  return (
-    <>
-      <StructuredData
-        data={{
-          "@context": "https://schema.org",
-          "@type": "DefinedTerm",
-          name: word.kelime,
-          description: word.anlam,
-          inDefinedTermSet: `${siteConfig.url}/tr/sozluk`,
-          url: `${siteConfig.url}/tr/sozluk/${word.slug}`,
-          inLanguage: "tr",
-        }}
-      />
-      <main className="pb-16">
-        <section className="mx-auto max-w-4xl px-4 pt-14 sm:px-6 lg:px-8">
-          <div className="space-y-5 rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-8 shadow-[0_24px_70px_rgba(0,0,0,0.22)] sm:px-8">
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-                {getDictionaryCategoryLabel(word.kategori)}
-              </span>
-              <span className="text-sm text-[color:var(--brand-text-secondary)]">
-                {word.goruntulenme.toLocaleString("tr-TR")} görüntülenme
-              </span>
-            </div>
-            <h1 className="text-4xl font-extrabold tracking-tight text-[color:var(--brand-text-primary)] sm:text-5xl">
-              {word.kelime}
-            </h1>
-            <p className="max-w-3xl text-base leading-8 text-[color:var(--brand-text-secondary)]">
-              {word.anlam}
-            </p>
-            {word.etiketler.length ? (
-              <div className="flex flex-wrap gap-2 pt-1">
-                {word.etiketler.map((tag) => (
-                  <span
-                    key={tag}
-                    className="inline-flex rounded-full border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-3 py-1 text-[11px] font-medium text-[color:var(--brand-text-secondary)]"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            ) : null}
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-4xl px-4 pt-8 sm:px-6 lg:px-8">
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
-            <div className="space-y-6">
-              <article className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[var(--brand-shadow)]">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-                  Anlam
-                </p>
-                <p className="mt-4 text-base leading-8 text-[color:var(--brand-text-secondary)]">
-                  {word.anlam}
-                </p>
-              </article>
-
-              <article className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[var(--brand-shadow)]">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-                  Örnek cümle
-                </p>
-                <p className="mt-4 text-base leading-8 text-[color:var(--brand-text-secondary)]">
-                  {word.ornek_cumle ?? "Bu kelime için örnek cümle henüz eklenmemiş."}
-                </p>
-              </article>
-            </div>
-
-            <aside className="space-y-4">
-              <div className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[var(--brand-shadow)]">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-                  Kategori
-                </p>
-                <p className="mt-3 text-lg font-bold text-[color:var(--brand-text-primary)]">
-                  {getDictionaryCategoryLabel(word.kategori)}
-                </p>
-              </div>
-            </aside>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-4xl px-4 pt-8 sm:px-6 lg:px-8">
-          <div className="mb-5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-              İlgili kelimeler
-            </p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
-              Aynı kategoriden başka kelimeler
-            </h2>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {relatedWords.map((item) => (
-              <Link
-                key={item.slug}
-                href={`/tr/sozluk/${item.slug}`}
-                className="group rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 shadow-[var(--brand-shadow)] transition duration-200 hover:scale-[1.02] hover:border-[color:var(--brand-border-hover)]"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-                    {getDictionaryCategoryLabel(item.kategori)}
-                  </span>
-                  <span className="text-lg text-[color:var(--brand-secondary)]">↗</span>
-                </div>
-                <h3 className="mt-4 text-2xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
-                  {item.kelime}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
-                  {item.anlam}
-                </p>
-              </Link>
-            ))}
-          </div>
-        </section>
-      </main>
-    </>
-  );
-}
-
 export default async function LocalizedPage({ params }: PageProps) {
   const { locale, slug } = await params;
 
   if (!isLocale(locale)) {
     notFound();
-  }
-
-  const pathSegments = slug?.filter(Boolean) ?? [];
-
-  if (locale === "tr" && pathSegments.length === 1 && pathSegments[0] === "sozluk") {
-    return renderDictionaryHome();
-  }
-
-  if (locale === "tr" && pathSegments.length === 2 && pathSegments[0] === "sozluk") {
-    return renderDictionaryWordPage(pathSegments[1]);
   }
 
   const resolved = resolveLocalizedRoute(locale, slug);

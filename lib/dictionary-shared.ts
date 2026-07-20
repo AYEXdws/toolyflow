@@ -17,6 +17,22 @@ export type DictionaryWord = {
 export const dictionarySelectColumns =
   "id, kelime, anlam, ornek_cumle, kategori, etiketler, slug, goruntulenme, created_at";
 
+export function createDictionarySearchFilter(query: string) {
+  const safeQuery = query
+    .trim()
+    .replace(/[^\p{L}\p{N}\s'-]/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replaceAll("%", "\\%")
+    .replaceAll("_", "\\_");
+
+  if (!safeQuery) {
+    return null;
+  }
+
+  return `kelime.ilike.%${safeQuery}%,anlam.ilike.%${safeQuery}%`;
+}
+
 export function normalizeDictionaryWord(record: Partial<DictionaryWord>): DictionaryWord {
   return {
     id: record.id ?? "",

@@ -219,10 +219,18 @@ export function translatePathname(pathname: string, targetLocale: Locale) {
     return `/${targetLocale}/${segments.join("/")}${hash ? `#${hash}` : ""}`;
   }
 
-  const resolved = resolveLocalizedRoute(maybeLocale, segments.slice(1));
+  const sourceSegments = segments.slice(1);
+
+  if (sourceSegments[0] === "sozluk") {
+    return targetLocale === "tr"
+      ? `/tr/${sourceSegments.join("/")}${hash ? `#${hash}` : ""}`
+      : getHomePath(targetLocale);
+  }
+
+  const resolved = resolveLocalizedRoute(maybeLocale, sourceSegments);
 
   if (!resolved) {
-    return `/${targetLocale}${segments.slice(1).length ? `/${segments.slice(1).join("/")}` : ""}${hash ? `#${hash}` : ""}`;
+    return `/${targetLocale}${sourceSegments.length ? `/${sourceSegments.join("/")}` : ""}${hash ? `#${hash}` : ""}`;
   }
 
   return `${getPathForRoute(targetLocale, resolved)}${hash ? `#${hash}` : ""}`;
