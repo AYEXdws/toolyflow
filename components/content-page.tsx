@@ -21,38 +21,34 @@ export function ContentPage({
 }: ContentPageProps) {
   return (
     <main className="pb-16">
-      <section className="mx-auto max-w-4xl px-4 pt-14 sm:px-6 lg:px-8">
-        <div className="space-y-5 rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-8 shadow-[0_24px_70px_rgba(0,0,0,0.22)] sm:px-8">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-            {eyebrow}
-          </p>
-          <h1 className="text-4xl font-extrabold tracking-tight text-[color:var(--brand-text-primary)] sm:text-5xl">
-            {title}
-          </h1>
-          <p className="max-w-2xl text-base leading-8 text-[color:var(--brand-text-secondary)]">
-            {description}
-          </p>
+      <section className="mx-auto max-w-6xl px-4 pt-12 sm:px-6 lg:px-8 lg:pt-16">
+        <div className="grid overflow-hidden rounded-[34px] bg-[#14151A] text-white shadow-[var(--brand-shadow-strong)] md:grid-cols-[minmax(0,1fr)_220px]">
+          <div className="px-6 py-10 sm:px-10 lg:px-12 lg:py-14">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#C8F135]">{eyebrow}</p>
+            <h1 className="display-type mt-5 text-5xl font-bold leading-[0.94] tracking-[-0.05em] sm:text-6xl">{title}</h1>
+            <p className="mt-6 max-w-3xl text-base leading-8 text-white/65">{description}</p>
+          </div>
+          <div className="hidden items-end justify-end bg-[#FF5D2E] p-8 md:flex">
+            <span className="display-type text-8xl" aria-hidden="true">i</span>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl px-4 pt-8 sm:px-6 lg:px-8">
-        <div className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-8 shadow-[0_24px_70px_rgba(0,0,0,0.22)] sm:px-8">
-          <div className="space-y-8">
-            {sections.map((section) => (
-              <section key={section.title} className="space-y-3">
-                <h2 className="text-3xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
+      <section className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8">
+        <div className="grid gap-5 md:grid-cols-2">
+            {sections.map((section, index) => (
+              <section key={section.title} className="rounded-[26px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[var(--brand-shadow)] sm:p-8">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[color:var(--brand-badge-text)]">{String(index + 1).padStart(2, "0")}</p>
+                <h2 className="display-type mt-3 text-3xl font-bold tracking-[-0.04em] text-[color:var(--brand-text-primary)]">
                   {section.title}
                 </h2>
-                <p className="whitespace-pre-line text-base leading-8 text-[color:var(--brand-text-secondary)]">
+                <p className="mt-4 whitespace-pre-line text-base leading-8 text-[color:var(--brand-text-secondary)]">
                   {section.body}
                 </p>
                 {section.items?.length ? (
                   <ul className="space-y-3 pt-1">
                     {section.items.map((item) => (
-                      <li
-                        key={item}
-                        className="rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]"
-                      >
+                      <li key={item} className="border-b border-[color:var(--brand-border)] py-3 text-sm leading-7 text-[color:var(--brand-text-secondary)] last:border-0">
                         {item}
                       </li>
                     ))}
@@ -62,7 +58,7 @@ export function ContentPage({
                   <div className="pt-1">
                     <Link
                       href={`mailto:${section.email}`}
-                      className="inline-flex min-h-11 flex-wrap items-center gap-2 rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+                      className="inline-flex min-h-11 flex-wrap items-center gap-2 rounded-[14px] bg-[#2557FF] px-4 py-2.5 text-sm font-bold text-white transition hover:-translate-y-0.5"
                     >
                       <span>{section.emailLabel ?? "Email"}</span>
                       <span>{section.email}</span>
@@ -71,7 +67,6 @@ export function ContentPage({
                 ) : null}
               </section>
             ))}
-          </div>
         </div>
       </section>
     </main>

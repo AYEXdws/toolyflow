@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useDeferredValue, useEffect, useMemo, useRef, useState, useTransition } from "react";
+import { useDeferredValue, useEffect, useRef, useState, useTransition } from "react";
 
 import {
   createDictionarySearchFilter,
@@ -13,6 +13,7 @@ import {
   type DictionaryCategory,
   type DictionaryWord,
 } from "@/lib/dictionary-shared";
+import { searchFallbackDictionary } from "@/lib/dictionary-fallback";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 
 const pageSize = 24;
@@ -21,6 +22,12 @@ const categoryDescriptions: Record<DictionaryCategory, string> = {
   argo: "Günlük dilde ve internet kültüründe kullanılan ifadeler.",
   deyim: "Kalıplaşmış sözlerin anlamları ve kullanım örnekleri.",
   genel: "Sık aranan kelimeler ve anlaşılır açıklamaları.",
+};
+
+const categoryAccent: Record<DictionaryCategory, string> = {
+  argo: "bg-[#2557FF] text-white",
+  deyim: "bg-[#FF5D2E] text-white",
+  genel: "bg-[#C8F135] text-[#14151A]",
 };
 
 type DictionarySearchProps = {
@@ -45,28 +52,31 @@ export function DictionarySearch({
   const requestSequenceRef = useRef(0);
   const deferredQuery = useDeferredValue(query.trim());
 
-  const categoryPills = useMemo(
-    () => [
-      { value: "all" as const, label: "Tümü", count: totalWords },
-      ...dictionaryCategories.map((category) => ({
-        value: category,
-        label: getDictionaryCategoryLabel(category),
-        count: categoryCounts[category],
-      })),
-    ],
-    [categoryCounts, totalWords]
-  );
+  const categoryPills = [
+    { value: "all" as const, label: "Tümü", count: totalWords },
+    ...dictionaryCategories.map((category) => ({
+      value: category,
+      label: getDictionaryCategoryLabel(category),
+      count: categoryCounts[category],
+    })),
+  ];
 
   useEffect(() => {
     let cancelled = false;
     const requestSequence = ++requestSequenceRef.current;
 
     async function runSearch() {
+      const fallback = searchFallbackDictionary({
+        query: deferredQuery,
+        category: activeCategory,
+        limit: pageSize,
+      });
+
       if (!isSupabaseConfigured) {
-        setError("Supabase bağlantısı kurulunca sözlük sonuçları burada görünecek.");
+        setError("");
         startTransition(() => {
-          setWords(initialWords);
-          setResultCount(initialWords.length);
+          setWords(fallback.words);
+          setResultCount(fallback.count);
           setLoadedPages(1);
         });
         return;
@@ -100,7 +110,12 @@ export function DictionarySearch({
         }
 
         if (requestError) {
-          setError("Bir şeyler ters gitti, tekrar dene.");
+          setError("");
+          startTransition(() => {
+            setWords(fallback.words);
+            setResultCount(fallback.count);
+            setLoadedPages(1);
+          });
           return;
         }
 
@@ -111,7 +126,12 @@ export function DictionarySearch({
         });
       } catch {
         if (!cancelled) {
-          setError("Bir şeyler ters gitti, tekrar dene.");
+          setError("");
+          startTransition(() => {
+            setWords(fallback.words);
+            setResultCount(fallback.count);
+            setLoadedPages(1);
+          });
         }
       }
     }
@@ -124,7 +144,7 @@ export function DictionarySearch({
   }, [activeCategory, deferredQuery, initialWords]);
 
   async function loadMore() {
-    if (!isSupabaseConfigured || isLoadingMore || words.length >= resultCount) {
+    if (isLoadingMore || words.length >= resultCount) {
       return;
     }
 
@@ -134,6 +154,22 @@ export function DictionarySearch({
 
     try {
       const from = loadedPages * pageSize;
+
+      if (!isSupabaseConfigured) {
+        const fallback = searchFallbackDictionary({
+          query: deferredQuery,
+          category: activeCategory,
+          limit: pageSize,
+          offset: from,
+        });
+
+        startTransition(() => {
+          setWords((currentWords) => [...currentWords, ...fallback.words]);
+          setLoadedPages((currentPage) => currentPage + 1);
+        });
+        return;
+      }
+
       let request = supabase
         .from("kelimeler")
         .select(dictionarySelectColumns)
@@ -159,7 +195,16 @@ export function DictionarySearch({
       }
 
       if (requestError) {
-        setError("Bir şeyler ters gitti, tekrar dene.");
+        const fallback = searchFallbackDictionary({
+          query: deferredQuery,
+          category: activeCategory,
+          limit: pageSize,
+          offset: from,
+        });
+        startTransition(() => {
+          setWords((currentWords) => [...currentWords, ...fallback.words]);
+          setLoadedPages((currentPage) => currentPage + 1);
+        });
         return;
       }
 
@@ -171,14 +216,23 @@ export function DictionarySearch({
         setLoadedPages((currentPage) => currentPage + 1);
       });
     } catch {
-      setError("Bir şeyler ters gitti, tekrar dene.");
+      const fallback = searchFallbackDictionary({
+        query: deferredQuery,
+        category: activeCategory,
+        limit: pageSize,
+        offset: loadedPages * pageSize,
+      });
+      startTransition(() => {
+        setWords((currentWords) => [...currentWords, ...fallback.words]);
+        setLoadedPages((currentPage) => currentPage + 1);
+      });
     } finally {
       setIsLoadingMore(false);
     }
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="grid gap-4 md:grid-cols-3">
         {dictionaryCategories.map((category) => {
           const isActive = category === activeCategory;
@@ -192,21 +246,21 @@ export function DictionarySearch({
                 setActiveCategory(category);
               }}
               aria-pressed={isActive}
-              className={`min-h-36 rounded-[24px] border p-5 text-left shadow-[var(--brand-shadow)] transition duration-200 hover:scale-[1.01] hover:border-[color:var(--brand-border-hover)] ${
+              className={`min-h-44 rounded-[26px] border p-5 text-left shadow-[var(--brand-shadow)] transition duration-200 hover:-translate-y-1 ${
                 isActive
-                  ? "border-[color:var(--brand-border-hover)] bg-[color:var(--brand-surface)]"
-                  : "border-[color:var(--brand-border)] bg-[color:var(--brand-card)]"
+                  ? `border-transparent ${categoryAccent[category]}`
+                  : "border-[color:var(--brand-border)] bg-[color:var(--brand-card)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
               }`}
             >
               <span className="flex items-start justify-between gap-4">
-                <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+                <span className={`inline-flex rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] ${isActive ? "border border-current/20" : "bg-[color:var(--brand-badge-bg)] text-[color:var(--brand-badge-text)]"}`}>
                   {getDictionaryCategoryLabel(category)}
                 </span>
-                <span className="text-sm font-semibold text-[color:var(--brand-secondary)]">
+                <span className={`text-2xl font-extrabold tabular-nums ${isActive ? "" : "text-[color:var(--brand-secondary)]"}`}>
                   {categoryCounts[category]}
                 </span>
               </span>
-              <span className="mt-4 block text-sm leading-7 text-[color:var(--brand-text-secondary)]">
+              <span className={`mt-7 block text-sm leading-7 ${isActive ? "opacity-70" : "text-[color:var(--brand-text-secondary)]"}`}>
                 {categoryDescriptions[category]}
               </span>
             </button>
@@ -214,16 +268,16 @@ export function DictionarySearch({
         })}
       </div>
 
-      <div className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[var(--brand-shadow)]">
+      <div className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 shadow-[var(--brand-shadow)] sm:p-7">
         <label className="block space-y-3">
-          <span className="text-sm font-semibold text-[color:var(--brand-text-primary)]">
+          <span className="text-xs font-bold uppercase tracking-[0.16em] text-[color:var(--brand-badge-text)]">
             Kelime veya ifade ara
           </span>
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Örn. ghostlamak, lowkey, kırmızı çizgi"
-            className="w-full rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[var(--brand-ring)]"
+            className="min-h-16 w-full rounded-[18px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-5 py-4 text-base font-semibold text-[color:var(--brand-text-primary)] outline-none transition placeholder:font-medium placeholder:text-[color:var(--brand-text-tertiary)] focus:border-[color:var(--brand-border-hover)] focus:shadow-[var(--brand-ring)]"
           />
         </label>
 
@@ -241,7 +295,7 @@ export function DictionarySearch({
                 }}
                 className={`inline-flex min-h-11 items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition ${
                   isActive
-                    ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
+                    ? "bg-[#14151A] text-white"
                     : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
                 }`}
               >
@@ -259,12 +313,12 @@ export function DictionarySearch({
         </div>
       </div>
 
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-[color:var(--brand-badge-text)]">
             Sonuçlar
           </p>
-          <h2 className="mt-2 text-2xl font-bold text-[color:var(--brand-text-primary)]">
+          <h2 className="display-type mt-2 text-4xl font-bold tracking-[-0.04em] text-[color:var(--brand-text-primary)]">
             {resultCount} kelime
           </h2>
           <p className="mt-2 text-sm text-[color:var(--brand-text-secondary)]">
@@ -286,19 +340,19 @@ export function DictionarySearch({
 
       {words.length ? (
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {words.map((word) => (
+          {words.map((word, index) => (
             <Link
               key={word.id || word.slug}
               href={`/tr/sozluk/${word.slug}`}
-              className="group rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 shadow-[var(--brand-shadow)] transition duration-200 hover:scale-[1.02] hover:border-[color:var(--brand-border-hover)]"
+              className="group flex min-h-64 flex-col rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 shadow-[var(--brand-shadow)] transition duration-200 hover:-translate-y-1 hover:border-[color:var(--brand-border-hover)] hover:shadow-[var(--brand-shadow-strong)]"
             >
               <div className="flex items-start justify-between gap-4">
-                <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+                <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[color:var(--brand-badge-text)]">
                   {getDictionaryCategoryLabel(word.kategori)}
                 </span>
-                <span className="text-lg text-[color:var(--brand-secondary)]">↗</span>
+                <span className="text-xs font-bold tabular-nums text-[color:var(--brand-text-tertiary)]">{String(index + 1).padStart(2, "0")}</span>
               </div>
-              <h3 className="mt-4 text-2xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
+              <h3 className="display-type mt-8 text-3xl font-bold tracking-[-0.04em] text-[color:var(--brand-text-primary)]">
                 {word.kelime}
               </h3>
               <p className="mt-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
@@ -316,6 +370,7 @@ export function DictionarySearch({
                   ))}
                 </div>
               ) : null}
+              <span className="mt-auto pt-5 text-sm font-bold text-[color:var(--brand-secondary)] transition group-hover:translate-x-1">İncele →</span>
             </Link>
           ))}
         </div>
@@ -331,7 +386,7 @@ export function DictionarySearch({
             type="button"
             onClick={loadMore}
             disabled={isLoadingMore || isPending}
-            className="min-h-12 rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-60"
+            className="min-h-12 rounded-[14px] bg-[#2557FF] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-60"
           >
             {isLoadingMore ? "Hazırlanıyor..." : "Daha fazla göster"}
           </button>

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 import { type Locale } from "@/lib/i18n";
 import { getCategoryPath, getStaticPath } from "@/lib/paths";
@@ -20,103 +19,78 @@ type SiteFooterProps = {
   categories: Array<{ slug: string; name: string }>;
 };
 
-export function SiteFooter({
-  locale,
-  labels,
-  categories,
-}: SiteFooterProps) {
+export function SiteFooter({ locale, labels, categories }: SiteFooterProps) {
   return (
-    <footer className="border-t border-[color:var(--brand-border)] bg-[color:var(--brand-bg)]">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.1fr_0.8fr_0.8fr] lg:px-8">
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <span className="inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] shadow-[var(--brand-shadow)]">
-              <Image
-                src="/images/toolyflow-mark.png"
-                alt="Toolyflow logo"
-                width={44}
-                height={44}
-                className="h-11 w-11 object-contain"
-              />
-            </span>
-            <p className="text-2xl font-extrabold tracking-[-0.04em] text-[color:var(--brand-text-primary)]">
-              Tooly<span className="text-[color:var(--brand-secondary)]">flow</span>
+    <footer className="mt-16 px-3 pb-3 sm:px-5">
+      <div className="mx-auto max-w-7xl overflow-hidden rounded-[30px] bg-[#14151A] text-white">
+        <div className="grid gap-12 px-6 py-12 sm:px-10 lg:grid-cols-[1.25fr_0.8fr_0.8fr] lg:px-12 lg:py-14">
+          <div>
+            <Link href={`/${locale}`} className="inline-flex items-center gap-3">
+              <span aria-hidden="true" className="grid h-11 w-11 grid-cols-2 gap-1 rounded-[14px] border border-white/10 bg-white/8 p-2">
+                <span className="rounded-[3px] bg-[#C8F135]" />
+                <span className="rounded-[3px] bg-[#2557FF]" />
+                <span className="col-span-2 rounded-[3px] bg-white" />
+              </span>
+              <span className="text-2xl font-extrabold tracking-[-0.055em]">
+                Tooly<span className="text-[#7C9BFF]">flow</span>
+              </span>
+            </Link>
+            <p className="display-type mt-7 max-w-md text-3xl leading-tight tracking-[-0.03em] text-white sm:text-4xl">
+              {labels.slogan}
             </p>
+            <p className="mt-5 text-sm text-white/55">{labels.madeIn}</p>
           </div>
-          <p className="text-sm font-medium text-[color:var(--brand-text-primary)]">{labels.slogan}</p>
-          <p className="text-sm text-[color:var(--brand-text-secondary)]">{labels.madeIn}</p>
+
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#C8F135]">
+              {labels.categoriesHeading}
+            </p>
+            <ul className="mt-5 space-y-1 text-sm text-white/70">
+              {locale === "tr" ? (
+                <li>
+                  <Link href="/tr/sozluk" className="flex min-h-11 items-center border-b border-white/8 transition hover:translate-x-1 hover:text-white">
+                    Türkçe Sözlük
+                  </Link>
+                </li>
+              ) : null}
+              {categories.map((category) => (
+                <li key={category.slug}>
+                  <Link
+                    href={getCategoryPath(locale, category.slug as Parameters<typeof getCategoryPath>[1])}
+                    className="flex min-h-11 items-center border-b border-white/8 transition hover:translate-x-1 hover:text-white"
+                  >
+                    {category.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#C8F135]">
+              {labels.companyHeading}
+            </p>
+            <ul className="mt-5 space-y-1 text-sm text-white/70">
+              {[
+                { href: getStaticPath(locale, "about"), label: labels.about },
+                { href: getStaticPath(locale, "contact"), label: labels.contact },
+                { href: getStaticPath(locale, "privacy-policy"), label: labels.privacy },
+                { href: getStaticPath(locale, "terms-of-service"), label: labels.terms },
+              ].map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="flex min-h-11 items-center border-b border-white/8 transition hover:translate-x-1 hover:text-white">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div>
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-text-tertiary)]">
-            {labels.categoriesHeading}
-          </p>
-          <ul className="space-y-3 text-sm text-[color:var(--brand-text-secondary)]">
-            {locale === "tr" ? (
-              <li>
-                <Link
-                  href="/tr/sozluk"
-                  className="flex min-h-11 w-full items-center rounded-xl py-1 transition hover:text-[color:var(--brand-text-primary)]"
-                >
-                  Türkçe Sözlük
-                </Link>
-              </li>
-            ) : null}
-            {categories.map((category) => (
-              <li key={category.slug}>
-                <Link
-                  href={getCategoryPath(locale, category.slug as Parameters<typeof getCategoryPath>[1])}
-                  className="flex min-h-11 w-full items-center rounded-xl py-1 transition hover:text-[color:var(--brand-text-primary)]"
-                >
-                  {category.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <div className="flex flex-col gap-3 border-t border-white/10 px-6 py-5 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between sm:px-10 lg:px-12">
+          <span>{labels.copyright}</span>
+          <span>toolyflow.com</span>
         </div>
-
-        <div>
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-text-tertiary)]">
-            {labels.companyHeading}
-          </p>
-          <ul className="space-y-3 text-sm text-[color:var(--brand-text-secondary)]">
-            <li>
-              <Link
-                href={getStaticPath(locale, "about")}
-                className="flex min-h-11 w-full items-center rounded-xl py-1 transition hover:text-[color:var(--brand-text-primary)]"
-              >
-                {labels.about}
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={getStaticPath(locale, "contact")}
-                className="flex min-h-11 w-full items-center rounded-xl py-1 transition hover:text-[color:var(--brand-text-primary)]"
-              >
-                {labels.contact}
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={getStaticPath(locale, "privacy-policy")}
-                className="flex min-h-11 w-full items-center rounded-xl py-1 transition hover:text-[color:var(--brand-text-primary)]"
-              >
-                {labels.privacy}
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={getStaticPath(locale, "terms-of-service")}
-                className="flex min-h-11 w-full items-center rounded-xl py-1 transition hover:text-[color:var(--brand-text-primary)]"
-              >
-                {labels.terms}
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className="border-t border-[color:var(--brand-border)] px-4 py-5 text-center text-sm text-[color:var(--brand-text-secondary)] sm:px-6 lg:px-8">
-        {labels.copyright}
       </div>
     </footer>
   );

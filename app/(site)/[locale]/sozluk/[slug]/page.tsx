@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { connection } from "next/server";
 
 import { DictionaryWordPage } from "@/components/dictionary/dictionary-pages";
 import {
+  getAllDictionaryWordSlugs,
   getDictionaryWordBySlug,
   getRelatedDictionaryWords,
 } from "@/lib/dictionary";
@@ -12,6 +12,13 @@ import { siteConfig } from "@/lib/site-config";
 type DictionaryWordRouteProps = {
   params: Promise<{ locale: string; slug: string }>;
 };
+
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const slugs = await getAllDictionaryWordSlugs();
+  return slugs.map((slug) => ({ locale: "tr", slug }));
+}
 
 export async function generateMetadata({
   params,
@@ -46,6 +53,10 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: `/tr/sozluk/${word.slug}`,
+      languages: {
+        tr: `/tr/sozluk/${word.slug}`,
+        "x-default": `/tr/sozluk/${word.slug}`,
+      },
     },
     openGraph: {
       title,
@@ -73,8 +84,6 @@ export default async function DictionaryEntryPage({
   if (locale !== "tr") {
     notFound();
   }
-
-  await connection();
 
   const word = await getDictionaryWordBySlug(slug);
 

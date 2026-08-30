@@ -18,6 +18,10 @@ create index if not exists kelimeler_goruntulenme_idx on public.kelimeler (gorun
 
 alter table public.kelimeler enable row level security;
 
+revoke all on table public.kelimeler from anon, authenticated;
+grant usage on schema public to anon, authenticated;
+grant select on table public.kelimeler to anon, authenticated;
+
 drop policy if exists "Public can read kelimeler" on public.kelimeler;
 create policy "Public can read kelimeler"
 on public.kelimeler

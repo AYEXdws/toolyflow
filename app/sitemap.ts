@@ -12,18 +12,21 @@ import {
   calculatorSlugs,
 } from "@/lib/tr-calculators";
 
-export const revalidate = 3600;
-
 const now = new Date();
 
 function buildAlternates(route: Parameters<typeof getAllLocalizedPaths>[0]) {
+  const localizedPaths = getAllLocalizedPaths(route);
+
   return {
-    languages: Object.fromEntries(
-      Object.entries(getAllLocalizedPaths(route)).map(([locale, path]) => [
+    languages: {
+      ...Object.fromEntries(
+        Object.entries(localizedPaths).map(([locale, path]) => [
         locale,
         `${siteConfig.url}${path}`,
-      ])
-    ),
+        ])
+      ),
+      "x-default": `${siteConfig.url}${localizedPaths.tr}`,
+    },
   };
 }
 

@@ -38,14 +38,14 @@ export function LanguageSwitcher({ currentLocale, label }: LanguageSwitcherProps
           aria-expanded={isOpen}
           aria-label={label}
           onClick={() => setIsOpen((value) => !value)}
-          className="inline-flex items-center gap-2 rounded-full border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-text-primary)]"
+          className="inline-flex items-center gap-2 rounded-full border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[color:var(--brand-text-primary)]"
         >
           <span className="text-[color:var(--brand-text-secondary)]">{label}</span>
           <span>{localeLabels[currentLocale]}</span>
         </button>
 
         {isOpen ? (
-          <div className="absolute right-0 top-[calc(100%+0.75rem)] z-40 min-w-52 rounded-[22px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-2 shadow-[0_24px_60px_rgba(0,0,0,0.32)]">
+          <div className="absolute right-0 top-[calc(100%+0.75rem)] z-40 min-w-52 rounded-[18px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-2 shadow-[var(--brand-shadow-strong)]">
             {locales.map((locale) => {
               const isActive = locale === currentLocale;
 
@@ -58,7 +58,7 @@ export function LanguageSwitcher({ currentLocale, label }: LanguageSwitcherProps
                   className={`flex items-center justify-between rounded-2xl px-4 py-3 text-sm transition ${
                     isActive
                       ? "bg-[color:var(--brand-badge-bg)] font-semibold text-[color:var(--brand-badge-text)]"
-                      : "text-[color:var(--brand-text-primary)] hover:bg-white/4"
+                      : "text-[color:var(--brand-text-primary)] hover:bg-[color:var(--brand-surface)]"
                   }`}
                 >
                   <span>{localeLabels[locale]}</span>
@@ -73,7 +73,7 @@ export function LanguageSwitcher({ currentLocale, label }: LanguageSwitcherProps
       </div>
 
       <div className="relative hidden items-center gap-2 sm:flex">
-        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--brand-text-secondary)]">
+        <span className="sr-only">
           {label}
         </span>
         <div className="flex flex-wrap gap-2">
@@ -85,9 +85,9 @@ export function LanguageSwitcher({ currentLocale, label }: LanguageSwitcherProps
                 key={locale}
                 href={translatePathname(pathname, locale)}
                 hrefLang={locale}
-                className={`rounded-full px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition ${
+                className={`rounded-full px-3 py-2 text-xs font-bold uppercase tracking-[0.12em] transition ${
                   isActive
-                    ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
+                    ? "bg-[#2557FF] text-white"
                     : "border border-[color:var(--brand-border)] text-[color:var(--brand-text-secondary)] hover:border-[color:var(--brand-border-hover)] hover:text-[color:var(--brand-text-primary)]"
                 }`}
               >
@@ -101,9 +101,9 @@ export function LanguageSwitcher({ currentLocale, label }: LanguageSwitcherProps
             aria-expanded={isOpen}
             aria-label={label}
             onClick={() => setIsOpen((value) => !value)}
-            className={`rounded-full px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition ${
+            className={`rounded-full px-3 py-2 text-xs font-bold uppercase tracking-[0.12em] transition ${
               isSecondaryActive
-                ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
+                ? "bg-[#2557FF] text-white"
                 : "border border-[color:var(--brand-border)] text-[color:var(--brand-text-secondary)] hover:border-[color:var(--brand-border-hover)] hover:text-[color:var(--brand-text-primary)]"
             }`}
           >
@@ -112,7 +112,7 @@ export function LanguageSwitcher({ currentLocale, label }: LanguageSwitcherProps
         </div>
 
         {isOpen ? (
-          <div className="absolute right-0 top-[calc(100%+0.75rem)] z-40 min-w-56 rounded-[22px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-2 shadow-[0_24px_60px_rgba(0,0,0,0.32)]">
+          <div className="absolute right-0 top-[calc(100%+0.75rem)] z-40 min-w-56 rounded-[18px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-2 shadow-[var(--brand-shadow-strong)]">
             {secondaryLocales.map((locale) => {
               const isActive = locale === currentLocale;
 
@@ -125,7 +125,7 @@ export function LanguageSwitcher({ currentLocale, label }: LanguageSwitcherProps
                   className={`flex items-center justify-between rounded-2xl px-4 py-3 text-sm transition ${
                     isActive
                       ? "bg-[color:var(--brand-badge-bg)] font-semibold text-[color:var(--brand-badge-text)]"
-                      : "text-[color:var(--brand-text-primary)] hover:bg-white/4"
+                      : "text-[color:var(--brand-text-primary)] hover:bg-[color:var(--brand-surface)]"
                   }`}
                 >
                   <span>{localeLabels[locale]}</span>

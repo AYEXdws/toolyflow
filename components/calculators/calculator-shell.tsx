@@ -7,10 +7,10 @@ type CalculatorShellProps = {
 
 export function CalculatorShell({ form, result }: CalculatorShellProps) {
   return (
-    <section className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:p-8">
-      <div className="grid gap-8 xl:grid-cols-[360px_minmax(0,1fr)]">
-        <div>{form}</div>
-        <div>{result}</div>
+    <section className="overflow-hidden rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] shadow-[var(--brand-shadow)]">
+      <div className="grid xl:grid-cols-[380px_minmax(0,1fr)]">
+        <div className="border-b border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-6 sm:p-8 xl:border-b-0 xl:border-r">{form}</div>
+        <div className="p-6 sm:p-8">{result}</div>
       </div>
     </section>
   );

@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 
 import { CategoryPage } from "@/components/category-page";
@@ -10,6 +8,7 @@ import { CreditCalculatorTool } from "@/components/calculators/credit-calculator
 import { PercentageCalcTool } from "@/components/calculators/percentage-calc-tool";
 import { RentIncreaseCalculatorTool } from "@/components/calculators/rent-increase-calculator";
 import { ContentPage } from "@/components/content-page";
+import { HomePage } from "@/components/home-page";
 import { StructuredData } from "@/components/structured-data";
 import { ToolPageShell } from "@/components/tool-page-shell";
 import { BioGenerator } from "@/components/tools/bio-generator";
@@ -29,14 +28,12 @@ import { createLocalizedMetadata } from "@/lib/metadata";
 import {
   getCategoryPath,
   getCategoryStaticParams,
-  getHomePath,
   getStaticPageParams,
   getToolPath,
   getToolStaticParams,
   resolveLocalizedRoute,
 } from "@/lib/paths";
 import {
-  getCategories,
   getCategory,
   getCategoryForTool,
   getCategoryLabels,
@@ -45,7 +42,6 @@ import {
 import { isCategorySlug, isStaticSlug, isToolSlug } from "@/lib/routes";
 import { siteConfig } from "@/lib/site-config";
 import {
-  calculatorSlugs,
   getAgeCalculatorLabels,
   getBmiCalculatorLabels,
   getCalculatorCategory,
@@ -186,301 +182,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {};
 }
 
-function renderUnifiedHome(locale: Locale) {
-  const dictionary = getDictionary(locale);
-  const categories = getCategories(locale);
-  const categoryLabels = getCategoryLabels(locale);
-  const emojiByCategory = {
-    "creator-tools": "✍️",
-    "text-tools": "📝",
-    "quick-tools": "⚡",
-  } as const;
-  const iconMap: Record<string, string> = {
-    "bio-generator": "✨",
-    "nickname-generator": "🎯",
-    "hashtag-generator": "#",
-    "case-converter": "📝",
-    "qr-generator": "⚡",
-    "decision-wheel": "🎡",
-    "color-code-converter": "🎨",
-    "percentage-calculator": "％",
-    "discount-calculator": "💸",
-    "word-counter": "📏",
-    "text-cleaner": "🧹",
-  };
-  const categoryDescriptions: Record<Locale, Record<(typeof categories)[number]["slug"], string>> = {
-    tr: {
-      "creator-tools": "Bio, hashtag, kullanıcı adı ve daha fazlası",
-      "text-tools": "Metni dönüştür, düzenle, temizle",
-      "quick-tools": "QR kod, karar çarkı, hesaplayıcılar",
-    },
-    en: {
-      "creator-tools": "Bios, hashtags, usernames, and more",
-      "text-tools": "Convert, clean, and tighten text fast",
-      "quick-tools": "QR codes, decision wheels, and calculators",
-    },
-    es: {
-      "creator-tools": "Bios, hashtags, nombres de usuario y más",
-      "text-tools": "Convierte, limpia y ajusta texto rápido",
-      "quick-tools": "Códigos QR, rueda de decisión y calculadoras",
-    },
-    de: {
-      "creator-tools": "Bios, Hashtags, Usernames und mehr",
-      "text-tools": "Text umwandeln, bereinigen und glätten",
-      "quick-tools": "QR-Codes, Entscheidungsrad und Rechner",
-    },
-    fr: {
-      "creator-tools": "Bios, hashtags, pseudos et plus",
-      "text-tools": "Convertir, nettoyer et corriger un texte",
-      "quick-tools": "QR codes, roue de décision et calculateurs",
-    },
-    pt: {
-      "creator-tools": "Bios, hashtags, nomes de usuário e mais",
-      "text-tools": "Converta, limpe e ajuste texto rápido",
-      "quick-tools": "QR codes, roda de decisão e calculadoras",
-    },
-  };
-  const groupedCategories = categories.map((category) => ({
-    ...category,
-    emoji: emojiByCategory[category.slug],
-    href: getCategoryPath(locale, category.slug),
-    summary: categoryDescriptions[locale][category.slug],
-    tools: getToolEntries(locale)
-      .filter((tool) => category.toolSlugs.includes(tool.slug))
-      .map((tool) => ({
-        ...tool,
-        icon: iconMap[tool.slug] ?? "✦",
-      })),
-  }));
-  const calculatorCategoryContent = getCalculatorCategory(locale);
-  const calculatorCategory = {
-    slug: "calculators",
-    navLabel: calculatorCategoryContent.title,
-    emoji: "🧮",
-    href: getCalculatorCategoryPath(locale),
-    summary: calculatorCategoryContent.description,
-    toolSlugs: [...calculatorSlugs],
-    tools: getCalculatorEntries(locale).map((tool) => ({
-      ...tool,
-      icon: tool.icon,
-    })),
-  };
-  const homeGroups = [...groupedCategories, calculatorCategory];
-  const dictionaryPromo =
-    locale === "tr"
-      ? {
-          href: "/tr/sozluk",
-          eyebrow: "Yeni bölüm",
-          title: "Türkçe Sözlük",
-          description:
-            "Argo, deyim ve genel kullanımdaki kelimeleri ara. Anlam, örnek cümle ve benzer kelimeleri tek yerde keşfet.",
-        }
-      : null;
-
-  return (
-    <main className="bg-[color:var(--brand-bg)] pb-20 font-[family:var(--font-inter)] text-[color:var(--brand-text-primary)]">
-      <StructuredData
-        data={{
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          name: siteConfig.name,
-          url: `${siteConfig.url}${getHomePath(locale)}`,
-          description: dictionary.home.metaDescription,
-          inLanguage: locale,
-        }}
-      />
-
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-x-0 top-0 h-[440px] bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.14),transparent_58%)]" />
-        <div className="mx-auto max-w-6xl px-4 pb-10 pt-14 sm:px-6 lg:px-8 lg:pb-14 lg:pt-20">
-          <div className="relative z-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-center">
-            <div>
-              <p className="mb-4 inline-flex rounded-full border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-              {dictionary.home.eyebrow}
-              </p>
-              <h1 className="max-w-4xl text-5xl font-extrabold leading-[0.95] tracking-[-0.05em] sm:text-6xl lg:text-7xl">
-                <span className="block text-[color:var(--brand-text-primary)]">{dictionary.home.title}</span>
-                <span className="mt-2 block text-[color:var(--brand-secondary)]">{dictionary.home.tagline}</span>
-              </h1>
-              <p className="mt-6 max-w-2xl text-base leading-7 text-[color:var(--brand-text-secondary)] sm:text-lg sm:leading-8">
-                {dictionary.home.description}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  href="#tools"
-                  className="inline-flex min-h-11 items-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-6 py-3 text-sm font-semibold text-white transition hover:translate-y-[-1px] hover:opacity-95 active:translate-y-px"
-                >
-                  {dictionary.home.primaryCta}
-                </Link>
-                <Link
-                  href="#categories"
-                  className="inline-flex min-h-11 items-center rounded-xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-3 text-sm font-semibold text-[color:var(--brand-text-primary)] transition hover:border-[color:var(--brand-border-hover)]"
-                >
-                  {dictionary.home.secondaryCta}
-                </Link>
-              </div>
-            </div>
-
-            <div className="hidden rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[var(--brand-shadow)] lg:block">
-              <div className="relative aspect-square overflow-hidden rounded-[22px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)]">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.18),transparent_40%)]" />
-                <div className="absolute inset-0 flex items-center justify-center p-10">
-                  <div className="w-full rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-8 text-center shadow-[var(--brand-shadow)]">
-                    <Image
-                      src="/images/toolyflow-mark.png"
-                      alt="Toolyflow mark"
-                      width={112}
-                      height={112}
-                      className="mx-auto h-28 w-28 object-contain"
-                    />
-                    <p className="mt-6 text-2xl font-extrabold tracking-[-0.04em] text-[color:var(--brand-text-primary)]">
-                      Tooly<span className="text-[color:var(--brand-secondary)]">flow</span>
-                    </p>
-                    <p className="mt-3 text-sm text-[color:var(--brand-text-secondary)]">
-                      {dictionary.footer.slogan}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="categories" className="mx-auto max-w-6xl px-4 pt-4 sm:px-6 lg:px-8">
-        <div className="flex items-end justify-between gap-4">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-              {categoryLabels.categoriesHeading}
-            </p>
-            <h2 className="mt-3 text-2xl font-bold text-[color:var(--brand-text-primary)]">
-              {categoryLabels.categoriesHeading}
-            </h2>
-          </div>
-        </div>
-
-        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {homeGroups.map((category) => (
-            <Link
-              key={category.slug}
-              href={category.href}
-              className="group rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 shadow-[var(--brand-shadow)] transition duration-200 hover:scale-[1.02] hover:border-[color:var(--brand-border-hover)]"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-xl text-white">
-                  {category.emoji}
-                </span>
-                <span className="text-sm font-semibold text-[color:var(--brand-secondary)]">
-                  {category.toolSlugs.length}
-                </span>
-              </div>
-              <h3 className="mt-5 text-xl font-bold text-[color:var(--brand-text-primary)]">
-                {category.navLabel}
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
-                {category.summary}
-              </p>
-            </Link>
-          ))}
-        </div>
-
-        {dictionaryPromo ? (
-          <div className="mt-6">
-            <Link
-              href={dictionaryPromo.href}
-              className="group flex flex-col gap-4 rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 shadow-[var(--brand-shadow)] transition duration-200 hover:scale-[1.01] hover:border-[color:var(--brand-border-hover)] md:flex-row md:items-center md:justify-between"
-            >
-              <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-                  {dictionaryPromo.eyebrow}
-                </p>
-                <h3 className="mt-2 text-2xl font-bold text-[color:var(--brand-text-primary)]">
-                  {dictionaryPromo.title}
-                </h3>
-                <p className="mt-3 max-w-2xl text-sm leading-7 text-[color:var(--brand-text-secondary)]">
-                  {dictionaryPromo.description}
-                </p>
-              </div>
-              <span className="inline-flex min-h-11 items-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-5 py-3 text-sm font-semibold text-white transition group-hover:opacity-95">
-                Keşfet
-              </span>
-            </Link>
-          </div>
-        ) : null}
-      </section>
-
-      <section id="tools" className="mx-auto max-w-6xl px-4 pt-12 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-              {dictionary.header.tools}
-            </p>
-            <h2 className="mt-3 text-2xl font-bold text-[color:var(--brand-text-primary)]">
-              {dictionary.header.tools}
-            </h2>
-          </div>
-          <p className="max-w-2xl text-sm leading-7 text-[color:var(--brand-text-secondary)]">
-            {dictionary.home.toolsDescription}
-          </p>
-        </div>
-
-        <div className="space-y-10">
-          {homeGroups.map((category) => (
-            <section key={category.slug} className="space-y-5">
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-                    {category.navLabel}
-                  </p>
-                  <h3 className="mt-2 text-2xl font-bold text-[color:var(--brand-text-primary)]">
-                    {category.summary}
-                  </h3>
-                </div>
-                <Link
-                  href={category.href}
-                  className="hidden rounded-xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-4 py-2 text-sm font-semibold text-[color:var(--brand-text-primary)] transition hover:border-[color:var(--brand-border-hover)] sm:inline-flex"
-                >
-                  {dictionary.shared.go}
-                </Link>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                {category.tools.map((tool) => (
-                  <Link
-                    key={tool.slug}
-                    href={calculatorSlugs.includes(tool.slug as (typeof calculatorSlugs)[number]) ? getCalculatorPath(locale, tool.slug as (typeof calculatorSlugs)[number]) : getToolPath(locale, tool.slug as Parameters<typeof getToolPath>[1])}
-                    className="group rounded-2xl border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-5 transition duration-200 hover:scale-[1.02] hover:border-[color:var(--brand-border-hover)] hover:shadow-[0_18px_50px_rgba(29,78,216,0.18)]"
-                  >
-                    <div className="flex items-start justify-between gap-4">
-                      <span className="inline-flex h-11 w-11 items-center justify-center rounded-[10px] bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-xl text-white">
-                        {tool.icon}
-                      </span>
-                      <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-[color:var(--brand-border)] text-lg text-[color:var(--brand-text-secondary)] transition group-hover:border-[color:var(--brand-border-hover)] group-hover:text-[color:var(--brand-text-primary)]">
-                        ↗
-                      </span>
-                    </div>
-
-                    <div className="mt-5">
-                      <span className="inline-flex rounded-full bg-[color:var(--brand-badge-bg)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-                        {category.navLabel}
-                      </span>
-                      <h4 className="mt-4 text-xl font-bold text-[color:var(--brand-text-primary)]">
-                        {tool.name}
-                      </h4>
-                      <p className="mt-3 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
-                        {tool.shortDescription}
-                      </p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
-      </section>
-    </main>
-  );
-}
-
 function renderCalculatorCategoryPage(locale: Locale) {
   const dictionary = getDictionary(locale);
   const calculatorCategory = getCalculatorCategory(locale);
@@ -535,7 +236,7 @@ function renderCalculatorCategoryPage(locale: Locale) {
 }
 
 function renderHome(locale: Locale) {
-  return renderUnifiedHome(locale);
+  return <HomePage locale={locale} />;
 }
 
 function renderCategoryPage(locale: Locale, slug: string) {

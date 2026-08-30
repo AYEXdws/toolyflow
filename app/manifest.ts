@@ -9,8 +9,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: siteConfig.description,
     start_url: "/tr",
     display: "standalone",
-    background_color: "#0B1120",
-    theme_color: "#0B1120",
+    background_color: "#F4F1E8",
+    theme_color: "#F4F1E8",
     icons: [
       {
         src: "/images/toolyflow-mark.png",

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { connection } from "next/server";
 
 import { DictionaryHomePage } from "@/components/dictionary/dictionary-pages";
 import {
@@ -23,6 +22,10 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/tr/sozluk",
+    languages: {
+      tr: "/tr/sozluk",
+      "x-default": "/tr/sozluk",
+    },
   },
   openGraph: {
     title: "Türkçe Sözlük | Toolyflow",
@@ -43,6 +46,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 3600;
+
 type DictionaryPageProps = {
   params: Promise<{ locale: string }>;
 };
@@ -53,8 +58,6 @@ export default async function DictionaryPage({ params }: DictionaryPageProps) {
   if (locale !== "tr") {
     notFound();
   }
-
-  await connection();
 
   const [popularWords, categoryCounts] = await Promise.all([
     getPopularDictionaryWords(12),

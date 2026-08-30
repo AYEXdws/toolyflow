@@ -23,10 +23,10 @@ type ToolContentSectionsProps = {
 
 export function ToolContentSections({ content }: ToolContentSectionsProps) {
   return (
-    <div className="space-y-8">
-      <section className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:px-8">
+    <div className="space-y-6">
+      <section className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[var(--brand-shadow)] sm:px-8">
         <div className="max-w-3xl">
-          <h2 className="text-3xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
+          <h2 className="display-type text-4xl font-bold tracking-[-0.04em] text-[color:var(--brand-text-primary)]">
             {content.howToUseTitle}
           </h2>
           <p className="mt-3 text-base leading-8 text-[color:var(--brand-text-secondary)]">
@@ -37,9 +37,9 @@ export function ToolContentSections({ content }: ToolContentSectionsProps) {
           {content.howToUseSteps.map((step, index) => (
             <article
               key={step.title}
-              className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-5 py-5"
+              className="rounded-[20px] border-t-4 border-[#2557FF] bg-[color:var(--brand-surface)] px-5 py-5"
             >
-              <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[color:var(--brand-badge-text)]">
                 {String(index + 1).padStart(2, "0")}
               </p>
               <h3 className="mt-3 text-2xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
@@ -53,9 +53,9 @@ export function ToolContentSections({ content }: ToolContentSectionsProps) {
         </div>
       </section>
 
-      <section className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:px-8">
+      <section className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[var(--brand-shadow)] sm:px-8">
         <div className="max-w-3xl">
-          <h2 className="text-3xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
+          <h2 className="display-type text-4xl font-bold tracking-[-0.04em] text-[color:var(--brand-text-primary)]">
             {content.useCasesTitle}
           </h2>
           <p className="mt-3 text-base leading-8 text-[color:var(--brand-text-secondary)]">
@@ -66,7 +66,7 @@ export function ToolContentSections({ content }: ToolContentSectionsProps) {
           {content.useCases.map((useCase) => (
             <article
               key={useCase.title}
-              className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-5 py-5"
+              className="rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-5 py-5"
             >
               <h3 className="text-2xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
                 {useCase.title}
@@ -79,9 +79,9 @@ export function ToolContentSections({ content }: ToolContentSectionsProps) {
         </div>
       </section>
 
-      <section className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:px-8">
+      <section className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[var(--brand-shadow)] sm:px-8">
         <div className="max-w-3xl">
-          <h2 className="text-3xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
+          <h2 className="display-type text-4xl font-bold tracking-[-0.04em] text-[color:var(--brand-text-primary)]">
             {content.examplesTitle}
           </h2>
           <p className="mt-3 text-base leading-8 text-[color:var(--brand-text-secondary)]">
@@ -123,8 +123,8 @@ export function ToolContentSections({ content }: ToolContentSectionsProps) {
         </div>
       </section>
 
-      <section className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:px-8">
-        <h2 className="text-3xl font-bold tracking-tight text-[color:var(--brand-text-primary)]">
+      <section className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[var(--brand-shadow)] sm:px-8">
+        <h2 className="display-type text-4xl font-bold tracking-[-0.04em] text-[color:var(--brand-text-primary)]">
           {content.faqTitle}
         </h2>
         <div className="mt-6 space-y-4">

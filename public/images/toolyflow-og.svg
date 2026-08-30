@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Toolyflow</title>
+  <desc id="description">Tek platform, her araç.</desc>
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#14151A" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#F4F1E8"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="95" cy="70" r="190" fill="#C8F135" fill-opacity="0.22"/>
+  <circle cx="1120" cy="150" r="230" fill="#2557FF" fill-opacity="0.12"/>
+  <rect x="58" y="54" width="1084" height="522" rx="48" fill="#14151A"/>
+  <path d="M1040 54a102 102 0 0 0 102 102" fill="none" stroke="#2557FF" stroke-width="56"/>
+  <g transform="translate(108 102)">
+    <rect width="72" height="72" rx="22" fill="#FFFDF8"/>
+    <rect x="12" y="12" width="20" height="20" rx="6" fill="#C8F135"/>
+    <rect x="40" y="12" width="20" height="20" rx="6" fill="#2557FF"/>
+    <rect x="12" y="40" width="48" height="20" rx="6" fill="#14151A"/>
+  </g>
+  <text x="204" y="154" fill="#FFFDF8" font-family="Arial, sans-serif" font-size="44" font-weight="800" letter-spacing="-2">Tooly<tspan fill="#7C9BFF">flow</tspan></text>
+  <text x="108" y="322" fill="#FFFDF8" font-family="Georgia, serif" font-size="100" font-weight="700" letter-spacing="-5">Tek platform,</text>
+  <text x="108" y="425" fill="#7C9BFF" font-family="Georgia, serif" font-size="100" font-weight="700" letter-spacing="-5">her araç.</text>
+  <text x="112" y="506" fill="#FFFDF8" fill-opacity="0.6" font-family="Arial, sans-serif" font-size="25">Ücretsiz, hızlı ve çok dilli online araçlar.</text>
+  <rect x="870" y="474" width="222" height="54" rx="27" fill="#C8F135"/>
+  <text x="981" y="508" text-anchor="middle" fill="#14151A" font-family="Arial, sans-serif" font-size="18" font-weight="700">toolyflow.com</text>
+</svg>
