@@ -1,5 +1,7 @@
 import { localeLabels, type Locale } from "@/lib/i18n";
 import { type ToolSlug } from "@/lib/routes";
+import { localizedCreatorToolSeo } from "@/lib/creator-tool-localizations";
+import { getToolSearchIntentEnhancement } from "@/lib/tool-search-intents";
 import {
   localizedTextCleanerLabels,
   localizedTextCleanerTools,
@@ -355,7 +357,7 @@ const localizedHashtagGeneratorLabels: Record<Locale, Dictionary["hashtagGenerat
       niche: "Niche",
     },
     pools: {
-      modifiers: ["tips", "ideas", "daily", "guide", "community", "studio", "hub", "world"],
+      modifiers: ["tips", "ideas", "daily", "guide", "community", "studio", "hub", "world", "content", "creator", "stories", "inspiration", "lovers", "updates"],
       generic: ["contentcreator", "creatortools", "onlinecreator", "digitalcreator"],
       platformTags: {
         instagram: ["instagram", "reels", "instacreator", "instatips", "instagrowth", "content"],
@@ -397,7 +399,7 @@ const localizedHashtagGeneratorLabels: Record<Locale, Dictionary["hashtagGenerat
       niche: "Niş",
     },
     pools: {
-      modifiers: ["ipuclari", "onerileri", "rehberi", "gunlugu", "toplulugu", "dunyasi", "fikri", "notlari"],
+      modifiers: ["ipuclari", "onerileri", "rehberi", "gunlugu", "toplulugu", "dunyasi", "fikirleri", "notlari", "icerikleri", "tavsiyeleri", "severler", "paylasimlari", "trendleri", "ilhami"],
       generic: ["icerikuretici", "creatoraraclari", "dijitaluretim", "sosyalmedya"],
       platformTags: {
         instagram: ["instagram", "reels", "kesfet", "instaturkiye", "icerik", "sosyalmedya"],
@@ -439,7 +441,7 @@ const localizedHashtagGeneratorLabels: Record<Locale, Dictionary["hashtagGenerat
       niche: "Nicho",
     },
     pools: {
-      modifiers: ["ideas", "tips", "guia", "diario", "comunidad", "estudio", "mundo", "notas"],
+      modifiers: ["ideas", "tips", "guia", "diario", "comunidad", "estudio", "mundo", "notas", "contenido", "creador", "historias", "inspiracion", "amantes", "novedades"],
       generic: ["creadordecontenido", "herramientascreator", "socialmedia", "creadordigital"],
       platformTags: {
         instagram: ["instagram", "reels", "instacreador", "instatips", "contenido", "crecimiento"],
@@ -481,7 +483,7 @@ const localizedHashtagGeneratorLabels: Record<Locale, Dictionary["hashtagGenerat
       niche: "Nische",
     },
     pools: {
-      modifiers: ["tipps", "ideen", "guide", "alltag", "community", "studio", "welt", "notizen"],
+      modifiers: ["tipps", "ideen", "guide", "alltag", "community", "studio", "welt", "notizen", "inhalte", "creator", "geschichten", "inspiration", "fans", "neuigkeiten"],
       generic: ["contentcreator", "creatorwerkzeuge", "socialmedia", "digitalcreator"],
       platformTags: {
         instagram: ["instagram", "reels", "instatipps", "creatorleben", "content", "wachstum"],
@@ -523,7 +525,7 @@ const localizedHashtagGeneratorLabels: Record<Locale, Dictionary["hashtagGenerat
       niche: "Niche",
     },
     pools: {
-      modifiers: ["astuces", "idees", "guide", "journal", "communaute", "studio", "univers", "notes"],
+      modifiers: ["astuces", "idees", "guide", "journal", "communaute", "studio", "univers", "notes", "contenu", "createur", "histoires", "inspiration", "passionnes", "nouveautes"],
       generic: ["createurdecontenu", "outilscreator", "socialmedia", "createurdigital"],
       platformTags: {
         instagram: ["instagram", "reels", "instastuces", "contenu", "croissance", "createur"],
@@ -565,7 +567,7 @@ const localizedHashtagGeneratorLabels: Record<Locale, Dictionary["hashtagGenerat
       niche: "Nicho",
     },
     pools: {
-      modifiers: ["dicas", "ideias", "guia", "diario", "comunidade", "studio", "universo", "notas"],
+      modifiers: ["dicas", "ideias", "guia", "diario", "comunidade", "studio", "universo", "notas", "conteudo", "criador", "historias", "inspiracao", "amantes", "novidades"],
       generic: ["criadorconteudo", "ferramentascreator", "socialmedia", "criadordigital"],
       platformTags: {
         instagram: ["instagram", "reels", "instadicas", "conteudo", "crescimento", "creator"],
@@ -693,9 +695,9 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
   tr: {
     slug: "hashtag-generator",
     name: "Hashtag Üreticisi",
-    shortDescription: "Instagram, TikTok, X ve YouTube için kopyalanabilir hashtag listeleri üretin.",
+    shortDescription: "Instagram, TikTok, X ve YouTube için kopyalanabilir hashtag listeleri üret.",
     description:
-      "Tek bir niş alanından 20 ila 30 adet platform uyumlu hashtag üretin, sonra tüm listeyi ya da seçtiklerinizi kopyalayın.",
+      "Tek bir niş alanından 20 ila 30 platform uyumlu hashtag üret, sonra tüm listeyi ya da seçtiklerini kopyala.",
     eyebrow: "Sosyal medya aracı",
     accentLabel: "TAGS",
     metaTitle: "Hashtag Üreticisi — Ücretsiz Online | Toolyflow",
@@ -711,54 +713,54 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
     highlights: [
         "Tek tek fikirler yerine 20 ila 30 adet hazır hashtag listesi üretir.",
       "Platform ve popülerlik filtresi geniş ve niş tag dengesini değiştirir.",
-      "Tüm listeyi tek tıkla ya da tag'leri tek tek hızlıca kopyalayabilirsiniz.",
+      "Tüm listeyi tek tıkla ya da tag'leri tek tek hızlıca kopyalayabilirsin.",
     ],
     structuredDescription:
       "Niş, platform ve popülerlik filtresi sunan ücretsiz online hashtag üreticisi.",
     content: {
       howToUseTitle: "Hashtag üreticisi nasıl kullanılır",
       howToUseDescription:
-      "Önce niş alanı yazın, sonra platformu seçin ve daha geniş mi yoksa daha niş mi bir liste istediğinize karar verin.",
+      "Önce niş alanını yaz, sonra platformu seç ve daha geniş mi yoksa daha niş mi bir liste istediğine karar ver.",
       howToUseSteps: [
         {
-          title: "Niş alanı girin",
+          title: "Niş alanını gir",
           body:
-            "Yemek, moda, oyun, fitness veya seyahat gibi içerik alanınızı yazın; üretim bu konu etrafında şekillensin.",
+            "Yemek, moda, oyun, fitness veya seyahat gibi içerik alanını yaz; üretim bu konu etrafında şekillensin.",
         },
         {
-          title: "Platformu ve popülerliği seçin",
+          title: "Platformu ve popülerliği seç",
           body:
-            "Önce platformu belirleyin, sonra listenin viral, dengeli veya daha niş ağırlıklı olmasını seçin.",
+            "Önce platformu belirle, sonra listenin viral, dengeli veya daha niş ağırlıklı olmasını seç.",
         },
         {
-          title: "Üretin ve kopyalayın",
+          title: "Üret ve kopyala",
           body:
-            "20 ila 30 hashtag içeren listeyi üretin, sonra tümünü tek seferde ya da en uygun olanları tek tek kopyalayın.",
+            "20 ila 30 hashtag içeren listeyi üret, sonra tümünü tek seferde ya da en uygun olanları tek tek kopyala.",
         },
       ],
       useCasesTitle: "En iyi kullanım senaryoları",
       useCasesDescription:
-        "Bu araç, her paylaşım öncesi sıfırdan hashtag aramak yerine hızlıca kullanılabilir bir liste görmek istediğinizde daha değerlidir.",
+        "Bu araç, her paylaşım öncesi sıfırdan hashtag aramak yerine hızlıca kullanılabilir bir liste görmek istediğinde daha değerlidir.",
       useCases: [
         {
           title: "Paylaşım öncesi caption hazırlığı",
           description:
-            "İçerik hazırsa, ona uygun hashtag setini birkaç saniyede çıkarıp açıklamaya ekleyin.",
+            "İçerik hazırsa, ona uygun hashtag setini birkaç saniyede çıkarıp açıklamaya ekle.",
         },
         {
           title: "Niş bazlı içerik planlama",
           description:
-            "Farklı konu açılarında yeni listeler üretip sonraki post, reels, shorts veya thread'ler için saklayın.",
+            "Farklı konu açılarında yeni listeler üretip sonraki post, reels, shorts veya thread'ler için sakla.",
         },
         {
           title: "Geniş ve dar erişimi dengelemek",
           description:
-            "Sadece aşırı rekabetçi ya da sadece aşırı niş tag'lere kalmadan daha dengeli bir karışım kurun.",
+            "Sadece aşırı rekabetçi ya da sadece aşırı niş tag'lere kalmadan daha dengeli bir karışım kur.",
         },
       ],
       examplesTitle: "Örnekler",
       examplesDescription:
-        "Araç size buna benzer hızlı ve kullanılabilir hashtag grupları vermelidir.",
+        "Araç sana buna benzer hızlı ve kullanılabilir hashtag grupları vermeli.",
       examples: [
         {
           title: "Yemek içerik üreticisi listesi",
@@ -781,13 +783,13 @@ const localizedHashtagTools: Record<Locale, LocalizedTool> = {
       faqs: [
         {
           question: "Araç kaç hashtag üretir?",
-          answer:
-            "Her üretimde 20 ila 30 hashtag gelir. Böylece doğrudan kopyalayabilir ya da birkaç tanesini çıkarıp düzenleyebilirsiniz.",
+            answer:
+            "Her üretimde 20 ila 30 hashtag gelir. Böylece doğrudan kopyalayabilir ya da birkaç tanesini çıkarıp düzenleyebilirsin.",
         },
         {
           question: "Tüm hashtag'leri tek seferde kopyalayabilir miyim?",
-          answer:
-            "Evet. Tüm listeyi tek tıkla kopyalayabilir ya da hashtag'leri tek tek kopyalayabilirsiniz.",
+            answer:
+            "Evet. Tüm listeyi tek tıkla kopyalayabilir ya da hashtag'leri tek tek kopyalayabilirsin.",
         },
         {
           question: "Platform seçimi gerçekten çıktıyı değiştiriyor mu?",
@@ -2920,7 +2922,7 @@ const tr = translateDictionary(en, "tr", {
       ...en.tools["bio-generator"],
       name: "Biyografi Üreticisi",
       shortDescription:
-        "Instagram, TikTok, X, YouTube ve Twitch için daha güçlü bio alternatifleri üretin.",
+        "Instagram, TikTok, X, YouTube ve Twitch için daha güçlü bio alternatifleri üret.",
       description:
         "Platform, ton, uzunluk, emoji ve CTA seçerek daha temiz bio alternatifleri üretin ve profilinize uyanı kopyalayın.",
       eyebrow: "Sosyal profil aracı",
@@ -2937,70 +2939,70 @@ const tr = translateDictionary(en, "tr", {
       highlights: [
         "Ton, uzunluk, emoji ve CTA kontrolleri çıktıyı daha net şekillendirir.",
         "Sosyal profil, kanal sayfası ve kişisel hesap açıklamaları için uygundur.",
-        "Her üretimde hızlıca karşılaştırabileceğiniz yeni bio seçenekleri gelir.",
+        "Her üretimde hızlıca karşılaştırabileceğin yeni bio seçenekleri gelir.",
       ],
       structuredDescription:
         "Platform, ton, uzunluk, emoji ve çağrı satırı kontrolleri sunan ücretsiz online biyografi üreticisi.",
       content: {
         howToUseTitle: "Bio generator nasıl kullanılır",
         howToUseDescription:
-          "En iyi sonuç için önce platformu ve tonu seçin, sonra gerçekten profilinizde durabilecek bio alternatifleri arasından seçim yapın.",
+          "En iyi sonuç için önce ne ürettiğini, kime hitap ettiğini ve profilinin ne vaat ettiğini yaz; stil ayarlarını bundan sonra seç.",
         howToUseSteps: [
           {
-            title: "Platformu ve tonu seçin",
+            title: "Nişini ve kitleni tanımla",
             body:
-              "Bio’nun yayınlanacağı platformu seçin, ardından profilinizin havasına uyan tonu belirleyin: clean, güçlü, kişisel, minimal veya daha gizemli.",
+              "Ne ürettiğini yaz; mümkünse hedef kitleni ve onlara sunduğun net faydayı da ekle. Bu üç bilgi bio’nun omurgasını kurar.",
           },
           {
-            title: "Format filtrelerini ayarlayın",
+            title: "Platformu ve profil tonunu seç",
             body:
-              "Uzunluk, emoji ve çağrı satırı seçeneklerini düzenleyerek çıkan önerilerin gerçekten kullanabileceğiniz bio formatına yaklaşmasını sağlayın.",
+              "Bio’nun yayınlanacağı platformu, profil havasını, uzunluğu, emoji kullanımını ve gerekiyorsa tek bir CTA yönünü belirle.",
           },
           {
-            title: "Üretin, karşılaştırın ve kopyalayın",
+            title: "Üç farklı yönü karşılaştır",
             body:
-              "Yeni öneriler üretin, güçlü alternatifleri yan yana okuyun ve profilinize en uygun olanı doğrudan kopyalayın.",
+              "Net konum, kitle odaklı ve profil özeti seçeneklerini yan yana oku; en güçlü olanı kopyala veya iyi satırları birleştir.",
           },
         ],
         useCasesTitle: "En iyi kullanım senaryoları",
         useCasesDescription:
-          "Bu araç, her seferinde sıfırdan bio yazmak yerine hızlıca birkaç düzgün alternatif görmek istediğinizde daha değerlidir.",
+          "Bu araç, her seferinde sıfırdan bio yazmak yerine hızlıca birkaç düzgün alternatif görmek istediğinde daha değerlidir.",
         useCases: [
           {
             title: "Creator profilini yenilemek",
             description:
-              "Instagram, TikTok, X, YouTube veya Twitch bio’nuz fazla düz, eski veya jenerik kalıyorsa daha temiz alternatifler üretin.",
+              "Instagram, TikTok, X, YouTube veya Twitch bio’n fazla düz, eski veya jenerik kalıyorsa daha temiz alternatifler üret.",
           },
           {
             title: "Yeni bir hesap açmak",
             description:
-              "Yeni açılan creator hesabı için ilk bio’yu daha niyetli ve daha düzenli göstermek istediğinizde kullanın.",
+              "Yeni açılan creator hesabının ilk bio’sunu daha niyetli ve düzenli göstermek istediğinde kullan.",
           },
           {
             title: "Farklı konumlandırmaları karşılaştırmak",
             description:
-              "Minimal, keskin, eğlenceli veya daha profesyonel bir profil yönünü bio üzerinden test edin.",
+              "Minimal, keskin, eğlenceli veya daha profesyonel bir profil yönünü bio üzerinden test et.",
           },
         ],
         examplesTitle: "Örnekler",
         examplesDescription:
-          "Araç birkaç üretim sonrası sizi buna benzer kısa ve kullanılabilir bio’lara yaklaştırmalıdır.",
+          "Araç birkaç üretim sonrasında seni buna benzer kısa ve kullanılabilir bio’lara yaklaştırmalı.",
         examples: [
           {
             title: "Instagram creator bio",
             inputLabel: "Kurulum",
-            input: "Platform: Instagram\nTon: Havalı\nUzunluk: Dengeli\nEmoji: Kapalı\nCTA: Açık",
+            input: "Niş: Pratik yemek tarifleri\nKitle: Zamanı az olan öğrenciler\nVaat: 20 dakikalık tarifler\nPlatform: Instagram\nCTA: Takip et",
             outputLabel: "Örnek çıktı",
-            output: "net görsel, düzenli enerji\ntemiz içerik, güçlü stil\niş birliklerine açık",
-            note: "Gösterişsiz ama niyetli görünen creator profilleri için uygundur.",
+            output: "Pratik yemek tarifleri • 20 dakikada uygulanabilir fikirler\nZamanı az olan öğrenciler için\nDevamı için takip et",
+            note: "Profilin ne sunduğunu ve kime hitap ettiğini ilk bakışta açıklar.",
           },
           {
             title: "YouTube kanal bio",
             inputLabel: "Kurulum",
-            input: "Platform: YouTube\nTon: Profesyonel\nUzunluk: Kısa\nEmoji: Kapalı\nCTA: Kapalı",
+            input: "Niş: Kamera ve kurgu rehberleri\nKitle: Yeni YouTube creator’ları\nVaat: Uygulanabilir çekim sistemleri\nTon: Profesyonel",
             outputLabel: "Örnek çıktı",
-            output: "net anlatım, düzenli yayın\ndüzenli video, temiz kurgu",
-            note: "Kanal sayfasının daha güvenilir ve düzenli görünmesini sağlar.",
+            output: "Yeni creator’lar için kamera ve kurgu rehberleri\nUygulanabilir çekim sistemleri, net anlatım",
+            note: "Kanalın konusunu ve izleyiciye sağlayacağı faydayı tek okumada gösterir.",
           },
         ],
         faqTitle: "Bio generator sık sorulan sorular",
@@ -3008,7 +3010,7 @@ const tr = translateDictionary(en, "tr", {
           {
             question: "Bio generator her seferinde farklı sonuç verir mi?",
             answer:
-              "Evet. Her üretimde yeni bir batch gelir; böylece tek bir cevaba sıkışmadan farklı yönleri karşılaştırabilirsiniz.",
+              "Evet. Her üretimde yeni bir set gelir; böylece tek bir cevaba sıkışmadan farklı yönleri karşılaştırabilirsin.",
           },
           {
             question: "Hangi platformlar için uygundur?",
@@ -3018,7 +3020,7 @@ const tr = translateDictionary(en, "tr", {
           {
             question: "Çıktıları doğrudan kullanabilir miyim?",
             answer:
-              "Evet. Yine de en iyi yöntem birkaç batch üretip en iyi satırları seçmek ve son küçük dokunuşu kendiniz yapmaktır.",
+              "Evet. Yine de en iyi yöntem birkaç set üretip en iyi satırları seçmek ve son küçük dokunuşu kendin yapmaktır.",
           },
         ],
       },
@@ -3027,9 +3029,9 @@ const tr = translateDictionary(en, "tr", {
       ...en.tools["nickname-generator"],
       name: "Kullanıcı Adı Üreticisi",
       shortDescription:
-        "Havalı, karanlık, oyun ve estetik stillerde kullanıcı adı fikirleri üretin.",
+        "Havalı, karanlık, oyun ve estetik stillerde kullanıcı adı fikirleri üret.",
       description:
-        "Anahtar kelimeye göre hızlıca hatırlanabilir nickname önerileri alın ve kopyalayın.",
+        "Anahtar kelimenden yola çıkarak hatırlanabilir nickname önerileri üret ve beğendiğini kopyala.",
       eyebrow: "İsim fikri aracı",
       metaTitle: "Kullanıcı Adı Üreticisi — Ücretsiz Online | Toolyflow",
       metaDescription:
@@ -3043,7 +3045,7 @@ const tr = translateDictionary(en, "tr", {
       ],
       highlights: [
         "Kullanıcı adı, sosyal medya hesabı adı, takma ad ve oyun nicki için uygundur.",
-        "Stil, uzunluk, sembol ve okunabilirlik filtreleri sonucu istediğiniz havaya yaklaştırır.",
+        "Stil, uzunluk, sembol ve okunabilirlik filtreleri sonucu istediğin havaya yaklaştırır.",
         "Her öneri tek dokunuşla kopyalanabilir ve yeni önerilerle yenilenebilir.",
       ],
       structuredDescription:
@@ -3051,42 +3053,42 @@ const tr = translateDictionary(en, "tr", {
       content: {
         howToUseTitle: "Nickname generator nasıl kullanılır",
         howToUseDescription:
-          "En iyi nickname sonuçları genelde net bir hava, daha kısa uzunluklar ve gerekmedikçe daha sade sembol kullanımıyla gelir.",
+          "En iyi nickname sonuçları; kullanım amacı, net bir stil, uygun uzunluk ve gerekmedikçe sade sembol kullanımıyla gelir.",
         howToUseSteps: [
           {
-            title: "Bir hava veya anahtar kelime ile başlayın",
+            title: "Kullanım amacını belirle",
             body:
-              "İsterseniz kısa bir kelime girin, isterseniz boş bırakıp stil seçiminin önerileri yönlendirmesine izin verin.",
+              "Sosyal medya, oyun, marka veya anonim profil seçeneklerinden birini seç. İstersen bir kelime gir, istersen tamamen özgün başla.",
           },
           {
-            title: "Stil, uzunluk ve sembol tipini seçin",
+            title: "Stil, uzunluk ve sembolü ayarla",
             body:
-              "Havalı, karanlık, oyun veya estetik yönlerinden birini seçin; sonra kullanıcı adının hangi platformlarda kullanılacağını düşünerek uzunluk ve sembol stilini ayarlayın.",
+              "Havalı, karanlık, oyun veya estetik yönlerinden birini seç; sonra okunabilirliği, uzunluğu ve sembol yoğunluğunu kullanım alanına göre ayarla.",
           },
           {
-            title: "Sahiplenilebilir bir sonuç gelene kadar yenileyin",
+            title: "Farklı handle yönlerini karşılaştır",
             body:
-              "Yeni öneriler üretin ve kulağa iyi gelen, okunabilen ve gerçekten kullanılabilir duran kullanıcı adını seçin.",
+              "Temiz handle, özgün alias, markalaşabilir ve stilize seçenekleri karşılaştır; sonra platformdaki müsaitliği ayrıca kontrol et.",
           },
         ],
         useCasesTitle: "En iyi kullanım senaryoları",
         useCasesDescription:
-          "Bu araç, sözlük anlamı aramaktan çok iyi duran ve kullanılabilir hissi veren bir handle bulmak istediğinizde daha güçlüdür.",
+          "Bu araç, sözlük anlamı aramaktan çok iyi duran ve kullanılabilir hissi veren bir handle bulmak istediğinde daha güçlüdür.",
         useCases: [
           {
             title: "Oyun nicki ve kullanıcı adı üretmek",
             description:
-              "Discord, Twitch, Steam veya oyun içi profiller için daha kısa ve daha güçlü handle’lar üretin.",
+              "Discord, Twitch, Steam veya oyun içi profiller için daha kısa ve daha güçlü handle’lar üret.",
           },
           {
             title: "Creator alias aramak",
             description:
-              "Herkese açık kullanıcı adınızı veya creator isminizi belirlemeden önce daha sahiplenilebilir seçenekler görmek için kullanın.",
+              "Herkese açık kullanıcı adını veya creator ismini belirlemeden önce daha sahiplenilebilir seçenekler görmek için kullan.",
           },
           {
             title: "Karanlık veya estetik profil adı bulmak",
             description:
-              "Amaç kelime anlamından çok hava, ton ve akılda kalıcılıksa farklı stilleri hızlıca deneyin.",
+              "Amaç kelime anlamından çok hava, ton ve akılda kalıcılıksa farklı stilleri hızlıca dene.",
           },
         ],
         examplesTitle: "Örnekler",
@@ -3096,18 +3098,18 @@ const tr = translateDictionary(en, "tr", {
           {
             title: "Havalı profil kullanıcı adı",
             inputLabel: "Kurulum",
-            input: "Kelime: orbit\nStil: Havalı\nUzunluk: Kısa\nSemboller: Temiz\nOkunabilirlik: Açık",
+            input: "Kelime: orbit\nKullanım: Sosyal medya\nStil: Havalı\nUzunluk: Dengeli\nSemboller: Temiz",
             outputLabel: "Örnek çıktı",
-            output: "orbitlane\nvexaflow\nsorashift",
-            note: "Bunlar rastgele parçalanmış kelimelerden çok gerçek handle gibi görünür.",
+            output: "orbitonline\norbitflow\nheyorbit\nnovale",
+            note: "Liste anahtar kelimeli yönlerle tamamen özgün alias seçeneklerini birlikte gösterir.",
           },
           {
             title: "Karanlık oyun kullanıcı adı",
             inputLabel: "Kurulum",
-            input: "Kelime: raven\nStil: Karanlık\nUzunluk: Dengeli\nSemboller: Hafif\nOkunabilirlik: Kapalı",
+            input: "Kelime: raven\nKullanım: Oyun\nStil: Karanlık\nUzunluk: Dengeli\nSemboller: Hafif",
             outputLabel: "Örnek çıktı",
-            output: "ravenveil\nnoxdrift\nonyxmark",
-            note: "Daha karanlık bir hava verirken tamamen okunmaz hale düşmez.",
+            output: "raven.gg\n_noxen\nravenvoid\nnyxora.x",
+            note: "Karanlık tonu korurken okunabilirliği ve ekranda sığmayı gözetir.",
           },
         ],
         faqTitle: "Nickname generator sık sorulan sorular",
@@ -3115,7 +3117,7 @@ const tr = translateDictionary(en, "tr", {
           {
             question: "Nickname generator her tıklamada yeni batch verir mi?",
             answer:
-              "Evet. Her üretimde yeni bir batch döner; böylece aynı ayarlarla farklı handle yönlerini hızlıca görürsünüz.",
+              "Evet. Her üretimde yeni bir set gelir; böylece aynı ayarlarla farklı handle yönlerini hızlıca görebilirsin.",
           },
           {
             question: "Amaç kelime anlamı mı, iyi görünen bir handle mı?",
@@ -3508,7 +3510,7 @@ const tr = translateDictionary(en, "tr", {
     ...en.nicknameGenerator,
     keywordLabel: "Anahtar kelime veya hava",
     keywordPlaceholder: "ör. orbit, raven, pixel",
-    styleLabel: "Bir stil seçin",
+    styleLabel: "Bir stil seç",
     lengthLabel: "Uzunluk",
     symbolsLabel: "Sembol stili",
     pronounceableLabel: "Okunabilirlik",
@@ -8572,17 +8574,85 @@ function withLocalizedExtraToolContent(
   locale: Locale,
   dictionary: Dictionary
 ): Dictionary {
+  const creatorSeo = localizedCreatorToolSeo[locale];
+  const enhanceCreatorTool = (
+    slug: "bio-generator" | "nickname-generator" | "hashtag-generator",
+    base: LocalizedTool
+  ): LocalizedTool => {
+    const enhancement = creatorSeo[slug];
+    const existingQuestions = new Set(
+      enhancement.faqs.map((item) => item.question.toLocaleLowerCase(locale))
+    );
+
+    return {
+      ...base,
+      metaTitle: enhancement.metaTitle,
+      metaDescription: enhancement.metaDescription,
+      description: enhancement.description,
+      structuredDescription: enhancement.metaDescription,
+      keywords: [...new Set([...enhancement.keywords, ...base.keywords])],
+      highlights: enhancement.highlights,
+      content: {
+        ...base.content,
+        faqs: [
+          ...enhancement.faqs,
+          ...base.content.faqs.filter(
+            (item) => !existingQuestions.has(item.question.toLocaleLowerCase(locale))
+          ),
+        ],
+      },
+    };
+  };
+
+  const enhanceSearchIntent = (slug: ToolSlug, base: LocalizedTool): LocalizedTool => {
+    const enhancement = getToolSearchIntentEnhancement(locale, slug);
+
+    if (!enhancement) {
+      return base;
+    }
+
+    const intentQuestions = new Set(
+      enhancement.faqs.map((item) => item.question.toLocaleLowerCase(locale))
+    );
+
+    return {
+      ...base,
+      keywords: [...new Set([...enhancement.keywords, ...base.keywords])],
+      content: {
+        ...base.content,
+        faqs: [
+          ...enhancement.faqs,
+          ...base.content.faqs.filter(
+            (item) => !intentQuestions.has(item.question.toLocaleLowerCase(locale))
+          ),
+        ],
+      },
+    };
+  };
+
+  const localizedTools: Dictionary["tools"] = {
+    ...dictionary.tools,
+    "word-counter": localizedWordCounterTools[locale],
+    "text-cleaner": localizedTextCleanerTools[locale],
+    "color-code-converter": localizedUtilityTools[locale]["color-code-converter"],
+    "percentage-calculator": localizedUtilityTools[locale]["percentage-calculator"],
+    "discount-calculator": localizedUtilityTools[locale]["discount-calculator"],
+    "bio-generator": enhanceCreatorTool("bio-generator", dictionary.tools["bio-generator"]),
+    "nickname-generator": enhanceCreatorTool(
+      "nickname-generator",
+      dictionary.tools["nickname-generator"]
+    ),
+    "hashtag-generator": enhanceCreatorTool(
+      "hashtag-generator",
+      localizedHashtagTools[locale]
+    ),
+  };
+
   return {
     ...dictionary,
-    tools: {
-      ...dictionary.tools,
-      "word-counter": localizedWordCounterTools[locale],
-      "text-cleaner": localizedTextCleanerTools[locale],
-      "color-code-converter": localizedUtilityTools[locale]["color-code-converter"],
-      "percentage-calculator": localizedUtilityTools[locale]["percentage-calculator"],
-      "discount-calculator": localizedUtilityTools[locale]["discount-calculator"],
-      "hashtag-generator": localizedHashtagTools[locale],
-    },
+    tools: Object.fromEntries(
+      baseToolSlugs.map((slug) => [slug, enhanceSearchIntent(slug, localizedTools[slug])])
+    ) as Dictionary["tools"],
     wordCounter: localizedWordCounterLabels[locale],
     textCleaner: localizedTextCleanerLabels[locale],
     colorCodeConverter: localizedColorCodeConverterLabels[locale],

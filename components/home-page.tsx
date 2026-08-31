@@ -133,7 +133,7 @@ export function HomePage({ locale }: HomePageProps) {
             <div className="relative z-10 flex h-full flex-col justify-between">
               <div>
                 <p className="inline-flex rounded-full border border-white/15 bg-white/8 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#C8F135]">
-                  Toolyflow Utility Studio
+                  {dictionary.home.eyebrow}
                 </p>
                 <h1 className="display-type mt-8 max-w-4xl text-[clamp(3.6rem,9vw,7.5rem)] leading-[0.82] tracking-[-0.055em]">
                   <span className="block">{dictionary.home.title}</span>

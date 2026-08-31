@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 
 import { copyToClipboard } from "@/lib/copy-to-clipboard";
+import type { Locale } from "@/lib/i18n";
 
 type CaseConverterLabels = {
   inputLabel: string;
@@ -47,33 +48,33 @@ function normalizeText(value: string) {
     .trim();
 }
 
-function toSentenceCase(value: string) {
-  const lowered = value.toLowerCase();
+function toSentenceCase(value: string, locale: Locale) {
+  const lowered = value.toLocaleLowerCase(locale);
 
   return lowered.replace(/(^\s*[a-z\u00c0-\u024f])|([.!?]\s+[a-z\u00c0-\u024f])/giu, (match) =>
-    match.toUpperCase()
+    match.toLocaleUpperCase(locale)
   );
 }
 
-function toTitleCase(value: string) {
+function toTitleCase(value: string, locale: Locale) {
   return value.replace(/\b[\p{L}\p{N}]+/gu, (word) => {
-    const [first = "", ...rest] = word;
-    return `${first.toUpperCase()}${rest.join("").toLowerCase()}`;
+    const [first = "", ...rest] = Array.from(word);
+    return `${first.toLocaleUpperCase(locale)}${rest.join("").toLocaleLowerCase(locale)}`;
   });
 }
 
-function toWordTokens(value: string) {
+function toWordTokens(value: string, locale: Locale) {
   return value
     .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
     .replace(/[^\p{L}\p{N}]+/gu, " ")
     .trim()
     .split(/\s+/)
     .filter(Boolean)
-    .map((part) => part.toLowerCase());
+    .map((part) => part.toLocaleLowerCase(locale));
 }
 
-function toCamelCase(value: string) {
-  const tokens = toWordTokens(value);
+function toCamelCase(value: string, locale: Locale) {
+  const tokens = toWordTokens(value, locale);
 
   if (tokens.length === 0) {
     return "";
@@ -81,26 +82,29 @@ function toCamelCase(value: string) {
 
   return tokens
     .map((token, index) =>
-      index === 0 ? token : `${token.charAt(0).toUpperCase()}${token.slice(1)}`
+      index === 0
+        ? token
+        : `${token.charAt(0).toLocaleUpperCase(locale)}${token.slice(1)}`
     )
     .join("");
 }
 
-function toPascalCase(value: string) {
-  return toWordTokens(value)
-    .map((token) => `${token.charAt(0).toUpperCase()}${token.slice(1)}`)
+function toPascalCase(value: string, locale: Locale) {
+  return toWordTokens(value, locale)
+    .map((token) => `${token.charAt(0).toLocaleUpperCase(locale)}${token.slice(1)}`)
     .join("");
 }
 
-function joinTokens(value: string, separator: string) {
-  return toWordTokens(value).join(separator);
+function joinTokens(value: string, separator: string, locale: Locale) {
+  return toWordTokens(value, locale).join(separator);
 }
 
 type CaseConverterProps = {
+  locale: Locale;
   labels: CaseConverterLabels;
 };
 
-export function CaseConverter({ labels }: CaseConverterProps) {
+export function CaseConverter({ locale, labels }: CaseConverterProps) {
   const [input, setInput] = useState(labels.initialText ?? "");
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
@@ -119,14 +123,14 @@ export function CaseConverter({ labels }: CaseConverterProps) {
 
   const outputs = useMemo<CaseOutput[]>(
     () => [
-      { key: "uppercase", label: labels.uppercase, value: input.toUpperCase() },
-      { key: "lowercase", label: labels.lowercase, value: input.toLowerCase() },
-      { key: "sentenceCase", label: labels.sentenceCase, value: toSentenceCase(input) },
-      { key: "titleCase", label: labels.titleCase, value: toTitleCase(input) },
-      { key: "camelCase", label: labels.camelCase, value: toCamelCase(input) },
-      { key: "pascalCase", label: labels.pascalCase, value: toPascalCase(input) },
-      { key: "snakeCase", label: labels.snakeCase, value: joinTokens(input, "_") },
-      { key: "kebabCase", label: labels.kebabCase, value: joinTokens(input, "-") },
+      { key: "uppercase", label: labels.uppercase, value: input.toLocaleUpperCase(locale) },
+      { key: "lowercase", label: labels.lowercase, value: input.toLocaleLowerCase(locale) },
+      { key: "sentenceCase", label: labels.sentenceCase, value: toSentenceCase(input, locale) },
+      { key: "titleCase", label: labels.titleCase, value: toTitleCase(input, locale) },
+      { key: "camelCase", label: labels.camelCase, value: toCamelCase(input, locale) },
+      { key: "pascalCase", label: labels.pascalCase, value: toPascalCase(input, locale) },
+      { key: "snakeCase", label: labels.snakeCase, value: joinTokens(input, "_", locale) },
+      { key: "kebabCase", label: labels.kebabCase, value: joinTokens(input, "-", locale) },
       { key: "trimmedText", label: labels.trimmedText, value: normalizeText(input) },
       {
         key: "singleLine",
@@ -134,7 +138,7 @@ export function CaseConverter({ labels }: CaseConverterProps) {
         value: normalizeText(input).replace(/\s*\n+\s*/g, " "),
       },
     ],
-    [input, labels]
+    [input, labels, locale]
   );
 
   async function handleCopy(key: string, value: string) {

@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
+    "check:creator": "node --no-warnings --experimental-strip-types scripts/check-creator-generators.mjs",
     "check": "npm run lint && npm run typecheck && npm run build"
   },
   "dependencies": {

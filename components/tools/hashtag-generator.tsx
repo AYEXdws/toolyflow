@@ -1,409 +1,257 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState, type ReactNode } from "react";
 
+import {
+  generateHashtagOptions,
+  type HashtagGeneratorInput,
+  type HashtagGeneratorRuntimeLabels,
+  type HashtagOption,
+  type HashtagPlatform,
+  type HashtagPopularity,
+} from "@/lib/creator-generators";
+import type { HashtagGroup } from "@/lib/creator-tool-localizations";
 import { copyToClipboard } from "@/lib/copy-to-clipboard";
 
-type HashtagPlatform = "instagram" | "tiktok" | "x" | "youtube";
-type HashtagPopularity = "viral" | "balanced" | "niche";
-
-type HashtagGeneratorLabels = {
+type HashtagGeneratorLabels = HashtagGeneratorRuntimeLabels & {
   nicheLabel: string;
   nichePlaceholder: string;
   platformLabel: string;
   popularityLabel: string;
   helper: string;
-  emptyState: string;
   generate: string;
   copyAll: string;
   copyOne: string;
   copied: string;
   allCopied: string;
   countSuffix: string;
-  defaultTopic: string;
-  platforms: Record<HashtagPlatform, string>;
-  popularityModes: Record<HashtagPopularity, string>;
-  pools: {
-    modifiers: string[];
-    generic: string[];
-    platformTags: Record<HashtagPlatform, string[]>;
-    popularityTags: Record<HashtagPopularity, string[]>;
-  };
 };
 
 type HashtagGeneratorProps = {
   labels: HashtagGeneratorLabels;
 };
 
-function createHash(input: string) {
-  return [...input].reduce((total, character, index) => {
-    return (total + character.charCodeAt(0) * (index + 13)) % 100_003;
-  }, 0);
-}
+const initialInput: HashtagGeneratorInput = {
+  topic: "",
+  location: "",
+  platform: "instagram",
+  popularity: "balanced",
+  count: 25,
+};
 
-function createRandom(seed: number) {
-  let state = seed % 2_147_483_647;
-
-  if (state <= 0) {
-    state += 2_147_483_646;
-  }
-
-  return () => {
-    state = (state * 16_807) % 2_147_483_647;
-    return (state - 1) / 2_147_483_646;
-  };
-}
-
-function shuffleWithSeed<T>(items: T[], seed: number) {
-  const clone = [...items];
-  const random = createRandom(seed);
-
-  for (let index = clone.length - 1; index > 0; index -= 1) {
-    const nextIndex = Math.floor(random() * (index + 1));
-    [clone[index], clone[nextIndex]] = [clone[nextIndex], clone[index]];
-  }
-
-  return clone;
-}
-
-function normalizeToken(value: string) {
-  return value
-    .replace(/ı/g, "i")
-    .replace(/İ/g, "i")
-    .replace(/ß/g, "ss")
-    .replace(/æ/g, "ae")
-    .replace(/œ/g, "oe")
-    .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9\s]/g, " ")
-    .trim();
-}
-
-function tokenizeTopic(value: string, fallback: string) {
-  const normalized = normalizeToken(value || fallback);
-
-  return normalized.split(/\s+/).filter(Boolean);
-}
-
-function buildTopicVariants(tokens: string[]) {
-  const full = tokens.join("");
-  const first = tokens[0] ?? "";
-  const last = tokens.at(-1) ?? "";
-  const joined =
-    tokens.length > 1 ? `${tokens[0]}${tokens.slice(1).map((token) => `${token[0]?.toUpperCase() ?? ""}${token.slice(1)}`).join("")}`.toLowerCase() : "";
-
-  return [...new Set([full, first, last, joined].filter((item) => item.length >= 3))];
-}
-
-function addHashtag(pool: Set<string>, value: string) {
-  const normalized = value.replace(/[^a-z0-9]/g, "").toLowerCase();
-
-  if (normalized.length >= 3 && normalized.length <= 24) {
-    pool.add(normalized);
-  }
-}
-
-function scoreHashtag(
-  value: string,
-  topicVariants: string[],
-  popularity: HashtagPopularity,
-  platform: HashtagPlatform
-) {
-  let score = 0;
-
-  if (value.length >= 5 && value.length <= 22) {
-    score += 10;
-  } else if (value.length <= 28) {
-    score += 5;
-  } else {
-    score -= 6;
-  }
-
-  if (topicVariants.some((variant) => value.includes(variant))) {
-    score += 10;
-  }
-
-  if (/^[a-z0-9]+$/.test(value)) {
-    score += 3;
-  }
-
-  if (value.includes(platform)) {
-    score += 4;
-  }
-
-  if (popularity === "viral" && /(viral|trend|fyp|kesfet|popular|discover)/.test(value)) {
-    score += 6;
-  }
-
-  if (popularity === "niche" && /(guide|workflow|rehber|detay|special|target|odak)/.test(value)) {
-    score += 6;
-  }
-
-  if (/(.)\1\1/.test(value)) {
-    score -= 6;
-  }
-
-  if (/(tips|ideas|guide|community|studio|hub)$/.test(value)) {
-    score += 2;
-  }
-
-  return score;
-}
-
-function createHashtagBatch(
-  topic: string,
-  platform: HashtagPlatform,
-  popularity: HashtagPopularity,
-  labels: HashtagGeneratorLabels,
-  generationCount: number
-) {
-  const tokens = tokenizeTopic(topic, labels.defaultTopic);
-  const topicVariants = buildTopicVariants(tokens);
-  const seed = createHash(`${tokens.join("-")}-${platform}-${popularity}-${generationCount}`);
-  const pool = new Set<string>();
-  const topicCore = new Set<string>();
-  const modifierMix = new Set<string>();
-  const platformMix = new Set<string>();
-  const popularityMix = new Set<string>();
-  const genericMix = new Set<string>();
-
-  for (const variant of topicVariants) {
-    addHashtag(topicCore, variant);
-
-    for (const modifier of labels.pools.modifiers) {
-      addHashtag(modifierMix, `${variant}${modifier}`);
-    }
-
-    for (const tag of labels.pools.platformTags[platform].slice(0, 4)) {
-      addHashtag(platformMix, `${variant}${tag}`);
-    }
-
-    for (const tag of labels.pools.popularityTags[popularity].slice(0, 4)) {
-      addHashtag(popularityMix, `${variant}${tag}`);
-    }
-  }
-
-  for (const tag of labels.pools.generic) {
-    addHashtag(genericMix, tag);
-  }
-
-  for (const tag of labels.pools.platformTags[platform]) {
-    addHashtag(platformMix, tag);
-  }
-
-  for (const tag of labels.pools.popularityTags[popularity]) {
-    addHashtag(popularityMix, tag);
-  }
-
-  for (const item of [
-    ...topicCore,
-    ...modifierMix,
-    ...platformMix,
-    ...popularityMix,
-    ...genericMix,
-  ]) {
-    addHashtag(pool, item);
-  }
-
-  const ordered = [...pool]
-    .filter((item) => item.length >= 3)
-    .sort((left, right) => {
-      const scoreDiff =
-        scoreHashtag(right, topicVariants, popularity, platform) -
-        scoreHashtag(left, topicVariants, popularity, platform);
-
-      if (scoreDiff !== 0) {
-        return scoreDiff;
-      }
-
-      return createHash(`${right}-${seed}`) - createHash(`${left}-${seed}`);
-    });
-
-  const pickBucket = (items: Set<string>, limit: number, bucketSeed: number) => {
-    return shuffleWithSeed(
-      [...items].sort((left, right) => {
-        const scoreDiff =
-          scoreHashtag(right, topicVariants, popularity, platform) -
-          scoreHashtag(left, topicVariants, popularity, platform);
-
-        if (scoreDiff !== 0) {
-          return scoreDiff;
-        }
-
-        return left.localeCompare(right);
-      }),
-      seed + bucketSeed
-    ).slice(0, limit);
-  };
-  const quotaByPopularity: Record<HashtagPopularity, [number, number, number, number, number]> = {
-    viral: [7, 6, 6, 5, 2],
-    balanced: [8, 6, 5, 4, 3],
-    niche: [9, 5, 4, 5, 3],
-  };
-  const [topicLimit, modifierLimit, platformLimit, popularityLimit, genericLimit] =
-    quotaByPopularity[popularity];
-  const curated = [
-    ...pickBucket(topicCore, topicLimit, 11),
-    ...pickBucket(modifierMix, modifierLimit, 23),
-    ...pickBucket(platformMix, platformLimit, 37),
-    ...pickBucket(popularityMix, popularityLimit, 41),
-    ...pickBucket(genericMix, genericLimit, 53),
-  ];
-  const finalPool = [...new Set([...curated, ...shuffleWithSeed(ordered.slice(0, 80), seed + generationCount * 17)])];
-  const batch = finalPool.slice(0, 26).map((item) => `#${item}`);
-
-  return batch;
-}
+const groupOrder: HashtagGroup[] = ["topic", "community", "discovery", "broad"];
 
 export function HashtagGenerator({ labels }: HashtagGeneratorProps) {
-  const [topic, setTopic] = useState("");
-  const [platform, setPlatform] = useState<HashtagPlatform>("instagram");
-  const [popularity, setPopularity] = useState<HashtagPopularity>("balanced");
-  const [generationCount, setGenerationCount] = useState(0);
+  const [input, setInput] = useState(initialInput);
+  const [results, setResults] = useState<HashtagOption[]>([]);
+  const [generationState, setGenerationState] = useState({ signature: "", count: -1 });
   const [copiedTag, setCopiedTag] = useState("");
   const [allCopied, setAllCopied] = useState(false);
+  const [error, setError] = useState("");
 
-  const hashtags = useMemo(
-    () => createHashtagBatch(topic, platform, popularity, labels, generationCount),
-    [generationCount, labels, platform, popularity, topic]
-  );
+  function updateInput<Key extends keyof HashtagGeneratorInput>(key: Key, value: HashtagGeneratorInput[Key]) {
+    setInput((current) => ({ ...current, [key]: value }));
+    if (key === "topic" && String(value).trim()) setError("");
+  }
 
-  async function handleCopyAll() {
-    const copied = await copyToClipboard(hashtags.join(" "));
-
-    if (!copied) {
+  function handleGenerate() {
+    if (!input.topic.trim()) {
+      setError(labels.requiredMessage);
       return;
     }
+    const signature = JSON.stringify(input);
+    const nextIndex = generationState.signature === signature ? generationState.count + 1 : 0;
+    setResults(generateHashtagOptions(input, labels, nextIndex));
+    setGenerationState({ signature, count: nextIndex });
+    setError("");
+  }
 
+  async function copyAll() {
+    const copied = await copyToClipboard(results.map((item) => item.value).join(" "));
+    if (!copied) return;
     setAllCopied(true);
     window.setTimeout(() => setAllCopied(false), 1600);
   }
 
-  async function handleCopyOne(tag: string) {
+  async function copyOne(tag: string) {
     const copied = await copyToClipboard(tag);
-
-    if (!copied) {
-      return;
-    }
-
+    if (!copied) return;
     setCopiedTag(tag);
     window.setTimeout(() => setCopiedTag(""), 1600);
   }
 
   return (
-    <section className="rounded-[32px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:p-8">
-      <div className="grid gap-8 xl:grid-cols-[340px_minmax(0,1fr)]">
-        <div className="space-y-5">
-          <label className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">
-              {labels.nicheLabel}
-            </span>
+    <section className="overflow-hidden rounded-[30px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] shadow-[var(--brand-shadow)]">
+      <div className="grid lg:grid-cols-[370px_minmax(0,1fr)]">
+        <div className="border-b border-[color:var(--brand-border)] p-5 sm:p-7 lg:border-b-0 lg:border-r">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-[color:var(--brand-badge-text)]">01</p>
+
+          <label className="mt-5 block space-y-2">
+            <span className="text-sm font-bold text-[color:var(--brand-text-primary)]">{labels.nicheLabel}</span>
             <input
-              value={topic}
-              onChange={(event) => setTopic(event.target.value)}
-              className="w-full rounded-[20px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-sm text-[color:var(--brand-text-primary)] outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[0_0_0_3px_rgba(59,130,246,0.16)]"
+              value={input.topic}
+              onChange={(event) => updateInput("topic", event.target.value)}
+              className="min-h-12 w-full rounded-[16px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 text-sm outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[var(--brand-ring)]"
               placeholder={labels.nichePlaceholder}
+              aria-invalid={Boolean(error)}
+            />
+            {error ? <span className="block text-sm font-semibold text-[#C33B20]">{error}</span> : null}
+          </label>
+
+          <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+            {labels.presets.map((preset) => (
+              <button
+                key={preset}
+                type="button"
+                onClick={() => {
+                  updateInput("topic", preset);
+                  setError("");
+                }}
+                className="min-h-9 shrink-0 rounded-full border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-3 text-xs font-bold transition hover:border-[color:var(--brand-border-hover)]"
+              >
+                {preset}
+              </button>
+            ))}
+          </div>
+          <p className="mt-2 text-xs text-[color:var(--brand-text-tertiary)]">{labels.presetLabel}</p>
+
+          <label className="mt-6 block space-y-2">
+            <span className="text-sm font-bold text-[color:var(--brand-text-primary)]">{labels.locationLabel}</span>
+            <input
+              value={input.location}
+              onChange={(event) => updateInput("location", event.target.value)}
+              className="min-h-12 w-full rounded-[16px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 text-sm outline-none transition focus:border-[color:var(--brand-border-hover)] focus:shadow-[var(--brand-ring)]"
+              placeholder={labels.locationPlaceholder}
             />
           </label>
 
-          <div className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">
-              {labels.platformLabel}
-            </span>
-            <div className="grid grid-cols-2 gap-3">
-              {(Object.keys(labels.platforms) as HashtagPlatform[]).map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  onClick={() => setPlatform(item)}
-                  className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
-                    platform === item
-                      ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
-                      : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
-                  }`}
-                >
-                  {labels.platforms[item]}
-                </button>
+          <div className="mt-7 space-y-6 border-t border-[color:var(--brand-border)] pt-7">
+            <ChoiceGroup label={labels.platformLabel} columns="grid-cols-2">
+              {(Object.keys(labels.platforms) as HashtagPlatform[]).map((platform) => (
+                <ChoiceButton key={platform} active={input.platform === platform} onClick={() => updateInput("platform", platform)}>
+                  {labels.platforms[platform]}
+                </ChoiceButton>
               ))}
-            </div>
-          </div>
+            </ChoiceGroup>
 
-          <div className="space-y-3">
-            <span className="text-sm font-medium text-[color:var(--brand-text-primary)]">
-              {labels.popularityLabel}
-            </span>
-            <div className="grid grid-cols-3 gap-3">
-              {(Object.keys(labels.popularityModes) as HashtagPopularity[]).map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  onClick={() => setPopularity(item)}
-                  className={`rounded-[20px] px-4 py-3 text-sm font-medium transition ${
-                    popularity === item
-                      ? "bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] text-white"
-                      : "border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] text-[color:var(--brand-text-primary)] hover:border-[color:var(--brand-border-hover)]"
-                  }`}
-                >
-                  {labels.popularityModes[item]}
-                </button>
+            <ChoiceGroup label={labels.popularityLabel} columns="grid-cols-3">
+              {(Object.keys(labels.popularityModes) as HashtagPopularity[]).map((popularity) => (
+                <ChoiceButton key={popularity} active={input.popularity === popularity} onClick={() => updateInput("popularity", popularity)}>
+                  {labels.popularityModes[popularity]}
+                </ChoiceButton>
               ))}
-            </div>
-          </div>
+            </ChoiceGroup>
+            <p className="-mt-3 text-xs leading-6 text-[color:var(--brand-text-secondary)]">{labels.strategyDescriptions[input.popularity]}</p>
 
-          <p className="rounded-[24px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-4 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
-            {labels.helper}
-          </p>
+            <ChoiceGroup label={labels.countLabel} columns="grid-cols-3">
+              {([20, 25, 30] as const).map((count) => (
+                <ChoiceButton key={count} active={input.count === count} onClick={() => updateInput("count", count)}>{count}</ChoiceButton>
+              ))}
+            </ChoiceGroup>
 
-          <button
-            type="button"
-            onClick={() => setGenerationCount((value) => value + 1)}
-            className="rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
-          >
-            {labels.generate}
-          </button>
-        </div>
+            <p className="rounded-[16px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-3 text-xs leading-6 text-[color:var(--brand-text-secondary)]">{labels.dataNotice}</p>
 
-        <div className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] p-5">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[color:var(--brand-badge-text)]">
-                {hashtags.length} {labels.countSuffix}
-              </p>
-              <p className="mt-2 text-sm leading-7 text-[color:var(--brand-text-secondary)]">
-                {hashtags.length > 0 ? labels.helper : labels.emptyState}
-              </p>
-            </div>
             <button
               type="button"
-              onClick={handleCopyAll}
-              className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1D4ED8,#3B82F6)] px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+              onClick={handleGenerate}
+              className="inline-flex min-h-13 w-full items-center justify-center rounded-[16px] bg-[#2557FF] px-5 py-3 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-[#1740CC] active:translate-y-0"
             >
-              {allCopied ? labels.allCopied : labels.copyAll}
+              {results.length ? labels.regenerate : labels.generate}
+              <span className="ml-3" aria-hidden="true">↗</span>
             </button>
           </div>
+        </div>
 
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {hashtags.map((tag) => (
-              <article
-                key={tag}
-                className="rounded-[22px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-4 transition hover:border-[color:var(--brand-border-hover)]"
+        <div className="min-w-0 bg-[color:var(--brand-surface)] p-5 sm:p-7 lg:p-9">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[color:var(--brand-badge-text)]">02</p>
+              <h2 className="display-type mt-3 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">{labels.resultsTitle}</h2>
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-[color:var(--brand-text-secondary)]">{labels.resultsDescription}</p>
+            </div>
+            {results.length ? (
+              <button
+                type="button"
+                onClick={copyAll}
+                className="inline-flex min-h-12 w-full shrink-0 items-center justify-center rounded-[14px] bg-[#14151A] px-5 text-sm font-bold text-white transition hover:bg-[#2557FF] sm:w-auto"
               >
-                <p className="break-words text-sm font-semibold leading-7 text-[color:var(--brand-text-primary)]">
-                  {tag}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => handleCopyOne(tag)}
-                  className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-xl border border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] px-4 py-2.5 text-sm font-medium text-[color:var(--brand-text-primary)] transition hover:border-[color:var(--brand-border-hover)]"
-                >
-                  {copiedTag === tag ? labels.copied : labels.copyOne}
-                </button>
-              </article>
-            ))}
+                {allCopied ? labels.allCopied : labels.copyAll}
+              </button>
+            ) : null}
           </div>
+
+          {results.length === 0 ? (
+            <div className="mt-6 flex min-h-[360px] flex-col justify-end rounded-[26px] border border-dashed border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-6 sm:p-8">
+              <span className="display-type text-7xl text-[#2557FF]" aria-hidden="true">#</span>
+              <h3 className="mt-8 text-2xl font-extrabold tracking-tight">{labels.resultsTitle}</h3>
+              <p className="mt-3 max-w-xl text-sm leading-7 text-[color:var(--brand-text-secondary)]">{labels.helper}</p>
+            </div>
+          ) : (
+            <div className="mt-7 space-y-5">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="rounded-full bg-[#C8F135] px-4 py-2 text-sm font-black text-[#14151A]">{results.length} {labels.countSuffix}</span>
+                <span className="text-xs font-semibold text-[color:var(--brand-text-secondary)]">{labels.strategyDescriptions[input.popularity]}</span>
+              </div>
+
+              {groupOrder.map((group) => {
+                const tags = results.filter((item) => item.group === group);
+                if (tags.length === 0) return null;
+                return (
+                  <section key={group} className="rounded-[22px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] p-4 sm:p-5">
+                    <div className="mb-4 flex items-center justify-between gap-4">
+                      <h3 className="text-sm font-extrabold">{labels.groupLabels[group]}</h3>
+                      <span className="text-xs font-bold tabular-nums text-[color:var(--brand-text-tertiary)]">{tags.length}</span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {tags.map((tag) => (
+                        <button
+                          key={tag.value}
+                          type="button"
+                          onClick={() => copyOne(tag.value)}
+                          title={labels.copyOne}
+                          className={`min-h-10 max-w-full rounded-full border px-3 py-2 text-left text-xs font-bold transition sm:text-sm ${
+                            copiedTag === tag.value
+                              ? "border-[#2557FF] bg-[#2557FF] text-white"
+                              : "border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] hover:border-[color:var(--brand-border-hover)]"
+                          }`}
+                        >
+                          <span className="break-all">{copiedTag === tag.value ? labels.copied : tag.value}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </section>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </section>
+  );
+}
+
+function ChoiceGroup({ label, columns, children }: { label: string; columns: string; children: ReactNode }) {
+  return (
+    <fieldset>
+      <legend className="mb-3 text-sm font-bold text-[color:var(--brand-text-primary)]">{label}</legend>
+      <div className={`grid gap-2 ${columns}`}>{children}</div>
+    </fieldset>
+  );
+}
+
+function ChoiceButton({ active, onClick, children }: { active: boolean; onClick: () => void; children: ReactNode }) {
+  return (
+    <button
+      type="button"
+      aria-pressed={active}
+      onClick={onClick}
+      className={`min-h-11 rounded-[14px] border px-3 py-2 text-xs font-bold transition sm:text-sm ${
+        active
+          ? "border-[#2557FF] bg-[#2557FF] text-white"
+          : "border-[color:var(--brand-border)] bg-[color:var(--brand-surface)] hover:border-[color:var(--brand-border-hover)]"
+      }`}
+    >
+      {children}
+    </button>
   );
 }

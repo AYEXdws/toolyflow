@@ -22,12 +22,17 @@ import { PercentageCalculator } from "@/components/tools/percentage-calculator";
 import { QrGenerator } from "@/components/tools/qr-generator";
 import { TextCleaner } from "@/components/tools/text-cleaner";
 import { WordCounter } from "@/components/tools/word-counter";
+import {
+  getCreatorCategoryGuide,
+  getCreatorToolEnhancements,
+} from "@/lib/creator-tool-localizations";
 import { getDictionary, getToolEntries, getToolEntry } from "@/lib/dictionaries";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { createLocalizedMetadata } from "@/lib/metadata";
 import {
   getCategoryPath,
   getCategoryStaticParams,
+  getHomePath,
   getStaticPageParams,
   getToolPath,
   getToolStaticParams,
@@ -253,6 +258,16 @@ function renderCategoryPage(locale: Locale, slug: string) {
       ...tool,
       href: getToolPath(locale, tool.slug),
     }));
+  const creatorGuide =
+    slug === "creator-tools"
+      ? {
+          ...getCreatorCategoryGuide(locale),
+          steps: getCreatorCategoryGuide(locale).steps.map((step) => ({
+            ...step,
+            href: getToolPath(locale, step.toolSlug),
+          })),
+        }
+      : undefined;
 
   return (
     <>
@@ -274,6 +289,7 @@ function renderCategoryPage(locale: Locale, slug: string) {
           go: dictionary.shared.go,
         }}
         tools={tools}
+        guide={creatorGuide}
       />
     </>
   );
@@ -303,12 +319,15 @@ function renderToolPage(locale: Locale, slug: string) {
   }
 
   const dictionary = getDictionary(locale);
+  const creatorEnhancements = getCreatorToolEnhancements(locale);
   const tool = getToolEntry(locale, slug);
 
   if (!tool) {
     return notFound();
   }
   const toolCategory = getCategoryForTool(slug);
+  const category = getCategory(locale, toolCategory ?? "quick-tools");
+  const categoryHref = getCategoryPath(locale, category.slug);
   const prioritizedSlugs = toolCategory
     ? getToolSlugsForCategory(toolCategory).filter((item) => item !== slug)
     : [];
@@ -334,6 +353,7 @@ function renderToolPage(locale: Locale, slug: string) {
 
   const shell = (
     <ToolPageShell
+      locale={locale}
       eyebrow={tool.eyebrow}
       title={tool.name}
       description={tool.description}
@@ -344,9 +364,10 @@ function renderToolPage(locale: Locale, slug: string) {
         exploreMore: dictionary.shared.exploreMore,
       }}
       relatedTools={relatedTools}
+      category={{ label: category.navLabel, href: categoryHref }}
     >
       {slug === "bio-generator" ? (
-        <BioGenerator labels={dictionary.bioGenerator} />
+        <BioGenerator labels={{ ...dictionary.bioGenerator, ...creatorEnhancements.bio }} />
       ) : slug === "word-counter" ? (
         <WordCounter labels={dictionary.wordCounter} />
       ) : slug === "text-cleaner" ? (
@@ -358,13 +379,14 @@ function renderToolPage(locale: Locale, slug: string) {
       ) : slug === "discount-calculator" ? (
         <DiscountCalculator labels={dictionary.discountCalculator} />
       ) : slug === "nickname-generator" ? (
-        <NicknameGenerator labels={dictionary.nicknameGenerator} />
+        <NicknameGenerator labels={{ ...dictionary.nicknameGenerator, ...creatorEnhancements.nickname }} />
       ) : slug === "hashtag-generator" ? (
-        <HashtagGenerator labels={dictionary.hashtagGenerator} />
+        <HashtagGenerator labels={{ ...dictionary.hashtagGenerator, ...creatorEnhancements.hashtag }} />
       ) : slug === "qr-generator" ? (
         <QrGenerator labels={dictionary.qrGenerator} />
       ) : slug === "case-converter" ? (
         <CaseConverter
+          locale={locale}
           labels={{
             ...dictionary.caseConverter,
             noText: dictionary.shared.noText,
@@ -393,15 +415,27 @@ function renderToolPage(locale: Locale, slug: string) {
       <StructuredData
         data={{
           "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: tool.content.faqs.map((item) => ({
-            "@type": "Question",
-            name: item.question,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: item.answer,
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: dictionary.home.title,
+              item: `${siteConfig.url}${getHomePath(locale)}`,
             },
-          })),
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: category.title,
+              item: `${siteConfig.url}${categoryHref}`,
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: tool.name,
+              item: `${siteConfig.url}${getToolPath(locale, slug)}`,
+            },
+          ],
         }}
       />
       {shell}
@@ -417,6 +451,8 @@ function renderCalculatorPage(locale: Locale, slug: string) {
   }
 
   const dictionary = getDictionary(locale);
+  const calculatorCategory = getCalculatorCategory(locale);
+  const calculatorCategoryHref = getCalculatorCategoryPath(locale);
   const relatedTools = getCalculatorRelatedEntries(locale, calculator.related).map((entry) => ({
     slug: entry.slug,
     name: entry.name,
@@ -441,18 +477,31 @@ function renderCalculatorPage(locale: Locale, slug: string) {
       <StructuredData
         data={{
           "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: calculator.content.faqs.map((item) => ({
-            "@type": "Question",
-            name: item.question,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: item.answer,
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: dictionary.home.title,
+              item: `${siteConfig.url}${getHomePath(locale)}`,
             },
-          })),
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: calculatorCategory.title,
+              item: `${siteConfig.url}${calculatorCategoryHref}`,
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: calculator.name,
+              item: `${siteConfig.url}${getCalculatorPath(locale, calculator.slug)}`,
+            },
+          ],
         }}
       />
       <ToolPageShell
+        locale={locale}
         eyebrow={calculator.eyebrow}
         title={calculator.name}
         description={calculator.description}
@@ -463,6 +512,7 @@ function renderCalculatorPage(locale: Locale, slug: string) {
           exploreMore: dictionary.shared.exploreMore,
         }}
         relatedTools={relatedTools}
+        category={{ label: calculatorCategory.title, href: calculatorCategoryHref }}
       >
         {calculator.slug === "kredi-hesaplayici" ? (
           <CreditCalculatorTool locale={locale} labels={getCreditCalculatorLabels(locale)} />

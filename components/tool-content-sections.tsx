@@ -24,7 +24,7 @@ type ToolContentSectionsProps = {
 export function ToolContentSections({ content }: ToolContentSectionsProps) {
   return (
     <div className="space-y-6">
-      <section className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[var(--brand-shadow)] sm:px-8">
+      <section id="how-to" className="scroll-mt-28 rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[var(--brand-shadow)] sm:px-8">
         <div className="max-w-3xl">
           <h2 className="display-type text-4xl font-bold tracking-[-0.04em] text-[color:var(--brand-text-primary)]">
             {content.howToUseTitle}
@@ -53,7 +53,7 @@ export function ToolContentSections({ content }: ToolContentSectionsProps) {
         </div>
       </section>
 
-      <section className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[var(--brand-shadow)] sm:px-8">
+      <section id="use-cases" className="scroll-mt-28 rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[var(--brand-shadow)] sm:px-8">
         <div className="max-w-3xl">
           <h2 className="display-type text-4xl font-bold tracking-[-0.04em] text-[color:var(--brand-text-primary)]">
             {content.useCasesTitle}
@@ -79,7 +79,7 @@ export function ToolContentSections({ content }: ToolContentSectionsProps) {
         </div>
       </section>
 
-      <section className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[var(--brand-shadow)] sm:px-8">
+      <section id="examples" className="scroll-mt-28 rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[var(--brand-shadow)] sm:px-8">
         <div className="max-w-3xl">
           <h2 className="display-type text-4xl font-bold tracking-[-0.04em] text-[color:var(--brand-text-primary)]">
             {content.examplesTitle}
@@ -123,7 +123,7 @@ export function ToolContentSections({ content }: ToolContentSectionsProps) {
         </div>
       </section>
 
-      <section className="rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[var(--brand-shadow)] sm:px-8">
+      <section id="faq" className="scroll-mt-28 rounded-[28px] border border-[color:var(--brand-border)] bg-[color:var(--brand-card)] px-6 py-7 shadow-[var(--brand-shadow)] sm:px-8">
         <h2 className="display-type text-4xl font-bold tracking-[-0.04em] text-[color:var(--brand-text-primary)]">
           {content.faqTitle}
         </h2>

@@ -63,7 +63,7 @@ const categoryLabels: Record<Locale, CategoryLabels> = {
     categoriesHeading: "Kategoriler",
     categoryToolsHeading: "Bu kategorideki araçlar",
     categoryToolsDescription:
-      "Bu kategorideki her sayfa, alakasız utility’leri karıştırmak yerine tek bir net iş akışına odaklanır.",
+      "İhtiyacına uygun aracı doğrudan aç; her sayfa tek bir işi hızlı ve anlaşılır biçimde tamamlaman için tasarlandı.",
     countSuffix: "araç",
   },
   es: {
@@ -135,10 +135,10 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
       title: "Creator tools",
       description:
         "Profile-focused tools for bios, usernames, hashtags, and quick publishing prep.",
-      metaTitle: "Creator Tools",
+      metaTitle: "Creator Tools: Bio, Username and Hashtags",
       metaDescription:
-        "Browse Toolyflow creator tools for bios, nicknames, profile ideas, and quick creator-focused online workflows.",
-      keywords: ["creator tools", "bio generator", "nickname generator", "profile tools"],
+        "Build a stronger social profile with Toolyflow tools for tailored bios, memorable usernames, and relevant hashtag sets.",
+      keywords: ["creator tools", "bio generator", "username generator", "nickname generator", "hashtag generator", "profile tools"],
       highlights: [
         "Made for social profiles, creator handles, bios, and post-ready setup.",
         "Keeps identity tools together instead of scattering them across the site.",
@@ -182,10 +182,10 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
       title: "Creator Araçları",
       description:
         "Bio, kullanıcı adı ve hashtag gibi creator işlerini tek yerde hızlandıran araçlar.",
-      metaTitle: "İçerik Üretici Araçları",
+      metaTitle: "Creator Araçları: Bio, Nickname ve Hashtag",
       metaDescription:
-        "Bio, nickname, profil fikirleri ve creator odaklı hızlı iş akışları için Toolyflow içerik üretici araçlarını keşfedin.",
-      keywords: ["içerik üretici araçları", "bio generator", "nickname generator", "profil araçları"],
+        "Instagram ve TikTok profilini bio, nickname, kullanıcı adı ve hashtag araçlarıyla güçlendir. Ücretsiz Türkçe creator araçlarını keşfet.",
+      keywords: ["içerik üretici araçları", "instagram araçları", "bio generator", "nickname generator", "kullanıcı adı bulma", "hashtag üretici", "profil araçları"],
       highlights: [
         "Profil, handle ve paylaşım hazırlığı gibi işler için daha net bir akış kurar.",
         "Creator tarafındaki isim, bio ve hashtag araçlarını tek yerde toplar.",
@@ -229,10 +229,10 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
       title: "Herramientas para creadores",
       description:
         "Herramientas pensadas para bios, nombres de usuario, hashtags y preparación de perfil.",
-      metaTitle: "Creator Tools",
+      metaTitle: "Herramientas para creadores: bio, nombre y hashtags",
       metaDescription:
-        "Explora las herramientas para creadores de Toolyflow para bios, nicknames, perfiles y flujos rápidos.",
-      keywords: ["creator tools", "bio generator", "nickname generator", "herramientas para creadores"],
+        "Mejora tu perfil con herramientas gratuitas para crear bios, nombres de usuario memorables y sets de hashtags relevantes.",
+      keywords: ["herramientas para creadores", "generador de bio", "generador de nombres", "generador de hashtags", "perfil social"],
       highlights: [
         "Hechas para perfiles, handles y tareas rápidas de publicación.",
         "Mantiene juntas las herramientas de identidad y nombre.",
@@ -276,10 +276,10 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
       title: "Creator-Tools",
       description:
         "Tools für Bios, Usernames, Hashtags und schnelle Profil-Workflows.",
-      metaTitle: "Creator-Tools",
+      metaTitle: "Creator-Tools für Bio, Username und Hashtags",
       metaDescription:
-        "Entdecke Toolyflow Creator-Tools für Bios, Nicknames, Profile und schnelle Creator-Workflows.",
-      keywords: ["creator-tools", "bio generator", "nickname generator", "profil tools"],
+        "Verbessere dein Social-Profil mit kostenlosen Tools für passende Bios, merkbare Benutzernamen und relevante Hashtag-Sets.",
+      keywords: ["creator-tools", "bio generator", "benutzernamen generator", "nickname generator", "hashtag generator", "profil tools"],
       highlights: [
         "Gedacht für Creator-Profile, Handles und schnelle Publishing-Aufgaben.",
         "Hält Identitäts- und Namenstools an einem Ort zusammen.",
@@ -323,10 +323,10 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
       title: "Outils créateur",
       description:
         "Des outils pensés pour les bios, pseudos, hashtags et tâches rapides de profil.",
-      metaTitle: "Creator Tools",
+      metaTitle: "Outils créateur : bio, pseudo et hashtags",
       metaDescription:
-        "Parcourez les outils créateur de Toolyflow pour bios, pseudos, profils et workflows rapides.",
-      keywords: ["creator tools", "bio generator", "nickname generator", "outils créateur"],
+        "Améliore ton profil avec des outils gratuits pour créer une bio ciblée, un pseudo mémorable et des hashtags pertinents.",
+      keywords: ["outils créateur", "générateur de bio", "générateur de pseudo", "générateur de hashtags", "profil social"],
       highlights: [
         "Pensés pour les profils créateur, les handles et la préparation de publication.",
         "Regroupe les outils d'identité et de nom au même endroit.",
@@ -370,10 +370,10 @@ const categoryContent: Record<Locale, Record<CategorySlug, CategoryCopy>> = {
       title: "Ferramentas para criadores",
       description:
         "Ferramentas para bios, nomes de usuário, hashtags e tarefas rápidas de perfil.",
-      metaTitle: "Creator Tools",
+      metaTitle: "Ferramentas para criadores: bio, nome e hashtags",
       metaDescription:
-        "Explore as creator tools da Toolyflow para bios, nicknames, perfis e fluxos rápidos.",
-      keywords: ["creator tools", "bio generator", "nickname generator", "ferramentas para creators"],
+        "Melhore seu perfil com ferramentas grátis para criar uma bio personalizada, um nome memorável e hashtags relevantes.",
+      keywords: ["ferramentas para criadores", "gerador de bio", "gerador de nickname", "gerador de hashtags", "perfil social"],
       highlights: [
         "Feitas para perfis creator, handles e tarefas rápidas de publicação.",
         "Mantém juntas as ferramentas de identidade e nome.",

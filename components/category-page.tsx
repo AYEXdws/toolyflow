@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { ToolCard } from "@/components/tool-card";
 
 type CategoryPageProps = {
@@ -20,9 +22,21 @@ type CategoryPageProps = {
     accentLabel: string;
     href: string;
   }>;
+  guide?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    steps: Array<{
+      number: string;
+      title: string;
+      description: string;
+      cta: string;
+      href: string;
+    }>;
+  };
 };
 
-export function CategoryPage({ category, labels, tools }: CategoryPageProps) {
+export function CategoryPage({ category, labels, tools, guide }: CategoryPageProps) {
   return (
     <main className="pb-16">
       <section className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 lg:px-8 lg:pt-16">
@@ -74,6 +88,32 @@ export function CategoryPage({ category, labels, tools }: CategoryPageProps) {
           ))}
         </div>
       </section>
+
+      {guide ? (
+        <section className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
+          <div className="overflow-hidden rounded-[32px] bg-[#14151A] text-white shadow-[var(--brand-shadow-strong)]">
+            <div className="grid gap-6 border-b border-white/12 px-6 py-9 sm:px-9 lg:grid-cols-[0.75fr_1fr] lg:px-11">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#C8F135]">{guide.eyebrow}</p>
+                <h2 className="display-type mt-4 text-4xl font-bold leading-[0.98] tracking-[-0.045em] sm:text-5xl">{guide.title}</h2>
+              </div>
+              <p className="self-end text-sm leading-7 text-white/65 sm:text-base sm:leading-8">{guide.description}</p>
+            </div>
+            <div className="grid lg:grid-cols-3">
+              {guide.steps.map((step) => (
+                <article key={step.number} className="flex min-h-72 flex-col border-b border-white/12 p-6 last:border-b-0 sm:p-8 lg:border-b-0 lg:border-r lg:last:border-r-0">
+                  <span className="text-xs font-bold text-[#7C9BFF]">{step.number}</span>
+                  <h3 className="mt-8 text-2xl font-extrabold tracking-[-0.035em]">{step.title}</h3>
+                  <p className="mt-4 text-sm leading-7 text-white/60">{step.description}</p>
+                  <Link href={step.href} className="group mt-auto inline-flex min-h-11 items-center pt-7 text-sm font-bold text-[#C8F135]">
+                    {step.cta}<span className="ml-2 transition group-hover:translate-x-1">→</span>
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
     </main>
   );
 }

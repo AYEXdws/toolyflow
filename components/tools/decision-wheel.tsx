@@ -4,6 +4,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 const palette = ["#1d4ed8", "#2563eb", "#3b82f6", "#60a5fa", "#1e40af", "#93c5fd"];
 
+function stableCoordinate(value: number) {
+  return Number(value.toFixed(4));
+}
+
 type DecisionWheelLabels = {
   inputLabel: string;
   button: string;
@@ -18,8 +22,8 @@ function polarToCartesian(cx: number, cy: number, radius: number, angle: number)
   const radians = ((angle - 90) * Math.PI) / 180;
 
   return {
-    x: cx + radius * Math.cos(radians),
-    y: cy + radius * Math.sin(radians),
+    x: stableCoordinate(cx + radius * Math.cos(radians)),
+    y: stableCoordinate(cy + radius * Math.sin(radians)),
   };
 }
 
