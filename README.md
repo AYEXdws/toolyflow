@@ -1,92 +1,75 @@
 # Toolyflow
 
-Toolyflow is a multilingual online tools website built with Next.js, TypeScript, and Tailwind CSS. The current MVP includes:
+Günlük metin işleri, içerik üretimi ve hızlı hesaplamalar için çok dilli web araçları.
 
-- Bio Generator
-- Nickname Generator
-- QR Code Generator
-- Case Converter
-- Decision Wheel
+[Web sitesi](https://www.toolyflow.com) · [Hata bildir / öneri paylaş](https://github.com/AYEXdws/toolyflow/issues)
 
-The site is responsive, SEO-focused, and designed to run mostly client-side for low complexity and fast delivery.
+## Neler sunar?
 
-## Stack
+- **Metin araçları:** kelime sayacı, metin temizleyici ve büyük/küçük harf dönüştürücü.
+- **İçerik üretimi:** biyografi, kullanıcı adı ve hashtag üreticileri.
+- **Hızlı araçlar:** QR kod, renk kodu dönüştürücü ve karar çarkı.
+- **Hesaplamalar:** yüzde, indirim, yaş, beden kitle indeksi, kredi ve kira artışı araçları.
+- **Sözlük:** kelime arama, kategori ve kelime detay sayfaları; Supabase bağlantısı olmadığında yerel sözlük verisine dönüş.
+- **Altı dil:** Türkçe, İngilizce, İspanyolca, Almanca, Fransızca ve Portekizce.
+- Dil bazlı adresler, canonical ve alternatif dil bağlantıları, yapılandırılmış veri, sitemap ve robots çıktıları.
 
-- Next.js App Router
-- TypeScript
-- Tailwind CSS v4
-- React 19
+Araçların büyük bölümü tarayıcıda çalışır. İçerik üreticileri kaynak kodundaki yerelleştirilmiş üretim mantığını kullanır; çalışmak için harici bir yapay zekâ servisi gerektirmez.
 
-## Local Development
+## Teknoloji ve yapı
+
+Next.js 16 App Router, React 19, TypeScript ve Tailwind CSS 4 kullanılır.
+
+| Dizin / dosya | Sorumluluk |
+| --- | --- |
+| `app/` | Sayfalar, dil düzenleri, sitemap ve robots |
+| `components/tools/` | Etkileşimli araçlar |
+| `components/calculators/` | Hesaplama arayüzleri |
+| `lib/i18n.ts`, `lib/paths.ts` | Diller ve adres üretimi |
+| `lib/creator-generators.ts` | İçerik üretim mantığı |
+| `lib/dictionary.ts` | Uzak ve yerel sözlük kaynakları |
+| `supabase/` | Sözlük tablo ve başlangıç verileri |
+| `scripts/` | İçerik üreticisi kontrolleri |
+
+## Yerel kurulum
+
+Node.js ve npm gerekir. Kilit dosyasındaki bağımlılıkları kurun:
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Arayüzü [localhost:3000](http://localhost:3000) adresinde açın.
 
-## Production Checks
+İsteğe bağlı yapılandırmayı `.env.local` içinde tutun:
 
-Run the full release check before deploying:
+| Değişken | Kullanım |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL`, `SITE_URL` | Canonical, sitemap ve paylaşım metaverileri için site adresi |
+| `NEXT_PUBLIC_SUPABASE_URL` | Uzak sözlük projesinin adresi |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Sözlük için tarayıcıda kullanılabilen anahtar |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Eski anahtar biçimiyle uyumluluk |
+
+Supabase yapılandırması, temel araçları kullanmak için zorunlu değildir. Sunucuya özel servis anahtarlarını `NEXT_PUBLIC_*` değişkenlerine koymayın.
+
+## Kontroller
 
 ```bash
 npm run check
+npm run check:creator
 ```
 
-This runs:
+`check`, ESLint, TypeScript ve üretim derlemesini sırayla çalıştırır. `check:creator`, üreticilerin dil ve çıktı sözleşmelerini ayrıca denetler; Node sürümü bu komuttaki `--experimental-strip-types` seçeneğini desteklemelidir. Bu komutların listelenmesi, son değişikliklerde çalıştırıldıkları anlamına gelmez.
 
-- ESLint
-- TypeScript type-checking
-- production build
+## Yayınlama
 
-## Environment Variables
-
-Create an `.env.local` file if you want to override the production site URL locally.
+Vercel'de Next.js projesi olarak veya Node sunucusunda çalıştırılabilir:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://your-domain.com
-SITE_URL=https://your-domain.com
-```
-
-Use your real production domain before launch so canonical URLs, sitemap entries, Open Graph metadata, and robots output all match the deployed site.
-
-## Deployment
-
-The project is deployment-ready for Vercel and other Node-compatible platforms.
-
-### Recommended: Vercel
-
-1. Import the repository into Vercel.
-2. Set the production domain.
-3. Add `NEXT_PUBLIC_SITE_URL` and `SITE_URL` with the final domain.
-4. Deploy.
-
-Build settings:
-
-- Install command: `npm install`
-- Build command: `npm run build`
-- Output: default Next.js output
-
-### Manual Node Deployment
-
-```bash
-npm install
+npm ci
 npm run build
 npm start
 ```
 
-## Launch Checklist
-
-- Set the final production domain in environment variables.
-- Verify `robots.txt` and `sitemap.xml` on the deployed domain.
-- Test `/en`, `/tr`, `/es`, `/de`, `/fr`, `/pt`.
-- Check mobile and desktop layouts.
-- Validate metadata previews with an Open Graph debugger.
-- Connect analytics and Search Console after launch.
-
-## Notes
-
-- Multilingual SEO is enabled with locale routes and alternate language metadata.
-- Open Graph and Twitter preview images are generated in-app.
-- Most tools are client-side to keep hosting simple and fast.
+Yayın ortamındaki site adresi ayarlarını gerçek domain ile eşleştirin. Sonrasında dil yollarını, araç etkileşimlerini, `robots.txt`, `sitemap.xml` ve mobil görünümü kontrol edin. Hesaplayıcıların kullandığı güncel oran ve varsayımlar ilgili araç açıklamalarında değerlendirilmelidir.
